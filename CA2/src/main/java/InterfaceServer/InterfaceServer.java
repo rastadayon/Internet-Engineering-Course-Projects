@@ -3,12 +3,21 @@ import Bolbolestan.Bolbolestan;
 import Bolbolestan.Student;
 import Bolbolestan.Course;
 import Bolbolestan.Grade;
+import com.google.common.io.Files;
+import com.google.common.io.Resources;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.google.common.base.Charsets;
 import io.javalin.Javalin;
 import HTTPRequestHandler.HTTPRequestHandler;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 
+import java.io.File;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
@@ -24,13 +33,33 @@ public class InterfaceServer {
             importCoursesFromWeb(COURSES_URL);
             System.out.println("Importing Grades...");
             importGradesFromWeb(GRADES_URL);
-//            runServer(port);
+            runServer(port);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
+    public void runServer(final int port) throws Exception {
+        app = Javalin.create().start(port);
+        app.get("/courses", ctx -> {
+            try {
+                ctx.html(generateCoursesPage());
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+                ctx.status(502);
+        }});
 
+    }
+
+    private String generateCoursesPage() throws Exception {
+        String coursesStart = readHTMLPage("courses_start.html");
+        return coursesStart;
+    }
+
+    private String readHTMLPage(String fileName) throws Exception {
+        File file = new File(Resources.getResource("templates/components/" + fileName).toURI());
+        return FileUtils.readFileToString(file, StandardCharsets.UTF_8);
+    }
 
     private void importStudentsFromWeb(final String studentsURL) throws Exception{
         String StudentsJsonString = HTTPRequestHandler.getRequest(studentsURL);
