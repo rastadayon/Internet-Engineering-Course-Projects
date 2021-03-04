@@ -1,0 +1,25 @@
+{
+  "weeklySchedule": [
+    {
+      "code": "8101111",
+      "name": "DS",
+      "Instructor": "Ahmad Ahmadi",
+      "units": 3,
+      "classTime": {
+        "time": "14-15:30",
+        "days": [
+          "Sunday"
+        ]
+      },
+      "examTime": {
+        "start": "2021-9-01T08:00:00",
+        "end": "2021-9-01T08:00:00"
+      },
+      "capacity": 20,
+      "prerequisites": [
+        "AP"
+      ]
+    }
+  ],
+  "status": "non-finalized"
+}

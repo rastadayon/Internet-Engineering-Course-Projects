@@ -1,0 +1,77 @@
+[
+  {
+    "code": "81013602",
+    "name": "IE",
+    "Instructor": "X",
+    "units": 3,
+    "classTime":
+    {
+      "day": ["saturday", "Monday"],
+      "time": "16-17:30"
+    },
+    "examTime":
+    {
+      "start": "2021-9-01T08:00:00",
+      "end": "2021-9-01T08:00:00"
+    },
+    "capacity": 60,
+    "prerequisites": ["Advanced Programming", "Operating Systems"]
+  },
+
+  {
+    "code": "81013111",
+    "name": "AP",
+    "Instructor": "Y",
+    "units": 3,
+    "classTime":
+    {
+      "day": ["Sunday", "Tuesday"],
+      "time": "16-17:30"
+    },
+    "examTime":
+    {
+      "start": "2021-8-01T08:00:00",
+      "end": "2021-8-01T08:00:00"
+    },
+    "capacity": 60,
+    "prerequisites": ["ICSP"]
+  },
+
+  {
+    "code": "81014111",
+    "name": "ICSP",
+    "Instructor": "Z",
+    "units": 4,
+    "classTime":
+    {
+      "day": ["Sunday", "Tuesday"],
+      "time": "18-19:30"
+    },
+    "examTime":
+    {
+      "start": "2021-5-01T08:00:00",
+      "end": "2021-5-01T08:00:00"
+    },
+    "capacity": 60,
+    "prerequisites": ["DB"]
+  },
+
+  {
+    "code": "81015111",
+    "name": "ITPM",
+    "Instructor": "Z",
+    "units": 3,
+    "classTime":
+    {
+      "day": ["Sunday", "Tuesday"],
+      "time": "12-13:30"
+    },
+    "examTime":
+    {
+      "start": "2021-10-01T08:00:00",
+      "end": "2021-10-01T08:00:00"
+    },
+    "capacity": 60,
+    "prerequisites": ["DS"]
+  }
+]
