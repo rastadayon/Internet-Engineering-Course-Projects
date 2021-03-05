@@ -31,6 +31,10 @@ public class Bolbolestan {
         return courses.containsKey(identifier);
     }
 
+    public boolean doesStudentExist(String studentId) {
+        return students.containsKey(studentId);
+    }
+
     public String addCourse(Course course) throws Exception {
         if (doesCourseExist(course.getCode(), course.getClassCode()))
             throw new BolbolestanRulesViolationError(String.

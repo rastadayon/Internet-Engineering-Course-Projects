@@ -4,14 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7d4017a9-8681-4459-83a3-90a1ec311232" name="Default Changelist" comment="">
+    <list default="true" id="7d4017a9-8681-4459-83a3-90a1ec311232" name="Default Changelist" comment="Add change plan page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Bolbolestan/Bolbolestan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Bolbolestan/Bolbolestan.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/InterfaceServer/InterfaceServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/InterfaceServer/InterfaceServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/change_plan_item.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/change_plan_item.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$3.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/change_plan_item.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/change_plan_item.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,8 +101,16 @@
       <workItem from="1614951558920" duration="8025000" />
       <workItem from="1614971352397" duration="293000" />
       <workItem from="1614971972732" duration="410000" />
-      <workItem from="1614972825159" duration="9052000" />
+      <workItem from="1614972825159" duration="9953000" />
     </task>
+    <task id="LOCAL-00001" summary="Add change plan page">
+      <created>1614985101300</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1614985101300</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -118,5 +127,9 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add change plan page" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add change plan page" />
   </component>
 </project>
