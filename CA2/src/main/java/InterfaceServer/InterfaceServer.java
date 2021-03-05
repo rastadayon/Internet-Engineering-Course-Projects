@@ -66,9 +66,11 @@ public class InterfaceServer {
             String studentId = ctx.pathParam("studentId");
             try {
                 ctx.html(generateChangePlanPage(studentId));
+            } catch (BolbolestanStudentNotFoundError e) {
+                ctx.html(readHTMLPage("404.html"));
             } catch (Exception e){
                 System.out.println(e.getMessage());
-                ctx.status(502);
+                ctx.status(502).result(":| " + e.getMessage());
             }
         });
 
@@ -186,6 +188,9 @@ public class InterfaceServer {
     }
 
     private String generateChangePlanPage(String studentId) throws Exception {
+        if (!bolbolestan.doesStudentExist(studentId))
+            throw new BolbolestanStudentNotFoundError();
+
         String changePlanHTML = readHTMLPage("change_plan_start.html");
         List<Course> courses = bolbolestan.handleGetWeeklySchedule(studentId).getOfferings();
         String planItemString = readHTMLPage("change_plan_item.html");
