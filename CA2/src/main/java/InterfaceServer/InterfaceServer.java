@@ -61,6 +61,28 @@ public class InterfaceServer {
                 ctx.status(502).result(":| " + e.getMessage());
             }
         });
+
+        app.get("/change_plan/:studentId", ctx -> {
+            String studentId = ctx.pathParam("studentId");
+            try {
+                ctx.html(generateChangePlanPage(studentId));
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+                ctx.status(502);
+            }
+        });
+
+        app.post("/change_plan/:studentId", ctx -> {
+            try {
+                String studentId = ctx.pathParam("studentId");
+                String code = ctx.formParam("course_code") + '-'
+                        + ctx.formParam("class_code");
+                bolbolestan.removeFromWeeklySchedule(studentId, code);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            ctx.redirect("/change_plan/" + ctx.pathParam("studentId"));
+        });
         app.get("/profile/:studentId", ctx -> {
             try {
                 ctx.html(generateProfile(ctx.pathParam("studentId")));
@@ -150,7 +172,7 @@ public class InterfaceServer {
     private String generateCoursePage(String courseCode, String classCode) throws Exception {
         if (!bolbolestan.doesCourseExist(courseCode, classCode))
             throw new BolbolestanCourseNotFoundError();
-
+        
         Course course = bolbolestan.getCourseByIdentifier(courseCode, classCode);
         String courseHTML = readHTMLPage("course.html");
         HashMap<String, String> courseContent = new HashMap<>();
@@ -163,9 +185,24 @@ public class InterfaceServer {
         return courseHTML;
     }
 
+    private String generateChangePlanPage(String studentId) throws Exception {
+        String changePlanHTML = readHTMLPage("change_plan_start.html");
+        List<Course> courses = bolbolestan.handleGetWeeklySchedule(studentId).getOfferings();
+        String planItemString = readHTMLPage("change_plan_item.html");
+        for (Course course: courses) {
+            HashMap<String, String> planContent = new HashMap<>();
+            planContent.put("code", course.getCode());
+            planContent.put("classCode", course.getClassCode());
+            planContent.put("name", course.getName());
+            planContent.put("units", Integer.toString(course.getUnits()));
+            changePlanHTML += HTMLHandler.fillTemplate(planItemString, planContent);
+        }
+        changePlanHTML += readHTMLPage("change_plan_end.html");
+        return changePlanHTML;
+    }
+
     private String readHTMLPage(String fileName) throws Exception {
         File file = new File(Resources.getResource("templates/" + fileName).toURI());
-        System.out.println("------------------------------------------------");
         return FileUtils.readFileToString(file, StandardCharsets.UTF_8);
     }
 
@@ -204,6 +241,11 @@ public class InterfaceServer {
             }
         }
     }
+
+    //private void assignCoursesForTests(String studentId) throws Exception {
+        //bolbolestan.addToWeeklySchedule(studentId, "8101028-01");
+        //bolbolestan.addToWeeklySchedule(studentId, "8101020-01");
+   // }
 
     private void importGradesFromWeb(final String gradesURL) throws Exception {
         Map<String, Student> students = bolbolestan.getStudents();
