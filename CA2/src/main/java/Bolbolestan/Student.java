@@ -9,9 +9,7 @@ public class Student {
     private final String name;
     private final String secondName;
     private final String birthDate;
-
     private WeeklySchedule weeklySchedule = new WeeklySchedule();
-    private boolean weeklyScheduleFinalized = false;
     private ArrayList<Grade> grades = new ArrayList<Grade>();
 
     public Student(String id, String name, String secondName, String birthDate) {
@@ -19,6 +17,24 @@ public class Student {
         this.name = name;
         this.secondName = secondName;
         this.birthDate = birthDate;
+    }
+
+    public String getName() { return name; }
+    public String getSecondName() { return secondName; }
+    public String getBirthDate() { return birthDate; }
+    public ArrayList<Grade> getGrades() { return grades; }
+
+    public float getGPA() {
+        int count = 0;
+        int gradeSum = 0;
+        for (Grade grade : grades) {
+            gradeSum += grade.getGrade();
+            count += 1;
+        }
+        if (count != 0)
+            return gradeSum/count;
+        else
+             return 0;
     }
 
     public void print() {
@@ -41,11 +57,29 @@ public class Student {
         grades.add(grade);
     }
 
-    public void addToWeeklySchedule(Course course) {
-        if (weeklySchedule == null)
-            weeklySchedule = new WeeklySchedule();
-        weeklySchedule.addToWeeklySchedule(course);
-        course.reduceCapacity();
+//    public void addToWeeklySchedule(Course course) {
+//        if (weeklySchedule == null)
+//            weeklySchedule = new WeeklySchedule();
+//        if (hasPrerequisites(course) && !weeklySchedule.doesCourseTimeCollide(course) && )
+//        weeklySchedule.addToWeeklySchedule(course);
+//        course.reduceCapacity();
+//    }
+
+    private boolean hasPrerequisites(Course course) {
+        ArrayList<String> prerequisites = course.getPrerequisites();
+        for (String prerequisite : prerequisites) {
+            boolean hasPassed = false;
+            for (Grade grade : grades) {
+                if (grade.getCode().equals(prerequisite))
+                    if (grade.getGrade() >= 10) {
+                        hasPassed = true;
+                        continue;
+                    }
+                if (!hasPassed)
+                    return false;
+            }
+        }
+        return true;
     }
 
     public void removeFromWeeklySchedule(Course course) throws Exception {

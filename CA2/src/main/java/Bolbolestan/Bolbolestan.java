@@ -12,23 +12,24 @@ public class Bolbolestan {
 
     public Map<String, Course> getCourses() { return courses; }
     public Map<String, Student> getStudents() { return students; }
-    public Course getCourseByIdentifier(String courseCode, String classCode) {
-        return courses.get(courseCode + "-" + classCode);
+
+    public Student getStudentById(String studentId) { return students.get(studentId); }
+
+    public Course getCourseByIdentifier(String identifier) {
+        return courses.get(identifier);
     }
 
-    private Course getCourseByCode(List<Course> weeklySchedule, String code) {
-        if (weeklySchedule == null)
-            return null;
-        for (Course course : weeklySchedule) {
-            if (code.equals(course.getCode()))
-                return course;
-        }
-        return null;
+    public Course getCourseByIdentifier(String courseCode, String classCode) {
+        return courses.get(courseCode + "-" + classCode);
     }
 
     public boolean doesCourseExist(String courseCode, String classCode) {
         String identifier = courseCode + "-" + classCode;
         return courses.containsKey(identifier);
+    }
+
+    public boolean doesStudentExist(String studentId) {
+        return students.containsKey(studentId);
     }
 
     public String addCourse(Course course) throws Exception {
@@ -69,16 +70,16 @@ public class Bolbolestan {
         return course;
     }
 
-    public String addToWeeklySchedule(String studentId, String offeringCode) throws Exception {
-        if (!students.containsKey(studentId))
-            throw new BolbolestanStudentNotFoundError();
-        if (!courses.containsKey(offeringCode))
-            throw new BolbolestanCourseNotFoundError();
-        Student student = students.get(studentId);
-        Course course = courses.get(offeringCode);
-        student.addToWeeklySchedule(course);
-        return "Course successfully added to weekly schedule.";
-    }
+//    public String addToWeeklySchedule(String studentId, String offeringCode) throws Exception {
+//        if (!students.containsKey(studentId))
+//            throw new BolbolestanStudentNotFoundError();
+//        if (!courses.containsKey(offeringCode))
+//            throw new BolbolestanCourseNotFoundError();
+//        Student student = students.get(studentId);
+//        Course course = courses.get(offeringCode);
+//        student.addToWeeklySchedule(course);
+//        return "Course successfully added to weekly schedule.";
+//    }
 
     public String removeFromWeeklySchedule(String studentId, String offeringCode) throws Exception {
         if (!students.containsKey(studentId))
@@ -98,11 +99,27 @@ public class Bolbolestan {
         return student.getWeeklySchedule();
     }
 
-    public String handleFinalize(String studentId) throws Exception {
+//    public String handleFinalize(String studentId) throws Exception {
+//        if (!students.containsKey(studentId))
+//            throw new BolbolestanStudentNotFoundError();
+//        Student student = students.get(studentId);
+//        student.getWeeklySchedule().finalizeWeeklySchedule();
+//        return "Weekly schedule successfully finalized.";
+//    }
+    public int getUnitsPassed(String studentId) throws Exception {
+        int unitsPassed = 0;
         if (!students.containsKey(studentId))
             throw new BolbolestanStudentNotFoundError();
         Student student = students.get(studentId);
-        student.getWeeklySchedule().finalizeWeeklySchedule();
-        return "Weekly schedule successfully finalized.";
+        ArrayList<Grade> studentGrades = student.getGrades();
+        for (Grade gradeItem : studentGrades) {
+            String courseCode = gradeItem.getCode();
+            if (!courses.containsKey(courseCode))
+                throw new BolbolestanCourseNotFoundError();
+            Course course = getCourseByIdentifier(gradeItem.getCode());
+            if (gradeItem.getGrade() >= 10)
+                unitsPassed += course.getUnits();
+        }
+        return unitsPassed;
     }
 }

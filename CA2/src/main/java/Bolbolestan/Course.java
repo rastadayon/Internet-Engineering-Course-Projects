@@ -47,11 +47,13 @@ public class Course implements Comparable<Course> {
         return this.code;
     }
 
-    public void reduceCapacity() { seatsTaken += 1;}
+    public void reduceCapacity() { seatsTaken += 1; }
 
     public int getSeatsTaken() { return seatsTaken; }
 
     public ClassTime getClassTime() { return classTime; }
+
+    public ArrayList<String> getPrerequisites() { return prerequisites; }
 
     public String getClassDayString(String delimiter) {
         List<String> days = classTime.getDays();

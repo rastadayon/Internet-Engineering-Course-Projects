@@ -5,6 +5,7 @@ import Bolbolestan.Course;
 import Bolbolestan.Grade;
 import Bolbolestan.exeptions.BolbolestanCourseNotFoundError;
 import Bolbolestan.exeptions.BolbolestanRulesViolationError;
+import Bolbolestan.exeptions.BolbolestanStudentNotFoundError;
 import com.google.common.io.Files;
 import com.google.common.io.Resources;
 import com.google.gson.Gson;
@@ -60,7 +61,66 @@ public class InterfaceServer {
                 ctx.status(502).result(":| " + e.getMessage());
             }
         });
+        app.get("/profile/:studentId", ctx -> {
+            try {
+                ctx.html(generateProfile(ctx.pathParam("studentId")));
+            } catch (BolbolestanCourseNotFoundError e) {
+                ctx.html(readHTMLPage("404.html"));
+            } catch (BolbolestanStudentNotFoundError e) {
+                ctx.html(readHTMLPage("404.html"));
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+                ctx.status(502).result(":| " + e.getMessage());
+            }
+        });
+//        app.post("/course/:code/:classCode", ctx -> {
+//            try {
+////                ctx.html(generateCoursePage(ctx.pathParam("code"), ctx.pathParam("classCode")));
+//                ctx.
+//            } catch (BolbolestanCourseNotFoundError e) {
+//                ctx.html(readHTMLPage("404.html"));
+//            } catch (Exception e){
+//                System.out.println(e.getMessage());
+//                ctx.status(502).result(":| " + e.getMessage());
+//            }
+//        });
     }
+
+    private String generateProfile(String studentId) throws Exception {
+        if(!bolbolestan.doesStudentExist(studentId))
+            throw new BolbolestanStudentNotFoundError();
+        Student student = bolbolestan.getStudentById(studentId);
+        String profileHTML = readHTMLPage("profile_start.html");
+
+        HashMap<String, String> studentProfile = new HashMap<>();
+        studentProfile.put("id", student.getId());
+        studentProfile.put("name", student.getName());
+        studentProfile.put("secondName", student.getSecondName());
+        studentProfile.put("birthDate", student.getBirthDate());
+        studentProfile.put("GPA", Float.toString(student.getGPA()));
+        studentProfile.put("totalUnits", Integer.toString(bolbolestan.getUnitsPassed(studentId)));
+
+        profileHTML = HTMLHandler.fillTemplate(profileHTML, studentProfile);
+        String profileItem = readHTMLPage("profile_item.html");
+        for (Grade grade : student.getGrades()) {
+            studentProfile = new HashMap<>();
+            studentProfile.put("code", grade.getCode());
+            studentProfile.put("grade", Integer.toString(grade.getGrade()));
+            profileItem += HTMLHandler.fillTemplate(profileItem, studentProfile);
+        }
+        return profileHTML + readHTMLPage("profile_end.html");
+    }
+
+//    private String generateAddCourseToSchedulePage(
+//            String courseCode, String classCode, String studentId) throws Exception {
+//        if (!bolbolestan.doesCourseExist(courseCode, classCode))
+//            throw new BolbolestanCourseNotFoundError();
+//        if(!bolbolestan.doesStudentExist(studentId))
+//            throw new BolbolestanStudentNotFoundError();
+//        Course course = bolbolestan.getCourseByIdentifier(courseCode, classCode);
+//        Student student = bolbolestan.getStudentById(studentId);
+//        ArrayList<Course>
+//    }
 
     private String generateCoursesPage() throws Exception {
         String coursesHTML = readHTMLPage("courses_start.html");
@@ -90,7 +150,7 @@ public class InterfaceServer {
     private String generateCoursePage(String courseCode, String classCode) throws Exception {
         if (!bolbolestan.doesCourseExist(courseCode, classCode))
             throw new BolbolestanCourseNotFoundError();
-        
+
         Course course = bolbolestan.getCourseByIdentifier(courseCode, classCode);
         String courseHTML = readHTMLPage("course.html");
         HashMap<String, String> courseContent = new HashMap<>();
@@ -105,6 +165,7 @@ public class InterfaceServer {
 
     private String readHTMLPage(String fileName) throws Exception {
         File file = new File(Resources.getResource("templates/" + fileName).toURI());
+        System.out.println("------------------------------------------------");
         return FileUtils.readFileToString(file, StandardCharsets.UTF_8);
     }
 

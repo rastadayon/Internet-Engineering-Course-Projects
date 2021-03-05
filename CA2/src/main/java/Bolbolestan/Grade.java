@@ -9,6 +9,10 @@ public class Grade {
         this.grade = grade;
     }
 
+    public String getCode() { return code; }
+
+    public int getGrade() { return grade; }
+
     public void print() {
         System.out.println(String.format("grade : %s", grade));
         System.out.println(String.format("course code : %s", code));

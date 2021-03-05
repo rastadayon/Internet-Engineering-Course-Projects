@@ -91,8 +91,8 @@ public class CommandHandler {
                 else if (command.equals("getOffering")) // same as the before command
                     handleGetOffering(data);
 
-                else if (command.equals("addToWeeklySchedule"))
-                    handleAddToWeeklySchedule(data);
+//                else if (command.equals("addToWeeklySchedule"))
+//                    handleAddToWeeklySchedule(data);
 
                 else if (command.equals("removeFromWeeklySchedule"))
                     handleRemoveFromWeeklySchedule(data);
@@ -100,8 +100,8 @@ public class CommandHandler {
                 else if (command.equals("getWeeklySchedule"))
                     handleGetWeeklySchedule(data);
 
-                else if (command.equals("finalize"))
-                    handleFinalize(data);
+//                else if (command.equals("finalize"))
+//                    handleFinalize(data);
 
             }
             catch (Exception e){
@@ -132,12 +132,12 @@ public class CommandHandler {
         printOutput(true, bolbolestan.getOffering(studentId, offeringCode, gson));
     }
 
-    public static void handleAddToWeeklySchedule(String data) throws Exception{
-        String studentId = getValueByKey(data,"StudentId");
-        String offeringCode = getValueByKey(data,"code");
-        String message = bolbolestan.addToWeeklySchedule(studentId, offeringCode);
-        printOutput(true, message);
-    }
+//    public static void handleAddToWeeklySchedule(String data) throws Exception{
+//        String studentId = getValueByKey(data,"StudentId");
+//        String offeringCode = getValueByKey(data,"code");
+//        String message = bolbolestan.addToWeeklySchedule(studentId, offeringCode);
+//        printOutput(true, message);
+//    }
 
     public static void handleRemoveFromWeeklySchedule(String data) throws Exception {
         String studentId = getValueByKey(data,"StudentId");
@@ -152,11 +152,11 @@ public class CommandHandler {
         printOutput(true, weeklySchedule.getOfferings(), weeklySchedule.getStatus());
     }
 
-    public static void handleFinalize(String data) throws Exception {
-        String studentId = getValueByKey(data,"StudentId");
-        String message = bolbolestan.handleFinalize(studentId);
-        printOutput(true, message);
-    }
+//    public static void handleFinalize(String data) throws Exception {
+//        String studentId = getValueByKey(data,"StudentId");
+//        String message = bolbolestan.handleFinalize(studentId);
+//        printOutput(true, message);
+//    }
 
     private static String getValueByKey(String data, String key) {
         JsonObject jsonObject = new Gson().fromJson(data, JsonObject.class);
