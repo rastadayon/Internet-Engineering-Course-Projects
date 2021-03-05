@@ -57,7 +57,7 @@ public class InterfaceServer {
     }
 
     private String readHTMLPage(String fileName) throws Exception {
-        File file = new File(Resources.getResource("templates/components/" + fileName).toURI());
+        File file = new File(Resources.getResource("templates/" + fileName).toURI());
         return FileUtils.readFileToString(file, StandardCharsets.UTF_8);
     }
 
