@@ -53,12 +53,12 @@ public class Course implements Comparable<Course> {
 
     public ClassTime getClassTime() { return classTime; }
 
-    public String getClassDayString() {
+    public String getClassDayString(String delimiter) {
         List<String> days = classTime.getDays();
         String daysString = "";
         for (int i = 0; i < days.size(); i++) {
             if (i > 0)
-                daysString += "|";
+                daysString += delimiter;
             daysString += days.get(i);
         }
         return daysString;

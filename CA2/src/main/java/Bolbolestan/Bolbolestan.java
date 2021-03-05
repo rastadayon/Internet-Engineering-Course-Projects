@@ -12,6 +12,9 @@ public class Bolbolestan {
 
     public Map<String, Course> getCourses() { return courses; }
     public Map<String, Student> getStudents() { return students; }
+    public Course getCourseByIdentifier(String courseCode, String classCode) {
+        return courses.get(courseCode + "-" + classCode);
+    }
 
     private Course getCourseByCode(List<Course> weeklySchedule, String code) {
         if (weeklySchedule == null)
@@ -23,10 +26,16 @@ public class Bolbolestan {
         return null;
     }
 
+    public boolean doesCourseExist(String courseCode, String classCode) {
+        String identifier = courseCode + "-" + classCode;
+        return courses.containsKey(identifier);
+    }
+
     public String addCourse(Course course) throws Exception {
-        if (courses.containsKey(course.getCode()))
-            throw new BolbolestanRulesViolationError(String.format("Offering with the code %s already exists.", course.getCode()));
-        courses.put(course.getCode(), course);
+        if (doesCourseExist(course.getCode(), course.getClassCode()))
+            throw new BolbolestanRulesViolationError(String.
+                    format("Offering with the code %s already exists.", course.getCode()));
+        courses.put(course.getCode()+"-"+course.getClassCode(), course);
         return "Offering successfully added.";
     }
 

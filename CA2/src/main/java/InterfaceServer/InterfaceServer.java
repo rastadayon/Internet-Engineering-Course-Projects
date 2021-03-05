@@ -3,20 +3,18 @@ import Bolbolestan.Bolbolestan;
 import Bolbolestan.Student;
 import Bolbolestan.Course;
 import Bolbolestan.Grade;
+import Bolbolestan.exeptions.BolbolestanCourseNotFoundError;
+import Bolbolestan.exeptions.BolbolestanRulesViolationError;
 import com.google.common.io.Files;
 import com.google.common.io.Resources;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.google.common.base.Charsets;
 import io.javalin.Javalin;
 import HTTPRequestHandler.HTTPRequestHandler;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 
 import java.io.File;
-import java.io.InputStream;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,11 +45,21 @@ public class InterfaceServer {
         app.get("/courses", ctx -> {
             try {
                 ctx.html(generateCoursesPage());
-            }catch (Exception e){
+            } catch (Exception e){
                 System.out.println(e.getMessage());
                 ctx.status(502);
-        }});
-
+            }
+        });
+        app.get("/course/:code/:classCode", ctx -> {
+            try {
+                ctx.html(generateCoursePage(ctx.pathParam("code"), ctx.pathParam("classCode")));
+            } catch (BolbolestanCourseNotFoundError e) {
+                ctx.html(readHTMLPage("404.html"));
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+                ctx.status(502).result(":| " + e.getMessage());
+            }
+        });
     }
 
     private String generateCoursesPage() throws Exception {
@@ -66,9 +74,9 @@ public class InterfaceServer {
             courseContent.put("classCode", course.getClassCode());
             courseContent.put("name", course.getName());
             courseContent.put("units", Integer.toString(course.getUnits()));
-            courseContent.put("capacity", Integer.toString(course.getCapacity())); // total capacity or capacity left?
+            courseContent.put("capacity", Integer.toString(course.getCapacity() - course.getSeatsTaken()));
             courseContent.put("type", course.getType());
-            courseContent.put("classDays", course.getClassDayString());
+            courseContent.put("classDays", course.getClassDayString("|"));
             courseContent.put("classTime", course.getClassTime().getTime());
             courseContent.put("examTimeStart", course.getExamTime().getStart());
             courseContent.put("examTimeEnd", course.getExamTime().getEnd());
@@ -77,6 +85,22 @@ public class InterfaceServer {
         }
         coursesHTML += readHTMLPage("courses_end.html");
         return coursesHTML;
+    }
+
+    private String generateCoursePage(String courseCode, String classCode) throws Exception {
+        if (!bolbolestan.doesCourseExist(courseCode, classCode))
+            throw new BolbolestanCourseNotFoundError();
+        
+        Course course = bolbolestan.getCourseByIdentifier(courseCode, classCode);
+        String courseHTML = readHTMLPage("course.html");
+        HashMap<String, String> courseContent = new HashMap<>();
+        courseContent.put("code", course.getCode());
+        courseContent.put("classCode", course.getClassCode());
+        courseContent.put("units", Integer.toString(course.getUnits()));
+        courseContent.put("classDays", course.getClassDayString(", "));
+        courseContent.put("classTime", course.getClassTime().getTime());
+        courseHTML = HTMLHandler.fillTemplate(courseHTML, courseContent);
+        return courseHTML;
     }
 
     private String readHTMLPage(String fileName) throws Exception {
