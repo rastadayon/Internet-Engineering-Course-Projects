@@ -2,6 +2,7 @@ package Bolbolestan;
 
 import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Course implements Comparable<Course> {
@@ -15,9 +16,7 @@ public class Course implements Comparable<Course> {
     private ArrayList<String> prerequisites;
     private ClassTime classTime;
     private ExamTime examTime;
-
     private int seatsTaken;
-
     public Course(String code, String classCode, String name, int units,
                   String type, String instructor, int capacity, ArrayList<String> prerequisites,
                   ClassTime classTime, ExamTime examTime) {
@@ -34,7 +33,11 @@ public class Course implements Comparable<Course> {
         this.seatsTaken = 0;
     }
 
+    public String getType() { return type; }
+
     public ExamTime getExamTime() { return examTime; }
+
+    public String getClassCode() { return classCode; }
 
     public int getUnits() { return units; }
 
@@ -49,6 +52,27 @@ public class Course implements Comparable<Course> {
     public int getSeatsTaken() { return seatsTaken; }
 
     public ClassTime getClassTime() { return classTime; }
+
+    public String getClassDayString() {
+        List<String> days = classTime.getDays();
+        String daysString = "";
+        for (int i = 0; i < days.size(); i++) {
+            if (i > 0)
+                daysString += "|";
+            daysString += days.get(i);
+        }
+        return daysString;
+    }
+
+    public String getPrerequisitesString() {
+        String prerequisitesString = "";
+        for (int i = 0; i < prerequisites.size(); i++) {
+            if (i > 0)
+                prerequisitesString += "|";
+            prerequisitesString += prerequisites.get(i);
+        }
+        return prerequisitesString;
+    }
 
     public void print() {
         System.out.println(String.format("course code : %s-%s", code, classCode));

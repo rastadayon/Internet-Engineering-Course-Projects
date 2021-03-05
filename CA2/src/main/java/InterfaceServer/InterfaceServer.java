@@ -18,12 +18,15 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class InterfaceServer {
     private Javalin app;
     private Bolbolestan bolbolestan = new Bolbolestan();
+    private HTMLPageHandler HTMLHandler = new HTMLPageHandler();
 
     public void start(final String STUDENTS_URL, final String COURSES_URL, final String GRADES_URL, int port) {
         try {
@@ -52,8 +55,28 @@ public class InterfaceServer {
     }
 
     private String generateCoursesPage() throws Exception {
-        String coursesStart = readHTMLPage("courses_start.html");
-        return coursesStart;
+        String coursesHTML = readHTMLPage("courses_start.html");
+        Map<String, Course> coursesMap = bolbolestan.getCourses();
+        ArrayList<Course> courses = new ArrayList<>(coursesMap.values());
+        String courseItemString = readHTMLPage("courses_item.html");
+
+        for (Course course : courses) {
+            HashMap<String, String> courseContent = new HashMap<>();
+            courseContent.put("code", course.getCode());
+            courseContent.put("classCode", course.getClassCode());
+            courseContent.put("name", course.getName());
+            courseContent.put("units", Integer.toString(course.getUnits()));
+            courseContent.put("capacity", Integer.toString(course.getCapacity())); // total capacity or capacity left?
+            courseContent.put("type", course.getType());
+            courseContent.put("classDays", course.getClassDayString());
+            courseContent.put("classTime", course.getClassTime().getTime());
+            courseContent.put("examTimeStart", course.getExamTime().getStart());
+            courseContent.put("examTimeEnd", course.getExamTime().getEnd());
+            courseContent.put("prerequisites", course.getPrerequisitesString());
+            coursesHTML += HTMLHandler.fillTemplate(courseItemString, courseContent);
+        }
+        coursesHTML += readHTMLPage("courses_end.html");
+        return coursesHTML;
     }
 
     private String readHTMLPage(String fileName) throws Exception {

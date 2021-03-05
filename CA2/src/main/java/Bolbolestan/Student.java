@@ -50,7 +50,7 @@ public class Student {
 
     public void removeFromWeeklySchedule(Course course) throws Exception {
         if (weeklySchedule == null)
-            throw new BolbolestanOfferingNotFoundError();
+            throw new BolbolestanCourseNotFoundError();
         weeklySchedule.removeFromWeeklySchedule(course);
     }
 }

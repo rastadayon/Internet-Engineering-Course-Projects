@@ -48,10 +48,10 @@ public class WeeklySchedule {
 
     public void removeFromWeeklySchedule(Course course) throws Exception {
         if (weeklySchedule == null)
-            throw new BolbolestanOfferingNotFoundError();
+            throw new BolbolestanCourseNotFoundError();
         boolean successful = weeklySchedule.remove(course);
         if (!successful){
-            throw new BolbolestanOfferingNotFoundError();
+            throw new BolbolestanCourseNotFoundError();
         }
         status = non_finalized;
     }

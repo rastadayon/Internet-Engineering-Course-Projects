@@ -8,12 +8,12 @@ import java.util.*;
 
 public class Bolbolestan {
     private Map<String, Student> students = new HashMap<>();
-    private Map<String, Course> offerings = new HashMap<>();
+    private Map<String, Course> courses = new HashMap<>();
 
-
+    public Map<String, Course> getCourses() { return courses; }
     public Map<String, Student> getStudents() { return students; }
 
-    private Course getOfferingByCode(List<Course> weeklySchedule, String code) {
+    private Course getCourseByCode(List<Course> weeklySchedule, String code) {
         if (weeklySchedule == null)
             return null;
         for (Course course : weeklySchedule) {
@@ -24,9 +24,9 @@ public class Bolbolestan {
     }
 
     public String addCourse(Course course) throws Exception {
-        if (offerings.containsKey(course.getCode()))
+        if (courses.containsKey(course.getCode()))
             throw new BolbolestanRulesViolationError(String.format("Offering with the code %s already exists.", course.getCode()));
-        offerings.put(course.getCode(), course);
+        courses.put(course.getCode(), course);
         return "Offering successfully added.";
     }
 
@@ -44,7 +44,7 @@ public class Bolbolestan {
     public List<Course> getOfferings(String studentId, Gson gson) throws Exception {
         if (!students.containsKey(studentId))
             throw new BolbolestanStudentNotFoundError();
-        List<Course> courseList = new ArrayList<Course>(offerings.values());
+        List<Course> courseList = new ArrayList<Course>(courses.values());
         Collections.sort(courseList);
         return courseList;
     }
@@ -52,10 +52,10 @@ public class Bolbolestan {
     public Course getOffering(String studentId, String courseCode, Gson gson) throws Exception {
         if (!students.containsKey(studentId))
             throw new BolbolestanStudentNotFoundError();
-        Course course = offerings.get(courseCode);
+        Course course = courses.get(courseCode);
 
         if (course == null)
-            throw new BolbolestanOfferingNotFoundError();
+            throw new BolbolestanCourseNotFoundError();
 
         return course;
     }
@@ -63,23 +63,23 @@ public class Bolbolestan {
     public String addToWeeklySchedule(String studentId, String offeringCode) throws Exception {
         if (!students.containsKey(studentId))
             throw new BolbolestanStudentNotFoundError();
-        if (!offerings.containsKey(offeringCode))
-            throw new BolbolestanOfferingNotFoundError();
+        if (!courses.containsKey(offeringCode))
+            throw new BolbolestanCourseNotFoundError();
         Student student = students.get(studentId);
-        Course course = offerings.get(offeringCode);
+        Course course = courses.get(offeringCode);
         student.addToWeeklySchedule(course);
-        return "Offering successfully added to weekly schedule.";
+        return "Course successfully added to weekly schedule.";
     }
 
     public String removeFromWeeklySchedule(String studentId, String offeringCode) throws Exception {
         if (!students.containsKey(studentId))
             throw new BolbolestanStudentNotFoundError();
-        if (!offerings.containsKey(offeringCode))
-            throw new BolbolestanOfferingNotFoundError();
+        if (!courses.containsKey(offeringCode))
+            throw new BolbolestanCourseNotFoundError();
         Student student = students.get(studentId);
-        Course course = offerings.get(offeringCode);
+        Course course = courses.get(offeringCode);
         student.removeFromWeeklySchedule(course);
-        return "Offering successfully removed from weekly schedule.";
+        return "Course successfully removed from weekly schedule.";
     }
 
     public WeeklySchedule handleGetWeeklySchedule(String studentId) throws Exception {

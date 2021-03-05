@@ -7,8 +7,8 @@ import java.util.List;
 
 public class ClassTime {
     private String time;
-
     private List<String> days = new ArrayList<String>();
+
     public ClassTime(String time, List<String> days) {
         this.time = time;
         this.days = days;
