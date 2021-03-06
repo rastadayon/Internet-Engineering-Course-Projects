@@ -1,8 +1,6 @@
 package Bolbolestan;
 
-import com.google.gson.Gson;
 import Bolbolestan.exeptions.*;
-
 
 import java.util.*;
 
@@ -15,21 +13,18 @@ public class Bolbolestan {
 
     public Student getStudentById(String studentId) { return students.get(studentId); }
 
-    public Course getCourseByIdentifier(String identifier) {
-        return courses.get(identifier);
-    }
 
     public Course getCourseByIdentifier(String courseCode, String classCode) {
         return courses.get(courseCode + "-" + classCode);
     }
 
+    public boolean doesStudentExist(String studentId) {
+        return students.containsKey(studentId);
+    }
+
     public boolean doesCourseExist(String courseCode, String classCode) {
         String identifier = courseCode + "-" + classCode;
         return courses.containsKey(identifier);
-    }
-
-    public boolean doesStudentExist(String studentId) {
-        return students.containsKey(studentId);
     }
 
     public String addCourse(Course course) throws Exception {
@@ -49,25 +44,6 @@ public class Bolbolestan {
 
     public void addGradeToStudent(Student student, Grade grade) {
         student.addGrade(grade);
-    }
-
-    public List<Course> getOfferings(String studentId, Gson gson) throws Exception {
-        if (!students.containsKey(studentId))
-            throw new BolbolestanStudentNotFoundError();
-        List<Course> courseList = new ArrayList<Course>(courses.values());
-        Collections.sort(courseList);
-        return courseList;
-    }
-
-    public Course getOffering(String studentId, String courseCode, Gson gson) throws Exception {
-        if (!students.containsKey(studentId))
-            throw new BolbolestanStudentNotFoundError();
-        Course course = courses.get(courseCode);
-
-        if (course == null)
-            throw new BolbolestanCourseNotFoundError();
-
-        return course;
     }
 
     public String addToWeeklySchedule(String studentId, String offeringCode) throws Exception {
@@ -115,9 +91,9 @@ public class Bolbolestan {
         ArrayList<Grade> studentGrades = student.getGrades();
         for (Grade gradeItem : studentGrades) {
             String courseCode = gradeItem.getCode();
-            if (!courses.containsKey(courseCode))
+            if (!courses.containsKey(courseCode + "-01"))
                 throw new BolbolestanCourseNotFoundError();
-            Course course = getCourseByIdentifier(gradeItem.getCode());
+            Course course = getCourseByIdentifier(gradeItem.getCode(), "01");
             if (gradeItem.getGrade() >= 10)
                 unitsPassed += course.getUnits();
         }
@@ -128,5 +104,82 @@ public class Bolbolestan {
         WeeklySchedule weeklySchedule = handleGetWeeklySchedule(studentId);
         int units = weeklySchedule.getTotalUnits();
         return units;
+    }
+
+    public ArrayList<Course> getClassTimeConflictingWithStudent(
+            String studentId, String courseCode, String classCode) throws Exception {
+        ArrayList<Course> conflictingCourses = null;
+        if (!students.containsKey(studentId))
+            throw new BolbolestanStudentNotFoundError();
+        Student student = getStudentById(studentId);
+        if (!courses.containsKey(courseCode + "-" + classCode))
+            throw new BolbolestanCourseNotFoundError();
+        Course course = getCourseByIdentifier(courseCode, classCode);
+        if (student.getWeeklySchedule() != null) {
+            List<Course> studentWeeklySchedule = student.getWeeklySchedule().getOfferings();
+            for (Course weekCourse : studentWeeklySchedule) {
+                if (course.doesClassTimeCollide(weekCourse))
+                    if (conflictingCourses == null) {
+                        conflictingCourses = new ArrayList<Course>();
+                        conflictingCourses.add(weekCourse);
+                    }
+            }
+        }
+        return conflictingCourses;
+    }
+
+    public ArrayList<Course> getExamTimeConflictingWithStudent(
+            String studentId, String courseCode, String classCode) throws Exception {
+        ArrayList<Course> conflictingCourses = null;
+        if (!students.containsKey(studentId))
+            throw new BolbolestanStudentNotFoundError();
+        Student student = getStudentById(studentId);
+        if (!courses.containsKey(courseCode + "-" + classCode))
+            throw new BolbolestanCourseNotFoundError();
+        Course course = getCourseByIdentifier(courseCode, classCode);
+        if (student.getWeeklySchedule() != null){
+            List<Course> studentWeeklySchedule = student.getWeeklySchedule().getOfferings();
+            for (Course weekCourse : studentWeeklySchedule) {
+                if (course.doesExamTimeCollide(weekCourse))
+                    if (conflictingCourses == null) {
+                        conflictingCourses = new ArrayList<Course>();
+                        conflictingCourses.add(weekCourse);
+                    }
+            }
+        }
+        return conflictingCourses;
+    }
+
+    public boolean courseHasCapacity(String courseCode, String classCode) throws Exception{
+        if (!courses.containsKey(courseCode + "-" + classCode))
+            throw new BolbolestanCourseNotFoundError();
+        return getCourseByIdentifier(courseCode, classCode).hasCapacity();
+    }
+
+    public ArrayList<String> getPrerequisitesNotPassed(
+            String studentId, String courseCode, String classCode) throws Exception {
+        if (!students.containsKey(studentId))
+            throw new BolbolestanStudentNotFoundError();
+        Student student = students.get(studentId);
+        if (!courses.containsKey(courseCode + "-" + classCode))
+            throw new BolbolestanCourseNotFoundError();
+        Course course = getCourseByIdentifier(courseCode, classCode);
+        return student.getPrerequisitesNotPassed(course);
+    }
+
+    public void addCourseToStudent(String studentId, String courseCode, String classCode) throws Exception {
+        if (!students.containsKey(studentId))
+            throw new BolbolestanStudentNotFoundError();
+        Student student = students.get(studentId);
+        if (!courses.containsKey(courseCode + "-" + classCode))
+            throw new BolbolestanCourseNotFoundError();
+        Course course = getCourseByIdentifier(courseCode, classCode);
+        ArrayList<Course> conflictingClassTimes = getClassTimeConflictingWithStudent(studentId, courseCode, classCode);
+        ArrayList<Course> conflictingExamTimes = getExamTimeConflictingWithStudent(studentId, courseCode, classCode);
+        ArrayList<String> prerequisitesNotPassed = getPrerequisitesNotPassed(studentId, courseCode, classCode);
+        boolean hasCapacity = courseHasCapacity(courseCode, classCode);
+        System.out.println("has capacity : " + hasCapacity);
+        if (conflictingClassTimes == null && conflictingExamTimes == null && prerequisitesNotPassed == null && hasCapacity)
+            student.addToWeeklySchedule(course);
     }
 }

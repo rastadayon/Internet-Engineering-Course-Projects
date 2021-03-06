@@ -1,5 +1,6 @@
 package Bolbolestan;
 
+
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,11 +48,14 @@ public class Course implements Comparable<Course> {
         return this.code;
     }
 
-    public void reduceCapacity() { seatsTaken += 1; }
+    public void reduceCapacity() {
+        System.out.println("reducing capacity"); seatsTaken += 1; }
 
     public int getSeatsTaken() { return seatsTaken; }
 
     public ClassTime getClassTime() { return classTime; }
+
+    public boolean hasCapacity() { return capacity - seatsTaken > 0; }
 
     public ArrayList<String> getPrerequisites() { return prerequisites; }
 
@@ -127,5 +131,28 @@ public class Course implements Comparable<Course> {
     @Override
     public int compareTo(Course o) {
         return this.getName().compareTo(o.getName());
+    }
+
+    public boolean doesClassTimeCollide (Course c) {
+        List<String> cDays = c.getClassTime().getDays();
+        cDays.retainAll(classTime.getDays());
+        if (cDays.isEmpty())
+            return false;
+        Utils utils = Utils.getInstance();
+        ArrayList<String> courseTime = utils.correctTimeFormat(this.getClassTime().getTime().split("-"));
+        ArrayList<String> cTime = utils.correctTimeFormat(c.getClassTime().getTime().split("-"));
+        assert courseTime.size() == 2 && cTime.size() == 2;
+        String courseStart = courseTime.get(0);
+        String courseEnd = courseTime.get(1);
+        String cStart = cTime.get(0);
+        String cEnd = cTime.get(1);
+        return utils.doTimesCollide(cStart, cEnd, courseStart, courseEnd, "kk:mm");
+    }
+
+    public boolean doesExamTimeCollide (Course c) {
+        String cStart = c.getExamTime().getStart();
+        String cEnd = c.getExamTime().getEnd();
+        return Utils.getInstance().doDateTimesCollide(cStart, cEnd, this.getExamTime().getStart(),
+                this.getExamTime().getEnd(), "yyyy-MM-dd'T'kk:mm:ss");
     }
 }

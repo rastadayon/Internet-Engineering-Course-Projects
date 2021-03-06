@@ -17,6 +17,7 @@ public class Student {
         this.name = name;
         this.secondName = secondName;
         this.birthDate = birthDate;
+        weeklySchedule = new WeeklySchedule();
     }
 
     public String getName() { return name; }
@@ -60,7 +61,6 @@ public class Student {
     public void addToWeeklySchedule(Course course) {
         if (weeklySchedule == null)
             weeklySchedule = new WeeklySchedule();
-        //if (hasPrerequisites(course) && !weeklySchedule.doesCourseTimeCollide(course) && )
         weeklySchedule.addToWeeklySchedule(course);
         course.reduceCapacity();
     }
@@ -86,5 +86,25 @@ public class Student {
         if (weeklySchedule == null)
             throw new BolbolestanCourseNotFoundError();
         weeklySchedule.removeFromWeeklySchedule(course);
+    }
+
+    public ArrayList<String> getPrerequisitesNotPassed(Course course) {
+        ArrayList<String> notPassed = null;
+        ArrayList<String> prerequisites = course.getPrerequisites();
+        for (String prerequisite : prerequisites) {
+            boolean found = false;
+            for (Grade grade : grades) {
+                if (grade.getCode() == prerequisite && grade.getGrade() >= 10) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                if (notPassed == null)
+                    notPassed = new ArrayList<>();
+                notPassed.add(prerequisite);
+            }
+        }
+        return notPassed;
     }
 }

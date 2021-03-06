@@ -4,12 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7d4017a9-8681-4459-83a3-90a1ec311232" name="Default Changelist" comment="Add change plan page">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Bolbolestan/ClassTime.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Bolbolestan/ClassTime.java" afterDir="false" />
+    <list default="true" id="0f2d1613-d2a2-48e3-84e9-6a60add5deb1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Bolbolestan/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Bolbolestan/Bolbolestan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Bolbolestan/Bolbolestan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Bolbolestan/CommandHandler.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Bolbolestan/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Bolbolestan/Course.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Bolbolestan/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Bolbolestan/Student.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Bolbolestan/WeeklySchedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Bolbolestan/WeeklySchedule.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/InterfaceServer/InterfaceServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/InterfaceServer/InterfaceServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Bolbolestan/Bolbolestan.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Bolbolestan/Bolbolestan.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Bolbolestan/Course.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Bolbolestan/Course.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Bolbolestan/Student.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Bolbolestan/Student.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Bolbolestan/WeeklySchedule.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Bolbolestan/WeeklySchedule.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,42 +37,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitSEFilterConfiguration">
-    <file-type-list>
-      <filtered-out-file-type name="LOCAL_BRANCH" />
-      <filtered-out-file-type name="REMOTE_BRANCH" />
-      <filtered-out-file-type name="TAG" />
-      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
-    </file-type-list>
-  </component>
-  <component name="ProjectId" id="1pIYGLCiPUrsBGEY6ybbE5SKDkT" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
-  <component name="PropertiesComponent">
-    <property name="Downloaded.Files.Path.Enabled" value="true" />
-    <property name="Repository.Attach.Annotations" value="false" />
-    <property name="Repository.Attach.JavaDocs" value="false" />
-    <property name="Repository.Attach.Sources" value="false" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Global Libraries" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/resources/templates" />
-      <recent name="$PROJECT_DIR$/src/main/templates/components" />
-      <recent name="$PROJECT_DIR$/src/main/java/Bolbolestan" />
-    </key>
-  </component>
   <component name="RunManager">
     <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
@@ -70,49 +46,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="7d4017a9-8681-4459-83a3-90a1ec311232" name="Default Changelist" comment="" />
-      <created>1614871976680</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1614871976680</updated>
-      <workItem from="1614871977916" duration="20237000" />
-      <workItem from="1614934290848" duration="2573000" />
-      <workItem from="1614937732680" duration="2398000" />
-      <workItem from="1614951558920" duration="8025000" />
-      <workItem from="1614971352397" duration="293000" />
-      <workItem from="1614971972732" duration="410000" />
-      <workItem from="1614972825159" duration="9953000" />
-      <workItem from="1615038007235" duration="1920000" />
-      <workItem from="1615043645685" duration="495000" />
-      <workItem from="1615046744037" duration="3341000" />
-    </task>
-    <task id="LOCAL-00001" summary="Add change plan page">
-      <created>1614985101300</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1614985101300</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -125,9 +74,5 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add change plan page" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add change plan page" />
   </component>
 </project>

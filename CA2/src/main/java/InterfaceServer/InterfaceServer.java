@@ -117,17 +117,21 @@ public class InterfaceServer {
                 ctx.status(502).result(":| " + e.getMessage());
             }
         });
-//        app.post("/course/:code/:classCode", ctx -> {
-//            try {
-////                ctx.html(generateCoursePage(ctx.pathParam("code"), ctx.pathParam("classCode")));
-//                ctx.
-//            } catch (BolbolestanCourseNotFoundError e) {
-//                ctx.html(readHTMLPage("404.html"));
-//            } catch (Exception e){
-//                System.out.println(e.getMessage());
-//                ctx.status(502).result(":| " + e.getMessage());
-//            }
-//        });
+        app.post("/course/:code/:classCode", ctx -> {
+            String studentId = ctx.formParam("std_id");
+                try {
+                    String classCode = ctx.pathParam("classCode");
+                    String courseCode = ctx.pathParam("code");
+                    String response = generateAddCourseToStudent(studentId, courseCode, classCode);
+                    bolbolestan.addCourseToStudent(studentId, courseCode, classCode);
+                    ctx.html(response);
+                } catch (BolbolestanCourseNotFoundError e) {
+                    ctx.html(readHTMLPage("404.html"));
+                } catch (Exception e){
+                    System.out.println(e.getMessage());
+                    ctx.status(502).result(":| " + e.getMessage());
+                }
+            });
 
         app.get("/submit/:studentId", ctx -> {
             String studentId = ctx.pathParam("studentId");
@@ -172,6 +176,34 @@ public class InterfaceServer {
         });
     }
 
+    private String generateAddCourseToStudent(
+            String studentId, String courseCode, String classCode) throws Exception {
+        String response = "";
+        ArrayList<Course> conflictingClassTimes = bolbolestan.getClassTimeConflictingWithStudent(studentId, courseCode, classCode);
+        ArrayList<Course> conflictingExamTimes = bolbolestan.getExamTimeConflictingWithStudent(studentId, courseCode, classCode);
+        ArrayList<String> prerequisitesNotPassed = bolbolestan.getPrerequisitesNotPassed(studentId, courseCode, classCode);
+        boolean hasCapacity = bolbolestan.courseHasCapacity(courseCode, classCode);
+        if (conflictingClassTimes != null)
+            for (Course course : conflictingClassTimes)
+                response += String.format("Courses %s, %s have conflicting class times.\n",
+                        course.getCode() + "-" + course.getClassCode(), courseCode + "-" + classCode);
+        if (conflictingExamTimes != null)
+            for (Course course : conflictingExamTimes)
+                response += String.format("Courses %s, %s have conflicting exam times.\n",
+                        course.getCode() + "-" + course.getClassCode(), courseCode + "-" + classCode);
+        if (prerequisitesNotPassed != null) {
+            response += "The following prerequisites have not been passed yet : [ ";
+            for (String prerequisite : prerequisitesNotPassed)
+                response += String.format("%s ", prerequisite);
+            response += "]\n";
+        }
+        if (!hasCapacity)
+            response += "Course does not have capacity";
+        if (response.equals(""))
+            response = "Course successfully added";
+        return response;
+    }
+
     private String generateProfile(String studentId) throws Exception {
         if(!bolbolestan.doesStudentExist(studentId))
             throw new BolbolestanStudentNotFoundError();
@@ -196,17 +228,6 @@ public class InterfaceServer {
         }
         return profileHTML + readHTMLPage("profile_end.html");
     }
-
-//    private String generateAddCourseToSchedulePage(
-//            String courseCode, String classCode, String studentId) throws Exception {
-//        if (!bolbolestan.doesCourseExist(courseCode, classCode))
-//            throw new BolbolestanCourseNotFoundError();
-//        if(!bolbolestan.doesStudentExist(studentId))
-//            throw new BolbolestanStudentNotFoundError();
-//        Course course = bolbolestan.getCourseByIdentifier(courseCode, classCode);
-//        Student student = bolbolestan.getStudentById(studentId);
-//        ArrayList<Course>
-//    }
 
     private String generateCoursesPage() throws Exception {
         String coursesHTML = readHTMLPage("courses_start.html");
