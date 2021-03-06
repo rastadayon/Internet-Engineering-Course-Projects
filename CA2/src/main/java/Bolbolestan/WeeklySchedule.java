@@ -167,6 +167,17 @@ public class WeeklySchedule {
         status = finalized;
     }
 
+    public String getCourseNameByClassTime(String day, String startTime) {
+        String courseName = "";
+        for (Course course: weeklySchedule) {
+            if (course.hasClassTime(day, startTime)) {
+                courseName = course.getName();
+                continue;
+            }
+        }
+        return  courseName;
+    }
+
     private boolean doTimesCollide(String interval1Start, String interval1End,
                                    String interval2Start, String interval2End, String pattern) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(pattern);
