@@ -120,6 +120,10 @@ public class Course implements Comparable<Course> {
 
     public String getName() {return name;}
 
+    public boolean hasClassTime(String day, String startTime) {
+        return classTime.hasTime(day, startTime);
+    }
+
     @Override
     public int compareTo(Course o) {
         return this.getName().compareTo(o.getName());

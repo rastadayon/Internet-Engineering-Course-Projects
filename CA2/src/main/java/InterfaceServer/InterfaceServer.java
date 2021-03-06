@@ -3,6 +3,7 @@ import Bolbolestan.Bolbolestan;
 import Bolbolestan.Student;
 import Bolbolestan.Course;
 import Bolbolestan.Grade;
+import Bolbolestan.WeeklySchedule;
 import Bolbolestan.exeptions.BolbolestanCourseNotFoundError;
 import Bolbolestan.exeptions.BolbolestanRulesViolationError;
 import Bolbolestan.exeptions.BolbolestanStudentNotFoundError;
@@ -21,11 +22,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Arrays;
 
 public class InterfaceServer {
     private Javalin app;
     private Bolbolestan bolbolestan = new Bolbolestan();
     private HTMLPageHandler HTMLHandler = new HTMLPageHandler();
+    private final List<String> days = Arrays.asList("Saturday", "Sunday", "Monday",
+            "Tuesday", "Wednesday");
+    private final List<String> startTimes = Arrays.asList("7:30", "9:00", "10:30",
+            "14:00", "16:00");
 
     public void start(final String STUDENTS_URL, final String COURSES_URL, final String GRADES_URL, int port) {
         try {
@@ -86,6 +92,19 @@ public class InterfaceServer {
             }
             ctx.redirect("/change_plan/" + ctx.pathParam("studentId"));
         });
+
+        app.get("/plan/:studentId", ctx -> {
+            String studentId = ctx.pathParam("studentId");
+            try {
+                ctx.html(generatePlanPage(studentId));
+            } catch (BolbolestanStudentNotFoundError e) {
+                ctx.html(readHTMLPage("404.html"));
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+                ctx.status(502).result(":| " + e.getMessage());
+            }
+        });
+
         app.get("/profile/:studentId", ctx -> {
             try {
                 ctx.html(generateProfile(ctx.pathParam("studentId")));
@@ -247,6 +266,26 @@ public class InterfaceServer {
         }
         changePlanHTML += readHTMLPage("change_plan_end.html");
         return changePlanHTML;
+    }
+
+    private String generatePlanPage(String studentId) throws Exception {
+        if (!bolbolestan.doesStudentExist(studentId))
+            throw new BolbolestanStudentNotFoundError();
+
+        String planHTML = readHTMLPage("plan_start.html");
+        WeeklySchedule weeklySchedule = bolbolestan.handleGetWeeklySchedule(studentId);
+        String planItemString = readHTMLPage("plan_item.html");
+        for (String day: days) {
+            HashMap<String, String> planContent = new HashMap<>();
+            for (String startTime: startTimes) {
+                String courseName = weeklySchedule.getCourseNameByClassTime(day, startTime);
+                planContent.put(startTime, courseName);
+                planContent.put("day", day);
+            }
+            planHTML += HTMLHandler.fillTemplate(planItemString, planContent);
+        }
+        planHTML += readHTMLPage("plan_end.html");
+        return planHTML;
     }
 
     private String generateSubmitPage(String studentId) throws Exception {

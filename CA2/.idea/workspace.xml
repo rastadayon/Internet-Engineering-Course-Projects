@@ -6,14 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="7d4017a9-8681-4459-83a3-90a1ec311232" name="Default Changelist" comment="Add change plan page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Bolbolestan/Bolbolestan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Bolbolestan/Bolbolestan.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Bolbolestan/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Bolbolestan/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Bolbolestan/ClassTime.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Bolbolestan/ClassTime.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Bolbolestan/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Bolbolestan/Course.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Bolbolestan/WeeklySchedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Bolbolestan/WeeklySchedule.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/InterfaceServer/InterfaceServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/InterfaceServer/InterfaceServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +50,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../internet-engineering/CA2/src/main/java/Bolbolestan/WeeklySchedule.java" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Global Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -102,6 +98,8 @@
       <workItem from="1614971972732" duration="410000" />
       <workItem from="1614972825159" duration="9953000" />
       <workItem from="1615038007235" duration="1920000" />
+      <workItem from="1615043645685" duration="495000" />
+      <workItem from="1615046744037" duration="3341000" />
     </task>
     <task id="LOCAL-00001" summary="Add change plan page">
       <created>1614985101300</created>
