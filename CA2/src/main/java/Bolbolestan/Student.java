@@ -57,13 +57,13 @@ public class Student {
         grades.add(grade);
     }
 
-//    public void addToWeeklySchedule(Course course) {
-//        if (weeklySchedule == null)
-//            weeklySchedule = new WeeklySchedule();
-//        if (hasPrerequisites(course) && !weeklySchedule.doesCourseTimeCollide(course) && )
-//        weeklySchedule.addToWeeklySchedule(course);
-//        course.reduceCapacity();
-//    }
+    public void addToWeeklySchedule(Course course) {
+        if (weeklySchedule == null)
+            weeklySchedule = new WeeklySchedule();
+        //if (hasPrerequisites(course) && !weeklySchedule.doesCourseTimeCollide(course) && )
+        weeklySchedule.addToWeeklySchedule(course);
+        course.reduceCapacity();
+    }
 
     private boolean hasPrerequisites(Course course) {
         ArrayList<String> prerequisites = course.getPrerequisites();

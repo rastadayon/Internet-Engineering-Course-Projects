@@ -67,11 +67,16 @@ public class WeeklySchedule {
         }
     }
 
-    private void checkValidNumberOfUnits() throws Exception {
+    public int getTotalUnits() {
         int units = 0;
         for (Course course : weeklySchedule) {
             units += course.getUnits();
         }
+        return units;
+    }
+
+    private void checkValidNumberOfUnits() throws Exception {
+        int units = getTotalUnits();
         if (units > 20)
             throw new BolbolestanMaximumUnitsError();
         if (units < 12)
@@ -153,15 +158,14 @@ public class WeeklySchedule {
         }
     }
 
-//    public void finalizeWeeklySchedule() throws Exception {
-//        if (weeklySchedule == null)
-//            weeklySchedule = new ArrayList<>();
-//        checkCapacity();
-//        checkValidNumberOfUnits();
-//        checkExamTimeCollision();
-//        checkClassTimeCollision();
-//        status = finalized;
-//    }
+    public void finalizeWeeklySchedule() throws Exception {
+        if (weeklySchedule == null)
+            weeklySchedule = new ArrayList<>();
+        //checkCapacity();
+        checkValidNumberOfUnits();
+        checkExamTimeCollision();
+        status = finalized;
+    }
 
     private boolean doTimesCollide(String interval1Start, String interval1End,
                                    String interval2Start, String interval2End, String pattern) {

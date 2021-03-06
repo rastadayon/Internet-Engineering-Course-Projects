@@ -70,16 +70,16 @@ public class Bolbolestan {
         return course;
     }
 
-//    public String addToWeeklySchedule(String studentId, String offeringCode) throws Exception {
-//        if (!students.containsKey(studentId))
-//            throw new BolbolestanStudentNotFoundError();
-//        if (!courses.containsKey(offeringCode))
-//            throw new BolbolestanCourseNotFoundError();
-//        Student student = students.get(studentId);
-//        Course course = courses.get(offeringCode);
-//        student.addToWeeklySchedule(course);
-//        return "Course successfully added to weekly schedule.";
-//    }
+    public String addToWeeklySchedule(String studentId, String offeringCode) throws Exception {
+        if (!students.containsKey(studentId))
+            throw new BolbolestanStudentNotFoundError();
+        if (!courses.containsKey(offeringCode))
+            throw new BolbolestanCourseNotFoundError();
+        Student student = students.get(studentId);
+        Course course = courses.get(offeringCode);
+        student.addToWeeklySchedule(course);
+        return "Course successfully added to weekly schedule.";
+    }
 
     public String removeFromWeeklySchedule(String studentId, String offeringCode) throws Exception {
         if (!students.containsKey(studentId))
@@ -99,13 +99,14 @@ public class Bolbolestan {
         return student.getWeeklySchedule();
     }
 
-//    public String handleFinalize(String studentId) throws Exception {
-//        if (!students.containsKey(studentId))
-//            throw new BolbolestanStudentNotFoundError();
-//        Student student = students.get(studentId);
-//        student.getWeeklySchedule().finalizeWeeklySchedule();
-//        return "Weekly schedule successfully finalized.";
-//    }
+    public String handleFinalize(String studentId) throws Exception {
+        if (!students.containsKey(studentId))
+            throw new BolbolestanStudentNotFoundError();
+        Student student = students.get(studentId);
+        student.getWeeklySchedule().finalizeWeeklySchedule();
+        return "Weekly schedule successfully finalized.";
+    }
+
     public int getUnitsPassed(String studentId) throws Exception {
         int unitsPassed = 0;
         if (!students.containsKey(studentId))
@@ -121,5 +122,11 @@ public class Bolbolestan {
                 unitsPassed += course.getUnits();
         }
         return unitsPassed;
+    }
+
+    public int getTotalUnits(String studentId) throws Exception{
+        WeeklySchedule weeklySchedule = handleGetWeeklySchedule(studentId);
+        int units = weeklySchedule.getTotalUnits();
+        return units;
     }
 }

@@ -42,6 +42,7 @@ public class InterfaceServer {
     }
 
     public void runServer(final int port) throws Exception {
+        assignCoursesForTests("810196285");
         app = Javalin.create().start(port);
         app.get("/courses", ctx -> {
             try {
@@ -108,6 +109,48 @@ public class InterfaceServer {
 //                ctx.status(502).result(":| " + e.getMessage());
 //            }
 //        });
+
+        app.get("/submit/:studentId", ctx -> {
+            String studentId = ctx.pathParam("studentId");
+            try {
+                ctx.html(generateSubmitPage(studentId));
+            } catch (BolbolestanStudentNotFoundError e) {
+                ctx.html(readHTMLPage("404.html"));
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+                //ctx.status(502).result(":| " + e.getMessage());
+            }
+        });
+
+        app.post("/submit/:studentId", ctx -> {
+            String studentId = ctx.pathParam("studentId");
+            try {
+                bolbolestan.handleFinalize(studentId);
+                ctx.redirect("/submit_ok");
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+                ctx.redirect("/submit_failed");
+                //ctx.status(502).result(":| " + e.getMessage());
+            }
+        });
+
+        app.get("/submit_ok", ctx -> {
+            try {
+                ctx.html(readHTMLPage("submit_ok.html"));
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+                ctx.status(502).result(":| " + e.getMessage());
+            }
+        });
+
+        app.get("/submit_failed", ctx -> {
+            try {
+                ctx.html(readHTMLPage("submit_failed.html"));
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+                ctx.status(502).result(":| " + e.getMessage());
+            }
+        });
     }
 
     private String generateProfile(String studentId) throws Exception {
@@ -206,6 +249,18 @@ public class InterfaceServer {
         return changePlanHTML;
     }
 
+    private String generateSubmitPage(String studentId) throws Exception {
+        if (!bolbolestan.doesStudentExist(studentId))
+            throw new BolbolestanStudentNotFoundError();
+
+        String submitHTML = readHTMLPage("submit.html");
+        HashMap<String, String> submitContent = new HashMap<>();
+        submitContent.put("studentId", studentId);
+        submitContent.put("totalUnits", Integer.toString(bolbolestan.getTotalUnits(studentId)));
+        submitHTML = HTMLHandler.fillTemplate(submitHTML, submitContent);
+        return submitHTML;
+    }
+
     private String readHTMLPage(String fileName) throws Exception {
         File file = new File(Resources.getResource("templates/" + fileName).toURI());
         return FileUtils.readFileToString(file, StandardCharsets.UTF_8);
@@ -247,10 +302,12 @@ public class InterfaceServer {
         }
     }
 
-    //private void assignCoursesForTests(String studentId) throws Exception {
-        //bolbolestan.addToWeeklySchedule(studentId, "8101028-01");
-        //bolbolestan.addToWeeklySchedule(studentId, "8101020-01");
-   // }
+    private void assignCoursesForTests(String studentId) throws Exception {
+        bolbolestan.addToWeeklySchedule(studentId, "8101028-01");
+        bolbolestan.addToWeeklySchedule(studentId, "8101020-01");
+        bolbolestan.addToWeeklySchedule(studentId, "8101031-01");
+        bolbolestan.addToWeeklySchedule(studentId, "8101021-01");
+    }
 
     private void importGradesFromWeb(final String gradesURL) throws Exception {
         Map<String, Student> students = bolbolestan.getStudents();
