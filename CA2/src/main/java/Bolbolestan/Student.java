@@ -62,7 +62,6 @@ public class Student {
         if (weeklySchedule == null)
             weeklySchedule = new WeeklySchedule();
         weeklySchedule.addToWeeklySchedule(course);
-        course.reduceCapacity();
     }
 
     private boolean hasPrerequisites(Course course) {

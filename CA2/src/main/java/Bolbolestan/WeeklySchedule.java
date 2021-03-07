@@ -54,10 +54,12 @@ public class WeeklySchedule {
     public void finalizeWeeklySchedule() throws Exception {
         if (weeklySchedule == null)
             weeklySchedule = new ArrayList<>();
-        //checkCapacity();
         checkValidNumberOfUnits();
-//        checkExamTimeCollision();
         status = finalized;
+
+        for (Course course: weeklySchedule) {
+            course.reduceCapacity();
+        }
     }
 
     public String getCourseNameByClassTime(String day, String startTime) {

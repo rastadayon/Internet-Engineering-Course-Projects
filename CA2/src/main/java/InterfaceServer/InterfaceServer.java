@@ -48,7 +48,7 @@ public class InterfaceServer {
     }
 
     public void runServer(final int port) throws Exception {
-        assignCoursesForTests("810196285");
+        //assignCoursesForTests("810196285");
         app = Javalin.create().start(port);
         app.get("/courses", ctx -> {
             try {
@@ -241,7 +241,7 @@ public class InterfaceServer {
             courseContent.put("classCode", course.getClassCode());
             courseContent.put("name", course.getName());
             courseContent.put("units", Integer.toString(course.getUnits()));
-            courseContent.put("capacity", Integer.toString(course.getCapacity() - course.getSeatsTaken()));
+            courseContent.put("capacity", Integer.toString(course.getCapacity()));
             courseContent.put("type", course.getType());
             courseContent.put("classDays", course.getClassDayString("|"));
             courseContent.put("classTime", course.getClassTime().getTime());
@@ -275,7 +275,12 @@ public class InterfaceServer {
             throw new BolbolestanStudentNotFoundError();
 
         String changePlanHTML = readHTMLPage("change_plan_start.html");
-        List<Course> courses = bolbolestan.handleGetWeeklySchedule(studentId).getOfferings();
+        WeeklySchedule weeklySchedule = bolbolestan.handleGetWeeklySchedule(studentId);
+        if (weeklySchedule == null) {
+            changePlanHTML += readHTMLPage("change_plan_end.html");
+            return changePlanHTML;
+        }
+        List<Course> courses = weeklySchedule.getOfferings();
         String planItemString = readHTMLPage("change_plan_item.html");
         for (Course course: courses) {
             HashMap<String, String> planContent = new HashMap<>();
@@ -299,7 +304,9 @@ public class InterfaceServer {
         for (String day: days) {
             HashMap<String, String> planContent = new HashMap<>();
             for (String startTime: startTimes) {
-                String courseName = weeklySchedule.getCourseNameByClassTime(day, startTime);
+                String courseName = "";
+                if (weeklySchedule != null)
+                    courseName = weeklySchedule.getCourseNameByClassTime(day, startTime);
                 planContent.put(startTime, courseName);
                 planContent.put("day", day);
             }

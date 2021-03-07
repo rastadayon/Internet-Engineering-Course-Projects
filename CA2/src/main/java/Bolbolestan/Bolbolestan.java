@@ -102,6 +102,8 @@ public class Bolbolestan {
 
     public int getTotalUnits(String studentId) throws Exception{
         WeeklySchedule weeklySchedule = handleGetWeeklySchedule(studentId);
+        if (weeklySchedule == null)
+            return  0;
         int units = weeklySchedule.getTotalUnits();
         return units;
     }
