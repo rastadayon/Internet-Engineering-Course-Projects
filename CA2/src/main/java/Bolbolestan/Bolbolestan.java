@@ -184,4 +184,8 @@ public class Bolbolestan {
         if (conflictingClassTimes == null && conflictingExamTimes == null && prerequisitesNotPassed == null && hasCapacity)
             student.addToWeeklySchedule(course);
     }
+
+    public void removeAllCoursesFromStudent(String studentId) {
+        students.get(studentId).getWeeklySchedule().removeAllCourses();
+    }
 }

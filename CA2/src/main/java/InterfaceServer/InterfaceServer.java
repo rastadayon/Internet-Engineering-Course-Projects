@@ -47,6 +47,14 @@ public class InterfaceServer {
         }
     }
 
+    public void stop() {
+        //app.stop();
+    }
+
+    public Bolbolestan getEduSystem() {
+        return bolbolestan;
+    }
+
     public void runServer(final int port) throws Exception {
         //assignCoursesForTests("810196285");
         app = Javalin.create().start(port);
@@ -141,7 +149,7 @@ public class InterfaceServer {
                 ctx.html(readHTMLPage("404.html"));
             } catch (Exception e){
                 System.out.println(e.getMessage());
-                //ctx.status(502).result(":| " + e.getMessage());
+                ctx.status(502).result(":| " + e.getMessage());
             }
         });
 
@@ -153,7 +161,7 @@ public class InterfaceServer {
             } catch (Exception e){
                 System.out.println(e.getMessage());
                 ctx.redirect("/submit_failed");
-                //ctx.status(502).result(":| " + e.getMessage());
+                ctx.status(502).result(":| " + e.getMessage());
             }
         });
 

@@ -67,9 +67,14 @@ public class WeeklySchedule {
         for (Course course : weeklySchedule) {
             if (course.hasClassTime(day, startTime)) {
                 courseName = course.getName();
-                continue;
+                break;
             }
         }
         return courseName;
     }
+
+    public void removeAllCourses() {
+        weeklySchedule = new ArrayList<Course>();
+    }
+
 }

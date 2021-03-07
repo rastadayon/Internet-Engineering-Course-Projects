@@ -5,13 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f2d1613-d2a2-48e3-84e9-6a60add5deb1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_konghq_unirest_java_3_6_01.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpasyncclient_4_1_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_nio_4_4_13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpmime_4_5_11.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CA2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CA2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Bolbolestan/Bolbolestan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Bolbolestan/Bolbolestan.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Bolbolestan/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Bolbolestan/Student.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Bolbolestan/WeeklySchedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Bolbolestan/WeeklySchedule.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/InterfaceServer/InterfaceServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/InterfaceServer/InterfaceServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/submit_ok.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/submit_ok.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Bolbolestan/Bolbolestan.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Bolbolestan/Bolbolestan.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Bolbolestan/Student.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Bolbolestan/Student.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Bolbolestan/WeeklySchedule.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Bolbolestan/WeeklySchedule.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$2.class" afterDir="false" />
@@ -40,13 +45,21 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="true" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Global Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.SubmitUnitsTest">
     <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="CA2" />
@@ -54,17 +67,55 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SubmitUnitsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CA2" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="SubmitUnitsTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SubmitUnitsTest.notFoundGetRestaurantTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CA2" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="SubmitUnitsTest" />
+      <option name="METHOD_NAME" value="notFoundGetRestaurantTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SubmitUnitsTest.testMinimumUnitsSubmission" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CA2" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="SubmitUnitsTest" />
+      <option name="METHOD_NAME" value="testMinimumUnitsSubmission" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.SubmitUnitsTest" />
+        <item itemvalue="JUnit.SubmitUnitsTest.testMinimumUnitsSubmission" />
+        <item itemvalue="JUnit.SubmitUnitsTest.notFoundGetRestaurantTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -74,7 +125,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1615098288942</updated>
-      <workItem from="1615098291129" duration="8291000" />
+      <workItem from="1615098291129" duration="18578000" />
+      <workItem from="1615121888056" duration="3490000" />
     </task>
     <servers />
   </component>
