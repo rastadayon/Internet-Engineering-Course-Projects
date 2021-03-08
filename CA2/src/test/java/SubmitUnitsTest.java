@@ -1,12 +1,13 @@
 
+import Bolbolestan.Offering.Offering;
 import InterfaceServer.InterfaceServer;
 import Bolbolestan.Bolbolestan;
 import Bolbolestan.Student.Student;
-import Bolbolestan.Offering.Offering;
 import Bolbolestan.Offering.ClassTime;
 import Bolbolestan.Offering.ExamTime;
 
 import org.junit.BeforeClass;
+import org.junit.AfterClass;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.Assert;
@@ -52,17 +53,22 @@ public class SubmitUnitsTest {
         final int PORT = 8080;
         interfaceServer = new InterfaceServer();
         bolbolestan = interfaceServer.getEduSystem();
+        interfaceServer.start(STUDENTS_URL, COURSES_URL, GRADES_URL, PORT);
         try {
             fillBolbolestan();
-            interfaceServer.start(STUDENTS_URL, COURSES_URL, GRADES_URL, PORT);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     @After
-    public void teardown() throws Exception{
-        bolbolestan.removeAllCoursesFromStudent("810196675");
+    public void teardown() {
+        try {
+            bolbolestan.removeAllCoursesFromStudent("810196675");
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
@@ -72,9 +78,9 @@ public class SubmitUnitsTest {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        HttpResponse<String> response = Unirest.post("http://localhost:8080/submit/810196675")
-                .asString();
-        Assert.assertEquals("Your request failed", response.getBody());
+        HttpResponse<String> response = Unirest.post("http://localhost:8080/submit/810196675").asString();
+        System.out.println(response.getBody().toString());
+        Assert.assertEquals("/submit_failed",  response.getHeaders().get("Location").get(0));
         Assert.assertEquals(502, response.getStatus());
     }
 
@@ -86,9 +92,9 @@ public class SubmitUnitsTest {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        HttpResponse<String> response = Unirest.post("http://localhost:8080/submit/810196675")
-                .asString();
-        Assert.assertEquals("Your request failed", response.getBody());
+        HttpResponse<String> response = Unirest.post("http://localhost:8080/submit/810196675").asString();
+        System.out.println(response.getBody().toString());
+        Assert.assertEquals("/submit_failed",  response.getHeaders().get("Location").get(0));
         Assert.assertEquals(502, response.getStatus());
     }
 
@@ -100,9 +106,9 @@ public class SubmitUnitsTest {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        HttpResponse<String> response = Unirest.post("http://localhost:8080/submit/810196675")
-                .asString();
-        Assert.assertEquals("Your request submitted successfully", response.getBody());
-        Assert.assertEquals(502, response.getStatus());
+        HttpResponse<String> response = Unirest.post("http://localhost:8080/submit/810196675").asString();
+        System.out.println(response.getBody().toString());
+        Assert.assertEquals("/submit_ok",  response.getHeaders().get("Location").get(0));
+        Assert.assertEquals(200, response.getStatus());
     }
 }
