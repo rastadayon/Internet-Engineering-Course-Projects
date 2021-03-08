@@ -1,4 +1,4 @@
-package Bolbolestan;
+package Bolbolestan.Utilities;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -23,7 +23,7 @@ public final class Utils {
         LocalDateTime end1 = LocalDateTime.parse(interval1End, dtf);
         LocalDateTime start2 = LocalDateTime.parse(interval2Start, dtf);
         LocalDateTime end2 = LocalDateTime.parse(interval2End, dtf);
-        return !start1.isAfter(end2) && !start2.isAfter(end1);
+        return start1.isBefore(end2) && start2.isBefore(end1);
     }
 
     public static boolean doTimesCollide(String interval1Start, String interval1End,
@@ -33,7 +33,7 @@ public final class Utils {
         LocalTime end1 = LocalTime.parse(interval1End, dtf);
         LocalTime start2 = LocalTime.parse(interval2Start, dtf);
         LocalTime end2 = LocalTime.parse(interval2End, dtf);
-        return !start1.isAfter(end2) && !start2.isAfter(end1);
+        return start1.isBefore(end2) && start2.isBefore(end1);
     }
 
         public ArrayList<String> correctTimeFormat(String[] time) {

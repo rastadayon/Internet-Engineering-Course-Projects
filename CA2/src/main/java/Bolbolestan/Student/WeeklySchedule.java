@@ -1,6 +1,6 @@
 package Bolbolestan.Student;
 
-import Bolbolestan.Offering.Course;
+import Bolbolestan.Offering.Offering;
 import Bolbolestan.exeptions.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,26 +9,26 @@ import java.util.List;
 public class WeeklySchedule {
     private static final String finalized = "finalized";
     private static final String non_finalized = "non-finalized";
-    private List<Course> weeklySchedule = new ArrayList<Course>();
+    private List<Offering> weeklySchedule = new ArrayList<Offering>();
     private String status = non_finalized;
 
-    public List<Course> getOfferings() {
+    public List<Offering> getOfferings() {
         return weeklySchedule;
     }
 
-    public void addToWeeklySchedule(Course course) {
+    public void addToWeeklySchedule(Offering offering) {
         if (weeklySchedule == null)
-            weeklySchedule = new ArrayList<Course>();
-        if (!weeklySchedule.contains(course)) {
-            weeklySchedule.add(course);
+            weeklySchedule = new ArrayList<Offering>();
+        if (!weeklySchedule.contains(offering)) {
+            weeklySchedule.add(offering);
             status = non_finalized;
         }
     }
 
-    public void removeFromWeeklySchedule(Course course) throws Exception {
+    public void removeFromWeeklySchedule(Offering offering) throws Exception {
         if (weeklySchedule == null)
             throw new BolbolestanCourseNotFoundError();
-        boolean successful = weeklySchedule.remove(course);
+        boolean successful = weeklySchedule.remove(offering);
         if (!successful) {
             throw new BolbolestanCourseNotFoundError();
         }
@@ -38,8 +38,8 @@ public class WeeklySchedule {
 
     public int getTotalUnits() {
         int units = 0;
-        for (Course course : weeklySchedule) {
-            units += course.getUnits();
+        for (Offering offering : weeklySchedule) {
+            units += offering.getUnits();
         }
         return units;
     }
@@ -58,16 +58,16 @@ public class WeeklySchedule {
         checkValidNumberOfUnits();
         status = finalized;
 
-        for (Course course: weeklySchedule) {
-            course.reduceCapacity();
+        for (Offering offering : weeklySchedule) {
+            offering.reduceCapacity();
         }
     }
 
     public String getCourseNameByClassTime(String day, String startTime) {
         String courseName = "";
-        for (Course course : weeklySchedule) {
-            if (course.hasClassTime(day, startTime)) {
-                courseName = course.getName();
+        for (Offering offering : weeklySchedule) {
+            if (offering.hasClassTime(day, startTime)) {
+                courseName = offering.getName();
                 break;
             }
         }
@@ -75,7 +75,7 @@ public class WeeklySchedule {
     }
 
     public void removeAllCourses() {
-        weeklySchedule = new ArrayList<Course>();
+        weeklySchedule = new ArrayList<Offering>();
     }
 
 }

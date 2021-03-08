@@ -2,12 +2,11 @@
 import InterfaceServer.InterfaceServer;
 import Bolbolestan.Bolbolestan;
 import Bolbolestan.Student.Student;
-import Bolbolestan.Offering.Course;
+import Bolbolestan.Offering.Offering;
 import Bolbolestan.Offering.ClassTime;
 import Bolbolestan.Offering.ExamTime;
 
 import org.junit.BeforeClass;
-import org.junit.AfterClass;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.Assert;
@@ -25,17 +24,17 @@ public class SubmitUnitsTest {
         try {
             bolbolestan.addStudent(new Student("810196675", "Ghazal",
                     "Kalhor", "1399/12/12"));
-            bolbolestan.addCourse(new Course("8120144", "01",
+            bolbolestan.addOffering(new Offering("8120144", "01",
                     "AP", 3, "Asli", "Sara", 60,
                     new ArrayList<>(), new ClassTime("14-15:30",
                     new ArrayList<>(Arrays.asList("Saturday"))), new ExamTime(
                     "2021-07-01T08:00:00", "2021-07-01T08:00:00")));
-            bolbolestan.addCourse(new Course("8120133", "01",
+            bolbolestan.addOffering(new Offering("8120133", "01",
                     "Project", 20, "Asli", "Sara", 60,
                     new ArrayList<>(), new ClassTime("14-15:30",
                     new ArrayList<>(Arrays.asList("Monday"))), new ExamTime(
                     "2021-08-01T08:00:00", "2021-08-01T08:00:00")));
-            bolbolestan.addCourse(new Course("8120122", "01",
+            bolbolestan.addOffering(new Offering("8120122", "01",
                     "AGT", 10, "Asli", "Sara", 60,
                     new ArrayList<>(), new ClassTime("14-15:30",
                     new ArrayList<>(Arrays.asList("Tuesday"))), new ExamTime(
@@ -62,7 +61,7 @@ public class SubmitUnitsTest {
     }
 
     @After
-    public void teardown() {
+    public void teardown() throws Exception{
         bolbolestan.removeAllCoursesFromStudent("810196675");
     }
 

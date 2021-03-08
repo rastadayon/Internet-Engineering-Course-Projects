@@ -1,13 +1,13 @@
 package Bolbolestan.Offering;
 
 
-import Bolbolestan.Utils;
-import org.json.JSONObject;
+import Bolbolestan.Utilities.Utils;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Course implements Comparable<Course> {
+public class Offering {
     private final String code;
     private final String classCode;
     private final String name;
@@ -19,9 +19,10 @@ public class Course implements Comparable<Course> {
     private ClassTime classTime;
     private ExamTime examTime;
     private int seatsTaken;
-    public Course(String code, String classCode, String name, int units,
-                  String type, String instructor, int capacity, ArrayList<String> prerequisites,
-                  ClassTime classTime, ExamTime examTime) {
+
+    public Offering(String code, String classCode, String name, int units, String type, String instructor,
+                    int capacity, ArrayList<String> prerequisites, ClassTime classTime,
+                    ExamTime examTime) {
         this.code = code;
         this.classCode = classCode;
         this.name = name;
@@ -35,6 +36,7 @@ public class Course implements Comparable<Course> {
         this.seatsTaken = 0;
     }
 
+
     public String getType() { return type; }
 
     public ExamTime getExamTime() { return examTime; }
@@ -45,14 +47,36 @@ public class Course implements Comparable<Course> {
 
     public int getCapacity() { return capacity; }
 
-    public String getCode() {
-        return this.code;
+    public String getCourseCode() {
+        return code;
+    }
+
+    public void print() {
+        System.out.println(String.format("course code : %s-%s", code, classCode));
+        System.out.println(String.format("course name : %s", name));
+        System.out.println(String.format("units : %d", units));
+        System.out.println(String.format("type : %s", type));
+        System.out.println(String.format("instructor : %s", instructor));
+        System.out.println(String.format("capacity : %d", capacity));
+        System.out.print("prerequisites : [ ");
+        for (int i = 0; i < prerequisites.size(); i++) {
+            if (i != 0)
+                System.out.print(", ");
+            System.out.print(prerequisites.get(i));
+        }
+        System.out.println(" ]");
+        classTime.print();
+        examTime.print();
+    }
+
+    public boolean isEqual(Offering offering) {
+        return this.code.equals(offering.getCourseCode()) && this.classCode.equals(offering.getCourseCode());
     }
 
     public void reduceCapacity() {
-        System.out.println("reducing capacity"); seatsTaken += 1; }
+        seatsTaken += 1; }
 
-    public int getSeatsTaken() { return seatsTaken; }
+//    public int getSeatsTaken() { return seatsTaken; }
 
     public ClassTime getClassTime() { return classTime; }
 
@@ -81,47 +105,29 @@ public class Course implements Comparable<Course> {
         return prerequisitesString;
     }
 
-    public void print() {
-        System.out.println(String.format("course code : %s-%s", code, classCode));
-        System.out.println(String.format("course name : %s", name));
-        System.out.println(String.format("units : %d", units));
-        System.out.println(String.format("type : %s", type));
-        System.out.println(String.format("instructor : %s", instructor));
-        System.out.println(String.format("capacity : %d", capacity));
-        System.out.print("prerequisites : [ ");
-        for (int i = 0; i < prerequisites.size(); i++) {
-            if (i != 0)
-                System.out.print(", ");
-            System.out.print(prerequisites.get(i));
-        }
-        System.out.println(" ]");
-        classTime.print();
-        examTime.print();
-    }
-
-    public JSONObject toJSON() {
-        JSONObject jo = new JSONObject();
-       jo.put("prerequisites", prerequisites);
-       jo.put("capacity", capacity);
-       jo.put("examTime", examTime.toJSON());
-       jo.put("classTime", classTime.toJSON());
-       jo.put("units", units);
-       jo.put("Instructor", instructor);
-       jo.put("name", name);
-       jo.put("code", code);
-
-        return jo;
-    }
-
-    public JSONObject exposeToJSON() {
-        JSONObject jo = new JSONObject();
-        jo.put("examTime", examTime.toJSON());
-        jo.put("classTime", classTime.toJSON());
-        jo.put("name", name);
-        jo.put("code", code);
-
-        return jo;
-    }
+//    public JSONObject toJSON() {
+//        JSONObject jo = new JSONObject();
+//       jo.put("prerequisites", prerequisites);
+//       jo.put("capacity", capacity);
+//       jo.put("examTime", examTime.toJSON());
+//       jo.put("classTime", classTime.toJSON());
+//       jo.put("units", units);
+//       jo.put("Instructor", instructor);
+//       jo.put("name", name);
+//       jo.put("code", code);
+//
+//        return jo;
+//    }
+//
+//    public JSONObject exposeToJSON() {
+//        JSONObject jo = new JSONObject();
+//        jo.put("examTime", examTime.toJSON());
+//        jo.put("classTime", classTime.toJSON());
+//        jo.put("name", name);
+//        jo.put("code", code);
+//
+//        return jo;
+//    }
 
     public String getName() {return name;}
 
@@ -129,12 +135,12 @@ public class Course implements Comparable<Course> {
         return classTime.hasTime(day, startTime);
     }
 
-    @Override
-    public int compareTo(Course o) {
-        return this.getName().compareTo(o.getName());
-    }
+//    @Override
+//    public int compareTo(Course o) {
+//        return this.getName().compareTo(o.getName());
+//    }
 
-    public boolean doesClassTimeCollide (Course c) {
+    public boolean doesClassTimeCollide (Offering c) {
         List<String> cDays = c.getClassTime().getDays();
         cDays.retainAll(classTime.getDays());
         if (cDays.isEmpty())
@@ -150,7 +156,7 @@ public class Course implements Comparable<Course> {
         return utils.doTimesCollide(cStart, cEnd, courseStart, courseEnd, "kk:mm");
     }
 
-    public boolean doesExamTimeCollide (Course c) {
+    public boolean doesExamTimeCollide (Offering c) {
         String cStart = c.getExamTime().getStart();
         String cEnd = c.getExamTime().getEnd();
         return Utils.getInstance().doDateTimesCollide(cStart, cEnd, this.getExamTime().getStart(),

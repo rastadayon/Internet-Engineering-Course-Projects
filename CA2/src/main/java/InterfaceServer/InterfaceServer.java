@@ -1,13 +1,11 @@
 package InterfaceServer;
 import Bolbolestan.Bolbolestan;
-import Bolbolestan.Offering.Course;
+import Bolbolestan.Offering.Offering;
 import Bolbolestan.Student.Student;
 import Bolbolestan.Student.Grade;
 import Bolbolestan.Student.WeeklySchedule;
 import Bolbolestan.exeptions.BolbolestanCourseNotFoundError;
-import Bolbolestan.exeptions.BolbolestanRulesViolationError;
 import Bolbolestan.exeptions.BolbolestanStudentNotFoundError;
-import com.google.common.io.Files;
 import com.google.common.io.Resources;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -56,7 +54,6 @@ public class InterfaceServer {
     }
 
     public void runServer(final int port) throws Exception {
-        //assignCoursesForTests("810196285");
         app = Javalin.create().start(port);
         app.get("/courses", ctx -> {
             try {
@@ -92,9 +89,9 @@ public class InterfaceServer {
         app.post("/change_plan/:studentId", ctx -> {
             try {
                 String studentId = ctx.pathParam("studentId");
-                String code = ctx.formParam("course_code") + '-'
-                        + ctx.formParam("class_code");
-                bolbolestan.removeFromWeeklySchedule(studentId, code);
+                String courseCode = ctx.formParam("course_code");
+                String classCode = ctx.formParam("class_code");
+                bolbolestan.removeFromWeeklySchedule(studentId, courseCode, classCode);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -187,18 +184,18 @@ public class InterfaceServer {
     private String generateAddCourseToStudent(
             String studentId, String courseCode, String classCode) throws Exception {
         String response = "";
-        ArrayList<Course> conflictingClassTimes = bolbolestan.getClassTimeConflictingWithStudent(studentId, courseCode, classCode);
-        ArrayList<Course> conflictingExamTimes = bolbolestan.getExamTimeConflictingWithStudent(studentId, courseCode, classCode);
+        ArrayList<Offering> conflictingClassTimes = bolbolestan.getClassTimeConflictingWithStudent(studentId, courseCode, classCode);
+        ArrayList<Offering> conflictingExamTimes = bolbolestan.getExamTimeConflictingWithStudent(studentId, courseCode, classCode);
         ArrayList<String> prerequisitesNotPassed = bolbolestan.getPrerequisitesNotPassed(studentId, courseCode, classCode);
-        boolean hasCapacity = bolbolestan.courseHasCapacity(courseCode, classCode);
+        boolean hasCapacity = bolbolestan.offeringHasCapacity(courseCode, classCode);
         if (conflictingClassTimes != null)
-            for (Course course : conflictingClassTimes)
+            for (Offering offering : conflictingClassTimes)
                 response += String.format("Courses %s, %s have conflicting class times.\n",
-                        course.getCode() + "-" + course.getClassCode(), courseCode + "-" + classCode);
+                        offering.getCourseCode() + "-" + offering.getClassCode(), courseCode + "-" + classCode);
         if (conflictingExamTimes != null)
-            for (Course course : conflictingExamTimes)
+            for (Offering offering : conflictingExamTimes)
                 response += String.format("Courses %s, %s have conflicting exam times.\n",
-                        course.getCode() + "-" + course.getClassCode(), courseCode + "-" + classCode);
+                        offering.getCourseCode() + "-" + offering.getClassCode(), courseCode + "-" + classCode);
         if (prerequisitesNotPassed != null) {
             response += "The following prerequisites have not been passed yet : [ ";
             for (String prerequisite : prerequisitesNotPassed)
@@ -213,8 +210,6 @@ public class InterfaceServer {
     }
 
     private String generateProfile(String studentId) throws Exception {
-        if(!bolbolestan.doesStudentExist(studentId))
-            throw new BolbolestanStudentNotFoundError();
         Student student = bolbolestan.getStudentById(studentId);
         String profileHTML = readHTMLPage("profile_start.html");
 
@@ -232,30 +227,29 @@ public class InterfaceServer {
             studentProfile = new HashMap<>();
             studentProfile.put("code", grade.getCode());
             studentProfile.put("grade", Integer.toString(grade.getGrade()));
-            profileItem += HTMLHandler.fillTemplate(profileItem, studentProfile);
+            profileHTML += HTMLHandler.fillTemplate(profileItem, studentProfile);
         }
         return profileHTML + readHTMLPage("profile_end.html");
     }
 
     private String generateCoursesPage() throws Exception {
         String coursesHTML = readHTMLPage("courses_start.html");
-        Map<String, Course> coursesMap = bolbolestan.getCourses();
-        ArrayList<Course> courses = new ArrayList<>(coursesMap.values());
+        List<Offering> offerings = bolbolestan.getOfferings();
         String courseItemString = readHTMLPage("courses_item.html");
 
-        for (Course course : courses) {
+        for (Offering offering : offerings) {
             HashMap<String, String> courseContent = new HashMap<>();
-            courseContent.put("code", course.getCode());
-            courseContent.put("classCode", course.getClassCode());
-            courseContent.put("name", course.getName());
-            courseContent.put("units", Integer.toString(course.getUnits()));
-            courseContent.put("capacity", Integer.toString(course.getCapacity()));
-            courseContent.put("type", course.getType());
-            courseContent.put("classDays", course.getClassDayString("|"));
-            courseContent.put("classTime", course.getClassTime().getTime());
-            courseContent.put("examTimeStart", course.getExamTime().getStart());
-            courseContent.put("examTimeEnd", course.getExamTime().getEnd());
-            courseContent.put("prerequisites", course.getPrerequisitesString());
+            courseContent.put("code", offering.getCourseCode());
+            courseContent.put("classCode", offering.getClassCode());
+            courseContent.put("name", offering.getName());
+            courseContent.put("units", Integer.toString(offering.getUnits()));
+            courseContent.put("capacity", Integer.toString(offering.getCapacity()));
+            courseContent.put("type", offering.getType());
+            courseContent.put("classDays", offering.getClassDayString("|"));
+            courseContent.put("classTime", offering.getClassTime().getTime());
+            courseContent.put("examTimeStart", offering.getExamTime().getStart());
+            courseContent.put("examTimeEnd", offering.getExamTime().getEnd());
+            courseContent.put("prerequisites", offering.getPrerequisitesString());
             coursesHTML += HTMLHandler.fillTemplate(courseItemString, courseContent);
         }
         coursesHTML += readHTMLPage("courses_end.html");
@@ -263,17 +257,14 @@ public class InterfaceServer {
     }
 
     private String generateCoursePage(String courseCode, String classCode) throws Exception {
-        if (!bolbolestan.doesCourseExist(courseCode, classCode))
-            throw new BolbolestanCourseNotFoundError();
-        
-        Course course = bolbolestan.getCourseByIdentifier(courseCode, classCode);
+        Offering offering = bolbolestan.getOffering(courseCode, classCode);
         String courseHTML = readHTMLPage("course.html");
         HashMap<String, String> courseContent = new HashMap<>();
-        courseContent.put("code", course.getCode());
-        courseContent.put("classCode", course.getClassCode());
-        courseContent.put("units", Integer.toString(course.getUnits()));
-        courseContent.put("classDays", course.getClassDayString(", "));
-        courseContent.put("classTime", course.getClassTime().getTime());
+        courseContent.put("code", offering.getCourseCode());
+        courseContent.put("classCode", offering.getClassCode());
+        courseContent.put("units", Integer.toString(offering.getUnits()));
+        courseContent.put("classDays", offering.getClassDayString(", "));
+        courseContent.put("classTime", offering.getClassTime().getTime());
         courseHTML = HTMLHandler.fillTemplate(courseHTML, courseContent);
         return courseHTML;
     }
@@ -288,14 +279,14 @@ public class InterfaceServer {
             changePlanHTML += readHTMLPage("change_plan_end.html");
             return changePlanHTML;
         }
-        List<Course> courses = weeklySchedule.getOfferings();
+        List<Offering> offerings = weeklySchedule.getOfferings();
         String planItemString = readHTMLPage("change_plan_item.html");
-        for (Course course: courses) {
+        for (Offering offering : offerings) {
             HashMap<String, String> planContent = new HashMap<>();
-            planContent.put("code", course.getCode());
-            planContent.put("classCode", course.getClassCode());
-            planContent.put("name", course.getName());
-            planContent.put("units", Integer.toString(course.getUnits()));
+            planContent.put("code", offering.getCourseCode());
+            planContent.put("classCode", offering.getClassCode());
+            planContent.put("name", offering.getName());
+            planContent.put("units", Integer.toString(offering.getUnits()));
             changePlanHTML += HTMLHandler.fillTemplate(planItemString, planContent);
         }
         changePlanHTML += readHTMLPage("change_plan_end.html");
@@ -303,9 +294,6 @@ public class InterfaceServer {
     }
 
     private String generatePlanPage(String studentId) throws Exception {
-        if (!bolbolestan.doesStudentExist(studentId))
-            throw new BolbolestanStudentNotFoundError();
-
         String planHTML = readHTMLPage("plan_start.html");
         WeeklySchedule weeklySchedule = bolbolestan.handleGetWeeklySchedule(studentId);
         String planItemString = readHTMLPage("plan_item.html");
@@ -325,9 +313,6 @@ public class InterfaceServer {
     }
 
     private String generateSubmitPage(String studentId) throws Exception {
-        if (!bolbolestan.doesStudentExist(studentId))
-            throw new BolbolestanStudentNotFoundError();
-
         String submitHTML = readHTMLPage("submit.html");
         HashMap<String, String> submitContent = new HashMap<>();
         submitContent.put("studentId", studentId);
@@ -362,49 +347,49 @@ public class InterfaceServer {
     private void importCoursesFromWeb(final String coursesURL) throws Exception{
         String coursesJsonString = HTTPRequestHandler.getRequest(coursesURL);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        List<Course> courses = gson.fromJson(coursesJsonString, new TypeToken<List<Course>>() {
+        List<Offering> offerings = gson.fromJson(coursesJsonString, new TypeToken<List<Offering>>() {
         }.getType());
         int counter = 1;
-        for (Course course : courses) {
+        for (Offering offering : offerings) {
             System.out.println(counter + "----------------");
             counter++;
-            course.print();
+            offering.print();
             try {
-                bolbolestan.addCourse(course);
+                bolbolestan.addOffering(offering);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
     }
 
-    private void assignCoursesForTests(String studentId) throws Exception {
-        bolbolestan.addToWeeklySchedule(studentId, "8101028-01");
-        bolbolestan.addToWeeklySchedule(studentId, "8101020-01");
-        bolbolestan.addToWeeklySchedule(studentId, "8101031-01");
-        bolbolestan.addToWeeklySchedule(studentId, "8101021-01");
-    }
-
     private void importGradesFromWeb(final String gradesURL) throws Exception {
-        Map<String, Student> students = bolbolestan.getStudents();
-        for (Map.Entry<String, Student> entry : students.entrySet()) {
+        ArrayList<String> studentIds = bolbolestan.getStudentIds();
+        for (String studentId : studentIds) {
             String gradesJsonString = HTTPRequestHandler.getRequest(
-                    gradesURL + "/" + entry.getKey());
+                    gradesURL + "/" + studentId);
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             List<Grade> grades = gson.fromJson(gradesJsonString, new TypeToken<List<Grade>>() {
             }.getType());
             int counter = 1;
-            System.out.println(String.format("Student : %s", entry.getKey()));
+            System.out.println(String.format("Student : %s", studentId));
             for (Grade grade : grades) {
                 System.out.println(counter + "----------------");
                 counter++;
                 grade.print();
                 try {
-                    bolbolestan.addGradeToStudent(students.get(entry.getKey()), grade);
+                    bolbolestan.addGradeToStudent(studentId, grade);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
             }
         }
+    }
+
+    private void assignCoursesForTests(String studentId) throws Exception {
+        bolbolestan.addToWeeklySchedule(studentId, "8101028", "01");
+        bolbolestan.addToWeeklySchedule(studentId, "8101020", "01");
+        bolbolestan.addToWeeklySchedule(studentId, "8101031", "01");
+        bolbolestan.addToWeeklySchedule(studentId, "8101021", "01");
     }
 
 }

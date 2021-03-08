@@ -1,103 +1,80 @@
 package Bolbolestan;
 
-import Bolbolestan.Offering.Course;
+import Bolbolestan.Course.Course;
+import Bolbolestan.Course.CourseManager;
+import Bolbolestan.Offering.Offering;
+import Bolbolestan.Offering.OfferingManager;
 import Bolbolestan.Student.Grade;
 import Bolbolestan.Student.Student;
+import Bolbolestan.Student.StudentManager;
 import Bolbolestan.Student.WeeklySchedule;
 import Bolbolestan.exeptions.*;
 
 import java.util.*;
 
 public class Bolbolestan {
-    private Map<String, Student> students = new HashMap<>();
-    private Map<String, Course> courses = new HashMap<>();
-
-    public Map<String, Course> getCourses() { return courses; }
-    public Map<String, Student> getStudents() { return students; }
-
-    public Student getStudentById(String studentId) { return students.get(studentId); }
+    private StudentManager studentManager = new StudentManager();
+    private OfferingManager offeringManager = new OfferingManager();
+    private CourseManager courseManager = new CourseManager();
 
 
-    public Course getCourseByIdentifier(String courseCode, String classCode) {
-        return courses.get(courseCode + "-" + classCode);
+    public ArrayList<String> getStudentIds() {
+        return studentManager.getStudentIds();
+    }
+
+    public Student getStudentById(String studentId) throws Exception {
+        return studentManager.getStudentById(studentId);
     }
 
     public boolean doesStudentExist(String studentId) {
-        return students.containsKey(studentId);
+        return studentManager.doesStudentExist(studentId);
     }
 
-    public boolean doesCourseExist(String courseCode, String classCode) {
-        String identifier = courseCode + "-" + classCode;
-        return courses.containsKey(identifier);
+    public Offering getOffering(String courseCode, String classCode) throws Exception {
+        return offeringManager.getOfferingById(courseCode, classCode);
     }
 
-    public String addCourse(Course course) throws Exception {
-        if (doesCourseExist(course.getCode(), course.getClassCode()))
-            throw new BolbolestanRulesViolationError(String.
-                    format("Offering with the code %s already exists.", course.getCode()));
-        courses.put(course.getCode()+"-"+course.getClassCode(), course);
-        return "Offering successfully added.";
+    public List<Offering> getOfferings () {
+        return offeringManager.getOfferings();
     }
 
-    public String addStudent(Student student) throws Exception {
-        if (students.containsKey(student.getId()))
-            throw new BolbolestanRulesViolationError(String.format("Student with id %s already exists.", student.getId()));
-        students.put(student.getId(), student);
-        return "Student successfully added.";
+    public void addOffering(Offering offering) throws Exception {
+        offeringManager.addOffering(offering);
+        courseManager.addCourse(offering);
     }
 
-    public void addGradeToStudent(Student student, Grade grade) {
-        student.addGrade(grade);
+    public void addStudent(Student student) throws Exception {
+        studentManager.addStudent(student);
     }
 
-    public String addToWeeklySchedule(String studentId, String offeringCode) throws Exception {
-        if (!students.containsKey(studentId))
-            throw new BolbolestanStudentNotFoundError();
-        if (!courses.containsKey(offeringCode))
-            throw new BolbolestanCourseNotFoundError();
-        Student student = students.get(studentId);
-        Course course = courses.get(offeringCode);
-        student.addToWeeklySchedule(course);
-        return "Course successfully added to weekly schedule.";
+    public void addGradeToStudent(String studentId, Grade grade) throws Exception {
+        studentManager.addGradeToStudent(studentId, grade);
     }
 
-    public String removeFromWeeklySchedule(String studentId, String offeringCode) throws Exception {
-        if (!students.containsKey(studentId))
-            throw new BolbolestanStudentNotFoundError();
-        if (!courses.containsKey(offeringCode))
-            throw new BolbolestanCourseNotFoundError();
-        Student student = students.get(studentId);
-        Course course = courses.get(offeringCode);
-        student.removeFromWeeklySchedule(course);
-        return "Course successfully removed from weekly schedule.";
+    public void addToWeeklySchedule(String studentId, String courseCode, String classCode) throws Exception {
+        Offering offering = offeringManager.getOfferingById(courseCode, classCode);
+        studentManager.addToWeeklySchedule(studentId, offering);
+    }
+
+    public void removeFromWeeklySchedule(String studentId, String courseCode, String classCode) throws Exception {
+        Offering offering = offeringManager.getOfferingById(courseCode, classCode);
+        studentManager.removeFromWeeklySchedule(studentId, offering);
     }
 
     public WeeklySchedule handleGetWeeklySchedule(String studentId) throws Exception {
-        if (!students.containsKey(studentId))
-            throw new BolbolestanStudentNotFoundError();
-        Student student = students.get(studentId);
-        return student.getWeeklySchedule();
+        return studentManager.getWeeklySchedule(studentId);
     }
 
-    public String handleFinalize(String studentId) throws Exception {
-        if (!students.containsKey(studentId))
-            throw new BolbolestanStudentNotFoundError();
-        Student student = students.get(studentId);
-        student.getWeeklySchedule().finalizeWeeklySchedule();
-        return "Weekly schedule successfully finalized.";
+    public void handleFinalize(String studentId) throws Exception {
+        studentManager.finalizeSchedule(studentId);
     }
 
     public int getUnitsPassed(String studentId) throws Exception {
+        Student student = studentManager.getStudentById(studentId);
         int unitsPassed = 0;
-        if (!students.containsKey(studentId))
-            throw new BolbolestanStudentNotFoundError();
-        Student student = students.get(studentId);
         ArrayList<Grade> studentGrades = student.getGrades();
         for (Grade gradeItem : studentGrades) {
-            String courseCode = gradeItem.getCode();
-            if (!courses.containsKey(courseCode + "-01"))
-                throw new BolbolestanCourseNotFoundError();
-            Course course = getCourseByIdentifier(gradeItem.getCode(), "01");
+            Course course = courseManager.getCourseByCode(gradeItem.getCode());
             if (gradeItem.getGrade() >= 10)
                 unitsPassed += course.getUnits();
         }
@@ -105,91 +82,38 @@ public class Bolbolestan {
     }
 
     public int getTotalUnits(String studentId) throws Exception{
-        WeeklySchedule weeklySchedule = handleGetWeeklySchedule(studentId);
-        if (weeklySchedule == null)
-            return  0;
-        int units = weeklySchedule.getTotalUnits();
-        return units;
+        return studentManager.getTotalUnits(studentId);
     }
 
-    public ArrayList<Course> getClassTimeConflictingWithStudent(
+    public ArrayList<Offering> getClassTimeConflictingWithStudent(
             String studentId, String courseCode, String classCode) throws Exception {
-        ArrayList<Course> conflictingCourses = null;
-        if (!students.containsKey(studentId))
-            throw new BolbolestanStudentNotFoundError();
-        Student student = getStudentById(studentId);
-        if (!courses.containsKey(courseCode + "-" + classCode))
-            throw new BolbolestanCourseNotFoundError();
-        Course course = getCourseByIdentifier(courseCode, classCode);
-        if (student.getWeeklySchedule() != null) {
-            List<Course> studentWeeklySchedule = student.getWeeklySchedule().getOfferings();
-            for (Course weekCourse : studentWeeklySchedule) {
-                if (course.doesClassTimeCollide(weekCourse))
-                    if (conflictingCourses == null) {
-                        conflictingCourses = new ArrayList<Course>();
-                        conflictingCourses.add(weekCourse);
-                    }
-            }
-        }
-        return conflictingCourses;
+        Offering offering = offeringManager.getOfferingById(courseCode, classCode);
+        return studentManager.getClassTimeConflicts(studentId, offering);
     }
 
-    public ArrayList<Course> getExamTimeConflictingWithStudent(
+    public ArrayList<Offering> getExamTimeConflictingWithStudent(
             String studentId, String courseCode, String classCode) throws Exception {
-        ArrayList<Course> conflictingCourses = null;
-        if (!students.containsKey(studentId))
-            throw new BolbolestanStudentNotFoundError();
-        Student student = getStudentById(studentId);
-        if (!courses.containsKey(courseCode + "-" + classCode))
-            throw new BolbolestanCourseNotFoundError();
-        Course course = getCourseByIdentifier(courseCode, classCode);
-        if (student.getWeeklySchedule() != null){
-            List<Course> studentWeeklySchedule = student.getWeeklySchedule().getOfferings();
-            for (Course weekCourse : studentWeeklySchedule) {
-                if (course.doesExamTimeCollide(weekCourse))
-                    if (conflictingCourses == null) {
-                        conflictingCourses = new ArrayList<Course>();
-                        conflictingCourses.add(weekCourse);
-                    }
-            }
-        }
-        return conflictingCourses;
+        Offering offering = offeringManager.getOfferingById(courseCode, classCode);
+        return studentManager.getExamTimeConflicts(studentId, offering);
     }
 
-    public boolean courseHasCapacity(String courseCode, String classCode) throws Exception{
-        if (!courses.containsKey(courseCode + "-" + classCode))
-            throw new BolbolestanCourseNotFoundError();
-        return getCourseByIdentifier(courseCode, classCode).hasCapacity();
+    public boolean offeringHasCapacity(String courseCode, String classCode) throws Exception{
+        return offeringManager.offeringHasCapacity(courseCode, classCode);
     }
 
     public ArrayList<String> getPrerequisitesNotPassed(
             String studentId, String courseCode, String classCode) throws Exception {
-        if (!students.containsKey(studentId))
-            throw new BolbolestanStudentNotFoundError();
-        Student student = students.get(studentId);
-        if (!courses.containsKey(courseCode + "-" + classCode))
-            throw new BolbolestanCourseNotFoundError();
-        Course course = getCourseByIdentifier(courseCode, classCode);
-        return student.getPrerequisitesNotPassed(course);
+        Offering offering = offeringManager.getOfferingById(courseCode, classCode);
+        return studentManager.getPrerequisitesNotPassed(studentId, offering);
     }
 
     public void addCourseToStudent(String studentId, String courseCode, String classCode) throws Exception {
-        if (!students.containsKey(studentId))
-            throw new BolbolestanStudentNotFoundError();
-        Student student = students.get(studentId);
-        if (!courses.containsKey(courseCode + "-" + classCode))
-            throw new BolbolestanCourseNotFoundError();
-        Course course = getCourseByIdentifier(courseCode, classCode);
-        ArrayList<Course> conflictingClassTimes = getClassTimeConflictingWithStudent(studentId, courseCode, classCode);
-        ArrayList<Course> conflictingExamTimes = getExamTimeConflictingWithStudent(studentId, courseCode, classCode);
-        ArrayList<String> prerequisitesNotPassed = getPrerequisitesNotPassed(studentId, courseCode, classCode);
-        boolean hasCapacity = courseHasCapacity(courseCode, classCode);
-        System.out.println("has capacity : " + hasCapacity);
-        if (conflictingClassTimes == null && conflictingExamTimes == null && prerequisitesNotPassed == null && hasCapacity)
-            student.addToWeeklySchedule(course);
+        Offering offering = offeringManager.getOfferingById(courseCode, classCode);
+        if (offering.hasCapacity())
+            studentManager.addCourseToStudent(studentId, offering);
     }
 
-    public void removeAllCoursesFromStudent(String studentId) {
-        students.get(studentId).getWeeklySchedule().removeAllCourses();
+    public void removeAllCoursesFromStudent(String studentId) throws Exception {
+        studentManager.removeAllOfferingsFromStudent(studentId);
     }
 }
