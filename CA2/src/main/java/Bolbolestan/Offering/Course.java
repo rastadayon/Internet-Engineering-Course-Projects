@@ -1,6 +1,7 @@
-package Bolbolestan;
+package Bolbolestan.Offering;
 
 
+import Bolbolestan.Utils;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;

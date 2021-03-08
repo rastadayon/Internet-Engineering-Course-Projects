@@ -1,4 +1,4 @@
-package Bolbolestan;
+package Bolbolestan.Student;
 
 public class Grade {
     private final String code;

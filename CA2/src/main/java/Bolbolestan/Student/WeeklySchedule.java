@@ -1,5 +1,6 @@
-package Bolbolestan;
+package Bolbolestan.Student;
 
+import Bolbolestan.Offering.Course;
 import Bolbolestan.exeptions.*;
 import java.util.ArrayList;
 import java.util.List;

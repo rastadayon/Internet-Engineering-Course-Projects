@@ -1,9 +1,9 @@
 package InterfaceServer;
 import Bolbolestan.Bolbolestan;
-import Bolbolestan.Student;
-import Bolbolestan.Course;
-import Bolbolestan.Grade;
-import Bolbolestan.WeeklySchedule;
+import Bolbolestan.Offering.Course;
+import Bolbolestan.Student.Student;
+import Bolbolestan.Student.Grade;
+import Bolbolestan.Student.WeeklySchedule;
 import Bolbolestan.exeptions.BolbolestanCourseNotFoundError;
 import Bolbolestan.exeptions.BolbolestanRulesViolationError;
 import Bolbolestan.exeptions.BolbolestanStudentNotFoundError;

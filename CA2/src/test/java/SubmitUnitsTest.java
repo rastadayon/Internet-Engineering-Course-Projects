@@ -1,18 +1,18 @@
 
 import InterfaceServer.InterfaceServer;
 import Bolbolestan.Bolbolestan;
-import Bolbolestan.Student;
-import Bolbolestan.Course;
-import Bolbolestan.ClassTime;
-import Bolbolestan.ExamTime;
+import Bolbolestan.Student.Student;
+import Bolbolestan.Offering.Course;
+import Bolbolestan.Offering.ClassTime;
+import Bolbolestan.Offering.ExamTime;
 
 import org.junit.BeforeClass;
 import org.junit.AfterClass;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.Assert;
-import kong.unirest.Unirest;
 import kong.unirest.HttpResponse;
+import kong.unirest.Unirest;
 
 import java.util.ArrayList;
 import java.util.Arrays;

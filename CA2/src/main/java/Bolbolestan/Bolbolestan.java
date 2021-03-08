@@ -1,5 +1,9 @@
 package Bolbolestan;
 
+import Bolbolestan.Offering.Course;
+import Bolbolestan.Student.Grade;
+import Bolbolestan.Student.Student;
+import Bolbolestan.Student.WeeklySchedule;
 import Bolbolestan.exeptions.*;
 
 import java.util.*;
