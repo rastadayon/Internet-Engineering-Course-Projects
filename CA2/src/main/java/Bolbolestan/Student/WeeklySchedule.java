@@ -46,6 +46,7 @@ public class WeeklySchedule {
 
     private void checkValidNumberOfUnits() throws Exception {
         int units = getTotalUnits();
+        System.out.println(units);
         if (units > 20)
             throw new BolbolestanMaximumUnitsError();
         if (units < 12)

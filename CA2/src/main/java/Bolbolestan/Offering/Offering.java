@@ -110,10 +110,12 @@ public class Offering {
     }
 
     public boolean doesClassTimeCollide (Offering c) {
-        ArrayList<String> cDays = new ArrayList<>(getClassTime().getDays());
+        ArrayList<String> cDays = new ArrayList<>(c.getClassTime().getDays());
         cDays.retainAll(classTime.getDays());
-        if (cDays.isEmpty())
+        if (cDays.isEmpty()){
             return false;
+        }
+
         Utils utils = Utils.getInstance();
         ArrayList<String> courseTime = utils.correctTimeFormat(this.getClassTime().getTime().split("-"));
         ArrayList<String> cTime = utils.correctTimeFormat(c.getClassTime().getTime().split("-"));

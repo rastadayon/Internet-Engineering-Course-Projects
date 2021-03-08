@@ -1,0 +1,273 @@
+Index: src/test/java/SubmitUnitsTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>\nimport InterfaceServer.InterfaceServer;\nimport Bolbolestan.Bolbolestan;\nimport Bolbolestan.Student.Student;\nimport Bolbolestan.Offering.Offering;\nimport Bolbolestan.Offering.ClassTime;\nimport Bolbolestan.Offering.ExamTime;\n\nimport org.junit.BeforeClass;\nimport org.junit.After;\nimport org.junit.Test;\nimport org.junit.Assert;\nimport kong.unirest.HttpResponse;\nimport kong.unirest.Unirest;\n\nimport java.util.ArrayList;\nimport java.util.Arrays;\n\npublic class SubmitUnitsTest {\n    private static InterfaceServer interfaceServer;\n    private static Bolbolestan bolbolestan;\n\n    public static void fillBolbolestan() throws Exception{\n        try {\n            bolbolestan.addStudent(new Student(\"810196675\", \"Ghazal\",\n                    \"Kalhor\", \"1399/12/12\"));\n            bolbolestan.addOffering(new Offering(\"8120144\", \"01\",\n                    \"AP\", 3, \"Asli\", \"Sara\", 60,\n                    new ArrayList<>(), new ClassTime(\"14-15:30\",\n                    new ArrayList<>(Arrays.asList(\"Saturday\"))), new ExamTime(\n                    \"2021-07-01T08:00:00\", \"2021-07-01T08:00:00\")));\n            bolbolestan.addOffering(new Offering(\"8120133\", \"01\",\n                    \"Project\", 20, \"Asli\", \"Sara\", 60,\n                    new ArrayList<>(), new ClassTime(\"14-15:30\",\n                    new ArrayList<>(Arrays.asList(\"Monday\"))), new ExamTime(\n                    \"2021-08-01T08:00:00\", \"2021-08-01T08:00:00\")));\n            bolbolestan.addOffering(new Offering(\"8120122\", \"01\",\n                    \"AGT\", 10, \"Asli\", \"Sara\", 60,\n                    new ArrayList<>(), new ClassTime(\"14-15:30\",\n                    new ArrayList<>(Arrays.asList(\"Tuesday\"))), new ExamTime(\n                    \"2021-09-01T08:00:00\", \"2021-09-01T08:00:00\")));\n        } catch (Exception e) {\n            System.out.println(e.getMessage());\n        }\n    }\n\n    @BeforeClass\n    public static void setup() {\n        final String STUDENTS_URL = \"http://138.197.181.131:5000/api/students\";\n        final String GRADES_URL = \"http://138.197.181.131:5000/api/grades\";\n        final String COURSES_URL = \"http://138.197.181.131:5000/api/courses\";\n        final int PORT = 8080;\n        interfaceServer = new InterfaceServer();\n        bolbolestan = interfaceServer.getEduSystem();\n        try {\n            fillBolbolestan();\n            interfaceServer.start(STUDENTS_URL, COURSES_URL, GRADES_URL, PORT);\n        } catch (Exception e) {\n            System.out.println(e.getMessage());\n        }\n    }\n\n    @After\n    public void teardown() throws Exception{\n        bolbolestan.removeAllCoursesFromStudent(\"810196675\");\n    }\n\n    @Test\n    public void testMinimumUnitsSubmission() {\n        try {\n            bolbolestan.addCourseToStudent(\"810196675\", \"8120144\", \"01\");\n        } catch (Exception e) {\n            System.out.println(e.getMessage());\n        }\n        HttpResponse<String> response = Unirest.post(\"http://localhost:8080/submit/810196675\")\n                .asString();\n        Assert.assertEquals(\"Your request failed\", response.getBody());\n        Assert.assertEquals(502, response.getStatus());\n    }\n\n    @Test\n    public void testMaximumUnitsSubmission() {\n        try {\n            bolbolestan.addCourseToStudent(\"810196675\", \"8120144\", \"01\");\n            bolbolestan.addCourseToStudent(\"810196675\", \"8120133\", \"01\");\n        } catch (Exception e) {\n            System.out.println(e.getMessage());\n        }\n        HttpResponse<String> response = Unirest.post(\"http://localhost:8080/submit/810196675\")\n                .asString();\n        Assert.assertEquals(\"Your request failed\", response.getBody());\n        Assert.assertEquals(502, response.getStatus());\n    }\n\n    @Test\n    public void testSuccessfulSubmission() {\n        try {\n            bolbolestan.addCourseToStudent(\"810196675\", \"8120144\", \"01\");\n            bolbolestan.addCourseToStudent(\"810196675\", \"8120122\", \"01\");\n        } catch (Exception e) {\n            System.out.println(e.getMessage());\n        }\n        HttpResponse<String> response = Unirest.post(\"http://localhost:8080/submit/810196675\")\n                .asString();\n        Assert.assertEquals(\"Your request submitted successfully\", response.getBody());\n        Assert.assertEquals(502, response.getStatus());\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/SubmitUnitsTest.java b/src/test/java/SubmitUnitsTest.java
+--- a/src/test/java/SubmitUnitsTest.java	(revision 869d656db14570da52f847a25594027d2792792a)
++++ b/src/test/java/SubmitUnitsTest.java	(date 1615229222142)
+@@ -1,12 +1,13 @@
+ 
++import Bolbolestan.Offering.Offering;
+ import InterfaceServer.InterfaceServer;
+ import Bolbolestan.Bolbolestan;
+ import Bolbolestan.Student.Student;
+-import Bolbolestan.Offering.Offering;
+ import Bolbolestan.Offering.ClassTime;
+ import Bolbolestan.Offering.ExamTime;
+ 
+ import org.junit.BeforeClass;
++import org.junit.AfterClass;
+ import org.junit.After;
+ import org.junit.Test;
+ import org.junit.Assert;
+@@ -52,17 +53,22 @@
+         final int PORT = 8080;
+         interfaceServer = new InterfaceServer();
+         bolbolestan = interfaceServer.getEduSystem();
++        interfaceServer.start(STUDENTS_URL, COURSES_URL, GRADES_URL, PORT);
+         try {
+             fillBolbolestan();
+-            interfaceServer.start(STUDENTS_URL, COURSES_URL, GRADES_URL, PORT);
+         } catch (Exception e) {
+             System.out.println(e.getMessage());
+         }
+     }
+ 
+     @After
+-    public void teardown() throws Exception{
+-        bolbolestan.removeAllCoursesFromStudent("810196675");
++    public void teardown() {
++        try {
++            bolbolestan.removeAllCoursesFromStudent("810196675");
++        }
++        catch (Exception e) {
++            System.out.println(e.getMessage());
++        }
+     }
+ 
+     @Test
+@@ -72,9 +78,9 @@
+         } catch (Exception e) {
+             System.out.println(e.getMessage());
+         }
+-        HttpResponse<String> response = Unirest.post("http://localhost:8080/submit/810196675")
+-                .asString();
+-        Assert.assertEquals("Your request failed", response.getBody());
++        HttpResponse<String> response = Unirest.post("http://localhost:8080/submit/810196675").asString();
++        System.out.println(response.getBody().toString());
++        Assert.assertEquals("/submit_failed",  response.getHeaders().get("Location").get(0));
+         Assert.assertEquals(502, response.getStatus());
+     }
+ 
+@@ -86,9 +92,9 @@
+         } catch (Exception e) {
+             System.out.println(e.getMessage());
+         }
+-        HttpResponse<String> response = Unirest.post("http://localhost:8080/submit/810196675")
+-                .asString();
+-        Assert.assertEquals("Your request failed", response.getBody());
++        HttpResponse<String> response = Unirest.post("http://localhost:8080/submit/810196675").asString();
++        System.out.println(response.getBody().toString());
++        Assert.assertEquals("/submit_failed",  response.getHeaders().get("Location").get(0));
+         Assert.assertEquals(502, response.getStatus());
+     }
+ 
+@@ -100,9 +106,9 @@
+         } catch (Exception e) {
+             System.out.println(e.getMessage());
+         }
+-        HttpResponse<String> response = Unirest.post("http://localhost:8080/submit/810196675")
+-                .asString();
+-        Assert.assertEquals("Your request submitted successfully", response.getBody());
+-        Assert.assertEquals(502, response.getStatus());
++        HttpResponse<String> response = Unirest.post("http://localhost:8080/submit/810196675").asString();
++        System.out.println(response.getBody().toString());
++        Assert.assertEquals("/submit_ok",  response.getHeaders().get("Location").get(0));
++        Assert.assertEquals(200, response.getStatus());
+     }
+ }
+Index: ../.idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"bb7b4a8d-6a6f-421a-b7aa-b0b4a23bbbe7\" name=\"Default Changelist\" comment=\"\" />\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"ProjectLevelVcsManager\">\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\n  </component>\n  <component name=\"PropertiesComponent\">\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$/CA2\" />\n  </component>\n  <component name=\"TaskManager\">\n    <servers />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../.idea/workspace.xml b/../.idea/workspace.xml
+--- a/../.idea/workspace.xml	(revision 869d656db14570da52f847a25594027d2792792a)
++++ b/../.idea/workspace.xml	(date 1615228307372)
+@@ -1,20 +1,46 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="bb7b4a8d-6a6f-421a-b7aa-b0b4a23bbbe7" name="Default Changelist" comment="" />
++    <list default="true" id="bb7b4a8d-6a6f-421a-b7aa-b0b4a23bbbe7" name="Default Changelist" comment="">
++      <change beforePath="$PROJECT_DIR$/CA2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CA2/.idea/workspace.xml" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+     <option name="LAST_RESOLUTION" value="IGNORE" />
+   </component>
++  <component name="Git.Settings">
++    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++  </component>
++  <component name="ProjectId" id="1pUCROjyHRVW03VPv4YtVAQfd2K" />
+   <component name="ProjectLevelVcsManager">
+     <ConfirmationsSetting value="2" id="Add" />
+   </component>
++  <component name="ProjectViewState">
++    <option name="hideEmptyMiddlePackages" value="true" />
++    <option name="showLibraryContents" value="true" />
++  </component>
+   <component name="PropertiesComponent">
++    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
++    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
++    <property name="WebServerToolWindowFactoryState" value="false" />
++    <property name="aspect.path.notification.shown" value="true" />
+     <property name="last_opened_file_path" value="$PROJECT_DIR$/CA2" />
+   </component>
++  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
++    <task active="true" id="Default" summary="Default task">
++      <changelist id="bb7b4a8d-6a6f-421a-b7aa-b0b4a23bbbe7" name="Default Changelist" comment="" />
++      <created>1615228274173</created>
++      <option name="number" value="Default" />
++      <option name="presentableId" value="Default" />
++      <updated>1615228274173</updated>
++      <workItem from="1615228276608" duration="31000" />
++    </task>
+     <servers />
++  </component>
++  <component name="TypeScriptGeneratedFilesManager">
++    <option name="version" value="3" />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+     <option name="oldMeFiltersMigrated" value="true" />
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"d1a543a1-86b4-435c-84d6-408d4fa87e7f\" name=\"Default Changelist\" comment=\"\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/Bolbolestan/Offering/Offering.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/Bolbolestan/Offering/Offering.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/Bolbolestan/Offering/OfferingManager.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/Bolbolestan/Offering/OfferingManager.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/Bolbolestan/exeptions/BolbolestanCapacityError.java\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/Bolbolestan/exeptions/BolbolestanClassTimeCollisionError.java\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/InterfaceServer/InterfaceServer.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/InterfaceServer/InterfaceServer.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/target/classes/Bolbolestan/Offering/Offering.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/Bolbolestan/Offering/Offering.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer.class\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Class\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$/..\" />\n  </component>\n  <component name=\"ProjectId\" id=\"1pT1ghsSG3vOkCeV8kC13obpWbD\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\n    <property name=\"SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\n    <property name=\"aspect.path.notification.shown\" value=\"true\" />\n    <property name=\"nodejs_package_manager_path\" value=\"npm\" />\n    <property name=\"settings.editor.selected.configurable\" value=\"reference.settings.project.maven.repository.indices\" />\n  </component>\n  <component name=\"RunManager\" selected=\"Application.Unnamed\">\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"Main\" />\n      <module name=\"CA2\" />\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration name=\"Unnamed\" type=\"Application\" factoryName=\"Application\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"Main\" />\n      <module name=\"CA2\" />\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration name=\"test\" type=\"Application\" factoryName=\"Application\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"Sub\" />\n      <module name=\"CA2\" />\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration default=\"true\" type=\"ArquillianTestNG\" factoryName=\"\" nameIsGenerated=\"true\">\n      <option name=\"arquillianRunConfiguration\">\n        <value>\n          <option name=\"containerStateName\" value=\"\" />\n        </value>\n      </option>\n      <option name=\"TEST_OBJECT\" value=\"CLASS\" />\n      <properties />\n      <listeners />\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration name=\"SubmitUnitsTest\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"CA2\" />\n      <option name=\"PACKAGE_NAME\" value=\"\" />\n      <option name=\"MAIN_CLASS_NAME\" value=\"SubmitUnitsTest\" />\n      <option name=\"TEST_OBJECT\" value=\"class\" />\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <list>\n      <item itemvalue=\"Application.Unnamed\" />\n      <item itemvalue=\"Application.test\" />\n      <item itemvalue=\"Application.Main\" />\n      <item itemvalue=\"JUnit.SubmitUnitsTest\" />\n    </list>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"JUnit.SubmitUnitsTest\" />\n        <item itemvalue=\"Application.Main\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"d1a543a1-86b4-435c-84d6-408d4fa87e7f\" name=\"Default Changelist\" comment=\"\" />\n      <created>1615193302951</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1615193302951</updated>\n      <workItem from=\"1615193306292\" duration=\"4549000\" />\n      <workItem from=\"1615203405111\" duration=\"4086000\" />\n      <workItem from=\"1615210946957\" duration=\"12699000\" />\n    </task>\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 869d656db14570da52f847a25594027d2792792a)
++++ b/.idea/workspace.xml	(date 1615231006153)
+@@ -5,14 +5,18 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="d1a543a1-86b4-435c-84d6-408d4fa87e7f" name="Default Changelist" comment="">
++      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/Bolbolestan/Offering/Offering.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Bolbolestan/Offering/Offering.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/Bolbolestan/Offering/OfferingManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Bolbolestan/Offering/OfferingManager.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/Bolbolestan/exeptions/BolbolestanCapacityError.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/Bolbolestan/exeptions/BolbolestanClassTimeCollisionError.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/InterfaceServer/InterfaceServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/InterfaceServer/InterfaceServer.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/test/java/SubmitUnitsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SubmitUnitsTest.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/target/classes/Bolbolestan/Offering/Offering.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Bolbolestan/Offering/Offering.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/Bolbolestan/Offering/OfferingManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Bolbolestan/Offering/OfferingManager.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/Bolbolestan/exeptions/BolbolestanCapacityError.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/Bolbolestan/exeptions/BolbolestanClassTimeCollisionError.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$1.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$2.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$3.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/test-classes/SubmitUnitsTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/SubmitUnitsTest.class" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -41,10 +45,11 @@
+     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+     <property name="WebServerToolWindowFactoryState" value="false" />
+     <property name="aspect.path.notification.shown" value="true" />
++    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../internet-engineering-course-projects-younger/CA2/src/test/java/SubmitUnitsTest.java" />
+     <property name="nodejs_package_manager_path" value="npm" />
+     <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.repository.indices" />
+   </component>
+-  <component name="RunManager" selected="Application.Unnamed">
++  <component name="RunManager" selected="JUnit.SubmitUnitsTest">
+     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="Main" />
+       <module name="CA2" />
+@@ -66,15 +71,21 @@
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
++    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+       <option name="arquillianRunConfiguration">
+         <value>
+           <option name="containerStateName" value="" />
+         </value>
+       </option>
+-      <option name="TEST_OBJECT" value="CLASS" />
+-      <properties />
+-      <listeners />
++      <option name="TEST_OBJECT" value="class" />
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++    <configuration name="All in CA2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
++      <module name="CA2" />
++      <option name="PACKAGE_NAME" value="" />
++      <option name="TEST_OBJECT" value="package" />
+       <method v="2">
+         <option name="Make" enabled="true" />
+       </method>
+@@ -88,15 +99,41 @@
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
++    <configuration name="SubmitUnitsTest.testMaximumUnitsSubmission" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
++      <module name="CA2" />
++      <option name="PACKAGE_NAME" value="" />
++      <option name="MAIN_CLASS_NAME" value="SubmitUnitsTest" />
++      <option name="METHOD_NAME" value="testMaximumUnitsSubmission" />
++      <option name="TEST_OBJECT" value="method" />
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++    <configuration name="SubmitUnitsTest.testSuccessfulSubmission" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
++      <module name="CA2" />
++      <option name="PACKAGE_NAME" value="" />
++      <option name="MAIN_CLASS_NAME" value="SubmitUnitsTest" />
++      <option name="METHOD_NAME" value="testSuccessfulSubmission" />
++      <option name="TEST_OBJECT" value="method" />
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
+     <list>
+       <item itemvalue="Application.Unnamed" />
+       <item itemvalue="Application.test" />
+       <item itemvalue="Application.Main" />
+       <item itemvalue="JUnit.SubmitUnitsTest" />
++      <item itemvalue="JUnit.All in CA2" />
++      <item itemvalue="JUnit.SubmitUnitsTest.testMaximumUnitsSubmission" />
++      <item itemvalue="JUnit.SubmitUnitsTest.testSuccessfulSubmission" />
+     </list>
+     <recent_temporary>
+       <list>
+         <item itemvalue="JUnit.SubmitUnitsTest" />
++        <item itemvalue="JUnit.SubmitUnitsTest.testSuccessfulSubmission" />
++        <item itemvalue="JUnit.SubmitUnitsTest.testMaximumUnitsSubmission" />
++        <item itemvalue="JUnit.All in CA2" />
+         <item itemvalue="Application.Main" />
+       </list>
+     </recent_temporary>
+@@ -112,6 +149,8 @@
+       <workItem from="1615193306292" duration="4549000" />
+       <workItem from="1615203405111" duration="4086000" />
+       <workItem from="1615210946957" duration="12699000" />
++      <workItem from="1615228168784" duration="92000" />
++      <workItem from="1615228318650" duration="2679000" />
+     </task>
+     <servers />
+   </component>

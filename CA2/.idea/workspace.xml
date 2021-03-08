@@ -5,14 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d1a543a1-86b4-435c-84d6-408d4fa87e7f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Bolbolestan/Offering/Offering.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Bolbolestan/Offering/Offering.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Bolbolestan/Offering/OfferingManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Bolbolestan/Offering/OfferingManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Bolbolestan/exeptions/BolbolestanCapacityError.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Bolbolestan/exeptions/BolbolestanClassTimeCollisionError.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Bolbolestan/Student/WeeklySchedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Bolbolestan/Student/WeeklySchedule.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/InterfaceServer/InterfaceServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/InterfaceServer/InterfaceServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/SubmitUnitsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SubmitUnitsTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Bolbolestan/Offering/Offering.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Bolbolestan/Offering/Offering.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Bolbolestan/Offering/OfferingManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Bolbolestan/Offering/OfferingManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Bolbolestan/Student/WeeklySchedule.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Bolbolestan/Student/WeeklySchedule.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$3.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/SubmitUnitsTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/SubmitUnitsTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,10 +47,11 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../internet-engineering-course-projects-younger/CA2/src/test/java/SubmitUnitsTest.java" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.repository.indices" />
   </component>
-  <component name="RunManager" selected="Application.Unnamed">
+  <component name="RunManager" selected="JUnit.SubmitUnitsTest">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="CA2" />
@@ -66,15 +73,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="All in CA2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CA2" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -88,15 +101,41 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SubmitUnitsTest.testMaximumUnitsSubmission" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CA2" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="SubmitUnitsTest" />
+      <option name="METHOD_NAME" value="testMaximumUnitsSubmission" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SubmitUnitsTest.testSuccessfulSubmission" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CA2" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="SubmitUnitsTest" />
+      <option name="METHOD_NAME" value="testSuccessfulSubmission" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.Unnamed" />
       <item itemvalue="Application.test" />
       <item itemvalue="Application.Main" />
       <item itemvalue="JUnit.SubmitUnitsTest" />
+      <item itemvalue="JUnit.All in CA2" />
+      <item itemvalue="JUnit.SubmitUnitsTest.testMaximumUnitsSubmission" />
+      <item itemvalue="JUnit.SubmitUnitsTest.testSuccessfulSubmission" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.SubmitUnitsTest" />
+        <item itemvalue="JUnit.SubmitUnitsTest.testSuccessfulSubmission" />
+        <item itemvalue="JUnit.SubmitUnitsTest.testMaximumUnitsSubmission" />
+        <item itemvalue="JUnit.All in CA2" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -112,6 +151,8 @@
       <workItem from="1615193306292" duration="4549000" />
       <workItem from="1615203405111" duration="4086000" />
       <workItem from="1615210946957" duration="12699000" />
+      <workItem from="1615228168784" duration="92000" />
+      <workItem from="1615228318650" duration="6730000" />
     </task>
     <servers />
   </component>

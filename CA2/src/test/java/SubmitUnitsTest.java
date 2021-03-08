@@ -34,7 +34,7 @@ public class SubmitUnitsTest {
                     "Project", 20, "Asli", "Sara", 60,
                     new ArrayList<>(), new ClassTime("14-15:30",
                     new ArrayList<>(Arrays.asList("Monday"))), new ExamTime(
-                    "2021-08-01T08:00:00", "2021-08-01T08:00:00")));
+                    "2021-08-01T07:00:00", "2021-08-01T07:00:00")));
             bolbolestan.addOffering(new Offering("8120122", "01",
                     "AGT", 10, "Asli", "Sara", 60,
                     new ArrayList<>(), new ClassTime("14-15:30",
@@ -103,9 +103,12 @@ public class SubmitUnitsTest {
         try {
             bolbolestan.addCourseToStudent("810196675", "8120144", "01");
             bolbolestan.addCourseToStudent("810196675", "8120122", "01");
+            System.out.println(bolbolestan.getStudentById("810196675").getWeeklySchedule().getOfferings().size());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
+
         HttpResponse<String> response = Unirest.post("http://localhost:8080/submit/810196675").asString();
         System.out.println(response.getBody().toString());
         Assert.assertEquals("/submit_ok",  response.getHeaders().get("Location").get(0));

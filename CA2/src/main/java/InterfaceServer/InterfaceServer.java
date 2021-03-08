@@ -151,7 +151,7 @@ public class InterfaceServer {
                 ctx.html(readHTMLPage("404.html"));
             } catch (Exception e){
                 System.out.println(e.getMessage());
-                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
+                ctx.status(502).result("502:| " + e.getMessage());
             }
         });
 
@@ -159,12 +159,12 @@ public class InterfaceServer {
             String studentId = ctx.pathParam("studentId");
             try {
                 bolbolestan.handleFinalize(studentId);
-                ctx.status(200);
                 ctx.redirect("/submit_ok");
+                ctx.status(200);
             } catch (Exception e){
                 System.out.println(e.getMessage());
-                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
                 ctx.redirect("/submit_failed");
+                ctx.status(502);
             }
         });
 
@@ -173,7 +173,7 @@ public class InterfaceServer {
                 ctx.html(readHTMLPage("submit_ok.html"));
             } catch (Exception e){
                 System.out.println(e.getMessage());
-                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
+                ctx.status(502).result("502:| " + e.getMessage());
             }
         });
 
@@ -182,7 +182,7 @@ public class InterfaceServer {
                 ctx.html(readHTMLPage("submit_failed.html"));
             } catch (Exception e){
                 System.out.println(e.getMessage());
-                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
+                ctx.status(502).result("502:| " + e.getMessage());
             }
         });
     }
@@ -337,11 +337,7 @@ public class InterfaceServer {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         List<Student> students = gson.fromJson(StudentsJsonString, new TypeToken<List<Student>>() {
         }.getType());
-        int counter = 1;
         for (Student student : students) {
-            System.out.println(counter + "----------------");
-            counter++;
-            student.print();
             try {
                 bolbolestan.addStudent(student);
             } catch (Exception e) {
@@ -355,11 +351,7 @@ public class InterfaceServer {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         List<Offering> offerings = gson.fromJson(coursesJsonString, new TypeToken<List<Offering>>() {
         }.getType());
-        int counter = 1;
         for (Offering offering : offerings) {
-            System.out.println(counter + "----------------");
-            counter++;
-            offering.print();
             try {
                 bolbolestan.addOffering(offering);
             } catch (Exception e) {
@@ -376,12 +368,7 @@ public class InterfaceServer {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             List<Grade> grades = gson.fromJson(gradesJsonString, new TypeToken<List<Grade>>() {
             }.getType());
-            int counter = 1;
-            System.out.println(String.format("Student : %s", studentId));
             for (Grade grade : grades) {
-                System.out.println(counter + "----------------");
-                counter++;
-                grade.print();
                 try {
                     bolbolestan.addGradeToStudent(studentId, grade);
                 } catch (Exception e) {
@@ -390,12 +377,4 @@ public class InterfaceServer {
             }
         }
     }
-
-    private void assignCoursesForTests(String studentId) throws Exception {
-        bolbolestan.addToWeeklySchedule(studentId, "8101028", "01");
-        bolbolestan.addToWeeklySchedule(studentId, "8101020", "01");
-        bolbolestan.addToWeeklySchedule(studentId, "8101031", "01");
-        bolbolestan.addToWeeklySchedule(studentId, "8101021", "01");
-    }
-
 }
