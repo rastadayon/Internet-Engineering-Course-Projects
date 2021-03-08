@@ -18,7 +18,7 @@ public class Offering {
     private ArrayList<String> prerequisites;
     private ClassTime classTime;
     private ExamTime examTime;
-    private int seatsTaken;
+    private int seatsTaken = 0;
 
     public Offering(String code, String classCode, String name, int units, String type, String instructor,
                     int capacity, ArrayList<String> prerequisites, ClassTime classTime,
@@ -76,8 +76,6 @@ public class Offering {
     public void reduceCapacity() {
         seatsTaken += 1; }
 
-//    public int getSeatsTaken() { return seatsTaken; }
-
     public ClassTime getClassTime() { return classTime; }
 
     public boolean hasCapacity() { return capacity - seatsTaken > 0; }
@@ -105,43 +103,14 @@ public class Offering {
         return prerequisitesString;
     }
 
-//    public JSONObject toJSON() {
-//        JSONObject jo = new JSONObject();
-//       jo.put("prerequisites", prerequisites);
-//       jo.put("capacity", capacity);
-//       jo.put("examTime", examTime.toJSON());
-//       jo.put("classTime", classTime.toJSON());
-//       jo.put("units", units);
-//       jo.put("Instructor", instructor);
-//       jo.put("name", name);
-//       jo.put("code", code);
-//
-//        return jo;
-//    }
-//
-//    public JSONObject exposeToJSON() {
-//        JSONObject jo = new JSONObject();
-//        jo.put("examTime", examTime.toJSON());
-//        jo.put("classTime", classTime.toJSON());
-//        jo.put("name", name);
-//        jo.put("code", code);
-//
-//        return jo;
-//    }
-
     public String getName() {return name;}
 
     public boolean hasClassTime(String day, String startTime) {
         return classTime.hasTime(day, startTime);
     }
 
-//    @Override
-//    public int compareTo(Course o) {
-//        return this.getName().compareTo(o.getName());
-//    }
-
     public boolean doesClassTimeCollide (Offering c) {
-        List<String> cDays = c.getClassTime().getDays();
+        ArrayList<String> cDays = new ArrayList<>(getClassTime().getDays());
         cDays.retainAll(classTime.getDays());
         if (cDays.isEmpty())
             return false;

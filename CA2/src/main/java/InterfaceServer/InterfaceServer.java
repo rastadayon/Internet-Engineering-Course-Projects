@@ -70,7 +70,7 @@ public class InterfaceServer {
                 ctx.html(readHTMLPage("404.html"));
             } catch (Exception e){
                 System.out.println(e.getMessage());
-                ctx.status(502).result(":| " + e.getMessage());
+                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
             }
         });
 
@@ -82,7 +82,7 @@ public class InterfaceServer {
                 ctx.html(readHTMLPage("404.html"));
             } catch (Exception e){
                 System.out.println(e.getMessage());
-                ctx.status(502).result(":| " + e.getMessage());
+                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
             }
         });
 
@@ -92,8 +92,12 @@ public class InterfaceServer {
                 String courseCode = ctx.formParam("course_code");
                 String classCode = ctx.formParam("class_code");
                 bolbolestan.removeFromWeeklySchedule(studentId, courseCode, classCode);
+                ctx.status(200);
+            } catch (BolbolestanStudentNotFoundError e) {
+                ctx.html(readHTMLPage("404.html"));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
+                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
             }
             ctx.redirect("/change_plan/" + ctx.pathParam("studentId"));
         });
@@ -106,7 +110,7 @@ public class InterfaceServer {
                 ctx.html(readHTMLPage("404.html"));
             } catch (Exception e){
                 System.out.println(e.getMessage());
-                ctx.status(502).result(":| " + e.getMessage());
+                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
             }
         });
 
@@ -119,7 +123,7 @@ public class InterfaceServer {
                 ctx.html(readHTMLPage("404.html"));
             } catch (Exception e){
                 System.out.println(e.getMessage());
-                ctx.status(502).result(":| " + e.getMessage());
+                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
             }
         });
         app.post("/course/:code/:classCode", ctx -> {
@@ -130,11 +134,12 @@ public class InterfaceServer {
                     String response = generateAddCourseToStudent(studentId, courseCode, classCode);
                     bolbolestan.addCourseToStudent(studentId, courseCode, classCode);
                     ctx.html(response);
+                    ctx.status(200);
                 } catch (BolbolestanCourseNotFoundError e) {
                     ctx.html(readHTMLPage("404.html"));
                 } catch (Exception e){
                     System.out.println(e.getMessage());
-                    ctx.status(502).result(":| " + e.getMessage());
+                    ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
                 }
             });
 
@@ -146,7 +151,7 @@ public class InterfaceServer {
                 ctx.html(readHTMLPage("404.html"));
             } catch (Exception e){
                 System.out.println(e.getMessage());
-                ctx.status(502).result(":| " + e.getMessage());
+                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
             }
         });
 
@@ -154,11 +159,12 @@ public class InterfaceServer {
             String studentId = ctx.pathParam("studentId");
             try {
                 bolbolestan.handleFinalize(studentId);
+                ctx.status(200);
                 ctx.redirect("/submit_ok");
             } catch (Exception e){
                 System.out.println(e.getMessage());
+                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
                 ctx.redirect("/submit_failed");
-                ctx.status(502).result(":| " + e.getMessage());
             }
         });
 
@@ -167,7 +173,7 @@ public class InterfaceServer {
                 ctx.html(readHTMLPage("submit_ok.html"));
             } catch (Exception e){
                 System.out.println(e.getMessage());
-                ctx.status(502).result(":| " + e.getMessage());
+                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
             }
         });
 
@@ -176,7 +182,7 @@ public class InterfaceServer {
                 ctx.html(readHTMLPage("submit_failed.html"));
             } catch (Exception e){
                 System.out.println(e.getMessage());
-                ctx.status(502).result(":| " + e.getMessage());
+                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
             }
         });
     }

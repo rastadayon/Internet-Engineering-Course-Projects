@@ -15,7 +15,6 @@ public class OfferingManager {
     }
 
     public Offering getOfferingById(String courseCode, String classCode) throws Exception {
-        System.out.println(String.format("wanted offering code : %s-%s", courseCode, classCode));
         for (Offering offering : offerings)
             if (offering.getCourseCode().equals(courseCode) && offering.getClassCode().equals(classCode))
                 return offering;
