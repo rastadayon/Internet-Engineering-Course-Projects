@@ -13,6 +13,7 @@ import Bolbolestan.exeptions.*;
 import java.util.*;
 
 public class Bolbolestan {
+    private static Bolbolestan instance;
     private StudentManager studentManager = new StudentManager();
     private OfferingManager offeringManager = new OfferingManager();
     private CourseManager courseManager = new CourseManager();
@@ -24,6 +25,12 @@ public class Bolbolestan {
 
     public Student getStudentById(String studentId) throws Exception {
         return studentManager.getStudentById(studentId);
+    }
+
+    public Student getStudent() {
+        Student student = new Student("810196675", "Ghazal", "Kalhor",
+                "1399/12/12");
+        return student;
     }
 
     public boolean doesStudentExist(String studentId) {
@@ -115,5 +122,14 @@ public class Bolbolestan {
 
     public void removeAllCoursesFromStudent(String studentId) throws Exception {
         studentManager.removeAllOfferingsFromStudent(studentId);
+    }
+
+    private Bolbolestan() {}
+
+    public static Bolbolestan getInstance() {
+        if (instance == null) {
+            instance = new Bolbolestan();
+        }
+        return instance;
     }
 }
