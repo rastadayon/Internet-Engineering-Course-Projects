@@ -5,20 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d1a543a1-86b4-435c-84d6-408d4fa87e7f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Bolbolestan/Offering/Offering.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Bolbolestan/Offering/Offering.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Bolbolestan/Student/WeeklySchedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Bolbolestan/Student/WeeklySchedule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/InterfaceServer/InterfaceServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/InterfaceServer/InterfaceServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/SubmitUnitsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SubmitUnitsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Bolbolestan/Offering/Offering.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Bolbolestan/Offering/Offering.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Bolbolestan/Offering/OfferingManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Bolbolestan/Offering/OfferingManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Bolbolestan/Student/WeeklySchedule.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Bolbolestan/Student/WeeklySchedule.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfaceServer/InterfaceServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/SubmitUnitsTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/SubmitUnitsTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,17 +56,6 @@
     <configuration name="test" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Sub" />
       <module name="CA2" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -152,7 +128,8 @@
       <workItem from="1615203405111" duration="4086000" />
       <workItem from="1615210946957" duration="12699000" />
       <workItem from="1615228168784" duration="92000" />
-      <workItem from="1615228318650" duration="6730000" />
+      <workItem from="1615228318650" duration="7667000" />
+      <workItem from="1615557888960" duration="831000" />
     </task>
     <servers />
   </component>
