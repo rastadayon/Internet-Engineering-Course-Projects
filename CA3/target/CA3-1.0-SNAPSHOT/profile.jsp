@@ -9,7 +9,8 @@
 <%@ page import="Bolbolestan.Student.Student" %>
 <%@ page import="Bolbolestan.Student.Grade" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Profile</title>
@@ -28,7 +29,7 @@
 
 <%
     Bolbolestan bolbolestan = Bolbolestan.getInstance();
-    Student student = bolbolestan.getStudent();
+    Student student = bolbolestan.getStudentById(bolbolestan.getLoggedInId());
 %>
 
 <ul>
@@ -37,7 +38,7 @@
     <li id="last_name">Last Name: <%=student.getSecondName()%></li>
     <li id="birthdate">Birthdate: <%=student.getBirthDate()%></li>
     <li id="gpa">GPA: <%=Float.toString(student.getGPA())%></li>
-<%--<li id="tpu">Total Passed Units: <%=Integer.toString(bolbolestan.getUnitsPassed(studentId))%></li>--%>
+    <li id="tpu">Total Passed Units: <%=Integer.toString(bolbolestan.getUnitsPassed(student.getId()))%></li>
 </ul>
 <table>
 <tr>

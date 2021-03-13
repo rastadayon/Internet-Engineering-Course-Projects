@@ -14,6 +14,7 @@ import java.util.*;
 
 public class Bolbolestan {
     private static Bolbolestan instance;
+    private String loggedInId = "";
     private StudentManager studentManager = new StudentManager();
     private OfferingManager offeringManager = new OfferingManager();
     private CourseManager courseManager = new CourseManager();
@@ -27,10 +28,20 @@ public class Bolbolestan {
         return studentManager.getStudentById(studentId);
     }
 
-    public Student getStudent() {
-        Student student = new Student("810196675", "Ghazal", "Kalhor",
-                "1399/12/12");
-        return student;
+    public String getLoggedInId() {return loggedInId;}
+
+    public Boolean isAnybodyLoggedIn() {
+        if (loggedInId.equals(""))
+            return false;
+        return true;
+    }
+
+    public void makeLoggedIn(String studentId) {
+        this.loggedInId = studentId;
+    }
+
+    public void makeLoggedOut() {
+        this.loggedInId = "";
     }
 
     public boolean doesStudentExist(String studentId) {
