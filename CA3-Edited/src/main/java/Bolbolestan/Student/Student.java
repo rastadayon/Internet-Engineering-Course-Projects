@@ -38,10 +38,11 @@ public class Student {
     public float getGPA() {
         int count = 0;
         int gradeSum = 0;
-        for (Grade grade : grades) {
-            gradeSum += grade.getGrade();
-            count += 1;
-        }
+        if (grades != null)
+            for (Grade grade : grades) {
+                gradeSum += grade.getGrade();
+                count += 1;
+            }
         if (count != 0)
             return gradeSum/count;
         else

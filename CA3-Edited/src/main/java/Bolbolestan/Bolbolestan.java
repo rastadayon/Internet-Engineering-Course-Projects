@@ -95,6 +95,8 @@ public class Bolbolestan {
         Student student = studentManager.getStudentById(studentId);
         int unitsPassed = 0;
         ArrayList<Grade> studentGrades = student.getGrades();
+        if (studentGrades == null)
+            return 0;
         for (Grade gradeItem : studentGrades) {
             Course course = courseManager.getCourseByCode(gradeItem.getCode());
             if (gradeItem.getGrade() >= 10)

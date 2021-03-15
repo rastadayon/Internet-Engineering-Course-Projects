@@ -25,7 +25,7 @@
     </style>
 </head>
 <body>
-<a href="/">Home</a>
+<a href="">Home</a>
 
 <%
     Bolbolestan bolbolestan = Bolbolestan.getInstance();
@@ -45,7 +45,10 @@
     <th>Code</th>
     <th>Grade</th>
 </tr>
-<% for (Grade grade : student.getGrades()) { %>
+<%
+    if (student.getGrades() != null)
+        for (Grade grade : student.getGrades()) {
+%>
 <tr>
     <td><%=grade.getCode()%></td>
     <td><%=Integer.toString(grade.getGrade())%></td>
