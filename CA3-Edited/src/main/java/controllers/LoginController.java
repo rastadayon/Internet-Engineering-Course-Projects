@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import Bolbolestan.Bolbolestan;
+import Bolbolestan.Course.Course;
+import Bolbolestan.Offering.Offering;
 import Bolbolestan.Student.Grade;
 import Bolbolestan.Student.Student;
 import HTTPRequestHandler.HTTPRequestHandler;
@@ -22,11 +24,13 @@ import com.google.gson.reflect.TypeToken;
 public class LoginController extends HttpServlet {
     final String STUDENTS_URL = "http://138.197.181.131:5000/api/students";
     final String GRADES_URL = "http://138.197.181.131:5000/api/grades";
+    final String COURSES_URL = "http://138.197.181.131:5000/api/courses";
 
     /*public void init() throws ServletException {
         try {
             importStudentsFromWeb(STUDENTS_URL);
             importGradesFromWeb(GRADES_URL);
+            importCoursesFromWeb(COURSES_URL);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -60,6 +64,25 @@ public class LoginController extends HttpServlet {
         for (Student student : students) {
             try {
                 bolbolestan.addStudent(student);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private void importCoursesFromWeb(final String coursesURL) throws Exception{
+        Bolbolestan bolbolestan = Bolbolestan.getInstance();
+        String coursesJsonString = HTTPRequestHandler.getRequest(coursesURL);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        List<Offering> offerings = gson.fromJson(coursesJsonString, new TypeToken<List<Offering>>() {
+        }.getType());
+        List<Course> courses = gson.fromJson(coursesJsonString, new TypeToken<List<Course>>() {
+        }.getType());
+        for (int i = 0; i < offerings.size(); i++) {
+            try {
+                Offering offering = offerings.get(i);
+                offering.setCourse(courses.get(i));
+                bolbolestan.addOffering(offering);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
