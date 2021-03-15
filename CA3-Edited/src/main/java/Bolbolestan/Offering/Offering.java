@@ -1,6 +1,7 @@
 package Bolbolestan.Offering;
 
 
+import Bolbolestan.Course.Course;
 import Bolbolestan.Utilities.Utils;
 
 import java.util.ArrayList;
@@ -8,34 +9,29 @@ import java.util.List;
 
 
 public class Offering {
-    private final String code;
     private final String classCode;
-    private final String name;
-    private final int units;
     private final String type;
     private final String instructor;
+    private Course course;
     private final int capacity;
-    private ArrayList<String> prerequisites;
     private ClassTime classTime;
     private ExamTime examTime;
     private int seatsTaken = 0;
 
-    public Offering(String code, String classCode, String name, int units, String type, String instructor,
-                    int capacity, ArrayList<String> prerequisites, ClassTime classTime,
-                    ExamTime examTime) {
-        this.code = code;
+    public Offering(String classCode, String type, String instructor,
+                    int capacity, ClassTime classTime, ExamTime examTime) {
         this.classCode = classCode;
-        this.name = name;
-        this.units = units;
         this.type = type;
         this.instructor = instructor;
         this.capacity = capacity;
-        this.prerequisites = prerequisites;
         this.classTime = classTime;
         this.examTime = examTime;
         this.seatsTaken = 0;
     }
 
+    public void setCourse(Course course) {
+        this.course = course;
+    }
 
     public String getType() { return type; }
 
@@ -43,26 +39,26 @@ public class Offering {
 
     public String getClassCode() { return classCode; }
 
-    public int getUnits() { return units; }
+    public int getUnits() { return course.getUnits(); }
 
     public int getCapacity() { return capacity; }
 
     public String getCourseCode() {
-        return code;
+        return course.getCourseCode();
     }
 
     public void print() {
-        System.out.println(String.format("course code : %s-%s", code, classCode));
-        System.out.println(String.format("course name : %s", name));
-        System.out.println(String.format("units : %d", units));
+        System.out.println(String.format("course code : %s-%s", course.getCourseCode(), classCode));
+        System.out.println(String.format("course name : %s", course.getName()));
+        System.out.println(String.format("units : %d", course.getUnits()));
         System.out.println(String.format("type : %s", type));
         System.out.println(String.format("instructor : %s", instructor));
         System.out.println(String.format("capacity : %d", capacity));
         System.out.print("prerequisites : [ ");
-        for (int i = 0; i < prerequisites.size(); i++) {
+        for (int i = 0; i < course.getPrerequisites().size(); i++) {
             if (i != 0)
                 System.out.print(", ");
-            System.out.print(prerequisites.get(i));
+            System.out.print(course.getPrerequisites().get(i));
         }
         System.out.println(" ]");
         classTime.print();
@@ -70,7 +66,8 @@ public class Offering {
     }
 
     public boolean isEqual(Offering offering) {
-        return this.code.equals(offering.getCourseCode()) && this.classCode.equals(offering.getCourseCode());
+        return this.course.getCourseCode().equals(offering.getCourseCode()) &&
+                this.classCode.equals(offering.getCourseCode());
     }
 
     public void reduceCapacity() {
@@ -80,7 +77,7 @@ public class Offering {
 
     public boolean hasCapacity() { return capacity - seatsTaken > 0; }
 
-    public ArrayList<String> getPrerequisites() { return prerequisites; }
+    public ArrayList<String> getPrerequisites() { return course.getPrerequisites(); }
 
     public String getClassDayString(String delimiter) {
         List<String> days = classTime.getDays();
@@ -95,15 +92,15 @@ public class Offering {
 
     public String getPrerequisitesString() {
         String prerequisitesString = "";
-        for (int i = 0; i < prerequisites.size(); i++) {
+        for (int i = 0; i < course.getPrerequisites().size(); i++) {
             if (i > 0)
                 prerequisitesString += "|";
-            prerequisitesString += prerequisites.get(i);
+            prerequisitesString += course.getPrerequisites().get(i);
         }
         return prerequisitesString;
     }
 
-    public String getName() {return name;}
+    public String getName() {return course.getName();}
 
     public boolean hasClassTime(String day, String startTime) {
         return classTime.hasTime(day, startTime);
