@@ -25,7 +25,7 @@
     </style>
 </head>
 <body>
-<a href="">Home</a>
+<a href="/ca3_war_exploded/">Home</a>
 
 <%
     Bolbolestan bolbolestan = Bolbolestan.getInstance();

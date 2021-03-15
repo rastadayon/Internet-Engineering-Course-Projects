@@ -50,11 +50,9 @@ public class LoginController extends HttpServlet {
         Bolbolestan bolbolestan = Bolbolestan.getInstance();
         if (bolbolestan.doesStudentExist(studentId)) {
             bolbolestan.makeLoggedIn(studentId);
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("profile.jsp");
-            requestDispatcher.forward(request, response);
+            response.sendRedirect("http://localhost:8080/ca3_war_exploded");
         } else {
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
-            requestDispatcher.forward(request, response);
+            response.sendRedirect("http://localhost:8080/ca3_war_exploded/login");
         }
     }
 
