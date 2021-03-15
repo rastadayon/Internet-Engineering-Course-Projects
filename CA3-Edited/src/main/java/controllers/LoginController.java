@@ -22,20 +22,6 @@ import com.google.gson.reflect.TypeToken;
 
 @WebServlet(name = "LoginController", urlPatterns = "/login")
 public class LoginController extends HttpServlet {
-    final String STUDENTS_URL = "http://138.197.181.131:5000/api/students";
-    final String GRADES_URL = "http://138.197.181.131:5000/api/grades";
-    final String COURSES_URL = "http://138.197.181.131:5000/api/courses";
-
-    /*public void init() throws ServletException {
-        try {
-            importStudentsFromWeb(STUDENTS_URL);
-            importGradesFromWeb(GRADES_URL);
-            importCoursesFromWeb(COURSES_URL);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }*/
-
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
         requestDispatcher.forward(request, response);
@@ -47,64 +33,11 @@ public class LoginController extends HttpServlet {
         Bolbolestan bolbolestan = Bolbolestan.getInstance();
         if (bolbolestan.doesStudentExist(studentId)) {
             bolbolestan.makeLoggedIn(studentId);
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.jsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("profile.jsp");
             requestDispatcher.forward(request, response);
         } else {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
             requestDispatcher.forward(request, response);
-        }
-    }
-
-    private void importStudentsFromWeb(final String studentsURL) throws Exception {
-        Bolbolestan bolbolestan = Bolbolestan.getInstance();
-        String StudentsJsonString = HTTPRequestHandler.getRequest(studentsURL);
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        List<Student> students = gson.fromJson(StudentsJsonString, new TypeToken<List<Student>>() {
-        }.getType());
-        for (Student student : students) {
-            try {
-                bolbolestan.addStudent(student);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-
-    private void importCoursesFromWeb(final String coursesURL) throws Exception{
-        Bolbolestan bolbolestan = Bolbolestan.getInstance();
-        String coursesJsonString = HTTPRequestHandler.getRequest(coursesURL);
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        List<Offering> offerings = gson.fromJson(coursesJsonString, new TypeToken<List<Offering>>() {
-        }.getType());
-        List<Course> courses = gson.fromJson(coursesJsonString, new TypeToken<List<Course>>() {
-        }.getType());
-        for (int i = 0; i < offerings.size(); i++) {
-            try {
-                Offering offering = offerings.get(i);
-                offering.setCourse(courses.get(i));
-                bolbolestan.addOffering(offering);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-
-    private void importGradesFromWeb(final String gradesURL) throws Exception {
-        Bolbolestan bolbolestan = Bolbolestan.getInstance();
-        ArrayList<String> studentIds = bolbolestan.getStudentIds();
-        for (String studentId : studentIds) {
-            String gradesJsonString = HTTPRequestHandler.getRequest(
-                    gradesURL + "/" + studentId);
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            List<Grade> grades = gson.fromJson(gradesJsonString, new TypeToken<List<Grade>>() {
-            }.getType());
-            for (Grade grade : grades) {
-                try {
-                    bolbolestan.addGradeToStudent(studentId, grade);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
-            }
         }
     }
 }
