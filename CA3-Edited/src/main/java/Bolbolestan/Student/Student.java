@@ -94,6 +94,12 @@ public class Student {
         weeklySchedule.removeFromWeeklySchedule(offering);
     }
 
+    public String getCourseNameByClassTime(String day, String startTime) {
+        if (weeklySchedule == null)
+            return "";
+        return weeklySchedule.getCourseNameByClassTime(day, startTime);
+    }
+
     public ArrayList<String> getPrerequisitesNotPassed(Offering offering) {
         ArrayList<String> notPassed = null;
         ArrayList<String> prerequisites = offering.getPrerequisites();
