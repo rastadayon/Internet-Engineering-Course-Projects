@@ -1,13 +1,28 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="Bolbolestan.Bolbolestan" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>JSP - Hello World</title>
+    <meta charset="UTF-8">
+    <title>Courses</title>
 </head>
 <body>
-<h1><%= "Hello World!" %>
-</h1>
-<br/>
-<a href="hello-servlet">Hello Servlet</a>
+<%
+String loggedInStudent = Bolbolestan.getInstance().getLoggedInId();
+%>
+<ul>
+    <li id="std_id">Student Id: <%=loggedInStudent%></li>
+    <li>
+        <a href="/courses">Select Courses</a>
+    </li>
+    <li>
+        <a href="/plan">Submited plan</a>
+    </li>
+    <li>
+        <a href="/profile">Profile</a>
+    </li>
+    <li>
+        <a href="/logout">Log Out</a>
+    </li>
+</ul>
 </body>
 </html>

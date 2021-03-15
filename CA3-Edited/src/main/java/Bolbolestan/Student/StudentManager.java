@@ -10,6 +10,7 @@ import java.util.List;
 
 public class StudentManager {
     private List<Student> students = new ArrayList<>();
+    String loggedInStudent = null;
 
     public Student getStudentById(String studentId) throws Exception{
         for (Student student : students)
@@ -128,5 +129,21 @@ public class StudentManager {
     public void removeAllOfferingsFromStudent(String studentId) throws Exception {
         Student student = getStudentById(studentId);
         student.getWeeklySchedule().removeAllCourses();
+    }
+
+    public String getLoggedInId() { return this.loggedInStudent; }
+
+    public Boolean isAnybodyLoggedIn() {
+        if (loggedInStudent == null)
+            return false;
+        return true;
+    }
+
+    public void makeLoggedIn(String studentId) {
+        this.loggedInStudent = studentId;
+    }
+
+    public void makeLoggedOut() {
+        this.loggedInStudent = null;
     }
 }
