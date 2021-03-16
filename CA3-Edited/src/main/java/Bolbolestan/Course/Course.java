@@ -16,9 +16,7 @@ public class Course {
     }
 
     public String getCourseCode() { return code; }
-
     public String getName() { return name; }
-
     public int getUnits() { return units; }
 
     public ArrayList<String> getPrerequisites() { return prerequisites; }

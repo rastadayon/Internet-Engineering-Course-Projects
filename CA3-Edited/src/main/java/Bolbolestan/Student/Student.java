@@ -12,6 +12,7 @@ public class Student {
     private final String birthDate;
     private WeeklySchedule weeklySchedule = new WeeklySchedule();
     private ArrayList<Grade> grades = new ArrayList<Grade>();
+    private String searchString = null;
 
     public Student(String id, String name, String secondName, String birthDate) {
         this.id = id;
@@ -28,6 +29,7 @@ public class Student {
     public WeeklySchedule getWeeklySchedule() {
         return weeklySchedule;
     }
+    public String getSearchString() { return searchString; }
 
     public void print() {
         System.out.println(String.format("student id : %s", id));
@@ -118,5 +120,13 @@ public class Student {
             }
         }
         return notPassed;
+    }
+
+    public void searchFor(String courseName) {
+        searchString = courseName;
+    }
+
+    public void clearSearch() {
+        searchString = null;
     }
 }

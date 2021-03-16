@@ -80,6 +80,7 @@ public class LoginController extends HttpServlet {
         }.getType());
         for (int i = 0; i < offerings.size(); i++) {
             try {
+                offerings.get(i).print();
                 Offering offering = offerings.get(i);
                 offering.setCourse(courses.get(i));
                 Bolbolestan.getInstance().addOffering(offering);

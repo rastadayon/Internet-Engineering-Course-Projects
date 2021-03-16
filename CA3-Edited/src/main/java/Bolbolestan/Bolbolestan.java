@@ -196,14 +196,22 @@ public class Bolbolestan {
     public static Bolbolestan getInstance() {
         if (instance == null) {
             instance = new Bolbolestan();
-            /*try {
-                instance.importStudentsFromWeb(STUDENTS_URL);
-                instance.importGradesFromWeb(GRADES_URL);
-                instance.importCoursesFromWeb(COURSES_URL);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }*/
         }
         return instance;
+    }
+
+    public void searchForCourses(Student student, String searchCourse) throws Exception {
+        student.searchFor(searchCourse);
+    }
+
+    public Student getLoggedInStudent() throws Exception {
+        return studentManager.getStudentById(getLoggedInId());
+    }
+
+    public List<Offering> getSearchedOfferings(String studentId) throws Exception {
+        List<Offering> offerings;
+        String searchString = studentManager.getStudentById(studentId).getSearchString();
+        offerings = offeringManager.getSimilarOfferings(searchString);
+        return offerings;
     }
 }

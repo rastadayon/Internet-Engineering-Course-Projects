@@ -41,4 +41,16 @@ public class OfferingManager {
                     offering.getCourseCode(), offering.getClassCode()));
         offerings.add(offering);
     }
+
+    public List<Offering> getSimilarOfferings(String searchString) {
+        List<Offering> searchResults = new ArrayList<>();
+        if (searchString == null || searchString.equals(""))
+            return offerings;
+        for (Offering offering : offerings) {
+            String offeringName = offering.getName();
+            if (offeringName.toLowerCase().contains(searchString.toLowerCase()))
+                searchResults.add(offering);
+        }
+        return searchResults;
+    }
 }

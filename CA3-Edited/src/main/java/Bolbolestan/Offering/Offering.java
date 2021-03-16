@@ -16,7 +16,7 @@ public class Offering {
     private final int capacity;
     private ClassTime classTime;
     private ExamTime examTime;
-    private int seatsTaken = 0;
+    private int signedUp = 0;
 
     public Offering(String classCode, String type, String instructor,
                     int capacity, ClassTime classTime, ExamTime examTime) {
@@ -26,7 +26,7 @@ public class Offering {
         this.capacity = capacity;
         this.classTime = classTime;
         this.examTime = examTime;
-        this.seatsTaken = 0;
+        this.signedUp = 0;
     }
 
     public void setCourse(Course course) {
@@ -71,11 +71,11 @@ public class Offering {
     }
 
     public void reduceCapacity() {
-        seatsTaken += 1; }
+        signedUp += 1; }
 
     public ClassTime getClassTime() { return classTime; }
 
-    public boolean hasCapacity() { return capacity - seatsTaken > 0; }
+    public boolean hasCapacity() { return capacity - signedUp > 0; }
 
     public ArrayList<String> getPrerequisites() { return course.getPrerequisites(); }
 
