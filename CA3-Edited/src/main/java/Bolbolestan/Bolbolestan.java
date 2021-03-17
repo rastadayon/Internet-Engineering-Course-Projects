@@ -75,7 +75,7 @@ public class Bolbolestan {
 
     public void addToWeeklySchedule(String studentId, String courseCode, String classCode) throws Exception {
         Offering offering = offeringManager.getOfferingById(courseCode, classCode);
-        studentManager.addToWeeklySchedule(studentId, offering);
+        studentManager.addToSelectedOfferings(studentId, offering);
     }
 
     public void removeFromWeeklySchedule(String studentId, String courseCode, String classCode) throws Exception {
@@ -83,13 +83,13 @@ public class Bolbolestan {
         studentManager.removeFromWeeklySchedule(studentId, offering);
     }
 
-    public WeeklySchedule handleGetWeeklySchedule(String studentId) throws Exception {
-        return studentManager.getWeeklySchedule(studentId);
-    }
+//    public WeeklySchedule handleGetWeeklySchedule(String studentId) throws Exception {
+//        return studentManager.getWeeklySchedule(studentId);
+//    }
 
-    public void handleFinalize(String studentId) throws Exception {
-        studentManager.finalizeSchedule(studentId);
-    }
+//    public void handleFinalize(String studentId) throws Exception {
+//        studentManager.finalizeSchedule(studentId);
+//    }
 
     public int getUnitsPassed(String studentId) throws Exception {
         Student student = studentManager.getStudentById(studentId);
@@ -105,9 +105,9 @@ public class Bolbolestan {
         return unitsPassed;
     }
 
-    public int getTotalUnits(String studentId) throws Exception{
-        return studentManager.getTotalUnits(studentId);
-    }
+//    public int getTotalUnits(String studentId) throws Exception{
+//        return studentManager.getTotalUnits(studentId);
+//    }
 
     public ArrayList<Offering> getClassTimeConflictingWithStudent(
             String studentId, String courseCode, String classCode) throws Exception {
@@ -133,13 +133,12 @@ public class Bolbolestan {
 
     public void addCourseToStudent(String studentId, String courseCode, String classCode) throws Exception {
         Offering offering = offeringManager.getOfferingById(courseCode, classCode);
-        if (offering.hasCapacity())
-            studentManager.addCourseToStudent(studentId, offering);
+        studentManager.addCourseToStudent(studentId, offering);
     }
 
-    public void removeAllCoursesFromStudent(String studentId) throws Exception {
-        studentManager.removeAllOfferingsFromStudent(studentId);
-    }
+//    public void removeAllCoursesFromStudent(String studentId) throws Exception {
+//        studentManager.removeAllOfferingsFromStudent(studentId);
+//    }
 
     private void importStudentsFromWeb(final String studentsURL) throws Exception {
         String StudentsJsonString = HTTPRequestHandler.getRequest(studentsURL);

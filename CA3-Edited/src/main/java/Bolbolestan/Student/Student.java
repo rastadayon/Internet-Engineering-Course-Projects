@@ -10,25 +10,41 @@ public class Student {
     private final String name;
     private final String secondName;
     private final String birthDate;
-    private WeeklySchedule weeklySchedule = new WeeklySchedule();
+    private WeeklySchedule submittedOfferings = new WeeklySchedule();
+    private WeeklySchedule selectedOfferings = new WeeklySchedule();
     private ArrayList<Grade> grades = new ArrayList<Grade>();
     private String searchString = null;
+
+    public Student() {
+        submittedOfferings = new WeeklySchedule();
+        selectedOfferings = new WeeklySchedule();
+        this.id = null;
+        this.name = null;
+        this.secondName = null;
+        this.birthDate = null;
+    }
 
     public Student(String id, String name, String secondName, String birthDate) {
         this.id = id;
         this.name = name;
         this.secondName = secondName;
         this.birthDate = birthDate;
-        weeklySchedule = new WeeklySchedule();
+        submittedOfferings = new WeeklySchedule();
+        selectedOfferings = new WeeklySchedule();
     }
 
     public String getName() { return name; }
+
     public String getSecondName() { return secondName; }
+
     public String getBirthDate() { return birthDate; }
+
     public ArrayList<Grade> getGrades() { return grades; }
-    public WeeklySchedule getWeeklySchedule() {
-        return weeklySchedule;
-    }
+
+    public WeeklySchedule getSelectedOfferings() { return selectedOfferings; }
+
+    public WeeklySchedule getSubmittedOfferings() { return submittedOfferings; }
+
     public String getSearchString() { return searchString; }
 
     public void print() {
@@ -61,10 +77,10 @@ public class Student {
         grades.add(grade);
     }
 
-    public void addToWeeklySchedule(Offering offering) {
-        if (weeklySchedule == null)
-            weeklySchedule = new WeeklySchedule();
-        weeklySchedule.addToWeeklySchedule(offering);
+    public void addToSelectedOfferings(Offering offering) {
+        if (selectedOfferings == null)
+            selectedOfferings = new WeeklySchedule();
+        selectedOfferings.addToWeeklySchedule(offering);
     }
 
 //    private boolean hasPrerequisites(Course course) {
@@ -91,15 +107,14 @@ public class Student {
     }
 
     public void removeFromWeeklySchedule(Offering offering) throws Exception {
-        if (weeklySchedule == null)
-            throw new BolbolestanCourseNotFoundError();
-        weeklySchedule.removeFromWeeklySchedule(offering);
+        selectedOfferings.removeFromWeeklySchedule(offering);
+        submittedOfferings.removeFromWeeklySchedule(offering);
     }
 
     public String getCourseNameByClassTime(String day, String startTime) {
-        if (weeklySchedule == null)
+        if (submittedOfferings == null)
             return "";
-        return weeklySchedule.getCourseNameByClassTime(day, startTime);
+        return submittedOfferings.getCourseNameByClassTime(day, startTime);
     }
 
     public ArrayList<String> getPrerequisitesNotPassed(Offering offering) {

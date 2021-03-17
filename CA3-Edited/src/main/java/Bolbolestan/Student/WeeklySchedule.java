@@ -7,10 +7,11 @@ import java.util.List;
 
 
 public class WeeklySchedule {
-    private static final String finalized = "finalized";
-    private static final String non_finalized = "non-finalized";
-    private List<Offering> weeklySchedule = new ArrayList<Offering>();
-    private String status = non_finalized;
+    private List<Offering> weeklySchedule;
+
+    public WeeklySchedule() {
+        weeklySchedule = new ArrayList<Offering>();
+    }
 
     public List<Offering> getOfferings() {
         return weeklySchedule;
@@ -21,18 +22,13 @@ public class WeeklySchedule {
             weeklySchedule = new ArrayList<Offering>();
         if (!weeklySchedule.contains(offering)) {
             weeklySchedule.add(offering);
-            status = non_finalized;
         }
     }
 
     public void removeFromWeeklySchedule(Offering offering) throws Exception {
         if (weeklySchedule == null)
             throw new BolbolestanCourseNotFoundError();
-        boolean successful = weeklySchedule.remove(offering);
-        if (!successful) {
-            throw new BolbolestanCourseNotFoundError();
-        }
-        status = non_finalized;
+        weeklySchedule.remove(offering);
     }
 
 
@@ -57,8 +53,6 @@ public class WeeklySchedule {
         if (weeklySchedule == null)
             weeklySchedule = new ArrayList<>();
         checkValidNumberOfUnits();
-        status = finalized;
-
         for (Offering offering : weeklySchedule) {
             offering.reduceCapacity();
         }

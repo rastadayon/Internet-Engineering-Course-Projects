@@ -9,6 +9,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="Bolbolestan.Offering.Offering" %>
 <%@ page import="java.util.List" %>
+<%@ page import="Bolbolestan.Student.WeeklySchedule" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
@@ -45,25 +46,16 @@
         <th>Units</th>
         <th></th>
     </tr>
+    <%
+        List<Offering> selectedOfferings = bolbolestan.getLoggedInStudent().getSelectedOfferings().getOfferings();
+        List<Offering> submittedOfferings = bolbolestan.getLoggedInStudent().getSubmittedOfferings().getOfferings();
+    %>
+    <%for (Offering submittedOffering : submittedOfferings) { %>
     <tr>
-        <td>8101001</td>
-        <td>01</td>
-        <td>Advanced Programming</td>
-        <td>3</td>
-        <td>
-            <form action="" method="POST" >
-                <input id="form_action" type="hidden" name="action" value="remove">
-                <input id="form_course_code" type="hidden" name="course_code" value="8101001">
-                <input id="form_class_code" type="hidden" name="class_code" value="01">
-                <button type="submit">Remove</button>
-            </form>
-        </td>
-    </tr>
-    <tr>
-        <td>8101033</td>
-        <td>01</td>
-        <td>Islamic Thought 1</td>
-        <td>2</td>
+        <td><%=submittedOffering.getCourseCode()%></td>
+        <td><%=submittedOffering.getClassCode()%></td>
+        <td><%=submittedOffering.getName()%></td>
+        <td><%=submittedOffering.getUnits()%></td>
         <td>
             <form action="" method="POST" >
                 <input id="form_action" type="hidden" name="action" value="remove">
@@ -73,6 +65,23 @@
             </form>
         </td>
     </tr>
+    <%}%>
+    <%for (Offering selectedOffering : selectedOfferings) { %>
+    <tr>
+        <td><%=selectedOffering.getCourseCode()%></td>
+        <td><%=selectedOffering.getClassCode()%></td>
+        <td><%=selectedOffering.getName()%></td>
+        <td><%=selectedOffering.getUnits()%></td>
+        <td>
+            <form action="" method="POST" >
+                <input id="form_action" type="hidden" name="action" value="remove">
+                <input id="form_course_code" type="hidden" name="course_code" value="8101033">
+                <input id="form_class_code" type="hidden" name="class_code" value="01">
+                <button type="submit">Remove</button>
+            </form>
+        </td>
+    </tr>
+    <%}%>
 </table>
 
 <br>
@@ -136,7 +145,7 @@
         <td><%=offering.getExamTime().getEnd()%></td>
         <td><%=offering.getPrerequisitesString()%></td>
         <td>
-            <form action="" method="POST" >
+            <form action="addCourse" method="POST" >
                 <input id="form_action" type="hidden" name="action" value="add">
                 <input id="form_class_code" type="hidden" name="course_code" value=<%=offering.getCourseCode()%>>
                 <input id="form_class_code" type="hidden" name="class_code" value=<%=offering.getClassCode()%>>

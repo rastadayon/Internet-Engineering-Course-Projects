@@ -1,7 +1,6 @@
 package Bolbolestan.Student;
 
 import Bolbolestan.Offering.Offering;
-import Bolbolestan.exeptions.BolbolestanCourseNotFoundError;
 import Bolbolestan.exeptions.BolbolestanRulesViolationError;
 import Bolbolestan.exeptions.BolbolestanStudentNotFoundError;
 
@@ -51,9 +50,9 @@ public class StudentManager {
         student.addGrade(grade);
     }
 
-    public void addToWeeklySchedule(String studentId, Offering offering) throws Exception {
+    public void addToSelectedOfferings(String studentId, Offering offering) throws Exception {
         Student student = getStudentById(studentId);
-        student.addToWeeklySchedule(offering);
+        student.addToSelectedOfferings(offering);
     }
 
     public void removeFromWeeklySchedule(String studentId, Offering offering) throws Exception {
@@ -61,54 +60,82 @@ public class StudentManager {
         student.removeFromWeeklySchedule(offering);
     }
 
-    public WeeklySchedule getWeeklySchedule(String studentId) throws Exception {
+//    public WeeklySchedule getWeeklySchedule(String studentId) throws Exception {
+//        Student student = getStudentById(studentId);
+//        return student.getWeeklySchedule();
+//    }
+
+    public WeeklySchedule getSelectedOfferings(String studentId) throws Exception {
         Student student = getStudentById(studentId);
-        return student.getWeeklySchedule();
+        return student.getSelectedOfferings();
     }
 
-    public void finalizeSchedule(String studentId) throws Exception {
+    public WeeklySchedule getSubmittedOfferings(String studentId) throws Exception {
         Student student = getStudentById(studentId);
-        student.getWeeklySchedule().finalizeWeeklySchedule();
+        return student.getSubmittedOfferings();
     }
 
-    public int getTotalUnits(String studentId) throws Exception{
-        Student student = getStudentById(studentId);
-        WeeklySchedule weeklySchedule = getWeeklySchedule(studentId);
-        if (weeklySchedule == null)
-            return  0;
-        int units = weeklySchedule.getTotalUnits();
-        return units;
-    }
+//    public void finalizeSchedule(String studentId) throws Exception {
+//        Student student = getStudentById(studentId);
+//        student.getWeeklySchedule().finalizeWeeklySchedule();
+//    }
 
-    public ArrayList<Offering> getClassTimeConflicts(String studentId, Offering offering ) throws Exception {
-        ArrayList<Offering> conflictingOffering = null;
-        Student student = getStudentById(studentId);
-        if (student.getWeeklySchedule() != null) {
-            List<Offering> studentWeeklySchedule = student.getWeeklySchedule().getOfferings();
-            for (Offering weekOffering : studentWeeklySchedule) {
-                if (offering.doesClassTimeCollide(weekOffering))
-                    if (conflictingOffering == null) {
-                        conflictingOffering = new ArrayList<Offering>();
-                        conflictingOffering.add(weekOffering);
-                    }
+//    public int getTotalUnits(String studentId) throws Exception{
+//        WeeklySchedule weeklySchedule = getWeeklySchedule(studentId);
+//        if (weeklySchedule == null)
+//            return  0;
+//        int units = weeklySchedule.getTotalUnits();
+//        return units;
+//    }
+
+    public ArrayList<Offering> getClassTimeConflicts(Student student, Offering offering, List<Offering> schedule) throws Exception {
+        ArrayList<Offering> conflictingOfferings = null;
+        for (Offering scheduleOffering : schedule) {
+            if (offering.doesClassTimeCollide(scheduleOffering)) {
+                if (conflictingOfferings == null)
+                    conflictingOfferings = new ArrayList<>();
+                conflictingOfferings.add(scheduleOffering);
             }
         }
+        return conflictingOfferings;
+    }
+
+    public ArrayList<Offering> getClassTimeConflicts(String studentId, Offering offering) throws Exception {
+        ArrayList<Offering> conflictingOffering = null;
+//        Student student = getStudentById(studentId);
+//        WeeklySchedule tempSchedule = student.getTempWeeklySchedule();
+//        WeeklySchedule finalSchedule = student.getFinalWeeklySchedule();
+//        if (tempSchedule != null) {
+//
+//        }
+//        if (student.getWeeklySchedule() != null) {
+//            List<Offering> studentWeeklySchedule = student.getWeeklySchedule().getOfferings();
+//            for (Offering weekOffering : studentWeeklySchedule) {
+//                if (offering.doesClassTimeCollide(weekOffering))
+//                    if (conflictingOffering == null) {
+//                        conflictingOffering = new ArrayList<>();
+//                        conflictingOffering.add(weekOffering);
+//                    }
+//            }
+//        }
+        // HAVE TO CHANGE THE LOGIC
         return conflictingOffering;
     }
 
     public ArrayList<Offering> getExamTimeConflicts(String studentId, Offering offering) throws Exception {
         ArrayList<Offering> conflictingOffering = null;
-        Student student = getStudentById(studentId);
-        if (student.getWeeklySchedule() != null){
-            List<Offering> studentWeeklySchedule = student.getWeeklySchedule().getOfferings();
-            for (Offering weekOffering : studentWeeklySchedule) {
-                if (offering.doesExamTimeCollide(weekOffering))
-                    if (conflictingOffering == null) {
-                        conflictingOffering = new ArrayList<Offering>();
-                        conflictingOffering.add(weekOffering);
-                    }
-            }
-        }
+//        Student student = getStudentById(studentId);
+//        if (student.getWeeklySchedule() != null){
+//            List<Offering> studentWeeklySchedule = student.getWeeklySchedule().getOfferings();
+//            for (Offering weekOffering : studentWeeklySchedule) {
+//                if (offering.doesExamTimeCollide(weekOffering))
+//                    if (conflictingOffering == null) {
+//                        conflictingOffering = new ArrayList<Offering>();
+//                        conflictingOffering.add(weekOffering);
+//                    }
+//            }
+//        }
+        // HAVE TO CHANGE THE LOGIC
         return conflictingOffering;
     }
 
@@ -119,17 +146,17 @@ public class StudentManager {
 
     public void addCourseToStudent(String studentId, Offering offering) throws Exception {
         Student student = getStudentById(studentId);
-        ArrayList<Offering> conflictingClassTimes = getClassTimeConflicts(studentId, offering);
-        ArrayList<Offering> conflictingExamTimes = getExamTimeConflicts(studentId, offering);
-        ArrayList<String> prerequisitesNotPassed = getPrerequisitesNotPassed(studentId, offering);
-        if (conflictingClassTimes == null && conflictingExamTimes == null && prerequisitesNotPassed == null )
-            student.addToWeeklySchedule(offering);
+//        ArrayList<Offering> conflictingClassTimes = getClassTimeConflicts(studentId, offering);
+//        ArrayList<Offering> conflictingExamTimes = getExamTimeConflicts(studentId, offering);
+//        ArrayList<String> prerequisitesNotPassed = getPrerequisitesNotPassed(studentId, offering);
+//        if (conflictingClassTimes == null && conflictingExamTimes == null )
+        student.addToSelectedOfferings(offering);
     }
 
-    public void removeAllOfferingsFromStudent(String studentId) throws Exception {
-        Student student = getStudentById(studentId);
-        student.getWeeklySchedule().removeAllCourses();
-    }
+//    public void removeAllOfferingsFromStudent(String studentId) throws Exception {
+//        Student student = getStudentById(studentId);
+//        student.getWeeklySchedule().removeAllCourses();
+//    }
 
     public String getLoggedInId() { return this.loggedInStudent; }
 
@@ -146,4 +173,5 @@ public class StudentManager {
     public void makeLoggedOut() {
         this.loggedInStudent = null;
     }
+
 }
