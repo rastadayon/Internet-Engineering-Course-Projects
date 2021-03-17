@@ -10,14 +10,12 @@ public class Student {
     private final String name;
     private final String secondName;
     private final String birthDate;
-    private WeeklySchedule submittedOfferings = new WeeklySchedule();
-    private WeeklySchedule selectedOfferings = new WeeklySchedule();
     private ArrayList<Grade> grades = new ArrayList<Grade>();
     private String searchString = null;
+    private CourseSelection courseSelection;
 
     public Student() {
-        submittedOfferings = new WeeklySchedule();
-        selectedOfferings = new WeeklySchedule();
+        courseSelection = new CourseSelection();
         this.id = null;
         this.name = null;
         this.secondName = null;
@@ -29,8 +27,7 @@ public class Student {
         this.name = name;
         this.secondName = secondName;
         this.birthDate = birthDate;
-        submittedOfferings = new WeeklySchedule();
-        selectedOfferings = new WeeklySchedule();
+        courseSelection = new CourseSelection();
     }
 
     public String getName() { return name; }
@@ -41,9 +38,13 @@ public class Student {
 
     public ArrayList<Grade> getGrades() { return grades; }
 
-    public WeeklySchedule getSelectedOfferings() { return selectedOfferings; }
+    public WeeklySchedule getSelectedOfferings() {
+        return courseSelection.getSelectedOfferings();
+    }
 
-    public WeeklySchedule getSubmittedOfferings() { return submittedOfferings; }
+    public WeeklySchedule getSubmittedOfferings() {
+        return courseSelection.getSubmittedOfferings();
+    }
 
     public String getSearchString() { return searchString; }
 
@@ -78,9 +79,7 @@ public class Student {
     }
 
     public void addToSelectedOfferings(Offering offering) {
-        if (selectedOfferings == null)
-            selectedOfferings = new WeeklySchedule();
-        selectedOfferings.addToWeeklySchedule(offering);
+        courseSelection.addToSelectedOfferings(offering);
     }
 
 //    private boolean hasPrerequisites(Course course) {
@@ -107,14 +106,12 @@ public class Student {
     }
 
     public void removeFromWeeklySchedule(Offering offering) throws Exception {
-        selectedOfferings.removeFromWeeklySchedule(offering);
-        submittedOfferings.removeFromWeeklySchedule(offering);
+        courseSelection.removeFromWeeklySchedule(offering);
     }
 
     public String getCourseNameByClassTime(String day, String startTime) {
-        if (submittedOfferings == null)
-            return "";
-        return submittedOfferings.getCourseNameByClassTime(day, startTime);
+        String courseName = courseSelection.getCourseNameByClassTime(day, startTime);
+        return courseName;
     }
 
     public ArrayList<String> getPrerequisitesNotPassed(Offering offering) {
@@ -143,5 +140,9 @@ public class Student {
 
     public void clearSearch() {
         searchString = null;
+    }
+
+    public void resetSelectedOfferings() {
+        courseSelection.resetSelectedOfferings();
     }
 }

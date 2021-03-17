@@ -140,56 +140,6 @@ public class Bolbolestan {
 //        studentManager.removeAllOfferingsFromStudent(studentId);
 //    }
 
-    private void importStudentsFromWeb(final String studentsURL) throws Exception {
-        String StudentsJsonString = HTTPRequestHandler.getRequest(studentsURL);
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        List<Student> students = gson.fromJson(StudentsJsonString, new TypeToken<List<Student>>() {
-        }.getType());
-        for (Student student : students) {
-            try {
-                addStudent(student);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-
-    private void importCoursesFromWeb(final String coursesURL) throws Exception{
-        String coursesJsonString = HTTPRequestHandler.getRequest(coursesURL);
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        List<Offering> offerings = gson.fromJson(coursesJsonString, new TypeToken<List<Offering>>() {
-        }.getType());
-        List<Course> courses = gson.fromJson(coursesJsonString, new TypeToken<List<Course>>() {
-        }.getType());
-        for (int i = 0; i < offerings.size(); i++) {
-            try {
-                Offering offering = offerings.get(i);
-                offering.setCourse(courses.get(i));
-                addOffering(offering);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-
-    private void importGradesFromWeb(final String gradesURL) throws Exception {
-        ArrayList<String> studentIds = getStudentIds();
-        for (String studentId : studentIds) {
-            String gradesJsonString = HTTPRequestHandler.getRequest(
-                    gradesURL + "/" + studentId);
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            List<Grade> grades = gson.fromJson(gradesJsonString, new TypeToken<List<Grade>>() {
-            }.getType());
-            for (Grade grade : grades) {
-                try {
-                    addGradeToStudent(studentId, grade);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-        }
-    }
-
     private Bolbolestan() {}
 
     public static Bolbolestan getInstance() {
@@ -218,5 +168,10 @@ public class Bolbolestan {
     public void clearSearch(String studentId) throws Exception {
         Student student = studentManager.getStudentById(studentId);
         student.clearSearch();
+    }
+
+    public void resetSelectedOfferings(String studentId) throws Exception {
+        Student student = studentManager.getStudentById(studentId);
+        student.resetSelectedOfferings();
     }
 }

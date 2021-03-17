@@ -73,4 +73,16 @@ public class WeeklySchedule {
         weeklySchedule = new ArrayList<Offering>();
     }
 
+    void setWeeklySchedule(List<Offering> offerings) {
+        weeklySchedule = new ArrayList<Offering>(offerings);
+    }
+
+    List<Offering> getWeeklySchedule() {
+        return weeklySchedule;
+    }
+
+    void copyWeeklySchedule(WeeklySchedule w){
+        this.setWeeklySchedule(w.getWeeklySchedule());
+    }
+
 }

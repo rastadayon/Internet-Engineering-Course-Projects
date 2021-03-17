@@ -85,8 +85,8 @@
 </table>
 
 <br>
-
-<form action="" method="POST">
+//ghazal
+<form action="submit" method="POST">
     <button type="submit" name="action" value="submit">Submit Plan</button>
     <button type="submit" name="action" value="reset">Reset</button>
 </form>
