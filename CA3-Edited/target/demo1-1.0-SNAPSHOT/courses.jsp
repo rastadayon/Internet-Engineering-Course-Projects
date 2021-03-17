@@ -57,10 +57,10 @@
         <td><%=submittedOffering.getName()%></td>
         <td><%=submittedOffering.getUnits()%></td>
         <td>
-            <form action="" method="POST" >
+            <form action="changeSelection" method="POST" >
                 <input id="form_action" type="hidden" name="action" value="remove">
-                <input id="form_course_code" type="hidden" name="course_code" value="8101033">
-                <input id="form_class_code" type="hidden" name="class_code" value="01">
+                <input id="form_course_code" type="hidden" name="course_code" value=<%=submittedOffering.getCourseCode()%>>
+                <input id="form_class_code" type="hidden" name="class_code" value=<%=submittedOffering.getClassCode()%>>
                 <button type="submit">Remove</button>
             </form>
         </td>
@@ -73,10 +73,10 @@
         <td><%=selectedOffering.getName()%></td>
         <td><%=selectedOffering.getUnits()%></td>
         <td>
-            <form action="" method="POST" >
+            <form action="changeSelection" method="POST" >
                 <input id="form_action" type="hidden" name="action" value="remove">
-                <input id="form_course_code" type="hidden" name="course_code" value="8101033">
-                <input id="form_class_code" type="hidden" name="class_code" value="01">
+                <input id="form_course_code" type="hidden" name="course_code" value=<%=selectedOffering.getCourseCode()%>>
+                <input id="form_class_code" type="hidden" name="class_code" value=<%=selectedOffering.getClassCode()%>>
                 <button type="submit">Remove</button>
             </form>
         </td>
@@ -145,7 +145,7 @@
         <td><%=offering.getExamTime().getEnd()%></td>
         <td><%=offering.getPrerequisitesString()%></td>
         <td>
-            <form action="addCourse" method="POST" >
+            <form action="changeSelection" method="POST" >
                 <input id="form_action" type="hidden" name="action" value="add">
                 <input id="form_class_code" type="hidden" name="course_code" value=<%=offering.getCourseCode()%>>
                 <input id="form_class_code" type="hidden" name="class_code" value=<%=offering.getClassCode()%>>
