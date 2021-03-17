@@ -30,7 +30,7 @@ public class CourseManager {
         if(!doesCourseExist(courseCode)) {
             if (courses == null)
                 courses = new ArrayList<>();
-            courses.add(new Course(courseCode, offering.getName(), offering.getUnits(), offering.getPrerequisites()));
+            courses.add(offering.getCourse());
         }
     }
 }

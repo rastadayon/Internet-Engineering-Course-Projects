@@ -10,7 +10,6 @@ import java.util.List;
 
 public class Offering {
     private final String classCode;
-    private final String type;
     private final String instructor;
     private Course course;
     private final int capacity;
@@ -18,22 +17,20 @@ public class Offering {
     private ExamTime examTime;
     private int signedUp = 0;
 
-    public Offering(String classCode, String type, String instructor,
+    public Offering(String classCode, String instructor,
                     int capacity, ClassTime classTime, ExamTime examTime) {
         this.classCode = classCode;
-        this.type = type;
         this.instructor = instructor;
         this.capacity = capacity;
         this.classTime = classTime;
         this.examTime = examTime;
         this.signedUp = 0;
     }
-
     public void setCourse(Course course) {
         this.course = course;
     }
 
-    public String getType() { return type; }
+    public String getType() { return course.getType(); }
 
     public ExamTime getExamTime() { return examTime; }
 
@@ -47,11 +44,15 @@ public class Offering {
         return course.getCourseCode();
     }
 
+    public Course getCourse() { return course; }
+
+    public int getSignedUp() { return signedUp; }
+
     public void print() {
         System.out.println(String.format("course code : %s-%s", course.getCourseCode(), classCode));
         System.out.println(String.format("course name : %s", course.getName()));
         System.out.println(String.format("units : %d", course.getUnits()));
-        System.out.println(String.format("type : %s", type));
+        System.out.println(String.format("type : %s", course.getType()));
         System.out.println(String.format("instructor : %s", instructor));
         System.out.println(String.format("capacity : %d", capacity));
         System.out.print("prerequisites : [ ");

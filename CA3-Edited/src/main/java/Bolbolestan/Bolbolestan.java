@@ -200,7 +200,8 @@ public class Bolbolestan {
         return instance;
     }
 
-    public void searchForCourses(Student student, String searchCourse) throws Exception {
+    public void searchForCourses(String studentId, String searchCourse) throws Exception {
+        Student student = studentManager.getStudentById(studentId);
         student.searchFor(searchCourse);
     }
 
@@ -213,5 +214,10 @@ public class Bolbolestan {
         String searchString = studentManager.getStudentById(studentId).getSearchString();
         offerings = offeringManager.getSimilarOfferings(searchString);
         return offerings;
+    }
+
+    public void clearSearch(String studentId) throws Exception {
+        Student student = studentManager.getStudentById(studentId);
+        student.clearSearch();
     }
 }

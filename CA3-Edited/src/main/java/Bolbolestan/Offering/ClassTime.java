@@ -14,12 +14,6 @@ public class ClassTime {
         this.days = days;
     }
 
-    public boolean hasTime(String day, String startTime) {
-        if (days.contains(day) && time.startsWith(startTime))
-            return true;
-        return false;
-    }
-
     public String getTime() { return time; }
 
     public List<String> getDays() { return days; }
@@ -34,6 +28,12 @@ public class ClassTime {
         }
         System.out.println(" ]");
         System.out.println(String.format("\ttime : %s", time));
+    }
+
+    public boolean hasTime(String day, String startTime) {
+        if (days.contains(day) && time.startsWith(startTime))
+            return true;
+        return false;
     }
 
     public JSONObject toJSON() {

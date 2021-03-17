@@ -12,7 +12,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-    Bolbolestan bolbolestan = bolbolestan;
+    Bolbolestan bolbolestan = Bolbolestan.getInstance();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -123,49 +123,28 @@
     </tr>
     <%for (Offering offering : searchedOfferings) {%>
     <tr>
-        <td><%=offering.getClassCode()%>></td>
-        <td>01</td>
-        <td>Advanced Programming</td>
-        <td>3</td>
-        <td>0</td>
-        <td>45</td>
-        <td>Asli</td>
-        <td>Sunday|Tuesday</td>
-        <td>10:30-12:00</td>
-        <td>2021-06-21T14:00:00</td>
-        <td>2021-06-21T17:00:00</td>
-        <td>8101013|8101002</td>
+        <td><%=offering.getCourseCode()%></td>
+        <td><%=offering.getClassCode()%></td>
+        <td><%=offering.getName()%></td>
+        <td><%=offering.getUnits()%></td>
+        <td><%=offering.getSignedUp()%></td>
+        <td><%=offering.getCapacity()%></td>
+        <td><%=offering.getType()%></td>
+        <td><%=offering.getClassDayString("|")%></td>
+        <td><%=offering.getClassTime().getTime()%></td>
+        <td><%=offering.getExamTime().getStart()%></td>
+        <td><%=offering.getExamTime().getEnd()%></td>
+        <td><%=offering.getPrerequisitesString()%></td>
         <td>
             <form action="" method="POST" >
                 <input id="form_action" type="hidden" name="action" value="add">
-                <input id="form_class_code" type="hidden" name="course_code" value="8101001">
-                <input id="form_class_code" type="hidden" name="class_code" value="01">
+                <input id="form_class_code" type="hidden" name="course_code" value=<%=offering.getCourseCode()%>>
+                <input id="form_class_code" type="hidden" name="class_code" value=<%=offering.getClassCode()%>>
                 <button type="submit">Add</button>
             </form>
         </td>
     </tr>
-    <tr>
-        <td>8101033</td>
-        <td>01</td>
-        <td>Islamic Thought 1</td>
-        <td>2</td>
-        <td>0</td>
-        <td>60</td>
-        <td>Umumi</td>
-        <td>Tuesday</td>
-        <td>9:00-10:30</td>
-        <td>2021-06-18T14:00:00</td>
-        <td>2021-06-18T17:00:00</td>
-        <td></td>
-        <td>
-            <form action="" method="POST" >
-                <input id="form_action" type="hidden" name="action" value="add">
-                <input id="form_class_code" type="hidden" name="course_code" value="8101033">
-                <input id="form_class_code" type="hidden" name="class_code" value="01">
-                <button type="submit">Add</button>
-            </form>
-        </td>
-    </tr>
+    <% } %>
 </table>
 </body>
 </html>
