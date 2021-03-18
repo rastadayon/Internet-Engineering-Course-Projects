@@ -103,8 +103,6 @@ public class CourseSelection {
         List<Offering> selected = selectedOfferings.getOfferings();
         List<Offering> submitted = submittedOfferings.getOfferings();
         for (Offering  offering: selected) {
-            if (submitted.contains(offering))
-                continue;
             offering.reduceCapacity();
         }
         submittedOfferings.copyWeeklySchedule(selectedOfferings);

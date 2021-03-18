@@ -65,8 +65,6 @@ public class WeeklySchedule {
         return errors;
     }
 
-
-
     public List<String> getSubmissionErrors(int currentUnits) {
         List<String> errors = new ArrayList<String>();
         if (weeklySchedule == null)
@@ -80,12 +78,6 @@ public class WeeklySchedule {
         return errors;
     }
 
-    public void finalizeWeeklySchedule() {
-        for (Offering offering : weeklySchedule) {
-            offering.reduceCapacity();
-        }
-    }
-
     public String getCourseNameByClassTime(String day, String startTime) {
         String courseName = "";
         for (Offering offering : weeklySchedule) {
@@ -95,18 +87,6 @@ public class WeeklySchedule {
             }
         }
         return courseName;
-    }
-
-    public void removeAllCourses() {
-        weeklySchedule = new ArrayList<Offering>();
-    }
-
-    void setWeeklySchedule(List<Offering> offerings) {
-        weeklySchedule = new ArrayList<Offering>(offerings);
-    }
-
-    List<Offering> getWeeklySchedule() {
-        return weeklySchedule;
     }
 
     void copyWeeklySchedule(WeeklySchedule w){

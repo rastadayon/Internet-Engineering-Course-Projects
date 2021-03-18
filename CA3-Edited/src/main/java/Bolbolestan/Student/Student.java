@@ -83,23 +83,6 @@ public class Student {
         courseSelection.addToSelectedOfferings(offering);
     }
 
-//    private boolean hasPrerequisites(Course course) {
-//        ArrayList<String> prerequisites = course.getPrerequisites();
-//        for (String prerequisite : prerequisites) {
-//            boolean hasPassed = false;
-//            for (Grade grade : grades) {
-//                if (grade.getCode().equals(prerequisite))
-//                    if (grade.getGrade() >= 10) {
-//                        hasPassed = true;
-//                        continue;
-//                    }
-//                if (!hasPassed)
-//                    return false;
-//            }
-//        }
-//        return true;
-//    }
-
     public boolean isEqual(Student student) {
         if (student == null)
             return false;
@@ -121,7 +104,7 @@ public class Student {
         for (String prerequisite : prerequisites) {
             boolean found = false;
             for (Grade grade : grades) {
-                if (grade.getCode() == prerequisite && grade.getGrade() >= 10) {
+                if (grade.getCode().equals(prerequisite) && grade.getGrade() >= 10) {
                     found = true;
                     break;
                 }
@@ -135,7 +118,7 @@ public class Student {
 
     public boolean notPassedBefore(Offering offering) {
         for (Grade grade : grades) {
-            if (grade.getCode() == offering.getCourseCode() && grade.getGrade() >= 10) {
+            if (grade.getCode().equals(offering.getCourseCode()) && grade.getGrade() >= 10) {
                 return false;
             }
         }
@@ -156,7 +139,7 @@ public class Student {
 
     public String makePassedMessage(Offering offering) {
         String message = "Course with code " + offering.getCourseCode() +
-                "has been passed before";
+                " has been passed before";
         return message;
     }
 

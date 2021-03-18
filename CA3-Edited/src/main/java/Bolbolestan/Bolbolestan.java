@@ -83,10 +83,6 @@ public class Bolbolestan {
         studentManager.removeFromWeeklySchedule(studentId, offering);
     }
 
-//    public WeeklySchedule handleGetWeeklySchedule(String studentId) throws Exception {
-//        return studentManager.getWeeklySchedule(studentId);
-//    }
-
     public boolean finalizeSchedule(String studentId) throws Exception {
         return studentManager.finalizeSchedule(studentId);
     }
@@ -105,22 +101,6 @@ public class Bolbolestan {
         return unitsPassed;
     }
 
-//    public int getTotalUnits(String studentId) throws Exception{
-//        return studentManager.getTotalUnits(studentId);
-//    }
-
-    public ArrayList<Offering> getClassTimeConflictingWithStudent(
-            String studentId, String courseCode, String classCode) throws Exception {
-        Offering offering = offeringManager.getOfferingById(courseCode, classCode);
-        return studentManager.getClassTimeConflicts(studentId, offering);
-    }
-
-    public ArrayList<Offering> getExamTimeConflictingWithStudent(
-            String studentId, String courseCode, String classCode) throws Exception {
-        Offering offering = offeringManager.getOfferingById(courseCode, classCode);
-        return studentManager.getExamTimeConflicts(studentId, offering);
-    }
-
     public boolean offeringHasCapacity(String courseCode, String classCode) throws Exception{
         return offeringManager.offeringHasCapacity(courseCode, classCode);
     }
@@ -135,10 +115,6 @@ public class Bolbolestan {
         Offering offering = offeringManager.getOfferingById(courseCode, classCode);
         studentManager.addCourseToStudent(studentId, offering);
     }
-
-//    public void removeAllCoursesFromStudent(String studentId) throws Exception {
-//        studentManager.removeAllOfferingsFromStudent(studentId);
-//    }
 
     private Bolbolestan() {}
 

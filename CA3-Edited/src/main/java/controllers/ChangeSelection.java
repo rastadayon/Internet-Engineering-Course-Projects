@@ -33,28 +33,4 @@ public class ChangeSelection extends HttpServlet {
             response.sendRedirect("http://localhost:8080/ca3_war_exploded/login");
         }
     }
-
-//    private void handleAdd(String studentId, String courseCode, String classCode,
-//                           HttpServletRequest request, HttpServletResponse response) {
-//        Bolbolestan bolbolestan = Bolbolestan.getInstance();
-//        try {
-//            bolbolestan.addCourseToStudent(studentId, courseCode, classCode);
-//            RequestDispatcher requestDispatcher = request.getRequestDispatcher("courses.jsp");
-//            requestDispatcher.forward(request, response);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    private void handleRemove(String studentId, String courseCode, String classCode,
-//                           HttpServletRequest request, HttpServletResponse response) {
-//        Bolbolestan bolbolestan = Bolbolestan.getInstance();
-//        try {
-//            bolbolestan.removeFromWeeklySchedule(studentId, courseCode, classCode);
-//            RequestDispatcher requestDispatcher = request.getRequestDispatcher("courses.jsp");
-//            requestDispatcher.forward(request, response);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
 }
