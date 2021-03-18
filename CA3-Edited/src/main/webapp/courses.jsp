@@ -10,10 +10,12 @@
 <%@ page import="Bolbolestan.Offering.Offering" %>
 <%@ page import="java.util.List" %>
 <%@ page import="Bolbolestan.Student.WeeklySchedule" %>
+<%@ page import="Bolbolestan.Student.Student" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
     Bolbolestan bolbolestan = Bolbolestan.getInstance();
+    Student student = bolbolestan.getStudentById(bolbolestan.getLoggedInId());
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +35,7 @@
 <body>
 <a href="/ca3_war_exploded/">Home</a>
 <li id="code">Student Id: <%=bolbolestan.getLoggedInId()%></li>
-<li id="units">Total Selected Units: #(we have to change this)16#</li>
+<li id="units">Total Selected Units: <%=student.getTotalSelectedUnits()%></li>
 
 <br>
 
@@ -47,8 +49,8 @@
         <th></th>
     </tr>
     <%
-        List<Offering> selectedOfferings = bolbolestan.getLoggedInStudent().getSelectedOfferings().getOfferings();
-        List<Offering> submittedOfferings = bolbolestan.getLoggedInStudent().getSubmittedOfferings().getOfferings();
+        List<Offering> selectedOfferings = student.getSelectedOfferings().getOfferings();
+        List<Offering> submittedOfferings = student.getSubmittedOfferings().getOfferings();
     %>
     <%for (Offering submittedOffering : submittedOfferings) { %>
     <tr>
@@ -96,7 +98,7 @@
 <form class="search_form" action="searchCourses" method="POST">
     <label>Search:</label>
     <%
-        String searchString = bolbolestan.getLoggedInStudent().getSearchString();
+        String searchString = student.getSearchString();
         if (searchString == null)
             searchString = "";
     %>
@@ -127,6 +129,7 @@
         <th>Time</th>
         <th>Exam Start</th>
         <th>Exam End</th>
+        <th>Prerequisites</th>
         <th>Prerequisites</th>
         <th></th>
     </tr>

@@ -208,4 +208,8 @@ public class Student {
     public void finalizeSchedule() {
         courseSelection.makeFinalized();
     }
+
+    public int getTotalSelectedUnits() {
+        return courseSelection.getTotalSelectedUnits();
+    }
 }

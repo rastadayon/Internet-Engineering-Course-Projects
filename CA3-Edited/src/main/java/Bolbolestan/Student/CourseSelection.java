@@ -110,4 +110,10 @@ public class CourseSelection {
         submittedOfferings.copyWeeklySchedule(selectedOfferings);
         selectedOfferings = new WeeklySchedule();
     }
+
+    public int getTotalSelectedUnits() {
+        int totalSelectedUnits = selectedOfferings.getTotalUnits();
+        totalSelectedUnits += submittedOfferings.getTotalUnits();
+        return totalSelectedUnits;
+    }
 }
