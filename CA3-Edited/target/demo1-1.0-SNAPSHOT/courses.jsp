@@ -128,7 +128,6 @@
         <th>Exam Start</th>
         <th>Exam End</th>
         <th>Prerequisites</th>
-        <th>Signed Up</th>
         <th></th>
     </tr>
     <%for (Offering offering : searchedOfferings) {%>
@@ -145,7 +144,6 @@
         <td><%=offering.getExamTime().getStart()%></td>
         <td><%=offering.getExamTime().getEnd()%></td>
         <td><%=offering.getPrerequisitesString()%></td>
-        <td><%=offering.getSignedUp()%></td>
         <td>
             <form action="changeSelection" method="POST" >
                 <input id="form_action" type="hidden" name="action" value="add">

@@ -97,7 +97,7 @@ public class StudentManager {
     public ArrayList<Offering> getClassTimeConflicts(Student student, Offering offering, List<Offering> schedule) throws Exception {
         ArrayList<Offering> conflictingOfferings = null;
         for (Offering scheduleOffering : schedule) {
-            if (offering.doesClassTimeCollide(scheduleOffering)) {
+            if (offering.doesClassTimeCollide(scheduleOffering )) {
                 if (conflictingOfferings == null)
                     conflictingOfferings = new ArrayList<>();
                 conflictingOfferings.add(scheduleOffering);

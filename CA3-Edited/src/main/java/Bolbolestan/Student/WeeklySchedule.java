@@ -40,8 +40,8 @@ public class WeeklySchedule {
         return units;
     }
 
-    private void checkValidNumberOfUnits() throws Exception {
-        int units = getTotalUnits();
+    private void checkValidNumberOfUnits(int currentUnits) throws Exception {
+        int units = getTotalUnits() + currentUnits;
         System.out.println(units);
         if (units > 20)
             throw new BolbolestanMaximumUnitsError();
@@ -67,13 +67,13 @@ public class WeeklySchedule {
 
 
 
-    public List<String> getSubmissionErrors() {
+    public List<String> getSubmissionErrors(int currentUnits) {
         List<String> errors = new ArrayList<String>();
         if (weeklySchedule == null)
             weeklySchedule = new ArrayList<>();
         errors.addAll(checkCapacities());
         try {
-            checkValidNumberOfUnits();
+            checkValidNumberOfUnits(currentUnits);
         } catch (Exception e) {
             errors.add(e.getMessage());
         }
@@ -110,7 +110,7 @@ public class WeeklySchedule {
     }
 
     void copyWeeklySchedule(WeeklySchedule w){
-        this.setWeeklySchedule(w.getWeeklySchedule());
+        this.getOfferings().addAll(w.getOfferings());
     }
 
 }

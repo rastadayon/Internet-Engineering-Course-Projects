@@ -32,16 +32,72 @@ public class CourseSelection {
     }
 
     public void resetSelectedOfferings() {
-        selectedOfferings.copyWeeklySchedule(submittedOfferings);
+        selectedOfferings = new WeeklySchedule();
     }
 
     public void setErrors(List<String> errors) {
         submissionErrors = new ArrayList<String>();
+        submissionErrors.addAll(checkClassTimeConflicts());
+        submissionErrors.addAll(checkExamTimeConflicts());
         submissionErrors.addAll(errors);
-        submissionErrors.addAll(selectedOfferings.getSubmissionErrors());
+        submissionErrors.addAll(selectedOfferings.getSubmissionErrors(
+                submittedOfferings.getTotalUnits()));
     }
 
     public List<String> getSubmissionErrors() { return submissionErrors;}
+
+    private List<Offering> getUnionOfCourses() {
+        List<Offering> union = new ArrayList<Offering>();
+        union.addAll(selectedOfferings.getOfferings());
+        union.addAll(submittedOfferings.getOfferings());
+        return union;
+    }
+
+    public String makeClassTimeConflictMessage(Offering first, Offering second) {
+        String message = "Course with code " + first.getCourseCode() +
+                " has class time collision with course with code " +
+                second.getCourseCode();
+        return message;
+    }
+
+    public String makeExamTimeConflictMessage(Offering first, Offering second) {
+        String message = "Course with code " + first.getCourseCode() +
+                " has exam time collision with course with code " +
+                second.getCourseCode();
+        return message;
+    }
+
+    public ArrayList<String> checkClassTimeConflicts() {
+        ArrayList<String> errors = new ArrayList<String>();
+        for (Offering first: selectedOfferings.getOfferings()) {
+            for (Offering second: getUnionOfCourses()) {
+                if (first.equals(second))
+                    continue;
+                if (first.doesClassTimeCollide(second)) {
+                    if (errors.contains(makeClassTimeConflictMessage(second, first)))
+                        continue;
+                    errors.add(makeClassTimeConflictMessage(first, second));
+                }
+            }
+        }
+        return errors;
+    }
+
+    public ArrayList<String> checkExamTimeConflicts() {
+        ArrayList<String> errors = new ArrayList<String>();
+        for (Offering first: selectedOfferings.getOfferings()) {
+            for (Offering second: getUnionOfCourses()) {
+                if (first.equals(second))
+                    continue;
+                if (first.doesExamTimeCollide(second)) {
+                    if (errors.contains(makeExamTimeConflictMessage(second, first)))
+                        continue;
+                    errors.add(makeExamTimeConflictMessage(first, second));
+                }
+            }
+        }
+        return errors;
+    }
 
     public void makeFinalized() {
         List<Offering> selected = selectedOfferings.getOfferings();
@@ -52,5 +108,6 @@ public class CourseSelection {
             offering.reduceCapacity();
         }
         submittedOfferings.copyWeeklySchedule(selectedOfferings);
+        selectedOfferings = new WeeklySchedule();
     }
 }
