@@ -49,10 +49,38 @@ public class WeeklySchedule {
             throw new BolbolestanMinimumUnitsError();
     }
 
-    public void finalizeWeeklySchedule() throws Exception {
+    private String makeCapacityMessage(Offering offering) {
+        String message = "Capacity of course with code " + offering.getCourseCode() +
+                " is full.";
+        return message;
+    }
+
+    private List<String> checkCapacities() {
+        List<String> errors = new ArrayList<String>();
+        for (Offering offering: weeklySchedule) {
+            if (offering.hasCapacity())
+                continue;
+            errors.add(makeCapacityMessage(offering));;
+        }
+        return errors;
+    }
+
+
+
+    public List<String> getSubmissionErrors() {
+        List<String> errors = new ArrayList<String>();
         if (weeklySchedule == null)
             weeklySchedule = new ArrayList<>();
-        checkValidNumberOfUnits();
+        errors.addAll(checkCapacities());
+        try {
+            checkValidNumberOfUnits();
+        } catch (Exception e) {
+            errors.add(e.getMessage());
+        }
+        return errors;
+    }
+
+    public void finalizeWeeklySchedule() {
         for (Offering offering : weeklySchedule) {
             offering.reduceCapacity();
         }

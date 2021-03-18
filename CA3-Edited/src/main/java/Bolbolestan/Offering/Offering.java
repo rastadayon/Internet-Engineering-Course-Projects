@@ -131,4 +131,15 @@ public class Offering {
         return Utils.getInstance().doDateTimesCollide(cStart, cEnd, this.getExamTime().getStart(),
                 this.getExamTime().getEnd(), "yyyy-MM-dd'T'kk:mm:ss");
     }
+
+    public boolean equals(Offering o) {
+        if (o == null) {
+            return false;
+        }
+
+        if (o.getCourseCode() != this.getCourseCode()) {
+            return false;
+        }
+        return true;
+    }
 }

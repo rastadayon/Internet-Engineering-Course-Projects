@@ -4,6 +4,7 @@ import Bolbolestan.Offering.Offering;
 import Bolbolestan.exeptions.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Student {
     private final String id;
@@ -115,7 +116,7 @@ public class Student {
     }
 
     public ArrayList<String> getPrerequisitesNotPassed(Offering offering) {
-        ArrayList<String> notPassed = null;
+        ArrayList<String> notPassed = new ArrayList<>();
         ArrayList<String> prerequisites = offering.getPrerequisites();
         for (String prerequisite : prerequisites) {
             boolean found = false;
@@ -126,12 +127,19 @@ public class Student {
                 }
             }
             if (!found) {
-                if (notPassed == null)
-                    notPassed = new ArrayList<>();
                 notPassed.add(prerequisite);
             }
         }
         return notPassed;
+    }
+
+    public boolean notPassedBefore(Offering offering) {
+        for (Grade grade : grades) {
+            if (grade.getCode() == offering.getCourseCode() && grade.getGrade() >= 10) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void searchFor(String courseName) {
@@ -144,5 +152,60 @@ public class Student {
 
     public void resetSelectedOfferings() {
         courseSelection.resetSelectedOfferings();
+    }
+
+    public String makePassedMessage(Offering offering) {
+        String message = "Course with code " + offering.getCourseCode() +
+                "has been passed before";
+        return message;
+    }
+
+    private List<String> checkNotPassedBefore() {
+        List<String> errors = new ArrayList<String>();
+        List<Offering> offerings = getSelectedOfferings().getOfferings();
+        for (Offering offering: offerings) {
+            if (notPassedBefore(offering))
+                continue;
+            errors.add(makePassedMessage(offering));
+        }
+        return errors;
+    }
+
+    public String makePrerequisitesMessage(List<String> notPassed, Offering offering) {
+        String message = "Prerequisites for course with code " + offering.getCourseCode() +
+        " are not passed {";
+        for (int i=0; i<notPassed.size(); i++) {
+            message += notPassed.get(i);
+            if (i == (notPassed.size()-1))
+                message += "}";
+            else
+                message += ", ";
+        }
+        return message;
+    }
+
+    private List<String> checkHasPrerequisites() {
+        List<String> errors = new ArrayList<String>();
+        List<Offering> offerings = getSelectedOfferings().getOfferings();
+        for (Offering offering: offerings) {
+            if (getPrerequisitesNotPassed(offering).size() == 0)
+                continue;
+            errors.add(makePrerequisitesMessage(getPrerequisitesNotPassed(offering),
+                    offering));
+        }
+        return errors;
+    }
+
+    public void setSubmissionErrors() {
+        List<String> errors = new ArrayList<String>();
+        errors.addAll(checkHasPrerequisites());
+        errors.addAll(checkNotPassedBefore());
+        courseSelection.setErrors(errors);
+    }
+
+    public List<String> getSubmissionErrors() { return courseSelection.getSubmissionErrors();}
+
+    public void finalizeSchedule() {
+        courseSelection.makeFinalized();
     }
 }

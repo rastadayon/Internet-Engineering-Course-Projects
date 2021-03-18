@@ -34,4 +34,23 @@ public class CourseSelection {
     public void resetSelectedOfferings() {
         selectedOfferings.copyWeeklySchedule(submittedOfferings);
     }
+
+    public void setErrors(List<String> errors) {
+        submissionErrors = new ArrayList<String>();
+        submissionErrors.addAll(errors);
+        submissionErrors.addAll(selectedOfferings.getSubmissionErrors());
+    }
+
+    public List<String> getSubmissionErrors() { return submissionErrors;}
+
+    public void makeFinalized() {
+        List<Offering> selected = selectedOfferings.getOfferings();
+        List<Offering> submitted = submittedOfferings.getOfferings();
+        for (Offering  offering: selected) {
+            if (submitted.contains(offering))
+                continue;
+            offering.reduceCapacity();
+        }
+        submittedOfferings.copyWeeklySchedule(selectedOfferings);
+    }
 }

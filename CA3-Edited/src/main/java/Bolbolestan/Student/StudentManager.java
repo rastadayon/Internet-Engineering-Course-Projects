@@ -75,10 +75,16 @@ public class StudentManager {
         return student.getSubmittedOfferings();
     }
 
-//    public void finalizeSchedule(String studentId) throws Exception {
-//        Student student = getStudentById(studentId);
-//        student.getWeeklySchedule().finalizeWeeklySchedule();
-//    }
+    public boolean finalizeSchedule(String studentId) throws Exception {
+        Student student = getStudentById(studentId);
+        student.setSubmissionErrors();
+        if (student.getSubmissionErrors().size() == 0) {
+            student.finalizeSchedule();
+            return true;
+        }
+        else
+            return false;
+    }
 
 //    public int getTotalUnits(String studentId) throws Exception{
 //        WeeklySchedule weeklySchedule = getWeeklySchedule(studentId);

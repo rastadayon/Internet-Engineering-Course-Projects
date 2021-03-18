@@ -87,9 +87,9 @@ public class Bolbolestan {
 //        return studentManager.getWeeklySchedule(studentId);
 //    }
 
-//    public void handleFinalize(String studentId) throws Exception {
-//        studentManager.finalizeSchedule(studentId);
-//    }
+    public boolean finalizeSchedule(String studentId) throws Exception {
+        return studentManager.finalizeSchedule(studentId);
+    }
 
     public int getUnitsPassed(String studentId) throws Exception {
         Student student = studentManager.getStudentById(studentId);

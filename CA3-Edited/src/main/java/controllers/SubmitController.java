@@ -20,7 +20,10 @@ public class SubmitController extends HttpServlet {
             String action = request.getParameter("action");
             try {
                 if ("submit".equals(action)) {
-                    //String loggedInStudentId = bolbolestan.getLoggedInId();
+                    if(bolbolestan.finalizeSchedule(loggedInStudentId))
+                        response.sendRedirect("http://localhost:8080/ca3_war_exploded/plan");
+                    else
+                        response.sendRedirect("http://localhost:8080/ca3_war_exploded/submitFailed");
                 }
                 else if ("reset".equals(action)) {
                     bolbolestan.resetSelectedOfferings(loggedInStudentId);
