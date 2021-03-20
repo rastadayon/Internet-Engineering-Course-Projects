@@ -2,6 +2,7 @@ package Bolbolestan.Student;
 
 import Bolbolestan.Offering.Offering;
 import Bolbolestan.exeptions.*;
+import Bolbolestan.Utilities.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,14 +58,15 @@ public class Student {
 
     public float getGPA() {
         int count = 0;
-        int gradeSum = 0;
+        float gradeSum = 0;
+        Utils utils = Utils.getInstance();
         if (grades != null)
             for (Grade grade : grades) {
-                gradeSum += grade.getGrade();
-                count += 1;
+                gradeSum += (grade.getGrade()*grade.getUnits());
+                count += grade.getUnits();
             }
         if (count != 0)
-            return gradeSum/count;
+            return utils.round(gradeSum/count, 2);
         else
             return 0;
     }

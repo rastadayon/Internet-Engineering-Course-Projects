@@ -51,7 +51,7 @@
 %>
 <tr>
     <td><%=grade.getCode()%></td>
-    <td><%=Integer.toString(grade.getGrade())%></td>
+    <td><%=Float.toString(grade.getGrade())%></td>
 </tr>
 <% } %>
 </table>

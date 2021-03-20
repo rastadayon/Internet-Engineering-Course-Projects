@@ -100,6 +100,7 @@ public class LoginController extends HttpServlet {
             }.getType());
             for (Grade grade : grades) {
                 try {
+                    grade.setUnits(Bolbolestan.getInstance().getUnitsById(grade.getCode()));
                     Bolbolestan.getInstance().addGradeToStudent(studentId, grade);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());

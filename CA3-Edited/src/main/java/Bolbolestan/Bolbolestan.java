@@ -150,4 +150,8 @@ public class Bolbolestan {
         Student student = studentManager.getStudentById(studentId);
         student.resetSelectedOfferings();
     }
+
+    public int getUnitsById(String courseCode) {
+        return offeringManager.getUnitsById(courseCode);
+    }
 }

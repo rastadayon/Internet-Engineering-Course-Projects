@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.math.BigDecimal;
 
 public final class Utils {
     private static Utils utilsInstance = null;
@@ -49,5 +50,11 @@ public final class Utils {
             correctTime.add(s);
         }
         return correctTime;
+    }
+
+    public float round(float d, int decimalPlace) {
+        BigDecimal bd = new BigDecimal(Float.toString(d));
+        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
+        return bd.floatValue();
     }
 }
