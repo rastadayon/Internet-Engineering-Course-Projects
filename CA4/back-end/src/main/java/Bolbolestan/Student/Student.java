@@ -12,6 +12,11 @@ public class Student {
     private final String name;
     private final String secondName;
     private final String birthDate;
+    private final String field;
+    private final String faculty;
+    private final String level;
+    private final String status;
+    private final String img;
     private ArrayList<Grade> grades = new ArrayList<Grade>();
     private String searchString = null;
     private CourseSelection courseSelection;
@@ -22,13 +27,25 @@ public class Student {
         this.name = null;
         this.secondName = null;
         this.birthDate = null;
+        this.field = null;
+        this.faculty = null;
+        this.level = null;
+        this.status = null;
+        this.img = null;
     }
 
-    public Student(String id, String name, String secondName, String birthDate) {
+    public Student(String id, String name, String secondName, String birthDate,
+                   String field, String faculty, String level, String status,
+                   String img) {
         this.id = id;
         this.name = name;
         this.secondName = secondName;
         this.birthDate = birthDate;
+        this.field = field;
+        this.faculty = faculty;
+        this.level = level;
+        this.status = status;
+        this.img = img;
         courseSelection = new CourseSelection();
     }
 
@@ -58,6 +75,10 @@ public class Student {
         System.out.println(String.format("student id : %s", id));
         System.out.println(String.format("student name : %s %s", name, secondName));
         System.out.println(String.format("birth date : %s", birthDate));
+        System.out.println(String.format("field : %s", field));
+        System.out.println(String.format("faculty : %s", faculty));
+        System.out.println(String.format("level : %s", level));
+        System.out.println(String.format("status : %s", status));
     }
 
     public float getGPA() {

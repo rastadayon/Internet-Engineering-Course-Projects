@@ -23,9 +23,9 @@ import com.google.gson.reflect.TypeToken;
 
 @WebServlet(name = "LoginController", urlPatterns = "/login")
 public class LoginController extends HttpServlet {
-    final static String STUDENTS_URL = "http://138.197.181.131:5000/api/students";
-    final static String GRADES_URL = "http://138.197.181.131:5000/api/grades";
-    final static String COURSES_URL = "http://138.197.181.131:5000/api/courses";
+    final static String STUDENTS_URL = "http://138.197.181.131:5100/api/students";
+    final static String GRADES_URL = "http://138.197.181.131:5100/api/grades";
+    final static String COURSES_URL = "http://138.197.181.131:5100/api/courses";
     public void init() throws ServletException {
 
         try {
