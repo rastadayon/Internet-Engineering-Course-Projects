@@ -60,6 +60,19 @@ public class StudentManager {
         student.removeFromWeeklySchedule(offering);
     }
 
+    public boolean addCourseToWaitingList(String studentId, Offering offering) throws Exception {
+        Student student = getStudentById(studentId);
+        student.addToWaitingOfferings(offering);
+        student.setWaitingErrors(offering);
+        if (student.getSubmissionErrors().size() == 0)
+            return true;
+        else {
+            student.removeFromWeeklySchedule(offering);
+            student.addToSelectedOfferings(offering);
+            return false;
+        }
+    }
+
     public boolean finalizeSchedule(String studentId) throws Exception {
         Student student = getStudentById(studentId);
         student.setSubmissionErrors();

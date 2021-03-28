@@ -116,6 +116,11 @@ public class Bolbolestan {
         studentManager.addCourseToStudent(studentId, offering);
     }
 
+    public boolean addCourseToWaitingList(String studentId, String courseCode, String classCode) throws Exception {
+        Offering offering = offeringManager.getOfferingById(courseCode, classCode);
+        return studentManager.addCourseToWaitingList(studentId, offering);
+    }
+
     private Bolbolestan() {}
 
     public static Bolbolestan getInstance() {

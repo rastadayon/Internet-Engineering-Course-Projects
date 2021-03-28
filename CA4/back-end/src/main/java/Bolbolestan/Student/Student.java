@@ -48,6 +48,10 @@ public class Student {
         return courseSelection.getSubmittedOfferings();
     }
 
+    public WeeklySchedule getWaitingOfferings() {
+        return courseSelection.getWaitingOfferings();
+    }
+
     public String getSearchString() { return searchString; }
 
     public void print() {
@@ -83,6 +87,10 @@ public class Student {
 
     public void addToSelectedOfferings(Offering offering) {
         courseSelection.addToSelectedOfferings(offering);
+    }
+
+    public void addToWaitingOfferings(Offering offering) throws Exception {
+        courseSelection.addToWaitingOfferings(offering);
     }
 
     public boolean isEqual(Student student) {
@@ -148,11 +156,15 @@ public class Student {
     private List<String> checkNotPassedBefore() {
         List<String> errors = new ArrayList<String>();
         List<Offering> offerings = getSelectedOfferings().getOfferings();
-        for (Offering offering: offerings) {
-            if (notPassedBefore(offering))
-                continue;
+        for (Offering offering: offerings)
+            errors.addAll(coursePassedBeforeErrors(offering));
+        return errors;
+    }
+
+    private List<String> coursePassedBeforeErrors(Offering offering) {
+        List<String> errors = new ArrayList<String>();
+        if (notPassedBefore(offering) == false)
             errors.add(makePassedMessage(offering));
-        }
         return errors;
     }
 
@@ -172,12 +184,16 @@ public class Student {
     private List<String> checkHasPrerequisites() {
         List<String> errors = new ArrayList<String>();
         List<Offering> offerings = getSelectedOfferings().getOfferings();
-        for (Offering offering: offerings) {
-            if (getPrerequisitesNotPassed(offering).size() == 0)
-                continue;
+        for (Offering offering: offerings)
+            errors.addAll(coursePrerequisitesErrors(offering));
+        return errors;
+    }
+
+    private List<String> coursePrerequisitesErrors(Offering offering) {
+        List<String> errors = new ArrayList<String>();
+        if (getPrerequisitesNotPassed(offering).size() != 0)
             errors.add(makePrerequisitesMessage(getPrerequisitesNotPassed(offering),
                     offering));
-        }
         return errors;
     }
 
@@ -185,10 +201,19 @@ public class Student {
         List<String> errors = new ArrayList<String>();
         errors.addAll(checkHasPrerequisites());
         errors.addAll(checkNotPassedBefore());
-        courseSelection.setErrors(errors);
+        courseSelection.setSubmissionErrors(errors);
+    }
+
+    public void setWaitingErrors(Offering offering) {
+        List<String> errors = new ArrayList<String>();
+        errors.addAll(coursePrerequisitesErrors(offering));
+        errors.addAll(coursePassedBeforeErrors(offering));
+        courseSelection.setWaitingErrors(errors);
     }
 
     public List<String> getSubmissionErrors() { return courseSelection.getSubmissionErrors();}
+
+    public List<String> getWaitingErrors() { return courseSelection.getWaitingErrors();}
 
     public void finalizeSchedule() {
         courseSelection.makeFinalized();

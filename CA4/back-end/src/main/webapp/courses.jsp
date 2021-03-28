@@ -51,6 +51,7 @@
     <%
         List<Offering> selectedOfferings = student.getSelectedOfferings().getOfferings();
         List<Offering> submittedOfferings = student.getSubmittedOfferings().getOfferings();
+        List<Offering> waitingOfferings = student.getWaitingOfferings().getOfferings();
     %>
     <%for (Offering submittedOffering : submittedOfferings) { %>
     <tr>
@@ -60,10 +61,26 @@
         <td><%=submittedOffering.getUnits()%></td>
         <td>
             <form action="changeSelection" method="POST" >
-                <input id="form_action" type="hidden" name="action" value="remove">
                 <input id="form_course_code" type="hidden" name="course_code" value=<%=submittedOffering.getCourseCode()%>>
                 <input id="form_class_code" type="hidden" name="class_code" value=<%=submittedOffering.getClassCode()%>>
-                <button type="submit">Remove</button>
+                <button type="submit" name="action" value="remove">Remove</button>
+                <button type="submit" name="action" value="wait">Wait</button>
+            </form>
+        </td>
+    </tr>
+    <%}%>
+    <%for (Offering waitingOffering : waitingOfferings) { %>
+    <tr>
+        <td><%=waitingOffering.getCourseCode()%></td>
+        <td><%=waitingOffering.getClassCode()%></td>
+        <td><%=waitingOffering.getName()%></td>
+        <td><%=waitingOffering.getUnits()%></td>
+        <td>
+            <form action="changeSelection" method="POST" >
+                <input id="form_course_code" type="hidden" name="course_code" value=<%=waitingOffering.getCourseCode()%>>
+                <input id="form_class_code" type="hidden" name="class_code" value=<%=waitingOffering.getClassCode()%>>
+                <button type="submit" name="action" value="remove">Remove</button>
+                <button type="submit" name="action" value="wait">Wait</button>
             </form>
         </td>
     </tr>
@@ -76,10 +93,10 @@
         <td><%=selectedOffering.getUnits()%></td>
         <td>
             <form action="changeSelection" method="POST" >
-                <input id="form_action" type="hidden" name="action" value="remove">
                 <input id="form_course_code" type="hidden" name="course_code" value=<%=selectedOffering.getCourseCode()%>>
                 <input id="form_class_code" type="hidden" name="class_code" value=<%=selectedOffering.getClassCode()%>>
-                <button type="submit">Remove</button>
+                <button type="submit" name="action" value="remove">Remove</button>
+                <button type="submit" name="action" value="wait">Wait</button>
             </form>
         </td>
     </tr>

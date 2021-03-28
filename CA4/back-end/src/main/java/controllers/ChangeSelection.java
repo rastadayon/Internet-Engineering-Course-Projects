@@ -24,6 +24,11 @@ public class ChangeSelection extends HttpServlet {
                     bolbolestan.addCourseToStudent(loggedInStudentId, courseCode, classCode);
                 else if("remove".equals(action))
                     bolbolestan.removeFromWeeklySchedule(loggedInStudentId, courseCode, classCode);
+                else if("wait".equals(action)) {
+                    if (!bolbolestan.addCourseToWaitingList(loggedInStudentId, courseCode,
+                            classCode))
+                        response.sendRedirect("http://localhost:8080/ca3_war_exploded/submitFailed");
+                }
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("courses.jsp");
                 requestDispatcher.forward(request, response);
             } catch (Exception e) {

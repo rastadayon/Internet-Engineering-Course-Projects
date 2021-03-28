@@ -71,7 +71,10 @@ public class Offering {
                 this.classCode.equals(offering.getCourseCode());
     }
 
-    public void reduceCapacity() {
+    public void decreaseSignedUp() {
+        signedUp -= 1; }
+
+    public void increaseSignedUp() {
         signedUp += 1; }
 
     public ClassTime getClassTime() { return classTime; }
