@@ -122,4 +122,10 @@ public class StudentManager {
         this.loggedInStudent = null;
     }
 
+    public void checkWaitingLists() {
+        for (Student student: students) {
+            student.checkWaitingCourses();
+        }
+    }
+
 }

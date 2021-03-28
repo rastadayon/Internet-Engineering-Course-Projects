@@ -222,4 +222,8 @@ public class Student {
     public int getTotalSelectedUnits() {
         return courseSelection.getTotalSelectedUnits();
     }
+
+    public void checkWaitingCourses() {
+        courseSelection.checkWaitingCourses();
+    }
 }

@@ -156,6 +156,10 @@ public class Bolbolestan {
         student.resetSelectedOfferings();
     }
 
+    public void checkWaitingLists() throws Exception {
+        studentManager.checkWaitingLists();
+    }
+
     public int getUnitsById(String courseCode) {
         return offeringManager.getUnitsById(courseCode);
     }

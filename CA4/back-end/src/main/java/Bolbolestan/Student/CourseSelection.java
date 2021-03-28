@@ -128,7 +128,6 @@ public class CourseSelection {
 
     public void makeFinalized() {
         List<Offering> selected = selectedOfferings.getOfferings();
-        List<Offering> submitted = submittedOfferings.getOfferings();
         for (Offering  offering: selected) {
             offering.increaseSignedUp();
         }
@@ -140,5 +139,15 @@ public class CourseSelection {
         int totalSelectedUnits = selectedOfferings.getTotalUnits();
         totalSelectedUnits += submittedOfferings.getTotalUnits();
         return totalSelectedUnits;
+    }
+
+    public void checkWaitingCourses() {
+        List<Offering> waiting = waitingOfferings.getOfferings();
+        for (Offering  offering: waiting) {
+            offering.increaseSignedUp();
+            offering.increaseCapacity();
+        }
+        submittedOfferings.copyWeeklySchedule(waitingOfferings);
+        waitingOfferings = new WeeklySchedule();
     }
 }

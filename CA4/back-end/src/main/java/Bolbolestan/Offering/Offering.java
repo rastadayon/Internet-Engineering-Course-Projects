@@ -12,7 +12,7 @@ public class Offering {
     private final String classCode;
     private final String instructor;
     private Course course;
-    private final int capacity;
+    private int capacity;
     private ClassTime classTime;
     private ExamTime examTime;
     private int signedUp = 0;
@@ -72,10 +72,16 @@ public class Offering {
     }
 
     public void decreaseSignedUp() {
-        signedUp -= 1; }
+        signedUp -= 1;
+    }
 
     public void increaseSignedUp() {
-        signedUp += 1; }
+        signedUp += 1;
+    }
+
+    public void increaseCapacity() {
+        capacity += 1;
+    }
 
     public ClassTime getClassTime() { return classTime; }
 
