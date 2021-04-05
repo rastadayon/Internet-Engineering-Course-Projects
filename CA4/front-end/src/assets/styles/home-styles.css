@@ -4,9 +4,13 @@
 @import "app-background.css";
 @import "search-bar.css";
 
+* {
+    box-sizing: border-box !important;
+}
+  
 html {
     height: 100%;
-  }
+}
   
 body {
     width: 100%;
@@ -16,8 +20,151 @@ body {
     height: 100%;
 }
 
-.background-img img{
+.background-img img {
     max-width: 100%;
     max-height: 100%;
     display: block;
 }
+
+.std-info {
+    padding: 2%;
+    float: right;
+    text-align: center;
+    border-left-color: #1FA5FF;
+    border-left-style: solid;
+    border-left-width: 3px;
+}
+
+.std-info ul {
+    padding-top: 10%;
+    list-style-type:none;
+    color: #1FA5FF;
+}
+
+.std-info li {
+    margin: 0 0 15px 0;
+}
+
+.std-info span{
+    color: grey;
+}
+
+.std-info .avatar {
+    width: 7rem;
+    margin-right: 15%;
+    border: 2px solid #1FA5FF;
+    border-radius: 100%;
+}
+
+.orders-charge-wrapper .orders-charge {
+    /* width: 60%; */
+    /* margin: 5%; */
+    height: auto !important;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border: 1px solid gray;
+    border-radius: 10px;
+    background: white;
+    float: left;
+    display:inline-block;
+  }
+  
+  .orders-charge [type="radio"] {
+    display: none;
+  }
+  
+  .orders-charge label {
+    cursor: pointer;
+  }
+  
+  .tab1 {
+    transition: all 0.5s ease-in;
+  }
+  
+  .tab2 {
+    transition: all 0.5s ease-in;
+  }
+  
+  .select-tab1 {
+    border-left: dashed 2px rgba(200, 200, 200, 1);
+    transition: all 0.3s;
+  }
+  
+  .select-tab2 {
+    transition: all 0.3s;
+  }
+  
+  /* TAB 1 */
+  #tab-1:checked ~ .tab1 {
+    /*display: none !important;*/
+    visibility: hidden;
+    height: 0;
+    position: fixed;
+    opacity: 0;
+    transition: none;
+  }
+  
+  #tab-1:not(:checked) ~ .tab1 {
+    /*display: flex !important;*/
+    visibility: visible;
+    height: auto;
+    opacity: 1;
+  }
+  
+  #tab-1:checked ~ div .select-tab1 {
+    background: #ff6b6b !important;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 0px 10px 10px 0px;
+  }
+  
+  #tab-1:not(:checked) ~ .select-tab1 {
+    background: white !important;
+    color: #212529;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 0px;
+  }
+  
+  /* TAB 2 */
+  #tab-2:checked ~ .tab2 {
+    /*display: none !important;*/
+    visibility: hidden;
+    height: 0;
+    position: fixed;
+    opacity: 0;
+    transition: none;
+  }
+  
+  #tab-2:not(:checked) ~ .tab2 {
+    /*display: block !important;*/
+    visibility: visible;
+    height: auto;
+    opacity: 1;
+  }
+  
+  #tab-2:checked ~ div .select-tab2 {
+    background: #ff6b6b !important;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 10px 0px 0px 10px;
+  }
+  
+  #tab-2:not(:checked) ~ .select-tab2 {
+    background: white !important;
+    color: #212529;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 0px;
+  }
+  
+  main {
+    margin-top: 5%;
+    display: block;
+    justify-content: center;
+    /* justify-content: center; */
+  }

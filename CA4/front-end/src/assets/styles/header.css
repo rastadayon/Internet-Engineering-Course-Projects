@@ -7,7 +7,7 @@ header {
     background: white;
     border-bottom: 2px solid #1FA5FF;
     z-index: 100000000000;
-    /* direction: rtl; */
+    direction: rtl;
   }
   
 .header {
@@ -31,4 +31,8 @@ header {
 .flaticon {
     font-size: 20px;
 }
+
+/* .right-text {
+    flex:;
+} */
 
