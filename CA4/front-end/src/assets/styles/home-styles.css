@@ -29,11 +29,8 @@ body {
 .std-info {
     padding-top: 5%;
     padding-left: 2%;
-    float: right;
     text-align: center;
-    border-left-color: #1FA5FF;
-    border-left-style: solid;
-    border-left-width: 3px;
+    justify-content: center;
 }
 
 .std-info ul {
@@ -57,6 +54,18 @@ body {
     border-radius: 100%;
 }
 
+.std-info .std-status {
+    width: 60%;
+    color: #1FA5FF;
+    border: 2px solid #1FA5FF;
+    border-radius: 4px;
+    height: 2.5rem;
+    display:inline-block;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+}
+
 .report-cards-wrapper {
     width: 100%;
     display: flex;
@@ -65,15 +74,15 @@ body {
     align-items: center;
     padding: 2%;
     padding-left: 0%;
-    margin-top: 10%;
+    border-right: 3px solid #1FA5FF;
 }
 
 .report-cards-wrapper .report-card {
+    margin-top: 10%;
     font-size: small;
     height: auto !important;
     width: 100%;
     padding: 5%;
-    text-align: center;
     justify-content: center;
     align-items: center;
     border: 2px solid #1FA5FF;
@@ -85,23 +94,136 @@ body {
     color: white;
     border-radius: 5px;
     position: absolute;
-    top: 0px;
+    top: 0;
     height: 25px;
 }
 
 .report-cards-wrapper .report-card .report-card-item{
-    padding-right: 2.5%;
-    padding-left: 8%;
     border: 1px solid #1FA5FF;
     border-radius: 5px;
-    margin: 8px;
+    margin: 2%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+    justify-content: center;
 }
 
 .report-cards-wrapper
  .report-card
  .report-card-item
  .report-index {
-    color: #1FA5FF;
     font-weight: bold;
-    border-left: 1px solid;
+    border-left: 1px solid #1FA5FF;
+    color: #1FA5FF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.report-cards-wrapper
+ .report-card
+ .report-card-item
+ .course-name, .course-id, .course-unit, .status-box {
+    border-left: 1px solid #1FA5FF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.report-cards-wrapper
+ .report-card
+ .report-card-item
+ .status {
+    padding: 2%;
+    padding-bottom: 2%;
+    width: 100%;
+    border-radius: 4px;
+}
+
+.report-cards-wrapper
+ .report-card
+ .report-card-item
+ .status.pass {
+    background-color: #aeebbe;
+    color: #169437;
+    border: 1px solid #169437;
+    line-height: 25px;
+}
+
+.report-cards-wrapper
+ .report-card
+ .report-card-item
+ .status.unknown {
+    background-color: #a3a3a3;
+    color: #474747;
+    border: 1px solid #474747;
+    line-height: 25px;
+}
+
+.report-cards-wrapper
+ .report-card
+ .report-card-item
+ .status.fail {
+    background-color: #ff9c9c;
+    color: #f52020;
+    border: 1px solid #f52020;
+    line-height: 25px;
+}
+
+.report-cards-wrapper
+ .report-card
+ .report-card-item
+ .status-box {
+    text-align: center;
+    display: flex;
+    justify-self: center;
+    margin: 0 auto;
+    padding: 2%;
+}
+
+.report-cards-wrapper
+ .report-card
+ .report-card-item
+ .grade {
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.report-cards-wrapper
+ .report-card
+ .report-card-item
+ .grade.pass {
+    color: #169437;
+}
+
+.report-cards-wrapper
+ .report-card
+ .report-card-item
+ .grade.fail {
+    color: #f52020;
+}
+
+.report-cards-wrapper
+ .report-card
+ .report-card-item
+ .grade.unknown {
+    color: #474747;
+}
+
+.report-cards-wrapper
+ .report-card
+ .GPA {
+    width: 20%;
+    float: left;
+    color: #1FA5FF;
+    border: 2px solid #1FA5FF;
+    border-radius: 4px;
+    margin: 2%;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
