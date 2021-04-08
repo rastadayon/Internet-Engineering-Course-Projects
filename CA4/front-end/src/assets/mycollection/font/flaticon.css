@@ -16,6 +16,7 @@ i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
     line-height: 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-size: 1em !important;
 }
 
 .flaticon-add:before {
