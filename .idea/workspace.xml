@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bb7b4a8d-6a6f-421a-b7aa-b0b4a23bbbe7" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CA2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CA2/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CA4/front-end/src/assets/styles/home-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/CA4/front-end/src/assets/styles/home-styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CA4/front-end/src/views/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/CA4/front-end/src/views/home.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +28,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/CA2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/CA3-Edited" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -36,6 +39,8 @@
       <option name="presentableId" value="Default" />
       <updated>1615228274173</updated>
       <workItem from="1615228276608" duration="31000" />
+      <workItem from="1617879575158" duration="749000" />
+      <workItem from="1617961787630" duration="18000" />
     </task>
     <servers />
   </component>

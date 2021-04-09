@@ -55,15 +55,18 @@ body {
 }
 
 .std-info .std-status {
-    width: 60%;
     color: #1FA5FF;
     border: 2px solid #1FA5FF;
     border-radius: 4px;
-    height: 2.5rem;
     display:inline-block;
     justify-content: center;
     align-items: center;
     vertical-align: middle;
+    padding: 2%;
+}
+
+.section {
+    border-right: 3px solid #1FA5FF;
 }
 
 .report-cards-wrapper {
@@ -74,7 +77,6 @@ body {
     align-items: center;
     padding: 2%;
     padding-left: 0%;
-    border-right: 3px solid #1FA5FF;
 }
 
 .report-cards-wrapper .report-card {
@@ -93,9 +95,11 @@ body {
     background-color: #1FA5FF;
     color: white;
     border-radius: 5px;
-    position: absolute;
-    top: 0;
+    /* position: absolute; */
+    bottom: 6vmin;
     height: 25px;
+    display: flex;
+    justify-content: center;
 }
 
 .report-cards-wrapper .report-card .report-card-item{
@@ -130,6 +134,16 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.report-cards-wrapper
+ .report-card
+ .report-card-item
+ .course-name 
+ span {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+ }
 
 .report-cards-wrapper
  .report-card
