@@ -13,7 +13,7 @@ body {
 
 main {
   min-height: 100%;
-  margin-top: 7em;
+  margin-top: 5em;
   margin-bottom: 7em;
 }
 
@@ -40,6 +40,45 @@ main {
   margin-bottom: 2em;
 }
 
+.col-calendar {
+  width: 8%;
+}
+
+.col-plan {
+  width: 12%;
+}
+
+.col-hidden {
+  width: 73%;
+}
+
+.col-term {
+  width: 7%;
+}
+
+.schedule-label {
+  justify-content: center;
+  align-items: center;
+  text-align: right;
+  margin-top: -1.5em;
+  margin-bottom: 1.5em;
+  font-size: 1em;
+}
+
+.calendar {
+  color: #0087e0;
+  font-size: 1.6em;
+
+}
+
+.flaticon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin-left: -1em;
+}
+
 .sections {
     width: 100%;
   }
@@ -53,17 +92,24 @@ main {
 
   .course-item {
     border-bottom: 0.1em solid gray;
-    /* border-radius: 12px; */
     height: calc(100% / 14);
+  }
+
+  .last-item {
+    border-bottom: 0em;
   }
 
   .course-index {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-left: 0.1em solid;
+    border-left: 0.1em solid gray;
     font-size: 1em;
     height: 4em;
+  }
+
+  .last-index {
+    border-left: 0em;
   }
 
   .sched-item {
@@ -77,9 +123,6 @@ main {
     display: flex;  
     flex-direction: column;
     align-items: center;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
   }
 
   .bold-item {
