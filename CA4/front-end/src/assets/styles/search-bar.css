@@ -13,7 +13,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1em 1em;
+    padding: 0.5em 0.5em;
     border-radius: 0.2em;
 }
 
@@ -33,7 +33,7 @@
     border-radius: 0.2em;
     background: #f3f3f3;
     text-align: center;
-    height: 3em;
+    height: 2.5em;
     margin-top: 0.1em;
     margin-bottom: 0.1em;
 }
@@ -41,6 +41,8 @@
 .search-bar .outer-box .search-btn .search-item {
     background: #06d6a0;
     color: white;
+    border-color: #06d6a0;
+    
 }
 
 .loupe {

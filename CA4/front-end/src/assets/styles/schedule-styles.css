@@ -1,0 +1,69 @@
+@import "../mycollection/font/flaticon.css";
+@import "../fonts/vazir-fonts/fonts.css";
+html {
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  direction: rtl;
+  font-family: "Vazir" !important;
+  height: 100%;
+}
+
+main {
+  min-height: 100%;
+  margin-top: 7em;
+  margin-bottom: 7em;
+}
+
+.course-selection-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1em;
+}
+
+.course-selection {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 0.15em solid;
+  border-radius: 0.5em;
+  border-color: #0087e0;
+  background: white;
+  padding-top: 3em;
+  margin-bottom: 2em;
+}
+
+.selections {
+    width: 100%;
+  }
+  
+  .list {
+    width: 100%;
+    border-top: 0.1em solid;
+    border-top: 0.15em solid;
+    border-top-color: #0087e0;
+  }
+
+  .course-item {
+    border-bottom: 0.1em solid gray;
+    /* border-radius: 12px; */
+    line-height: 3em;
+  }
+
+  .course-index {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 0.1em solid;
+    font-size: 1em;
+  }
+
+  .col-day{
+    width: calc(100% / 7);
+  }
