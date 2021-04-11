@@ -12,7 +12,8 @@
     display: flex;
     font-size: 1em;
     white-space: nowrap;
-  }
+    z-index: 100000000000;  
+}
 
 .bolbolestan-logo img {
     width: 3.8em;

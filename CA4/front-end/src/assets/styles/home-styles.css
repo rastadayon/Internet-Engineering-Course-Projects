@@ -90,8 +90,8 @@ body {
     align-items: center;
     border: 0.2em solid #1FA5FF;
     border-radius: 0.6em;
-    padding-bottom: 10vmin;
-    padding-top: 10%;
+    padding-bottom: 6em;
+    padding-top: 7em;
 }
 
 .report-cards-wrapper .report-card .report-card-item{
@@ -241,7 +241,16 @@ body {
     border-color: #1fa5ff; 
     font-weight: bold; 
     border-radius: 0.4em; 
-    margin-top: -5em; 
+    margin-top: -8em; 
     text-align: center;          
     font-size: 1em;
+    white-space: nowrap;
 }
+
+.col-label {
+    width: calc(100% / 6);
+  }
+  
+  .col-h {
+    width: calc(100% / 6*4.6);
+  }
