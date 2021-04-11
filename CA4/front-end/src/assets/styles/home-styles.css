@@ -244,11 +244,10 @@ body {
     margin-top: -8em; 
     text-align: center;          
     font-size: 1em;
-    white-space: nowrap;
 }
 
 .col-label {
-    width: calc(100% / 6);
+    width: calc(100% / 5);
   }
   
   .col-h {
