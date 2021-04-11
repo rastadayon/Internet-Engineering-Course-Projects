@@ -308,7 +308,8 @@ main {
 }
 
 .col-filter{
-  width: calc(100% / 5);
+  width: calc(100% / 10);
+  margin-right:8% ;
 }
 
 .filter-index {

@@ -1,4 +1,5 @@
 @import "header.css";
+@import "footer.css";
 @import "../fonts/vazir-fonts/fonts.css";
 @import "../mycollection/font/flaticon.css";
 @import "app-background.css";
@@ -50,7 +51,7 @@ body {
 
 .std-info .avatar {
     width: 7rem;
-    border: 2px solid #1FA5FF;
+    border: 0.1em solid #1FA5FF;
     border-radius: 100%;
 }
 
@@ -66,12 +67,12 @@ body {
 }
 
 .section {
-    border-right: 3px solid #1FA5FF;
+    border-right: 0.2em solid #1FA5FF;
 }
 
 .report-cards-wrapper {
     width: 100%;
-    display: flex;
+    /* display: flex; */
     justify-content: center;
     position: relative;
     align-items: center;
@@ -87,24 +88,15 @@ body {
     padding: 5%;
     justify-content: center;
     align-items: center;
-    border: 2px solid #1FA5FF;
-    border-radius: 8px;
-}
-
-.report-cards-wrapper .report-card .semester {
-    background-color: #1FA5FF;
-    color: white;
-    border-radius: 5px;
-    /* position: absolute; */
-    bottom: 6vmin;
-    height: 25px;
-    display: flex;
-    justify-content: center;
+    border: 0.2em solid #1FA5FF;
+    border-radius: 0.6em;
+    padding-bottom: 10vmin;
+    padding-top: 10%;
 }
 
 .report-cards-wrapper .report-card .report-card-item{
-    border: 1px solid #1FA5FF;
-    border-radius: 5px;
+    border: 0.1em solid #1FA5FF;
+    border-radius: 0.6em;
     margin: 2%;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -118,7 +110,7 @@ body {
  .report-card-item
  .report-index {
     font-weight: bold;
-    border-left: 1px solid #1FA5FF;
+    border-left: 0.1em solid #1FA5FF;
     color: #1FA5FF;
     display: flex;
     justify-content: center;
@@ -129,7 +121,7 @@ body {
  .report-card
  .report-card-item
  .course-name, .course-id, .course-unit, .status-box {
-    border-left: 1px solid #1FA5FF;
+    border-left: 0.1em solid #1FA5FF;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -152,7 +144,7 @@ body {
     padding: 2%;
     padding-bottom: 2%;
     width: 100%;
-    border-radius: 4px;
+    border-radius: 0.8em;
 }
 
 .report-cards-wrapper
@@ -161,8 +153,8 @@ body {
  .status.pass {
     background-color: #aeebbe;
     color: #169437;
-    border: 1px solid #169437;
-    line-height: 25px;
+    border: 0.1em solid #169437;
+    line-height: 2em;
 }
 
 .report-cards-wrapper
@@ -171,8 +163,8 @@ body {
  .status.unknown {
     background-color: #a3a3a3;
     color: #474747;
-    border: 1px solid #474747;
-    line-height: 25px;
+    border: 0.1em solid #474747;
+    line-height: 2em;
 }
 
 .report-cards-wrapper
@@ -181,8 +173,8 @@ body {
  .status.fail {
     background-color: #ff9c9c;
     color: #f52020;
-    border: 1px solid #f52020;
-    line-height: 25px;
+    border: 0.1em solid #f52020;
+    line-height: 2em;
 }
 
 .report-cards-wrapper
@@ -233,11 +225,23 @@ body {
     width: 20%;
     float: left;
     color: #1FA5FF;
-    border: 2px solid #1FA5FF;
-    border-radius: 4px;
+    border: 0.1em solid #1FA5FF;
+    border-radius: 0.8em;
     margin: 2%;
     height: 2.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.label {
+    border: 0.2em solid; 
+    background: #1fa5ff;
+    color: white; 
+    border-color: #1fa5ff; 
+    font-weight: bold; 
+    border-radius: 0.4em; 
+    margin-top: -5em; 
+    text-align: center;          
+    font-size: 1em;
 }

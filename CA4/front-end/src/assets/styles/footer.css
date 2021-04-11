@@ -1,0 +1,30 @@
+.footer-inner-box #copy-right-text {
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    padding-top: 6px;
+    font-size: 25px;
+    font-weight: bold;
+    margin-left: 15px;
+}
+
+.footer-inner-box {
+    background-color: #1A4C89;
+    height: 70px;
+    width: 100%;
+    color: white;
+    padding-right: 5%;
+    font-weight: bold;
+    font-size: 15px;
+    display: flex;
+}
+
+a.social-items {
+    display: inline-block;
+    vertical-align: center;
+}
+
+#footer-socials{
+    size: 20px;
+}
