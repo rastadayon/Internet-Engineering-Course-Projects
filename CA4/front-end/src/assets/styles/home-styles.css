@@ -103,7 +103,7 @@ body {
 }
 
 .report-cards-wrapper .report-card .report-card-item{
-    border: 0.15em solid #1FA5FF;
+    border: 0.1em solid #1FA5FF;
     border-radius: 0.6em;
     margin: 2%;
     text-overflow: ellipsis;
@@ -118,7 +118,7 @@ body {
  .report-card-item
  .report-index {
     font-weight: bold;
-    border-left: 0.15em solid #1FA5FF;
+    border-left: 0.1em solid #1FA5FF;
     color: #1FA5FF;
     display: flex;
     justify-content: center;
@@ -129,7 +129,7 @@ body {
  .report-card
  .report-card-item
  .course-name, .course-id, .course-unit, .status-box {
-    border-left: 0.15em solid #1FA5FF;
+    border-left: 0.1em solid #1FA5FF;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -236,10 +236,12 @@ body {
     border: 0.15em solid #1FA5FF;
     border-radius: 0.8em;
     margin: 2%;
-    height: 2.5rem;
+    height: 3rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: bold;
+    padding: 2%;
 }
 
 .label {
@@ -255,5 +257,6 @@ body {
 }
 
 .col-label {
-    width: calc(100% / 5);
+    width: calc(100% / 4);
+    height: 2rem;
 }
