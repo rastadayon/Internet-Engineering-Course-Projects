@@ -59,7 +59,7 @@ body {
 
 .std-info .avatar {
     width: 7rem;
-    border: 0.15em solid #1FA5FF;
+    border: 0.15em solid #0087e0;
     border-radius: 100%;
 }
 
@@ -96,14 +96,14 @@ body {
     padding: 5%;
     justify-content: center;
     align-items: center;
-    border: 0.2em solid #1FA5FF;
+    border: 0.2em solid #0087e0;
     border-radius: 0.6em;
     padding-bottom: 6em;
     padding-top: 7em;
 }
 
 .report-cards-wrapper .report-card .report-card-item{
-    border: 0.1em solid #1FA5FF;
+    border: 0.1em solid #0087e0;
     border-radius: 0.6em;
     margin: 2%;
     text-overflow: ellipsis;
@@ -118,7 +118,7 @@ body {
  .report-card-item
  .report-index {
     font-weight: bold;
-    border-left: 0.1em solid #1FA5FF;
+    border-left: 0.1em solid #0087e0;
     color: #1FA5FF;
     display: flex;
     justify-content: center;
@@ -129,7 +129,7 @@ body {
  .report-card
  .report-card-item
  .course-name, .course-id, .course-unit, .status-box {
-    border-left: 0.1em solid #1FA5FF;
+    border-left: 0.1em solid #0087e0;
     display: flex;
     justify-content: center;
     align-items: center;
