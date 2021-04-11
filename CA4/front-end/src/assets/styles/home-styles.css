@@ -21,6 +21,14 @@ body {
     height: 100%;
 }
 
+.main-container {
+    min-height: 100vh; 
+    overflow: hidden;
+    display: block;
+    position: relative;
+    padding-bottom: 100px;
+}
+
 .background-img img {
     max-width: 100%;
     max-height: 100%;
@@ -51,7 +59,7 @@ body {
 
 .std-info .avatar {
     width: 7rem;
-    border: 0.1em solid #1FA5FF;
+    border: 0.15em solid #1FA5FF;
     border-radius: 100%;
 }
 
@@ -82,7 +90,7 @@ body {
 
 .report-cards-wrapper .report-card {
     margin-top: 10%;
-    font-size: small;
+    font-size: medium;
     height: auto !important;
     width: 100%;
     padding: 5%;
@@ -95,7 +103,7 @@ body {
 }
 
 .report-cards-wrapper .report-card .report-card-item{
-    border: 0.1em solid #1FA5FF;
+    border: 0.15em solid #1FA5FF;
     border-radius: 0.6em;
     margin: 2%;
     text-overflow: ellipsis;
@@ -110,7 +118,7 @@ body {
  .report-card-item
  .report-index {
     font-weight: bold;
-    border-left: 0.1em solid #1FA5FF;
+    border-left: 0.15em solid #1FA5FF;
     color: #1FA5FF;
     display: flex;
     justify-content: center;
@@ -121,7 +129,7 @@ body {
  .report-card
  .report-card-item
  .course-name, .course-id, .course-unit, .status-box {
-    border-left: 0.1em solid #1FA5FF;
+    border-left: 0.15em solid #1FA5FF;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -153,7 +161,7 @@ body {
  .status.pass {
     background-color: #aeebbe;
     color: #169437;
-    border: 0.1em solid #169437;
+    border: 0.15em solid #169437;
     line-height: 2em;
 }
 
@@ -163,7 +171,7 @@ body {
  .status.unknown {
     background-color: #a3a3a3;
     color: #474747;
-    border: 0.1em solid #474747;
+    border: 0.15em solid #474747;
     line-height: 2em;
 }
 
@@ -173,7 +181,7 @@ body {
  .status.fail {
     background-color: #ff9c9c;
     color: #f52020;
-    border: 0.1em solid #f52020;
+    border: 0.15em solid #f52020;
     line-height: 2em;
 }
 
@@ -225,7 +233,7 @@ body {
     width: 20%;
     float: left;
     color: #1FA5FF;
-    border: 0.1em solid #1FA5FF;
+    border: 0.15em solid #1FA5FF;
     border-radius: 0.8em;
     margin: 2%;
     height: 2.5rem;
