@@ -117,6 +117,8 @@ public class Bolbolestan {
     }
 
     public boolean addCourseToWaitingList(String studentId, String courseCode, String classCode) throws Exception {
+        if (offeringManager.offeringHasCapacity(courseCode, classCode))
+            return false;
         Offering offering = offeringManager.getOfferingById(courseCode, classCode);
         return studentManager.addCourseToWaitingList(studentId, offering);
     }
