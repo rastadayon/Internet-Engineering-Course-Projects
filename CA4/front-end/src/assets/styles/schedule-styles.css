@@ -1,5 +1,7 @@
 @import "../mycollection/font/flaticon.css";
 @import "../fonts/vazir-fonts/fonts.css";
+@import "header.css";
+@import "footer.css";
 html {
   height: 100%;
 }
@@ -13,7 +15,7 @@ body {
 
 main {
   min-height: 100%;
-  margin-top: 5em;
+  margin-top: 7em;
   margin-bottom: 7em;
 }
 
@@ -26,7 +28,7 @@ main {
 }
 
 .schedule {
-  width: 80%;
+  width: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,7 +73,7 @@ main {
 
 }
 
-.flaticon {
+.icon {
   display: flex;
   align-items: center;
   justify-content: center;

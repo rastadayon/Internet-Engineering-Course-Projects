@@ -1,6 +1,9 @@
 @import "../mycollection/font/flaticon.css";
 @import "../fonts/vazir-fonts/fonts.css";
 @import "../styles/search-bar.css";
+@import "header.css";
+@import "footer.css";
+
 html {
   height: 100%;
 }
@@ -27,7 +30,7 @@ main {
 }
 
 .course-selection {
-  width: 80%;
+  width: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,6 +41,10 @@ main {
   background: white;
   padding: 2.5em 0em;
   margin-bottom: 2em;
+}
+
+.course-list {
+  padding-bottom: 0em;
 }
 
 .submit-bar {
@@ -117,13 +124,10 @@ main {
 
 .selection-item {
   border: 0.1em solid gray;
-  /* border-radius: 12px; */
   line-height: 2.5em;
 }
 
 .course-item {
-  border-bottom: 0.1em solid gray;
-  /* border-radius: 12px; */
   line-height: 3em;
 }
 
@@ -137,12 +141,27 @@ main {
 }
 
 .filter-header {
-  display:flex;
+  display: flex;
   color: gray;
   font-weight: bold;
   justify-content: center;
   align-items: center;
   text-align: center;
+  flex-direction: row;
+}
+
+
+.filter-index {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1em;
+  border: 0.12em gray solid;
+  border-radius: 0.5em;
+  margin-top: -0.5em;
+  margin-bottom: 1.5em;
+  height: 2.5em;
+  width: 8.2em;
 }
 
 .selection-index {
@@ -159,6 +178,7 @@ main {
   align-items: center;
   border-left: 0.1em solid;
   font-size: 1em;
+  border-bottom: 0.1em solid gray;
 }
 
 .selection-units {
@@ -182,8 +202,6 @@ main {
 .trash {
   color: red;
   font-size: 1.8em;
-  border-left: 0.05em solid;
-  border-left-color: black;
 }
 
 .add-sign {
@@ -206,22 +224,26 @@ main {
   border-radius: 0.8em;
 }
 
-.flaticon {
+.icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: 90%;
 }
 
 .code {
   border-right: 0.05em solid;
 }
 
-.order-status {
+.course-status {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
+}
+
+.first-index {
+  border-right: 0.1em solid;
 }
 
 .status-box {
@@ -252,7 +274,7 @@ main {
   width: calc(100% / 6);
 }
 
-.col-h {
+.col-hidden {
   width: calc(100% / 6*4.6);
 }
 
@@ -286,6 +308,10 @@ main {
   border-color: #0087e0;
 }
 
+.edit-option {
+  border-bottom: 0.1em solid;
+}
+
 .waiting {
   color: gray;
   border-color: gray;
@@ -308,28 +334,16 @@ main {
 }
 
 .col-filter{
-  width: calc(100% / 10);
-  margin-right:8% ;
-}
-
-.filter-index {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1em;
-  border: 0.12em gray solid;
-  border-radius: 0.5em;
-  margin-top: -0.5em;
-  margin-bottom: 1.5em;
-  height: 2.5em;
-  width: 9em;
-  padding-left: 1em;
-  padding-right: 1em;
+  width: calc(100% / 5);
 }
 
 .filter-selected {
   background-color: #8ed1ff;
   border-color: #8ed1ff;
+}
+
+.last-item {
+  border-bottom: 0em;
 }
 
 .col-trash{

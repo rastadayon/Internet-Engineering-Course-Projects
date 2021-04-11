@@ -42,9 +42,13 @@
     background: #06d6a0;
     color: white;
     border-color: #06d6a0;
-    
 }
 
 .loupe {
-    padding: 1em;
+    font-size: 20px;
+    float: left;
+}
+
+.search-text {
+    vertical-align: text-top;
 }

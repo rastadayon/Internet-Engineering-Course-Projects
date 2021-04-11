@@ -1,12 +1,57 @@
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="../assets/styles/courses-styles.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
+<body>
+
+    <header>
+        <div class="header">
+            <div class="m-2">
+            </div>
+            <div class="bolbolestan-logo m-2">
+                <a href="home.html">
+                    <img src="../assets/images/logo.png" alt="">
+                </a>
+            </div>
+            <div class="option m-2">
+                <a href="home.html">
+                    خانه
+                </a>
+            </div>
+            <div class="option m-2">
+                <a href="schedule.html">
+                    برنامه هفتگی
+                </a>
+            </div>
+            <div class="logout m-1">
+                <span class="logout-text">
+                    خروج
+                </span>
+                <span>
+                    <i class="flaticon flaticon-log-out"></i>
+                </span>
+
+            </div>
+
+            <div class="m-3">
+            </div>
+        </div>
+    </header>
+
 <main>
     <div class="course-selection-wrapper">
-        <div class="course-selection">
+        <div class="course-selection row">
+                <div class="col-label label">
+                    <span>
+                        دروس انتخاب شده
+                    </span>
+                </div>
+                <div class="col-hidden">
+                </div>
             <div class="selections">
                 <div class="selection-item">
                     <div class="selection-header">
@@ -56,17 +101,18 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="selection-item">
                     <div class="row no-gutters">
                         <div class="col-trash">
                             <div class="trash clickable">
                                 <span>
-                                    <i class="flaticon flaticon-trash-bin"></i>
+                                    <i class="icon flaticon-trash-bin"></i>
                                 </span>
                             </div>
                         </div>
                         <div class="col-status">
-                            <div class="selection-index order-status">
+                            <div class="selection-index course-status first-index">
                                 <div class="status-box submitted">
                                     <span>
                                         ثبت شده
@@ -104,17 +150,18 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="selection-item">
                     <div class="row no-gutters">
                         <div class="col-trash">
                             <div class="trash clickable">
                                 <span>
-                                    <i class="flaticon flaticon-trash-bin"></i>
+                                    <i class="icon flaticon-trash-bin"></i>
                                 </span>
                             </div>
                         </div>
                         <div class="col-status">
-                            <div class="selection-index order-status">
+                            <div class="selection-index course-status first-index">
                                 <div class="status-box submitted">
                                     <span>
                                         ثبت شده
@@ -151,18 +198,19 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> 
+
                 <div class="selection-item">
                     <div class="row no-gutters">
                         <div class="col-trash">
                             <div class="trash clickable">
                                 <span>
-                                    <i class="flaticon flaticon-trash-bin"></i>
+                                    <i class="icon flaticon-trash-bin"></i>
                                 </span>
                             </div>
                         </div>
                         <div class="col-status">
-                            <div class="selection-index order-status">
+                            <div class="selection-index course-status first-index">
                                 <div class="status-box not-submitted">
                                     <span>
                                         ثبت نهایی نشده
@@ -192,25 +240,26 @@
                             </div>
                         </div>
                         <div class="col-1">
-                            <div class="course-index selection-units">
+                            <div class="selection-units">
                                 <span>
                                     ۳
                                 </span>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> 
+
                 <div class="selection-item">
                     <div class="row no-gutters">
                         <div class="col-trash">
                             <div class="trash clickable">
                                 <span>
-                                    <i class="flaticon flaticon-trash-bin"></i>
+                                    <i class="icon flaticon-trash-bin"></i>
                                 </span>
                             </div>
                         </div>
                         <div class="col-status">
-                            <div class="selection-index order-status">
+                            <div class="selection-index course-status first-index">
                                 <div class="status-box waiting">
                                     <span>
                                         در انتظار
@@ -247,6 +296,37 @@
                             </div>
                         </div>
                     </div>
+                </div> 
+
+                
+
+            </div>
+            <div class="submit-bar col-sm-12">
+                <div class="col-unit-count unit-count">
+                    <div class="bold-item">
+                        <span>
+                            تعداد واحد ثبت شده: ۱۵
+                        </span>
+                    </div>
+                </div>
+                <div class="col-blank">
+                    <span>
+                        &nbsp;
+                    </span>
+                </div>
+                <div class="col-refresh submit-box refresh">
+                    <div class="clickable">
+                        <span>
+                            <i class="icon flaticon-refresh-arrow"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-submit submit-box">
+                    <div class="clickable">
+                        <span>
+                            ثبت نهایی
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -255,14 +335,18 @@
     <div class="search-bar">
         <div class="outer-box">
             <form action="" class="w-100 m-0 d-flex justify-content-center align-items-center">
-                <div class="row w-100">
-                    <div class="col-8">
+                <div class="row w-100 no-gutters">
+                    <div class="col-8 col-md m-1">
                         <input class="search-item" placeholder="نام درس">
                     </div>
-                    <div class="search-btn col-4">
+                    <div class="search-btn col-4 m-1">
                         <button class="search-item" type="submit">
-                            جستجو
-                            <i class="loupe flaticon-loupe"></i>
+                            <span class="search-text">
+                                جستجو
+                            </span>
+                            <span>
+                                <i class="loupe flaticon-loupe"></i>
+                            </span>
                         </button>
                     </div>
                 </div>
@@ -271,21 +355,56 @@
     </div>
 
     <div class="course-selection-wrapper">
-        <div class="course-selection">
-            <div class="list">
-            <!-- <div class="selector row">
-                <div class="selector-item active-item  col-4">
-                    <span>
-                        دروس انتخاب شده
-                    </span>
+        
+        <div class="course-selection course-list row">
+            <div class="col-label label">
+                <span>
+                    دروس ارائه شده
+                </span>
+            </div>
+            <div class="col-hidden">
+            </div>
+            <div class="courses">
+                <div class="filter-header">
+                    <div class="row">
+                        <div class="col-2 col-md">
+                            <div class="filter-index clickable filter-selected">
+                                <span>
+                                    همه
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-2 col-md">
+                            <div class="filter-index clickable">
+                                <span>
+                                    اختصاصی
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-2 col-md">
+                            <div class="filter-index clickable">
+                                <span>
+                                    اصلی
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-2 col-md">
+                            <div class="filter-index clickable">
+                                <span>
+                                    پایه
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-2 col-md">
+                            <div class="filter-index clickable">
+                                <span>
+                                    عمومی
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="selector-item col">
-                    <span>
-                        افزایش اعتبار
-                    </span>
-                </div>
-            </div> -->
-            <div class="courses selections">
+                <div class="list">
                     <div class="selection-header">
                         <div class="row no-gutters">
                             <div class="col-add">
@@ -346,10 +465,11 @@
                             </div>
                         </div>
                     </div>
+                    </div>
                 <div class="list">
                 <div class="course-item">
                     <div class="row no-gutters">
-                        <div class="col-add">
+                        <div class="col-add edit-option">
                             <div class="edit add-sign clickable">
                                 <span>
                                     <i class="flaticon-add"></i>
@@ -371,7 +491,7 @@
                             </div>
                         </div>
                         <div class="col-type">
-                            <div class="course-index order-status">
+                            <div class="course-index course-status">
                                 <div class="type-box general">
                                     <span>
                                         عمومی
@@ -409,753 +529,758 @@
                         </div>
                     </div>
                 </div>
-            <div class="course-item">
-                <div class="row no-gutters">
-                    <div class="col-add">
-                        <div class="edit full-sign clickable">
-                            <span>
-                                <i class="flaticon-clock-circular-outline"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-code-2">
-                        <div class="course-index code">
-                            <span>
-                                ۱۱۲۰۱۴۲-۰۱
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-capacity">
-                        <div class="course-index bold-item unavailable">
-                            <span>
-                                ۵۰/۵۰
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-type">
-                        <div class="course-index order-status">
-                            <div class="type-box general">
+                <div class="course-item">
+                    <div class="row no-gutters">
+                        <div class="col-add edit-option">
+                            <div class="edit full-sign clickable">
                                 <span>
-                                    عمومی
+                                    <i class="flaticon-clock-circular-outline"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-code-2">
+                            <div class="course-index code">
+                                <span>
+                                    ۱۱۲۰۱۴۲-۰۱
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-capacity">
+                            <div class="course-index bold-item unavailable">
+                                <span>
+                                    ۵۰/۵۰
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-type">
+                            <div class="course-index course-status">
+                                <div class="type-box general">
+                                    <span>
+                                        عمومی
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-name-2">
+                            <div class="course-index">
+                                <span>
+                                    تاریخ تحلیلی صدر اسلام
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-instructor-2">
+                            <div class="course-index">
+                                <span>
+                                    حامد آل یمین
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-units">
+                            <div class="course-index bold-item">
+                                <span>
+                                    ۲
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-explain">
+                            <div class="selection-units">
+                                <span>
+                                    &nbsp;
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <div class="col-name-2">
-                        <div class="course-index">
-                            <span>
-                                تاریخ تحلیلی صدر اسلام
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-instructor-2">
-                        <div class="course-index">
-                            <span>
-                                حامد آل یمین
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-units">
-                        <div class="course-index bold-item">
-                            <span>
-                                ۲
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-explain">
-                        <div class="selection-units">
-                            <span>
-                                &nbsp;
-                            </span>
-                        </div>
-                    </div>
                 </div>
-            </div>
-            <div class="course-item">
-                <div class="row no-gutters">
-                    <div class="col-add">
-                        <div class="edit add-sign clickable">
-                            <span>
-                                <i class="flaticon-add"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-code-2">
-                        <div class="course-index code">
-                            <span>
-                                ۱۱۲۰۰۱۰-۰۱
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-capacity">
-                        <div class="course-index bold-item">
-                            <span>
-                                ۳۲/۵۰
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-type">
-                        <div class="course-index order-status">
-                            <div class="type-box general">
+                <div class="course-item">
+                    <div class="row no-gutters">
+                        <div class="col-add edit-option">
+                            <div class="edit add-sign clickable">
                                 <span>
-                                    عمومی
+                                    <i class="flaticon-add"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-code-2">
+                            <div class="course-index code">
+                                <span>
+                                    ۱۱۲۰۰۱۰-۰۱
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-capacity">
+                            <div class="course-index bold-item">
+                                <span>
+                                    ۳۲/۵۰
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-type">
+                            <div class="course-index course-status">
+                                <div class="type-box general">
+                                    <span>
+                                        عمومی
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-name-2">
+                            <div class="course-index">
+                                <span>
+                                    اندیشه اسلامی ۲
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-instructor-2">
+                            <div class="course-index">
+                                <span>
+                                    حسین حجت‌خواه
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-units">
+                            <div class="course-index bold-item">
+                                <span>
+                                    ۲
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-explain">
+                            <div class="selection-units">
+                                <span>
+                                    &nbsp;
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <div class="col-name-2">
-                        <div class="course-index">
-                            <span>
-                                اندیشه اسلامی ۲
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-instructor-2">
-                        <div class="course-index">
-                            <span>
-                                حسین حجت‌خواه
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-units">
-                        <div class="course-index bold-item">
-                            <span>
-                                ۲
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-explain">
-                        <div class="selection-units">
-                            <span>
-                                &nbsp;
-                            </span>
-                        </div>
-                    </div>
                 </div>
-            </div>
-            <div class="course-item">
-                <div class="row no-gutters">
-                    <div class="col-add">
-                        <div class="edit add-sign clickable">
-                            <span>
-                                <i class="flaticon-add"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-code-2">
-                        <div class="course-index code">
-                            <span>
-                                ۱۱۲۰۰۵۱-۰۱
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-capacity">
-                        <div class="course-index bold-item">
-                            <span>
-                                ۱۷/۵۰
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-type">
-                        <div class="course-index order-status">
-                            <div class="type-box general">
+                <div class="course-item">
+                    <div class="row no-gutters">
+                        <div class="col-add edit-option">
+                            <div class="edit add-sign clickable">
                                 <span>
-                                    عمومی
+                                    <i class="flaticon-add"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-code-2">
+                            <div class="course-index code">
+                                <span>
+                                    ۱۱۲۰۰۵۱-۰۱
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-capacity">
+                            <div class="course-index bold-item">
+                                <span>
+                                    ۱۷/۵۰
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-type">
+                            <div class="course-index course-status">
+                                <div class="type-box general">
+                                    <span>
+                                        عمومی
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-name-2">
+                            <div class="course-index">
+                                <span>
+                                    زبان انگلیسی
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-instructor-2">
+                            <div class="course-index">
+                                <span>
+                                    مرتضی زاهدی
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-units">
+                            <div class="course-index bold-item">
+                                <span>
+                                    ۳
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-explain">
+                            <div class="selection-units">
+                                <span>
+                                    &nbsp;
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <div class="col-name-2">
-                        <div class="course-index">
-                            <span>
-                                زبان انگلیسی
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-instructor-2">
-                        <div class="course-index">
-                            <span>
-                                مرتضی زاهدی
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-units">
-                        <div class="course-index bold-item">
-                            <span>
-                                ۳
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-explain">
-                        <div class="selection-units">
-                            <span>
-                                &nbsp;
-                            </span>
-                        </div>
-                    </div>
                 </div>
-            </div>
-            <div class="course-item">
-                <div class="row no-gutters">
-                    <div class="col-add">
-                        <div class="edit add-sign clickable">
-                            <span>
-                                <i class="flaticon-add"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-code-2">
-                        <div class="course-index code">
-                            <span>
-                                ۹۱۰۱۳۲۲-۰۱
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-capacity">
-                        <div class="course-index bold-item">
-                            <span>
-                                ۴۷/۱۰۰
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-type">
-                        <div class="course-index order-status">
-                            <div class="type-box required">
+
+                <div class="course-item">
+                    <div class="row no-gutters">
+                        <div class="col-add edit-option">
+                            <div class="edit add-sign clickable">
                                 <span>
-                                    اصلی
+                                    <i class="flaticon-add"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-code-2">
+                            <div class="course-index code">
+                                <span>
+                                    ۹۱۰۱۳۲۲-۰۱
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-capacity">
+                            <div class="course-index bold-item">
+                                <span>
+                                    ۴۷/۱۰۰
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-type">
+                            <div class="course-index course-status">
+                                <div class="type-box required">
+                                    <span>
+                                        اصلی
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-name-2">
+                            <div class="course-index">
+                                <span>
+                                    برنامه‌سازی پیشرفته
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-instructor-2">
+                            <div class="course-index">
+                                <span>
+                                    رامتین خسروی
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-units">
+                            <div class="course-index bold-item">
+                                <span>
+                                    ۳
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-explain">
+                            <div class="selection-units">
+                                <span>
+                                    &nbsp;
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <div class="col-name-2">
-                        <div class="course-index">
-                            <span>
-                                برنامه‌سازی پیشرفته
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-instructor-2">
-                        <div class="course-index">
-                            <span>
-                                رامتین خسروی
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-units">
-                        <div class="course-index bold-item">
-                            <span>
-                                ۳
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-explain">
-                        <div class="selection-units">
-                            <span>
-                                &nbsp;
-                            </span>
-                        </div>
-                    </div>
                 </div>
-            </div>
-            <div class="course-item">
-                <div class="row no-gutters">
-                    <div class="col-add">
-                        <div class="edit add-sign clickable">
-                            <span>
-                                <i class="flaticon-add"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-code-2">
-                        <div class="course-index code">
-                            <span>
-                                ۸۱۰۱۴۵۶-۰۱
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-capacity">
-                        <div class="course-index bold-item">
-                            <span>
-                                ۶۳/۷۰
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-type">
-                        <div class="course-index order-status">
-                            <div class="type-box required">
+                <div class="course-item">
+                    <div class="row no-gutters">
+                        <div class="col-add edit-option">
+                            <div class="edit add-sign clickable">
                                 <span>
-                                    اصلی
+                                    <i class="flaticon-add"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-code-2">
+                            <div class="course-index code">
+                                <span>
+                                    ۸۱۰۱۴۵۶-۰۱
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-capacity">
+                            <div class="course-index bold-item">
+                                <span>
+                                    ۶۳/۷۰
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-type">
+                            <div class="course-index course-status">
+                                <div class="type-box required">
+                                    <span>
+                                        اصلی
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-name-2">
+                            <div class="course-index">
+                                <span>
+                                    ساختمان داده‌ها
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-instructor-2">
+                            <div class="course-index">
+                                <span>
+                                    هشام فیلی
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-units">
+                            <div class="course-index bold-item">
+                                <span>
+                                    ۳
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-explain">
+                            <div class="selection-units">
+                                <span>
+                                    &nbsp;
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <div class="col-name-2">
-                        <div class="course-index">
-                            <span>
-                                ساختمان داده‌ها
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-instructor-2">
-                        <div class="course-index">
-                            <span>
-                                هشام فیلی
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-units">
-                        <div class="course-index bold-item">
-                            <span>
-                                ۳
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-explain">
-                        <div class="selection-units">
-                            <span>
-                                &nbsp;
-                            </span>
-                        </div>
-                    </div>
                 </div>
-            </div>
-            <div class="course-item">
-                <div class="row no-gutters">
-                    <div class="col-add">
-                        <div class="edit full-sign clickable">
-                            <span>
-                                <i class="flaticon-clock-circular-outline"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-code-2">
-                        <div class="course-index code">
-                            <span>
-                                ۸۱۰۱۶۱۲-۰۱
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-capacity">
-                        <div class="course-index bold-item unavailable">
-                            <span>
-                                ۶۳/۶۰
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-type">
-                        <div class="course-index order-status">
-                            <div class="type-box required">
+                <div class="course-item">
+                    <div class="row no-gutters">
+                        <div class="col-add edit-option">
+                            <div class="edit full-sign clickable">
                                 <span>
-                                    اصلی
+                                    <i class="flaticon-clock-circular-outline"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-code-2">
+                            <div class="course-index code">
+                                <span>
+                                    ۸۱۰۱۶۱۲-۰۱
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-capacity">
+                            <div class="course-index bold-item unavailable">
+                                <span>
+                                    ۶۳/۶۰
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-type">
+                            <div class="course-index course-status">
+                                <div class="type-box required">
+                                    <span>
+                                        اصلی
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-name-2">
+                            <div class="course-index">
+                                <span>
+                                    نظریه زبان‌ها و ماشین‌ها
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-instructor-2">
+                            <div class="course-index">
+                                <span>
+                                    حکیمه فدایی
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-units">
+                            <div class="course-index bold-item">
+                                <span>
+                                    ۳
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-explain">
+                            <div class="selection-units">
+                                <span>
+                                    &nbsp;
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <div class="col-name-2">
-                        <div class="course-index">
-                            <span>
-                                نظریه زبان‌ها و ماشین‌ها
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-instructor-2">
-                        <div class="course-index">
-                            <span>
-                                حکیمه فدایی
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-units">
-                        <div class="course-index bold-item">
-                            <span>
-                                ۳
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-explain">
-                        <div class="selection-units">
-                            <span>
-                                &nbsp;
-                            </span>
-                        </div>
-                    </div>
                 </div>
-            </div>
-            <div class="course-item">
-                <div class="row no-gutters">
-                    <div class="col-add">
-                        <div class="edit add-sign clickable">
-                            <span>
-                                <i class="flaticon-add"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-code-2">
-                        <div class="course-index code">
-                            <span>
-                                ۸۱۰۱۶۵۲-۰۱
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-capacity">
-                        <div class="course-index bold-item">
-                            <span>
-                                ۲۶/۵۰
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-type">
-                        <div class="course-index order-status">
-                            <div class="type-box basic">
+                <div class="course-item">
+                    <div class="row no-gutters">
+                        <div class="col-add edit-option">
+                            <div class="edit add-sign clickable">
                                 <span>
-                                    پایه
+                                    <i class="flaticon-add"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-code-2">
+                            <div class="course-index code">
+                                <span>
+                                    ۸۱۰۱۶۵۲-۰۱
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-capacity">
+                            <div class="course-index bold-item">
+                                <span>
+                                    ۲۶/۵۰
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-type">
+                            <div class="course-index course-status">
+                                <div class="type-box basic">
+                                    <span>
+                                        پایه
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-name-2">
+                            <div class="course-index">
+                                <span>
+                                    آمار و احتمال مهندسی
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-instructor-2">
+                            <div class="course-index">
+                                <span>
+                                    بهنام بهرک
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-units">
+                            <div class="course-index bold-item">
+                                <span>
+                                    ۳
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-explain">
+                            <div class="selection-units">
+                                <span>
+                                    &nbsp;
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <div class="col-name-2">
-                        <div class="course-index">
-                            <span>
-                                آمار و احتمال مهندسی
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-instructor-2">
-                        <div class="course-index">
-                            <span>
-                                بهنام بهرک
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-units">
-                        <div class="course-index bold-item">
-                            <span>
-                                ۳
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-explain">
-                        <div class="selection-units">
-                            <span>
-                                &nbsp;
-                            </span>
-                        </div>
-                    </div>
                 </div>
-            </div>
-            <div class="course-item">
-                <div class="row no-gutters">
-                    <div class="col-add">
-                        <div class="edit full-sign clickable">
-                            <span>
-                                <i class="flaticon-clock-circular-outline"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-code-2">
-                        <div class="course-index code">
-                            <span>
-                                ۱۱۲۰۴۳۱-۰۱
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-capacity">
-                        <div class="course-index bold-item unavailable">
-                            <span>
-                                ۴۱/۴۰
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-type">
-                        <div class="course-index order-status">
-                            <div class="type-box basic">
+                <div class="course-item">
+                    <div class="row no-gutters">
+                        <div class="col-add edit-option">
+                            <div class="edit full-sign clickable">
                                 <span>
-                                    پایه
+                                    <i class="flaticon-clock-circular-outline"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-code-2">
+                            <div class="course-index code">
+                                <span>
+                                    ۱۱۲۰۴۳۱-۰۱
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-capacity">
+                            <div class="course-index bold-item unavailable">
+                                <span>
+                                    ۴۱/۴۰
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-type">
+                            <div class="course-index course-status">
+                                <div class="type-box basic">
+                                    <span>
+                                        پایه
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-name-2">
+                            <div class="course-index">
+                                <span>
+                                    فیزیک ۱
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-instructor-2">
+                            <div class="course-index">
+                                <span>
+                                    زهرا زهرایی
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-units">
+                            <div class="course-index bold-item">
+                                <span>
+                                    ۳
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-explain">
+                            <div class="selection-units">
+                                <span>
+                                    &nbsp;
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <div class="col-name-2">
-                        <div class="course-index">
-                            <span>
-                                فیزیک ۱
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-instructor-2">
-                        <div class="course-index">
-                            <span>
-                                زهرا زهرایی
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-units">
-                        <div class="course-index bold-item">
-                            <span>
-                                ۳
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-explain">
-                        <div class="selection-units">
-                            <span>
-                                &nbsp;
-                            </span>
-                        </div>
-                    </div>
                 </div>
-            </div>
-            <div class="course-item">
-                <div class="row no-gutters">
-                    <div class="col-add">
-                        <div class="edit add-sign clickable">
-                            <span>
-                                <i class="flaticon-add"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-code-2">
-                        <div class="course-index code">
-                            <span>
-                                ۸۱۰۱۰۴۸-۰۱
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-capacity">
-                        <div class="course-index bold-item">
-                            <span>
-                                ۲۶/۵۰
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-type">
-                        <div class="course-index order-status">
-                            <div class="type-box basic">
+                <div class="course-item">
+                    <div class="row no-gutters">
+                        <div class="col-add edit-option">
+                            <div class="edit add-sign clickable">
                                 <span>
-                                    پایه
+                                    <i class="flaticon-add"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-code-2">
+                            <div class="course-index code">
+                                <span>
+                                    ۸۱۰۱۰۴۸-۰۱
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-capacity">
+                            <div class="course-index bold-item">
+                                <span>
+                                    ۲۶/۵۰
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-type">
+                            <div class="course-index course-status">
+                                <div class="type-box basic">
+                                    <span>
+                                        پایه
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-name-2">
+                            <div class="course-index">
+                                <span>
+                                    کارگاه کامپیوتر
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-instructor-2">
+                            <div class="course-index">
+                                <span>
+                                    علی محمدی
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-units">
+                            <div class="course-index bold-item">
+                                <span>
+                                    ۱
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-explain">
+                            <div class="selection-units">
+                                <span>
+                                    &nbsp;
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <div class="col-name-2">
-                        <div class="course-index">
-                            <span>
-                                کارگاه کامپیوتر
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-instructor-2">
-                        <div class="course-index">
-                            <span>
-                                علی محمدی
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-units">
-                        <div class="course-index bold-item">
-                            <span>
-                                ۱
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-explain">
-                        <div class="selection-units">
-                            <span>
-                                &nbsp;
-                            </span>
-                        </div>
-                    </div>
                 </div>
-            </div>
-            <div class="course-item">
-                <div class="row no-gutters">
-                    <div class="col-add">
-                        <div class="edit full-sign clickable">
-                            <span>
-                                <i class="flaticon-clock-circular-outline"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-code-2">
-                        <div class="course-index code">
-                            <span>
-                                ۸۱۰۱۸۶۴-۰۱
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-capacity">
-                        <div class="course-index bold-item unavailable">
-                            <span>
-                                ۷۷/۷۵۶۰
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-type">
-                        <div class="course-index order-status">
-                            <div class="type-box specialized">
+                <div class="course-item">
+                    <div class="row no-gutters">
+                        <div class="col-add edit-option">
+                            <div class="edit full-sign clickable">
                                 <span>
-                                    تخصصی
+                                    <i class="flaticon-clock-circular-outline"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-code-2">
+                            <div class="course-index code">
+                                <span>
+                                    ۸۱۰۱۸۶۴-۰۱
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-capacity">
+                            <div class="course-index bold-item unavailable">
+                                <span>
+                                    ۷۷/۷۵۶۰
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-type">
+                            <div class="course-index course-status">
+                                <div class="type-box specialized">
+                                    <span>
+                                        تخصصی
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-name-2">
+                            <div class="course-index">
+                                <span>
+                                    پایگاه داده
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-instructor-2">
+                            <div class="course-index">
+                                <span>
+                                    آزاده شاکری
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-units">
+                            <div class="course-index bold-item">
+                                <span>
+                                    ۳
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-explain">
+                            <div class="selection-units">
+                                <span>
+                                    &nbsp;
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <div class="col-name-2">
-                        <div class="course-index">
-                            <span>
-                                پایگاه داده
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-instructor-2">
-                        <div class="course-index">
-                            <span>
-                                آزاده شاکری
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-units">
-                        <div class="course-index bold-item">
-                            <span>
-                                ۳
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-explain">
-                        <div class="selection-units">
-                            <span>
-                                &nbsp;
-                            </span>
-                        </div>
-                    </div>
                 </div>
-            </div>
-            <div class="course-item">
-                <div class="row no-gutters">
-                    <div class="col-add">
-                        <div class="edit add-sign clickable">
-                            <span>
-                                <i class="flaticon-add"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-code-2">
-                        <div class="course-index code">
-                            <span>
-                                ۸۱۰۱۲۲۲-۰۱
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-capacity">
-                        <div class="course-index bold-item">
-                            <span>
-                                ۲۶/۵۰
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-type">
-                        <div class="course-index order-status">
-                            <div class="type-box specialized">
+
+                <div class="course-item">
+                    <div class="row no-gutters">
+                        <div class="col-add edit-option">
+                            <div class="edit add-sign clickable">
                                 <span>
-                                    تخصصی
+                                    <i class="flaticon-add"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-code-2">
+                            <div class="course-index code">
+                                <span>
+                                    ۸۱۰۱۲۲۲-۰۱
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-capacity">
+                            <div class="course-index bold-item">
+                                <span>
+                                    ۲۶/۵۰
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-type">
+                            <div class="course-index course-status">
+                                <div class="type-box specialized">
+                                    <span>
+                                        تخصصی
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-name-2">
+                            <div class="course-index">
+                                <span>
+                                    آزمون نرم‌افزار
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-instructor-2">
+                            <div class="course-index">
+                                <span>
+                                    احسان خامس‌پناه
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-units">
+                            <div class="course-index bold-item">
+                                <span>
+                                    ۳
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-explain">
+                            <div class="selection-units">
+                                <span>
+                                    &nbsp;
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <div class="col-name-2">
-                        <div class="course-index">
-                            <span>
-                                آزمون نرم‌افزار
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-instructor-2">
-                        <div class="course-index">
-                            <span>
-                                احسان خامس‌پناه
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-units">
-                        <div class="course-index bold-item">
-                            <span>
-                                ۳
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-explain">
-                        <div class="selection-units">
-                            <span>
-                                &nbsp;
-                            </span>
-                        </div>
-                    </div>
                 </div>
-            </div>
-            <div class="course-item">
-                <div class="row no-gutters">
-                    <div class="col-add">
-                        <div class="edit add-sign clickable">
-                            <span>
-                                <i class="flaticon-add"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-code-2">
-                        <div class="course-index code">
-                            <span>
-                                ۸۱۰۱۱۱۱-۰۱
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-capacity">
-                        <div class="course-index bold-item">
-                            <span>
-                                ۲۶/۵۰
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-type">
-                        <div class="course-index order-status">
-                            <div class="type-box specialized">
+                <div class="course-item">
+                    <div class="row no-gutters">
+                        <div class="col-add edit-option last-item">
+                            <div class="edit add-sign clickable">
                                 <span>
-                                    تخصصی
+                                    <i class="flaticon-add"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-code-2">
+                            <div class="course-index code last-item">
+                                <span>
+                                    ۸۱۰۱۱۱۱-۰۱
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-capacity">
+                            <div class="course-index bold-item last-item">
+                                <span>
+                                    ۲۶/۵۰
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-type">
+                            <div class="course-index course-status last-item">
+                                <div class="type-box specialized">
+                                    <span>
+                                        تخصصی
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-name-2">
+                            <div class="course-index last-item">
+                                <span>
+                                    اقتصاد مهندسی
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-instructor-2">
+                            <div class="course-index last-item">
+                                <span>
+                                    محمد آزادنیا
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-units">
+                            <div class="course-index bold-item last-item">
+                                <span>
+                                    ۳
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-explain">
+                            <div class="selection-units">
+                                <span>
+                                    &nbsp;
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <div class="col-name-2">
-                        <div class="course-index">
-                            <span>
-                                اقتصاد مهندسی
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-instructor-2">
-                        <div class="course-index">
-                            <span>
-                                محمد آزادنیا
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-units">
-                        <div class="course-index bold-item">
-                            <span>
-                                ۳
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-explain">
-                        <div class="selection-units">
-                            <span>
-                                &nbsp;
-                            </span>
-                        </div>
-                    </div>
                 </div>
-            </div>
-        </div>
+
     </div>
     </div>
     </div>
 </div>
 </main>
+</body>
+
+</html>
