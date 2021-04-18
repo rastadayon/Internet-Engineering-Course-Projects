@@ -1,6 +1,6 @@
 package ir.ac.ut.ie.Bolbolestan05.schedulers;
 
-import ir.ac.ut.ie.Bolbolestan05.domain.Bolbolestan.Bolbolestan;
+import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Bolbolestan;
 
 
 public class MinJob implements Runnable {
