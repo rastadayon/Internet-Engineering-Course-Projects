@@ -1,8 +1,7 @@
 package ir.ac.ut.ie.Bolbolestan05;
 
 import ir.ac.ut.ie.Bolbolestan05.schedulers.MinJob;
-import ir.ac.ut.ie.Bolbolestan05.schedulers.WaitingScheduler;
-import ir.ac.ut.ie.Bolbolestan05.utils.services.EducationSystem;
+import ir.ac.ut.ie.Bolbolestan05.services.EducationSystem;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.util.concurrent.Executors;
