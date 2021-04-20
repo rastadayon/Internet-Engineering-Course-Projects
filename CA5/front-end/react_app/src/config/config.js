@@ -1,9 +1,6 @@
 export const DOMAIN = "http://localhost:8080/";
-<<<<<<< HEAD
 export let COURSES_URL = DOMAIN + "courses/";
 export let RESTAURANTS_URL = DOMAIN + "restaurants/";
-=======
->>>>>>> 3053b1e2d71c3481727e6631908c535fa09d1e2c
 export let USER_URL = DOMAIN + "user/";
 export let RESTAURANTS_URL = DOMAIN + "restaurants/";
 export let CHARGE_URL = DOMAIN + "user/charge/";
