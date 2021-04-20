@@ -7,12 +7,9 @@ import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Offering.Offerin
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.Grade;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.Student;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.StudentManager;
-import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.WeeklySchedule;
-import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.exeptions.*;
-//import HTTPRequestHandler.HTTPRequestHandler;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
+import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.exeptions.BolbolestanStudentNotFoundError;
+import ir.ac.ut.ie.Bolbolestan05.controllers.models.StudentInfo;
+
 
 import java.util.*;
 
@@ -164,5 +161,11 @@ public class Bolbolestan {
 
     public int getUnitsById(String courseCode) {
         return offeringManager.getUnitsById(courseCode);
+    }
+
+    public StudentInfo getStudentInfo() throws Exception {
+        if (!isAnybodyLoggedIn())
+            throw new BolbolestanStudentNotFoundError();
+        return studentManager.getStudentInfo();
     }
 }

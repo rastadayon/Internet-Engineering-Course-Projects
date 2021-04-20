@@ -1,5 +1,5 @@
-@import "../mycollection/font/flaticon.css";
-@import "../fonts/vazir-fonts/fonts.css";
+@import "../../assets/mycollection/font/flaticon.css";
+@import "../../assets/fonts/vazir-fonts/fonts.css";
 
 html {
   height: 100%;
@@ -20,3 +20,10 @@ img {
   display: block; /* remove extra space below image */
 }
 
+.main-container {
+  min-height: 100vh; 
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 100px;
+}

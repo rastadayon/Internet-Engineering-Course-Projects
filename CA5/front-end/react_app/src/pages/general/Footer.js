@@ -20,7 +20,7 @@ export default class Footer extends React.Component{
                                     دانشگاه تهران - سامانه جامع بلبلستان
                             </p>
                         </div>
-                        <div classNmame="col-md-6 text-md-left">
+                        <div className="col-md-6 text-md-left">
                             <ul className="social list-unstyled">
                                 <li>
                                     <a href="#">

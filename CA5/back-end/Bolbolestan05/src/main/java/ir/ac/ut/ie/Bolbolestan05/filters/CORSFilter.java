@@ -1,40 +1,47 @@
 package ir.ac.ut.ie.Bolbolestan05.filters;
 
+import org.springframework.core.Ordered;
+
 import javax.servlet.*;
-        import javax.servlet.http.HttpServletRequest;
-        import javax.servlet.http.HttpServletResponse;
-        import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 
+@Component
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class CORSFilter implements Filter {
 
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
-            throws IOException, ServletException {
+    @Override
+    public void init(FilterConfig fc) throws ServletException {
+    }
 
+    @Override
+    public void doFilter(ServletRequest req, ServletResponse resp,
+                         FilterChain chain) throws IOException, ServletException {
         try {
-            System.out.println("here?");
-            Thread.sleep(200);
+            Thread.sleep(200); // 1 seconds
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
-
-        ((HttpServletResponse) servletResponse).addHeader("Access-Control-Allow-Origin", "*");
-        ((HttpServletResponse) servletResponse).addHeader("Access-Control-Allow-Methods","GET, OPTIONS, HEAD, PUT, POST, DELETE, PATCH");
-
-        HttpServletResponse resp = (HttpServletResponse) servletResponse;
-
-        if (request.getMethod().equals("OPTIONS")) {
-            ((HttpServletResponse) servletResponse).addHeader("Access-Control-Allow-Credentials", "true");
-            ((HttpServletResponse) servletResponse).addHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, content-type, Access-Control-Request-Method, Access-Control-Request-Headers, Authorization");
-
-            resp = (HttpServletResponse) servletResponse;
-            resp.setStatus(HttpServletResponse.SC_ACCEPTED);
-
-            return;
+        HttpServletResponse response = (HttpServletResponse) resp;
+        HttpServletRequest request = (HttpServletRequest) req;
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, OPTIONS, DELETE");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "x-requested-with, authorization, Content-Type, Authorization, credential, X-XSRF-TOKEN");
+        response.setHeader("Access-Control-Allow-Credentials", String.valueOf(true));
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            response.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            chain.doFilter(req, resp);
         }
-
-        chain.doFilter(request, servletResponse);
     }
+
+    @Override
+    public void destroy() {
+    }
+
 }

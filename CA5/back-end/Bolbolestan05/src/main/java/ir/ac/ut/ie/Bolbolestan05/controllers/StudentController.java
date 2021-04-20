@@ -3,6 +3,7 @@ import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Bolbolestan;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.Grade;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.Student;
 import ir.ac.ut.ie.Bolbolestan05.controllers.models.Login;
+import ir.ac.ut.ie.Bolbolestan05.controllers.models.StudentInfo;
 import ir.ac.ut.ie.Bolbolestan05.services.AuthService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,20 +17,20 @@ import java.util.ArrayList;
 @RequestMapping("/student")
 public class StudentController {
 
-    @GetMapping("")
-    public Student getStudent(final HttpServletResponse response) throws IOException {
-        System.out.println("in get student");
+    @GetMapping("/")
+    public ResponseEntity<Object> getStudentInfo(final HttpServletResponse response) throws IOException {
+        System.out.println("in get student info");
         try{
-            return Bolbolestan.getInstance().getLoggedInStudent();
+            StudentInfo stdInfo = Bolbolestan.getInstance().getStudentInfo();
+            return ResponseEntity.status(HttpStatus.OK).body(stdInfo);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            response.sendError(HttpStatus.BAD_REQUEST.value(), e.getMessage());
-            return null;
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("no student is logged in.");
         }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(
+    public ResponseEntity login(
             @RequestBody Login loginData,
             final HttpServletResponse response) throws IOException {
         System.out.println("in login");
@@ -38,7 +39,7 @@ public class StudentController {
             AuthService.authUser(loginData);
             return ResponseEntity.ok("ok");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("student not found. invalid login");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("student not found. invalid login");
         }
     }
 

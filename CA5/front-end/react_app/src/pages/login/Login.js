@@ -44,16 +44,13 @@ export default class Login extends React.Component {
         API.post('student/login/', {
             email: this.state.email
         }).then((resp) => {
-            if(resp.status == 200) {
+            if(resp.status === 200) {
                 console.log('شد شد')
                 toast.success('ورود با موفقیت انجام شد.')
             }
-            else {
-                console.log('نشد')
-                toast.success('باز رید')
-            }
         }).catch(error => {
-            // NotificationManager.error('نام کاربری یا رمز عبور نادرست است.')
+            console.log('نشد')
+            toast.error('ایمیل نادرست است')
         })
     }
 

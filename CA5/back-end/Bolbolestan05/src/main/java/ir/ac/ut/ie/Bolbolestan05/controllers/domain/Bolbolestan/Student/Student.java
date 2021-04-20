@@ -3,6 +3,7 @@ package ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Offering.Offering;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.exeptions.*;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Utilities.Utils;
+import ir.ac.ut.ie.Bolbolestan05.controllers.models.StudentInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +80,7 @@ public class Student {
         System.out.println(String.format("faculty : %s", faculty));
         System.out.println(String.format("level : %s", level));
         System.out.println(String.format("status : %s", status));
+        System.out.println(String.format("image : %s", img));
     }
 
     public float getGPA() {
@@ -246,5 +248,11 @@ public class Student {
 
     public void checkWaitingCourses() {
         courseSelection.checkWaitingCourses();
+    }
+
+    public StudentInfo getInfo() {
+        return new StudentInfo(this.id, this.name, this.secondName,
+                this.birthDate, this.field, this.faculty,
+                this.level, this.status, this.img);
     }
 }

@@ -3,6 +3,7 @@ package ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Offering.Offering;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.exeptions.BolbolestanRulesViolationError;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.exeptions.BolbolestanStudentNotFoundError;
+import ir.ac.ut.ie.Bolbolestan05.controllers.models.StudentInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -128,4 +129,11 @@ public class StudentManager {
         }
     }
 
+    public StudentInfo getStudentInfo() throws Exception{
+        Student loggedInStudent = getStudentById(getLoggedInId());
+        if (loggedInStudent == null) {
+            throw new BolbolestanStudentNotFoundError();
+        }
+        return loggedInStudent.getInfo();
+    }
 }

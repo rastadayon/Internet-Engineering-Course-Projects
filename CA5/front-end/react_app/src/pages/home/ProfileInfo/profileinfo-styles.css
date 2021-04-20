@@ -1,0 +1,38 @@
+.std-info {
+    padding-top: 5%;
+    padding-left: 2%;
+    text-align: center;
+    justify-content: center;
+}
+
+.std-info ul {
+    padding-top: 10%;
+    list-style-type:none;
+    color: #1FA5FF;
+    padding-inline-start: 0%;
+}
+
+.std-info li {
+    margin: 0 0 15px 0;
+}
+
+.std-info span{
+    color: grey;
+}
+
+.std-info .avatar {
+    width: 7rem;
+    border: 0.15em solid #0087e0;
+    border-radius: 100%;
+}
+
+.std-info .std-status {
+    color: #1FA5FF;
+    border: 2px solid #1FA5FF;
+    border-radius: 4px;
+    display:inline-block;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+    padding: 2%;
+}
