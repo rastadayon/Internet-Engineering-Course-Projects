@@ -5,6 +5,7 @@ import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.Student;
 import ir.ac.ut.ie.Bolbolestan05.controllers.models.Login;
 import ir.ac.ut.ie.Bolbolestan05.services.AuthService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -28,16 +29,16 @@ public class StudentController {
     }
 
     @PostMapping("/login")
-    public void login(
+    public ResponseEntity<String> login(
             @RequestBody Login loginData,
             final HttpServletResponse response) throws IOException {
         System.out.println("in login");
-        System.out.println("email is " + loginData.getStdId());
+        System.out.println("email is " + loginData.getEmail());
         try {
             AuthService.authUser(loginData);
-            response.sendError(HttpStatus.OK.value());
+            return ResponseEntity.ok("ok");
         } catch (Exception e) {
-            response.sendError(HttpStatus.NOT_FOUND.value(), e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("student not found. invalid login");
         }
     }
 

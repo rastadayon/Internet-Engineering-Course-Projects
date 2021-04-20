@@ -1,5 +1,6 @@
 package ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Offering;
 
+import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.Student;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.exeptions.BolbolestanCourseNotFoundError;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.exeptions.BolbolestanRulesViolationError;
 
