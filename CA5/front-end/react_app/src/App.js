@@ -3,6 +3,7 @@ import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Home from "./pages/home/Home";
+import UnitSelection from "./pages/unitSelection/UnitSelection";
 import Login from "./pages/login/Login";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
@@ -24,6 +25,11 @@ function App() {
           <Login/>
         </Route>
         <Route exact path="/" component={Home} />
+
+        <Route path="/courses">
+          <UnitSelection />
+        </Route>
+
       </Switch>
       <ToastContainer/>
     </Router>
