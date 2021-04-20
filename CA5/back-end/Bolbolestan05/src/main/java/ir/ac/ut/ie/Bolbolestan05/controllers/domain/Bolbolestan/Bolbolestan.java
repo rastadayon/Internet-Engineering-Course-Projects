@@ -7,17 +7,24 @@ import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Offering.Offerin
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.Grade;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.Student;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.StudentManager;
+import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.WeeklySchedule;
+import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.exeptions.*;
 //import HTTPRequestHandler.HTTPRequestHandler;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.*;
 
 public class Bolbolestan {
+    final static String STUDENTS_URL = "http://138.197.181.131:5000/api/students";
+    final static String GRADES_URL = "http://138.197.181.131:5000/api/grades";
+    final static String COURSES_URL = "http://138.197.181.131:5000/api/courses";
     private static Bolbolestan instance;
     private StudentManager studentManager = new StudentManager();
     private OfferingManager offeringManager = new OfferingManager();
     private CourseManager courseManager = new CourseManager();
 
-    private int waitListPeriod;
 
     public ArrayList<String> getStudentIds() {
         return studentManager.getStudentIds();

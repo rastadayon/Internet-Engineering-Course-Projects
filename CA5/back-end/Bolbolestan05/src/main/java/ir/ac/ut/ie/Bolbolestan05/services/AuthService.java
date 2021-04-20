@@ -8,10 +8,10 @@ import ir.ac.ut.ie.Bolbolestan05.exceptions.ForbiddenException;
 public class AuthService {
     public static void authUser(Login login) throws Exception{
         System.out.println("in auth user");
-        if(login.getStdId() == null)
+        if(login.getEmail() == null)
             throw new ForbiddenException("Fields most have values");
         Bolbolestan bolbolestan = Bolbolestan.getInstance();
-        Student student = bolbolestan.getStudentById(login.getStdId());
+        Student student = bolbolestan.getStudentById(login.getEmail());
         if (student != null) {
             bolbolestan.makeLoggedIn(student.getId());
         }

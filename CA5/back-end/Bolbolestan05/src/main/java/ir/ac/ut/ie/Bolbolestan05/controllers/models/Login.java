@@ -1,14 +1,14 @@
 package ir.ac.ut.ie.Bolbolestan05.controllers.models;
 
 public class Login {
-    String stdId;
+    String email;
 //    String password;
 
-    public String getStdId() {
-        return stdId;
+    public String getEmail() {
+        return email;
     }
 
-    public void setStdId(String stdId) {
-        this.stdId = stdId;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
