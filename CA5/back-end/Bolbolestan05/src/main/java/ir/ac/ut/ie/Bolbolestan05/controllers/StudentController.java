@@ -22,6 +22,7 @@ public class StudentController {
         System.out.println("in get student info");
         try{
             StudentInfo stdInfo = Bolbolestan.getInstance().getStudentInfo();
+            System.out.println("all went fine in student info");
             return ResponseEntity.status(HttpStatus.OK).body(stdInfo);
         } catch (Exception e) {
             System.out.println(e.getMessage());
