@@ -13,7 +13,11 @@ export default class Home extends React.Component {
         super(props);
         this.state = {
             studentInfo: undefined,
-            test: 1
+            test: 1,
+            firstOption: "انتخاب واحد",
+            secondOption: "برنامه هفتگی",
+            firstRoute: "/courses",
+            secondRoute: "/schedule"
         }
         this.updateStudentInfo = this.updateStudentInfo.bind(this);
     }
@@ -39,7 +43,10 @@ export default class Home extends React.Component {
     render() {
         return (
             <div className="main-container">
-                <Header/>
+                <Header firstOption={this.state.firstOption}
+                        secondOption={this.state.secondOption}
+                        firstRoute={this.state.firstRoute}
+                        secondRoute={this.state.secondRoute}/>
                 <HomeTopSection/>
                 <div className="container-fluid text-center">
                     <div className="main row">
