@@ -11,11 +11,7 @@ export default class Header extends React.Component{
         this.handleClose = this.handleClose.bind(this);
 
         this.state = {
-            show: false,
-            firstOption: this.props.firstOption,    
-            secondOption: this.props.secondOption,
-            firstRoute: this.props.firstRoute,
-            secondRoute: this.props.secondRoute
+            show: false
         };
     }
 
@@ -41,13 +37,13 @@ export default class Header extends React.Component{
                         </Link>
                     </div>
                     <div className="option m-2">
-                        <Link to= {this.state.firstRoute}>
-                            {this.state.firstOption}
+                        <Link to= {this.props.firstRoute}>
+                            {this.props.firstOption}
                         </Link>
                     </div>
                     <div className="option m-2">
-                        <Link to= {this.state.secondRoute}>
-                        {this.state.secondOption}
+                        <Link to= {this.props.secondRoute}>
+                        {this.props.secondOption}
                         </Link>
                     </div>
                     <div className="logout m-1" onClick={this.handleShow}>
