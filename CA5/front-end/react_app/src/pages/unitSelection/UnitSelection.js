@@ -8,7 +8,11 @@ export default class UnitSelection extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            test: 1
+            test: 1,
+            firstOption: "خانه",
+            secondOption: "برنامه هفتگی",
+            firstRoute: "",
+            secondRoute: "/schedule"
         };
     }
 
@@ -19,7 +23,10 @@ export default class UnitSelection extends React.Component {
     render() {
         return (
             <div>
-                <Header/>
+                <Header firstOption={this.state.firstOption}
+                        secondOption={this.state.secondOption}
+                        firstRoute={this.state.firstRoute}
+                        secondRoute={this.state.secondRoute}/>
                 
 
                 <br/>

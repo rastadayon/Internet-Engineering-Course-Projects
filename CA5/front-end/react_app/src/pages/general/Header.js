@@ -11,7 +11,11 @@ export default class Header extends React.Component{
         this.handleClose = this.handleClose.bind(this);
 
         this.state = {
-            show: false        
+            show: false,
+            firstOption: this.props.firstOption,    
+            secondOption: this.props.secondOption,
+            firstRoute: this.props.firstRoute,
+            secondRoute: this.props.secondRoute
         };
     }
 
@@ -29,21 +33,21 @@ export default class Header extends React.Component{
             <div>
                 <header>
                 <div className="header">
-                    <div className="m-2">
+                    <div className="m-3"> 
                     </div>
-                    <div className="bolbolestan-logo m-2">
+                    <div className="bolbolestan-logo m-1">
                         <Link to= "/">
                             <img src={require("../../assets/images/logo.png")} alt=""/>
                         </Link>
                     </div>
                     <div className="option m-2">
-                        <Link to= "/courses">
-                            انتخاب واحد
+                        <Link to= {this.state.firstRoute}>
+                            {this.state.firstOption}
                         </Link>
                     </div>
                     <div className="option m-2">
-                        <Link to= "/schedule">
-                            برنامه هفتگی
+                        <Link to= {this.state.secondRoute}>
+                        {this.state.secondOption}
                         </Link>
                     </div>
                     <div className="logout m-1" onClick={this.handleShow}>
