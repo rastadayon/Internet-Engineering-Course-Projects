@@ -6,6 +6,7 @@ import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Utilities.Utils;
 import ir.ac.ut.ie.Bolbolestan05.controllers.models.StudentInfo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Student {
@@ -18,7 +19,7 @@ public class Student {
     private final String level;
     private final String status;
     private final String img;
-    private ArrayList<Grade> grades = new ArrayList<Grade>();
+    private ArrayList<ReportCard> reportCards = new ArrayList<>();
     private String searchString = null;
     private CourseSelection courseSelection;
 
@@ -56,7 +57,9 @@ public class Student {
 
     public String getBirthDate() { return birthDate; }
 
-    public ArrayList<Grade> getGrades() { return grades; }
+//    public ArrayList<Grade> getGrades() { return grades; }
+
+    public ArrayList<ReportCard> getReportCards() { return reportCards; }
 
     public WeeklySchedule getSelectedOfferings() {
         return courseSelection.getSelectedOfferings();
@@ -83,15 +86,27 @@ public class Student {
         System.out.println(String.format("image : %s", img));
     }
 
+    public int getTotalPassedUnits() {
+        int totalPassedUnits = 0;
+        if (reportCards != null)
+            for (ReportCard reportCard : reportCards) {
+                totalPassedUnits += reportCard.getUnits();
+            }
+        return totalPassedUnits;
+    }
+
     public float getGPA() {
         int count = 0;
         float gradeSum = 0;
         Utils utils = Utils.getInstance();
-        if (grades != null)
-            for (Grade grade : grades) {
-                gradeSum += (grade.getGrade()*grade.getUnits());
-                count += grade.getUnits();
+        if (reportCards != null) {
+            for (ReportCard reportCard : reportCards) {
+                for (Grade grade : reportCard.getGrades()) {
+                    gradeSum += (grade.getGrade() * grade.getUnits());
+                    count += grade.getUnits();
+                }
             }
+        }
         if (count != 0)
             return utils.round(gradeSum/count, 2);
         else
@@ -102,11 +117,15 @@ public class Student {
         return this.id;
     }
 
-    public void addGrade(Grade grade) {
-        if (grades == null)
-            grades = new ArrayList<>();
-        grades.add(grade);
-    }
+//    public void addGrade(Grade grade) {
+//        if (reportCards == null)
+//            reportCards = new ArrayList<>();
+//        int semester = grade.getTerm();
+//        for (ReportCard reportCard : reportCards) {
+//
+//        }
+//        grades.add(grade);
+//    }
 
     public void addToSelectedOfferings(Offering offering) {
         courseSelection.addToSelectedOfferings(offering);
@@ -136,10 +155,12 @@ public class Student {
         ArrayList<String> prerequisites = offering.getPrerequisites();
         for (String prerequisite : prerequisites) {
             boolean found = false;
-            for (Grade grade : grades) {
-                if (grade.getCode().equals(prerequisite) && grade.getGrade() >= 10) {
-                    found = true;
-                    break;
+            for (ReportCard reportCard : reportCards) {
+                for (Grade grade : reportCard.getGrades()) {
+                    if (grade.getCode().equals(prerequisite) && grade.getGrade() >= 10) {
+                        found = true;
+                        break;
+                    }
                 }
             }
             if (!found) {
@@ -150,9 +171,11 @@ public class Student {
     }
 
     public boolean notPassedBefore(Offering offering) {
-        for (Grade grade : grades) {
-            if (grade.getCode().equals(offering.getCourseCode()) && grade.getGrade() >= 10) {
-                return false;
+        for (ReportCard reportCard : reportCards) {
+            for (Grade grade : reportCard.getGrades()) {
+                if (grade.getCode().equals(offering.getCourseCode()) && grade.getGrade() >= 10) {
+                    return false;
+                }
             }
         }
         return true;
@@ -252,7 +275,35 @@ public class Student {
 
     public StudentInfo getInfo() {
         return new StudentInfo(this.id, this.name, this.secondName,
-                this.birthDate, this.field, this.faculty,
-                this.level, this.status, this.img);
+                this.birthDate, this.getGPA(), this.getTotalPassedUnits(),
+                this.field, this.faculty, this.level, this.status, this.img);
+    }
+
+    private ReportCard getSemesterReportCard(int semester) {
+        for (ReportCard reportCard : reportCards) {
+            if (reportCard.getSemester() == semester)
+                return reportCard;
+        }
+        return null;
+    }
+
+    public void setReportCards(ArrayList<Grade> grades) {
+        System.out.println("in student setting report cards");
+        for (Grade grade : grades) {
+            int semester = grade.getTerm();
+            ReportCard reportCard = getSemesterReportCard(semester);
+            if(reportCard == null) {
+                reportCard = new ReportCard(semester);
+                reportCard.addGrade(grade);
+                reportCards.add(reportCard);
+            }
+            else{
+                reportCard.addGrade(grade);
+            }
+        }
+        for (ReportCard reportCard : reportCards) {
+            reportCard.setGPA();
+        }
+        Collections.sort(reportCards);
     }
 }

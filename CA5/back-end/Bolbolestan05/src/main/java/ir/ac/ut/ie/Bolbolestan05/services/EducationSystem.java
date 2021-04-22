@@ -43,6 +43,7 @@ public class EducationSystem {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         List<Student> students = gson.fromJson(StudentsJsonString, new TypeToken<List<Student>>() {
         }.getType());
+        System.out.println(String.format("------------------> total number of students : %d", students.size()));
         for (Student student : students) {
             try {
                 student.print();
@@ -78,15 +79,13 @@ public class EducationSystem {
             String gradesJsonString = HTTPRequestHandler.getRequest(
                     gradesURL + "/" + studentId);
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            List<Grade> grades = gson.fromJson(gradesJsonString, new TypeToken<List<Grade>>() {
+            ArrayList<Grade> grades = gson.fromJson(gradesJsonString, new TypeToken<List<Grade>>() {
             }.getType());
-            for (Grade grade : grades) {
-                try {
-                    grade.setUnits(Bolbolestan.getInstance().getUnitsById(grade.getCode()));
-                    Bolbolestan.getInstance().addGradeToStudent(studentId, grade);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
+            try {
+                System.out.println("getting grades for : " + studentId);
+                Bolbolestan.getInstance().setReportCards(studentId, grades);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         }
     }

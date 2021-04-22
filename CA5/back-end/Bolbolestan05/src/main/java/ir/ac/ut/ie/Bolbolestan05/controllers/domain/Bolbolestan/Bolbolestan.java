@@ -5,6 +5,7 @@ import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Course.CourseMan
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Offering.Offering;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Offering.OfferingManager;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.Grade;
+import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.ReportCard;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.Student;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.StudentManager;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.exeptions.BolbolestanStudentNotFoundError;
@@ -66,9 +67,9 @@ public class Bolbolestan {
         studentManager.addStudent(student);
     }
 
-    public void addGradeToStudent(String studentId, Grade grade) throws Exception {
-        studentManager.addGradeToStudent(studentId, grade);
-    }
+//    public void addGradeToStudent(String studentId, Grade grade) throws Exception {
+//        studentManager.addGradeToStudent(studentId, grade);
+//    }
 
     public void addToWeeklySchedule(String studentId, String courseCode, String classCode) throws Exception {
         Offering offering = offeringManager.getOfferingById(courseCode, classCode);
@@ -84,19 +85,19 @@ public class Bolbolestan {
         return studentManager.finalizeSchedule(studentId);
     }
 
-    public int getUnitsPassed(String studentId) throws Exception {
-        Student student = studentManager.getStudentById(studentId);
-        int unitsPassed = 0;
-        ArrayList<Grade> studentGrades = student.getGrades();
-        if (studentGrades == null)
-            return 0;
-        for (Grade gradeItem : studentGrades) {
-            Course course = courseManager.getCourseByCode(gradeItem.getCode());
-            if (gradeItem.getGrade() >= 10)
-                unitsPassed += course.getUnits();
-        }
-        return unitsPassed;
-    }
+//    public int getUnitsPassed(String studentId) throws Exception {
+//        Student student = studentManager.getStudentById(studentId);
+//        int unitsPassed = 0;
+//        ArrayList<Grade> studentGrades = student.getGrades();
+//        if (studentGrades == null)
+//            return 0;
+//        for (Grade gradeItem : studentGrades) {
+//            Course course = courseManager.getCourseByCode(gradeItem.getCode());
+//            if (gradeItem.getGrade() >= 10)
+//                unitsPassed += course.getUnits();
+//        }
+//        return unitsPassed;
+//    }
 
     public boolean offeringHasCapacity(String courseCode, String classCode) throws Exception{
         return offeringManager.offeringHasCapacity(courseCode, classCode);
@@ -163,9 +164,27 @@ public class Bolbolestan {
         return offeringManager.getUnitsById(courseCode);
     }
 
+    public String getCourseNameByCourseCode(String courseCode) {
+        return offeringManager.getCourseName(courseCode);
+    }
+
     public StudentInfo getStudentInfo() throws Exception {
         if (!isAnybodyLoggedIn())
             throw new BolbolestanStudentNotFoundError();
         return studentManager.getStudentInfo();
+    }
+
+    public ArrayList<ReportCard> getStudentReports() throws Exception {
+        if (!isAnybodyLoggedIn())
+            throw new BolbolestanStudentNotFoundError();
+        return studentManager.getStudentReports();
+    }
+
+    public void setReportCards(String studentId, ArrayList<Grade> grades) throws Exception {
+        for (Grade grade : grades) {
+            grade.setUnits(getUnitsById(grade.getCode()));
+            grade.setCourseName(getCourseNameByCourseCode(grade.getCode()));
+        }
+        studentManager.setReportCards(studentId, grades);
     }
 }

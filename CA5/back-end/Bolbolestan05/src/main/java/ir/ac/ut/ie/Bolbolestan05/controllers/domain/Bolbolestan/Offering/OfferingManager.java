@@ -54,6 +54,15 @@ public class OfferingManager {
         return searchResults;
     }
 
+    public String getCourseName(String courseCode) {
+        for (Offering offering : offerings) {
+            if (offering.getCourseCode().equals(courseCode)) {
+                return offering.getName();
+            }
+        }
+        return null;
+    }
+
     public int getUnitsById(String courseCode) {
         int units = 0;
         for (Offering offering : offerings) {
