@@ -5,19 +5,23 @@ public class StudentInfo {
     private final String name;
     private final String secondName;
     private final String birthDate;
+    private final float GPA;
+    private final int totalUnits;
     private final String field;
     private final String faculty;
     private final String level;
     private final String status;
     private final String img;
-
     public StudentInfo(String id, String name, String secondName,
-                       String birthDate, String field, String faculty,
-                       String level, String status, String img) {
+                       String birthDate, float GPA, int totalUnits,
+                       String field, String faculty, String level,
+                       String status, String img) {
         this.id = id;
         this.name = name;
         this.secondName = secondName;
         this.birthDate = birthDate;
+        this.GPA = GPA;
+        this.totalUnits = totalUnits;
         this.field = field;
         this.faculty = faculty;
         this.level = level;
@@ -39,6 +43,14 @@ public class StudentInfo {
 
     public String getBirthDate() {
         return birthDate;
+    }
+
+    public float getGPA() {
+        return GPA;
+    }
+
+    public int getTotalUnits() {
+        return totalUnits;
     }
 
     public String getField() {

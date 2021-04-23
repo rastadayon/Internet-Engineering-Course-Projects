@@ -24,6 +24,8 @@
     width: 7rem;
     border: 0.15em solid #0087e0;
     border-radius: 100%;
+    text-align: center;
+    margin: auto;
 }
 
 .std-info .std-status {

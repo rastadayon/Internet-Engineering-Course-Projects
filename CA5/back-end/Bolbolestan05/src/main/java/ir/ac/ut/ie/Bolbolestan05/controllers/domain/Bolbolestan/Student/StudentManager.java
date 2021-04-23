@@ -46,10 +46,10 @@ public class StudentManager {
         students.add(student);
     }
 
-    public void addGradeToStudent(String studentId, Grade grade) throws Exception{
-        Student student = getStudentById(studentId);
-        student.addGrade(grade);
-    }
+//    public void addGradeToStudent(String studentId, Grade grade) throws Exception{
+//        Student student = getStudentById(studentId);
+//        student.addGrade(grade);
+//    }
 
     public void addToSelectedOfferings(String studentId, Offering offering) throws Exception {
         Student student = getStudentById(studentId);
@@ -135,5 +135,19 @@ public class StudentManager {
             throw new BolbolestanStudentNotFoundError();
         }
         return loggedInStudent.getInfo();
+    }
+
+    public ArrayList<ReportCard> getStudentReports() throws Exception {
+        Student loggedInStudent = getStudentById(getLoggedInId());
+        if (loggedInStudent == null) {
+            throw new BolbolestanStudentNotFoundError();
+        }
+        return loggedInStudent.getReportCards();
+    }
+
+    public void setReportCards(String studentId, ArrayList<Grade> grades) throws Exception {
+        System.out.println("setting report cards for: " + studentId);
+        Student student = getStudentById(studentId);
+        student.setReportCards(grades);
     }
 }
