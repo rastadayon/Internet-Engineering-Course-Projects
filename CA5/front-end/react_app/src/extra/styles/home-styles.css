@@ -1,4 +1,3 @@
-@import "../fonts/font/flaticon.css";
 @import "../fonts/vazir-fonts/fonts.css";
 
 html {
@@ -9,7 +8,6 @@ body {
   width: 100%;
   direction: rtl;
   font-family: "Vazir" !important;
-  background-color: #f7fff7 !important;
   height: 100%;
   /*overflow: auto !important;*/
 }
