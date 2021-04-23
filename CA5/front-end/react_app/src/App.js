@@ -3,6 +3,7 @@ import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Home from "./pages/home/Home";
+import Schedule from "./pages/schedule/Schedule";
 import UnitSelection from "./pages/unitSelection/UnitSelection";
 import Login from "./pages/login/Login";
 import 'react-toastify/dist/ReactToastify.css';
@@ -28,6 +29,10 @@ function App() {
 
         <Route path="/courses">
           <UnitSelection />
+        </Route>
+
+        <Route path="/schedule">
+          <Schedule />
         </Route>
 
       </Switch>

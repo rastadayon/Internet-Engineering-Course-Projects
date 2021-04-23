@@ -12,6 +12,10 @@ public class CourseSelection {
     private List<String> submissionErrors = new ArrayList<String>();
     private List<String> waitingErrors = new ArrayList<String>();
 
+    public CourseSelection(int term) {
+        submittedOfferings.setTerm(term);
+    }
+
     public WeeklySchedule getSelectedOfferings() { return selectedOfferings; }
 
     public WeeklySchedule getSubmittedOfferings() { return submittedOfferings; }

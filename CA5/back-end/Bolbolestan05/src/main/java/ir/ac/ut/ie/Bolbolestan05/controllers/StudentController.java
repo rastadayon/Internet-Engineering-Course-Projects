@@ -1,6 +1,7 @@
 package ir.ac.ut.ie.Bolbolestan05.controllers;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Bolbolestan;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.Grade;
+import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.WeeklySchedule;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.Student;
 import ir.ac.ut.ie.Bolbolestan05.controllers.models.Login;
 import ir.ac.ut.ie.Bolbolestan05.controllers.models.StudentInfo;
@@ -52,6 +53,23 @@ public class StudentController {
                 ArrayList<Grade> grades =  bolbolestan.getLoggedInStudent().getGrades();
                 response.sendError(HttpStatus.OK.value());
                 return grades;
+            } catch (Exception e) {
+                response.sendError(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+            }
+        }
+        response.sendError(HttpStatus.BAD_REQUEST.value(), "No user logged in");
+        return null;
+    }
+
+    @GetMapping("/schedule")
+    public ResponseEntity<Object> getSchedule(final HttpServletResponse response) throws IOException {
+        Bolbolestan bolbolestan = Bolbolestan.getInstance();
+        if (bolbolestan.isAnybodyLoggedIn()) {
+            try {
+                WeeklySchedule schedule =  bolbolestan.getLoggedInStudent().getSubmittedOfferings();
+                for (int i = 0; i < 5; i++)
+                    schedule.addToWeeklySchedule(bolbolestan.getOfferings().get(i));
+                return ResponseEntity.status(HttpStatus.OK).body(schedule);
             } catch (Exception e) {
                 response.sendError(HttpStatus.BAD_REQUEST.value(), e.getMessage());
             }

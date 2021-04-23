@@ -23,7 +23,7 @@ public class Student {
     private CourseSelection courseSelection;
 
     public Student() {
-        courseSelection = new CourseSelection();
+        courseSelection = new CourseSelection(getCurrentTerm());
         this.id = null;
         this.name = null;
         this.secondName = null;
@@ -47,7 +47,7 @@ public class Student {
         this.level = level;
         this.status = status;
         this.img = img;
-        courseSelection = new CourseSelection();
+        courseSelection = new CourseSelection(getCurrentTerm());
     }
 
     public String getName() { return name; }
@@ -255,4 +255,15 @@ public class Student {
                 this.birthDate, this.field, this.faculty,
                 this.level, this.status, this.img);
     }
+
+    public int getCurrentTerm() {
+        int lastTerm = 0;
+        for (Grade grade: grades) {
+            if (grade.getTerm() > lastTerm) {
+                lastTerm = grade.getTerm();
+            }
+        }
+        return(lastTerm + 1);
+    }
+
 }

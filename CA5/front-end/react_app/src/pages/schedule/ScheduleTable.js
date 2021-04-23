@@ -7,52 +7,62 @@ export default class ScheduleTable extends React.Component{
 
      constructor(props) {
          super(props);
-         this.state = {
-             items : []
-         }
-
-         const slots = ["۹:۰۰ - ۸:۰۰", "۱۰:۰۰ - ۹:۰۰", "۱۱:۰۰ - ۱۰:۰۰",
+         this.state = {      
+        }
+     }
+     
+     getRows(courses) {
+        const slots = ["۸:۰۰ - ۷:۰۰", "۹:۰۰ - ۸:۰۰", "۱۰:۰۰ - ۹:۰۰", "۱۱:۰۰ - ۱۰:۰۰",
                         "۱۲:۰۰ - ۱۱:۰۰", "۱۳:۰۰ - ۱۲:۰۰", "۱۴:۰۰ - ۱۳:۰۰",
                         "۱۵:۰۰ - ۱۴:۰۰", "۱۶:۰۰ - ۱۵:۰۰", "۱۷:۰۰ - ۱۶:۰۰",
                         "۱۸:۰۰ - ۱۷:۰۰"];
 
-         for (var i = 0; i < slots.length; i++) {
-             this.state.items.push( <ScheduleItem slot={slots[i]} /> );
+        var items = [];
+        for (var i = 0; i < slots.length; i++) {
+             items.push( <ScheduleItem slot={slots[i]} 
+                courses={courses} index={i}/> );
          }
+         return items;
      }
 
+     toFarsiNumber(n) {
+        const farsiDigits = ['۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹', '۱۰'];
+        return farsiDigits[n-1];
+    }
 
      render() {
          return (
-            <div class="schedule-wrapper">
-                <div class="schedule row">
-                    <div class="col-calendar schedule-label">
-                        <div class="calendar">
+             <main>
+            <div className="schedule-wrapper">
+                <div className="schedule row">
+                    <div className="col-calendar schedule-label">
+                        <div className="calendar">
                             <span>
-                                <i class="icon flaticon-calendar"></i>
+                                <i className="icon flaticon-calendar"></i>
                             </span>
                         </div>
                     </div>
-                    <div class="col-plan schedule-label">
+                    <div className="col-plan schedule-label">
                         <span>
                             برنامه هفتگی
                         </span>
                     </div>
-                    <div class="col-hidden">
+                    <div className="col-hidden">
                     </div>
-                    <div class="col-term schedule-label">
+                    <div className="col-term schedule-label">
                         <span>
-                            ترم ۶
+                            ترم  {this.props.scheduleInfo ? this.toFarsiNumber(this.props.scheduleInfo.term) : ''}
                         </span>
                     </div>
-                    <div class="list">
-                        <div class="sections">
+                    <div className="list">
+                        <div className="sections">
                             <TableHeader/>
-                            {this.state.items}
+                            {this.props.scheduleInfo ? this.getRows(this.props.scheduleInfo.offerings) : ''}
                         </div>
                     </div>
                 </div>
             </div>
+            </main>
          );
      }
 }

@@ -8,6 +8,7 @@ import java.util.List;
 
 public class WeeklySchedule {
     private List<Offering> weeklySchedule;
+    private int term;
 
     public WeeklySchedule() {
         weeklySchedule = new ArrayList<Offering>();
@@ -15,6 +16,14 @@ public class WeeklySchedule {
 
     public List<Offering> getOfferings() {
         return weeklySchedule;
+    }
+
+    public void setTerm(int term) {
+        this.term = term;
+    }
+
+    public int getTerm() {
+        return term;
     }
 
     public void addToWeeklySchedule(Offering offering) {

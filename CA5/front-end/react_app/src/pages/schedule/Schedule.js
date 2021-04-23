@@ -11,26 +11,26 @@ export default class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            schedule: undefined,
+            scheduleInfo: undefined,
             test: 1
         }
-        this.updateSchedule = this.updateSchedule.bind(this);
+        this.updateScheduleInfo = this.updateScheduleInfo.bind(this);
     }
 
-    updateSchedule() {
+    updateScheduleInfo() {
         API.get("student/schedule").then(
             jsonData => {
-                this.setState({schedule: jsonData.data});
-                console.log(this.state.schedule.id)
+                this.setState({scheduleInfo: jsonData.data});
         }).catch(error => {
+            if(error.response.status != 200)
+                window.location.href = "http://localhost:3000/login"
             console.log('failed')
-            window.location.href = "http://localhost:3000/schedule"
         })
     }
 
     async componentDidMount() {
         document.title = "Schedule";
-        this.updateStudentInfo()
+        this.updateScheduleInfo()
     }
 
     render() {
@@ -40,7 +40,7 @@ export default class Home extends React.Component {
                         secondOption={"انتخاب واحد"}
                         firstRoute={""}
                         secondRoute={"/courses"}/>
-                <ScheduleTable/>
+                <ScheduleTable scheduleInfo = {this.state.scheduleInfo} />
                 <Footer/>
             </div>
         );
