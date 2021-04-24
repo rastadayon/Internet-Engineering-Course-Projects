@@ -1,0 +1,304 @@
+.course-selection-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1em;
+  }
+  
+.course-selection {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 0.15em solid;
+  border-radius: 0.3em;
+  border-color: #0087e0;
+  background: white;
+  padding: 2.5em 0em;
+  margin-bottom: 2em;
+}
+
+.course-list {
+  padding-bottom: 0em;
+}
+
+
+.col-unit-count {
+  width: calc(100% / 5*1.2);
+}
+
+.list {
+  width: 100%;
+  border-top: 0.1em solid;
+  border-top: 0.15em solid;
+  border-top-color: #0087e0;
+}
+
+.label {
+  border: 0.2em solid; 
+  background: #1fa5ff;
+  color: white; 
+  border-color: #1fa5ff; 
+  font-weight: bold; 
+  border-radius: 0.4em; 
+  margin-top: -5em; 
+  text-align: center;          
+  font-size: 1em;
+}
+
+.course-item {
+  line-height: 3em;
+}
+
+.courses {
+  width: 100%;
+}
+
+.selection-header {
+  color: #1a4c89;
+  font-weight: bold;
+}
+
+.filter-header {
+  display: flex;
+  color: gray;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: row;
+}
+
+
+.filter-index {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1em;
+  border: 0.12em gray solid;
+  border-radius: 0.5em;
+  margin-top: -0.5em;
+  margin-bottom: 1.5em;
+  height: 2.5em;
+  width: 8.2em;
+}
+
+.selection-index {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-left: 0.1em solid;
+  font-size: 1em;
+}
+
+.course-index {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-left: 0.1em solid;
+  font-size: 1em;
+  border-bottom: 0.1em solid gray;
+}
+
+
+.bold-item {
+  color: #1a4c89;
+  font-weight: bold;
+}
+
+
+.add-sign {
+  background-color: #6abe6a;
+  font-size: 1em;
+}
+
+.full-sign {
+  background-color: #AAAAAA;
+  font-size: 1.2em;
+}
+
+.edit {
+  color: white;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.5em solid;
+  border-radius: 0.8em;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90%;
+}
+
+.code {
+  border-right: 0.05em solid;
+}
+
+.course-status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.first-index {
+  border-right: 0.1em solid;
+}
+
+.status-box {
+  line-height: 1.5em;
+  display: flex;
+  justify-self: center;
+  border-radius: 0.2em;
+  border: 0.12em solid;
+  height: 1.8em;
+  width: 11em;
+  justify-content: center;
+  align-items: center;
+}
+
+.type-box {
+  line-height: 1.5em;
+  display: flex;
+  justify-self: center;
+  border-radius: 0.5em;
+  border-style: solid;
+  height: 2em;
+  width: 5.6em;
+  justify-content: center;
+  align-items: center;
+}
+
+.col-label {
+  width: calc(100% / 6);
+}
+
+.col-hidden {
+  width: calc(100% / 6*4.6);
+}
+
+.general {
+  background: #edbb41;
+  color: white;
+}
+
+.specialized {
+  background: #1fa5ff;
+  color: white;
+}
+
+.required {
+  background: #06d6a0;
+  color: white;
+}
+
+.basic {
+  background: #ff595e;
+  color: white;
+}
+
+.submitted {
+  color: #1fbd44;
+  border-color: #1fbd44;
+}
+
+.not-submitted {
+  color: #0087e0;
+  border-color: #0087e0;
+}
+
+.edit-option {
+  border-bottom: 0.1em solid;
+}
+
+.waiting {
+  color: gray;
+  border-color: gray;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.without-border {
+  border-left: none;
+}
+
+.header-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1em;
+  line-height: 4em;
+}
+
+.col-filter{
+  width: calc(100% / 5);
+}
+
+.filter-selected {
+  background-color: #8ed1ff;
+  border-color: #8ed1ff;
+}
+
+.last-item {
+  border-bottom: 0em;
+}
+
+.col-trash{
+  width: calc(100% / 30*2);
+}
+
+.col-status{
+  width: calc(100% / 30*8);
+}
+
+.col-code{
+  width: calc(100% / 8);
+}
+
+.col-name{
+  width: calc(100% / 4);
+}
+
+.col-instructor{
+  width: calc(100% / 5);
+}
+
+.col-add{
+  width: calc(100% / 18);
+}
+
+.col-code-2{
+  width: calc(100% / 9);
+}
+
+.col-capacity{
+  width: calc(100% / 11.4);
+}
+
+.col-type{
+  width: calc(100% / 10);
+}
+
+.col-name-2{
+  width: calc(100% / 4.52);
+}
+
+.col-instructor-2{
+  width: calc(100% / 5.7);
+}
+
+.col-units{
+  width: calc(100% / 15);
+}
+
+.col-explain{
+  width: calc(100% / 5.5);
+}

@@ -34,8 +34,7 @@ public class StudentController {
 
     @PostMapping("/login")
     public ResponseEntity login(
-            @RequestBody Login loginData,
-            final HttpServletResponse response) throws IOException {
+            @RequestBody Login loginData) throws IOException {
         System.out.println("in login");
         System.out.println("email is " + loginData.getEmail());
         try {
