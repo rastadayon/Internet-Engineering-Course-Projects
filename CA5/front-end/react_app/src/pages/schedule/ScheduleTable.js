@@ -32,13 +32,13 @@ export default class ScheduleTable extends React.Component{
 
      render() {
          return (
-             <main>
+             <main className="main-sched">
             <div className="schedule-wrapper">
                 <div className="schedule row">
                     <div className="col-calendar schedule-label">
                         <div className="calendar">
                             <span>
-                                <i className="icon flaticon-calendar"></i>
+                                <i className="icon-sched flaticon-calendar"></i>
                             </span>
                         </div>
                     </div>
@@ -47,14 +47,14 @@ export default class ScheduleTable extends React.Component{
                             برنامه هفتگی
                         </span>
                     </div>
-                    <div className="col-hidden">
+                    <div className="col-hidden-sched">
                     </div>
                     <div className="col-term schedule-label">
                         <span>
                             ترم  {this.props.scheduleInfo ? this.toFarsiNumber(this.props.scheduleInfo.term) : ''}
                         </span>
                     </div>
-                    <div className="list">
+                    <div className="list-sched">
                         <div className="sections">
                             <TableHeader/>
                             {this.props.scheduleInfo ? this.getRows(this.props.scheduleInfo.offerings) : ''}

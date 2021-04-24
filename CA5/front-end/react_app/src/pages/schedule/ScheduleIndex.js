@@ -9,16 +9,16 @@ export default class ScheduleIndex extends React.Component{
     }
 
     getCourseStyle(addedStyle) {
-        let style = "course-index sched-item " + addedStyle + " ";
+        let style = "schedule-index sched-item " + addedStyle + " ";
         switch (this.props.offering ? this.props.offering.course.type : "") {
             case "Umumi":
-                return style + "general";
+                return style + "general-sched";
             case "Takhasosi":
-                return style + "specialized";
+                return style + "specialized-sched";
             case "Asli":
-                return style + "required";
+                return style + "required-sched";
             case "Paaye":
-                return style + "basic";
+                return style + "basic-sched";
 
             default:
                 return ""
@@ -52,15 +52,15 @@ export default class ScheduleIndex extends React.Component{
     render() {
         return (
             <div className="col-day">
-                <div className="course-index">
+                <div className="schedule-index">
                     <div className={this.getCourseStyle(this.props.style ? this.props.style : "")}>
                         <div>
                             {this.props.offering ? this.translateTime(this.props.offering.classTime.time) : ''}
                         </div>
-                        <div class="bold-item">
+                        <div class="bold">
                             {this.props.offering ? this.props.offering.course.name : ''}
                         </div>
-                        <div className="bold-item">
+                        <div className="bold">
                             {this.props.offering ? this.translateCourseType(this.props.offering.course.type) : ''}
                         </div>
                     </div>
