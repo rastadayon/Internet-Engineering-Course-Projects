@@ -64,9 +64,16 @@ export default class ScheduleItem extends React.Component{
         return minutes + hours*60;
     }
 
+    getStyle(index) { 
+        let style = "course-item ";
+        if (index === this.state.slots.length)
+            return style + "last-item";
+        return style
+    }
+
      render() {
          return (
-             <div className="course-item">
+             <div className={this.props.index ? this.getStyle(this.props.index) : 'course-item'}>
                 <div className="row no-gutters">
                     <div className="col-day">
                         <div className="course-index">

@@ -14,13 +14,37 @@ body {
 
 main {
   min-height: 100%;
-  margin-top: 7em;
+  margin-top: 6em;
   margin-bottom: 7em;
   min-height: 100vh; 
   overflow: hidden;
   display: block;
   position: relative;
   padding-bottom: 100px; 
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 480px) {
+  main {
+    font-size: 0.38em;
+    margin-top: 8em;
+  }
+}
+          
+/* Media Query for low resolution  Tablets, Ipads */
+@media (min-width: 481px) and (max-width: 767px) {
+  main {
+    font-size: 0.5em;
+    margin-top: 7em;
+  }
+}
+          
+/* Media Query for Tablets Ipads portrait mode */
+@media (min-width: 768px) and (max-width: 1024px) {
+  main {
+    font-size: 0.8em;
+    margin-top: 6.5em;
+  }
 }
 
 .schedule-wrapper {

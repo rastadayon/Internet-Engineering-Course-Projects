@@ -9,52 +9,52 @@ export default class TableHeader extends React.Component{
 
     render() {
         return (
-            <div class="course-item">
-                <div class="row no-gutters">
-                    <div class="col-day">
-                        <div class="course-index">
+            <div className="course-item">
+                <div className="row no-gutters">
+                    <div className="col-day">
+                        <div className="course-index">
                             <span>
                                 &nbsp;
                             </span>
                         </div>
                     </div>
-                    <div class="col-day">
-                        <div class="course-index">
+                    <div className="col-day">
+                        <div className="course-index">
                             <span>
                                 شنبه
                             </span>
                         </div>
                     </div>
-                    <div class="col-day">
-                        <div class="course-index">
+                    <div className="col-day">
+                        <div className="course-index">
                             <span>
                                 یک‌شنبه
                             </span>
                         </div>
                     </div>
-                    <div class="col-day">
-                        <div class="course-index">
+                    <div className="col-day">
+                        <div className="course-index">
                             <span>
                                 دوشنبه
                             </span>
                         </div>
                     </div>
-                    <div class="col-day">
-                        <div class="course-index">
+                    <div className="col-day">
+                        <div className="course-index">
                             <span>
                                 سه‌شنبه
                             </span>
                         </div>
                     </div>
-                    <div class="col-day">
-                        <div class="course-index">
+                    <div className="col-day">
+                        <div className="course-index">
                             <span>
                                 چهارشنبه
                             </span>
                         </div>
                     </div>
-                    <div class="col-day">
-                        <div class="course-index last-index">
+                    <div className="col-day">
+                        <div className="course-index last-index">
                             <span>
                                 پنجشنبه
                             </span>
