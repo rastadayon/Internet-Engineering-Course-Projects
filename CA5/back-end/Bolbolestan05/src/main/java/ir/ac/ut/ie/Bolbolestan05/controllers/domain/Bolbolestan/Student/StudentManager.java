@@ -13,6 +13,8 @@ public class StudentManager {
     String loggedInStudent = null;
 
     public Student getStudentById(String studentId) throws Exception{
+        if (studentId == null)
+            throw new BolbolestanStudentNotFoundError();
         for (Student student : students)
             if (student.getId().equals(studentId))
                 return student;
@@ -149,5 +151,12 @@ public class StudentManager {
         System.out.println("setting report cards for: " + studentId);
         Student student = getStudentById(studentId);
         student.setReportCards(grades);
+    }
+
+    public void searchForCourses(String searchCourse) throws Exception {
+        if(!isAnybodyLoggedIn())
+            throw new BolbolestanStudentNotFoundError();
+        Student loggedIn = getStudentById(loggedInStudent);
+        loggedIn.searchFor(searchCourse);
     }
 }

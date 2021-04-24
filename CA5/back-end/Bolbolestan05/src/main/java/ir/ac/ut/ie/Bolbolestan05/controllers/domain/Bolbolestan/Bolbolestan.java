@@ -130,18 +130,17 @@ public class Bolbolestan {
         return instance;
     }
 
-    public void searchForCourses(String studentId, String searchCourse) throws Exception {
-        Student student = studentManager.getStudentById(studentId);
-        student.searchFor(searchCourse);
+    public void searchForCourses(String searchCourse) throws Exception {
+        studentManager.searchForCourses(searchCourse);
     }
 
     public Student getLoggedInStudent() throws Exception {
         return studentManager.getStudentById(getLoggedInId());
     }
 
-    public List<Offering> getSearchedOfferings(String studentId) throws Exception {
+    public List<Offering> getSearchedOfferings() throws Exception {
         List<Offering> offerings;
-        String searchString = studentManager.getStudentById(studentId).getSearchString();
+        String searchString = studentManager.getStudentById(getLoggedInId()).getSearchString();
         offerings = offeringManager.getSimilarOfferings(searchString);
         return offerings;
     }
