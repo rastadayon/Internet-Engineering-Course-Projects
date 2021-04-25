@@ -30,28 +30,28 @@ export default class SubmitBar extends React.Component{
 
      render() {
          return (
-             <div class="submit-bar col-sm-12">
-                <div class="col-unit-count unit-count">
-                    <div class="bold-item">
+             <div className="submit-bar col-sm-12">
+                <div className="col-unit-count unit-count">
+                    <div className="bold-item">
                         <span>
                             تعداد واحد ثبت شده: ۱۵
                         </span>
                     </div>
                 </div>
-                <div class="col-blank">
+                <div className="col-blank">
                     <span>
                         &nbsp;
                     </span>
                 </div>
-                <div class="col-refresh submit-box refresh">
-                    <div class="clickable">
+                <div className="col-refresh submit-box refresh">
+                    <div className="clickable">
                         <span>
-                            <i class="icon flaticon-refresh-arrow"></i>
+                            <i className="icon flaticon-refresh-arrow"></i>
                         </span>
                     </div>
                 </div>
-                <div class="col-submit submit-box">
-                    <div class="clickable">
+                <div className="col-submit submit-box">
+                    <div className="clickable">
                         <span>
                             ثبت نهایی
                         </span>

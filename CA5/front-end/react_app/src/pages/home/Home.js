@@ -41,7 +41,6 @@ export default class Home extends React.Component {
         }).catch(error => {
             if(error.response.status != 200)
                 window.location.href = "http://localhost:3000/login"
-            console.log('rid')
         })
     }
 

@@ -16,31 +16,57 @@ export default class UnitSelection extends React.Component {
         this.state = {
             test: 1,
             courses: undefined,
-            courseSearched: undefined,
+            searchKeyword: null,
             searchFilter: 'All'
         };
         this.updateCourses = this.updateCourses.bind(this);
+        this.updateSearchFilter = this.updateSearchFilter.bind(this);
+        this.initSearchKeyword = this.initSearchKeyword.bind(this);
+        this.updateSearchKeyword = this.updateSearchKeyword.bind(this)
     }
 
     async componentDidMount() {
-        document.title = "انتخاب واحد";
-        toast.configure({rtl: true, className: "text-center", position: "top-right"});
+        document.title = "انتخاب واحد"
+        toast.configure({rtl: true, className: "text-center", position: "top-right"})
         this.updateCourses('')
-        console.log(this.state.searchFilter)
+        this.initSearchKeyword()
     }
 
-    updateCourses(courseSearchedName) {
-        var requestParam = new FormData();
-        requestParam.append('searchKey', courseSearchedName) 
+    initSearchKeyword() {
+        API.get('student/searchKeyword'
+        ).then(resp => {
+            if(resp.status == 200) {
+                this.setState({searchKeyword: resp.data});
+                this.updateCourses()
+            }
+            else{
+                toast.error('خطا در انجام عملیات')
+            }}).catch(error => {
+                console.log(error)
+                if(error.response.status == 401 || error.response.status == 403) {
+                    window.location.href = "http://localhost:3000/login"
+                }
+        })
+    }
+
+    updateSearchFilter(newSearchFilter) {
+        this.setState({searchFilter: newSearchFilter})
+        this.updateCourses()
+    }
+
+    updateSearchKeyword(newSearchKeyword) {
+        this.setState({searchKeyword: newSearchKeyword})
+    }
+
+    updateCourses() {
+
         API.post('offering/search',
             {
-                keyword: courseSearchedName,
+                keyword: this.state.searchKeyword,
                 type: this.state.searchFilter
             }
         ).then(resp => {
-            // console.log('resp.data = ' , resp.data)
             if(resp.status == 200) {
-                console.log('search quesry works')
                 this.setState({courses: resp.data});
             }
             else{
@@ -48,10 +74,10 @@ export default class UnitSelection extends React.Component {
             }}).catch(error => {
                 console.log(error)
                 if(error.response.status == 401 || error.response.status == 403) {
-                    // window.location.href = "http://localhost:3000/login"
+                    window.location.href = "http://localhost:3000/login"
                 }
             })
-        }
+    }
 
     render() {
         return (
@@ -62,8 +88,8 @@ export default class UnitSelection extends React.Component {
                         secondRoute={"/schedule"}/>
 
                 <Selection />
-                <SearchBar updateCourses={this.updateCourses}/>
-                <CoursesList courses={this.state.courses}/>
+                <SearchBar updateCourses={this.updateCourses} searchKeyword={this.state.searchKeyword} updateSearchKeyword={this.updateSearchKeyword}/>
+                <CoursesList courses={this.state.courses} searchFilter={this.state.searchFilter} updateSearchFilter={this.updateSearchFilter}/>
 
                 <Footer/>
             </div>

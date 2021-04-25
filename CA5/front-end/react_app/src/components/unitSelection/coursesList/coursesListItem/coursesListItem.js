@@ -45,61 +45,61 @@ function getCourseTypeClass(type) {
 
 function CoursesListItem(props) {
     return(
-        <div class="course-item">
-            <div class="row no-gutters">
-                <div class="col-add edit-option">
-                    <div class={["edit", getIconClass(props.course.capacity, props.course.signedUp), "clickable"].join(' ')}>
+        <div className="course-item">
+            <div className="row no-gutters">
+                <div className="col-add edit-option">
+                    <div className={["edit", getIconClass(props.course.capacity, props.course.signedUp), "clickable"].join(' ')}>
                         <span>
-                            <i class={getIcon(props.course.capacity, props.course.signedUp)}></i>
+                            <i className={getIcon(props.course.capacity, props.course.signedUp)}></i>
                         </span>
                     </div>
                 </div>
-                <div class="col-code-2">
-                    <div class="course-index code">
+                <div className="col-code-2">
+                    <div className="course-index code">
                         <span>
                             {enToFaNumber(props.course.courseCode) + '-' + enToFaNumber(props.course.classCode)}
                         </span>
                     </div>
                 </div>
-                <div class="col-capacity">
-                    <div class="course-index bold-item">
+                <div className="col-capacity">
+                    <div className="course-index bold-item">
                         <span>
                             {enToFaNumber(props.course.signedUp) + '/' + enToFaNumber(props.course.capacity)}
                         </span>
                     </div>
                 </div>
-                <div class="col-type">
-                    <div class="course-index course-status">
-                        <div class={["type-box", getCourseTypeClass(props.course.type)].join(' ')}>
+                <div className="col-type">
+                    <div className="course-index course-status">
+                        <div className={["type-box", getCourseTypeClass(props.course.type)].join(' ')}>
                             <span>
                                 {getCourseType(props.course.type)}
                             </span>
                         </div>
                     </div>
                 </div>
-                <div class="col-name-2">
-                    <div class="course-index">
+                <div className="col-name-2">
+                    <div className="course-index">
                         <span>
                             {props.course.name}
                         </span>
                     </div>
                 </div>
-                <div class="col-instructor-2">
-                    <div class="course-index">
+                <div className="col-instructor-2">
+                    <div className="course-index">
                         <span>
                             {props.course.instructor}
                         </span>
                     </div>
                 </div>
-                <div class="col-units">
-                    <div class="course-index bold-item">
+                <div className="col-units">
+                    <div className="course-index bold-item">
                         <span>
                             {enToFaNumber(props.course.units)}
                         </span>
                     </div>
                 </div>
-                <div class="col-explain">
-                    <div class="selection-units">
+                <div className="col-explain">
+                    <div className="selection-units">
                         <span>
                             &nbsp;
                         </span>

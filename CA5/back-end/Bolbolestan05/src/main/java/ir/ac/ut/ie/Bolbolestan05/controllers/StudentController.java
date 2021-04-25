@@ -28,22 +28,11 @@ public class StudentController {
             return ResponseEntity.status(HttpStatus.OK).body(stdInfo);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("no student is logged in.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("no student is logged in.");
         }
     }
 
-    @PostMapping("/login")
-    public ResponseEntity login(
-            @RequestBody Login loginData) throws IOException {
-        System.out.println("in login");
-        System.out.println("email is " + loginData.getEmail());
-        try {
-            AuthService.authUser(loginData);
-            return ResponseEntity.ok("ok");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("student not found. invalid login");
-        }
-    }
+
 
     @GetMapping("/reportCards") // change this
     public ResponseEntity getReportCards() throws IOException {
@@ -54,7 +43,7 @@ public class StudentController {
             return ResponseEntity.status(HttpStatus.OK).body(reportCards);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("no student is logged in.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("no student is logged in.");
         }
     }
 
@@ -73,5 +62,16 @@ public class StudentController {
         }
         response.sendError(HttpStatus.BAD_REQUEST.value(), "No user logged in");
         return null;
+    }
+
+    @GetMapping("/searchKeyword")
+    public ResponseEntity getSearchKeyword() {
+        try {
+            String searchKeyword = Bolbolestan.getInstance().getLoggedInStudentSearchedKeyword();
+            return ResponseEntity.status(HttpStatus.OK).body(searchKeyword);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("no student is logged in.");
+        }
     }
 }

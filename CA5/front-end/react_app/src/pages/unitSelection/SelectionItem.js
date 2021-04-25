@@ -11,47 +11,47 @@ export default class SelectionItem extends React.Component{
 
      render() {
          return (
-             <div class="selection-item">
-                <div class="row no-gutters">
-                    <div class="col-trash">
-                        <div class="trash clickable">
+             <div className="selection-item">
+                <div className="row no-gutters">
+                    <div className="col-trash">
+                        <div className="trash clickable">
                             <span>
-                                <i class="icon flaticon-trash-bin"></i>
+                                <i className="icon flaticon-trash-bin"></i>
                             </span>
                         </div>
                     </div>
-                    <div class="col-status">
-                        <div class="selection-index course-status first-index">
-                            <div class="status-box submitted">
+                    <div className="col-status">
+                        <div className="selection-index course-status first-index">
+                            <div className="status-box submitted">
                                 <span>
                                     ثبت شده
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <div class="col-code">
-                        <div class="selection-index">
+                    <div className="col-code">
+                        <div className="selection-index">
                             <span>
                                 ۸۱۰۱۸۶۴-۰۱
                             </span>
                         </div>
                     </div>
-                    <div class="col-name">
-                        <div class="selection-index">
+                    <div className="col-name">
+                        <div className="selection-index">
                             <span>
                                 پایگاه داده‌ها
                             </span>
                         </div>
                     </div>
-                    <div class="col-instructor">
-                        <div class="selection-index">
+                    <div className="col-instructor">
+                        <div className="selection-index">
                             <span>
                                 آزاده شاکری
                             </span>
                         </div>
                     </div>
-                    <div class="col-1">
-                        <div class="selection-units">
+                    <div className="col-1">
+                        <div className="selection-units">
                             <span>
                                 ۳
                             </span>

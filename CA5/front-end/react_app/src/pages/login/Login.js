@@ -41,7 +41,7 @@ export default class Login extends React.Component {
             toast.error('فیلد ایمیل باید پر باشد')
             return
         }
-        API.post('student/login/', {
+        API.post('auth/login/', {
             email: this.state.email
         }).then((resp) => {
             if(resp.status === 200) {

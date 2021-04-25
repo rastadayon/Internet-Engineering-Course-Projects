@@ -11,46 +11,46 @@ export default class SelectionHeader extends React.Component{
 
      render() {
          return (
-             <div class="selection-item">
-                <div class="selection-header">
-                    <div class="row no-gutters">
-                        <div class="col-trash">
-                            <div class="selection-index">
+             <div className="selection-item">
+                <div className="selection-header">
+                    <div className="row no-gutters">
+                        <div className="col-trash">
+                            <div className="selection-index">
                                 <span>
                                     &nbsp;
                                 </span>
                             </div>
                         </div>
-                        <div class="col-status">
-                            <div class="selection-index">
+                        <div className="col-status">
+                            <div className="selection-index">
                                 <span>
                                     وضعیت
                                 </span>
                             </div>
                         </div>
-                        <div class="col-code">
-                            <div class="selection-index">
+                        <div className="col-code">
+                            <div className="selection-index">
                                 <span>
                                     کد
                                 </span>
                             </div>
                         </div>
-                        <div class="col-name">
-                            <div class="selection-index">
+                        <div className="col-name">
+                            <div className="selection-index">
                                 <span>
                                     نام درس
                                 </span>
                             </div>
                         </div>
-                        <div class="col-instructor">
-                            <div class="selection-index">
+                        <div className="col-instructor">
+                            <div className="selection-index">
                                 <span>
                                     استاد
                                 </span>
                             </div>
                         </div>
-                        <div class="col-1">
-                            <div class="selection-units">
+                        <div className="col-1">
+                            <div className="selection-units">
                                 <span>
                                     واحد
                                 </span>

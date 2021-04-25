@@ -31,7 +31,7 @@ export default class Exit extends React.Component {
                     آیا می‌خواهید از حساب کاربری خود خارج شوید؟
                 </div>
                 <div className="row">
-                    <div class="col-empty">
+                    <div className="col-empty">
                         <span>
                             &nbsp;
                         </span>

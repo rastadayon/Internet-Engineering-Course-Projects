@@ -57,7 +57,7 @@ export default class ScheduleIndex extends React.Component{
                         <div>
                             {this.props.offering ? this.translateTime(this.props.offering.classTime.time) : ''}
                         </div>
-                        <div class="bold">
+                        <div className="bold">
                             {this.props.offering ? this.props.offering.course.name : ''}
                         </div>
                         <div className="bold">

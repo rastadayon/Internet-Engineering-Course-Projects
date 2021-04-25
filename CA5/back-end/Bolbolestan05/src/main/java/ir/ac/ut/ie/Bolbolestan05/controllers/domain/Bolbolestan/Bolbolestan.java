@@ -186,4 +186,9 @@ public class Bolbolestan {
         }
         studentManager.setReportCards(studentId, grades);
     }
+
+    public String getLoggedInStudentSearchedKeyword() throws Exception {
+        Student student = studentManager.getStudentById(studentManager.getLoggedInId());
+        return student.getSearchString();
+    }
 }
