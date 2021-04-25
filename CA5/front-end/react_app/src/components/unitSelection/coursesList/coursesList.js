@@ -1,7 +1,10 @@
 import React from 'react'
 import './coursesList-styles.css'
 
+import CoursesListItem from './coursesListItem/coursesListItem'
+
 function CoursesList(props) {
+    // console.log(props)
     return (
         <div class="course-selection-wrapper">
                 
@@ -116,68 +119,13 @@ function CoursesList(props) {
                         </div>
                     </div>
                     <div class="list">
-                        <div class="course-item">
-                            <div class="row no-gutters">
-                                <div class="col-add edit-option">
-                                    <div class="edit add-sign clickable">
-                                        <span>
-                                            <i class="flaticon-add"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col-code-2">
-                                    <div class="course-index code">
-                                        <span>
-                                            ۱۱۲۰۰۰۱-۰۱
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col-capacity">
-                                    <div class="course-index bold-item">
-                                        <span>
-                                            ۲۶/۵۰
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col-type">
-                                    <div class="course-index course-status">
-                                        <div class="type-box general">
-                                            <span>
-                                                عمومی
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-name-2">
-                                    <div class="course-index">
-                                        <span>
-                                            اندیشه اسلامی ۱
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col-instructor-2">
-                                    <div class="course-index">
-                                        <span>
-                                            محمد تنها
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col-units">
-                                    <div class="course-index bold-item">
-                                        <span>
-                                            ۲
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col-explain">
-                                    <div class="selection-units">
-                                        <span>
-                                            &nbsp;
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {
+                            props.courses == undefined ?
+                            <div className="text-center mt-5">
+                                <div className="spinner-border" role="status"></div>
+                            </div> :
+                            props.courses.map((course, index) => <CoursesListItem key={index} course={course}/>)
+                        }
                     </div>
                 </div>
             </div>

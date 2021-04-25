@@ -48,6 +48,8 @@ public class Offering {
 
     public int getSignedUp() { return signedUp; }
 
+    public String getInstructor() { return instructor; }
+
     public void print() {
         System.out.println(String.format("course code : %s-%s", course.getCourseCode(), classCode));
         System.out.println(String.format("course name : %s", course.getName()));
@@ -151,4 +153,6 @@ public class Offering {
         }
         return true;
     }
+
+
 }

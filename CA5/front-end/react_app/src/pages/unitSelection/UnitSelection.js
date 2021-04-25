@@ -16,7 +16,7 @@ export default class UnitSelection extends React.Component {
             courses: undefined,
             courseSearched: undefined
         };
-        // this.updateCourses = this.updateCourses.bind(this);
+        this.updateCourses = this.updateCourses.bind(this);
     }
 
     async componentDidMount() {
@@ -31,16 +31,17 @@ export default class UnitSelection extends React.Component {
         API.post('offering/search',
             requestParam
         ).then(resp => {
-            console.log('resp.data = ' , resp.data)
+            // console.log('resp.data = ' , resp.data)
             if(resp.status == 200) {
                 console.log('search quesry works')
-                this.setState({courses : resp.data})
+                this.setState({courses: resp.data});
             }
             else{
                 toast.error('خطا در انجام عملیات')
             }}).catch(error => {
+                console.log(error)
                 if(error.response.status == 401 || error.response.status == 403) {
-                    window.location.href = "http://localhost:3030/login"
+                    window.location.href = "http://localhost:3000/login"
                 }
             })
         }
@@ -56,7 +57,6 @@ export default class UnitSelection extends React.Component {
                 <SearchBar updateCourses={this.updateCourses}/>
                 <CoursesList courses={this.state.courses}/>
 
-                <br/>
                 <Footer/>
             </div>
         );
