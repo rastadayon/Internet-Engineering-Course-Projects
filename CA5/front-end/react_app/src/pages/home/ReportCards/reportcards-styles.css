@@ -52,7 +52,7 @@
 .report-cards-wrapper
  .report-card
  .report-card-item
- .course-name, .course-id, .course-unit, .status-box {
+ .course-name, .course-id, .course-unit, .status-box-grade {
     border-left: 0.1em solid #0087e0;
     display: flex;
     justify-content: center;
@@ -73,10 +73,9 @@
  .report-card
  .report-card-item
  .status {
-    padding: 2%;
     padding-bottom: 2%;
     width: 100%;
-    border-radius: 0.8em;
+    border-radius: 0.4em;
 }
 
 .report-cards-wrapper
@@ -112,12 +111,12 @@
 .report-cards-wrapper
  .report-card
  .report-card-item
- .status-box {
+ .status-box-grade {
     text-align: center;
     display: flex;
     justify-self: center;
     margin: 0 auto;
-    padding: 2%;
+    padding: 1%;
 }
 
 .report-cards-wrapper
@@ -168,7 +167,7 @@
     padding: 2%;
 }
 
-.label {
+.label-report {
     border: 0.2em solid; 
     background: #1fa5ff;
     color: white; 
@@ -180,7 +179,7 @@
     font-size: 1em;
 }
 
-.col-label {
+.col-report {
     width: calc(100% / 4);
     height: 2rem;
 }

@@ -9,7 +9,7 @@ function ReportCard(props) {
     return(
     <div className="report-card col-sm-12">
     
-        <div className="col-label label">
+        <div className="col-report label-report">
             <div className="semester">
                 <span>
                     کارنامه - ترم 

@@ -51,7 +51,7 @@ function ReportCardItem(props) {
                 واحد 
                 </span>
             </div>
-            <div className="status-box col-sm-2">
+            <div className="status-box-grade col-sm-2">
                 <div className={getStatusClass(props.reportDataItem.grade, "status")}>
                     <span>
                     {props.reportDataItem? getStatusText(props.reportDataItem.grade) : '-'}
