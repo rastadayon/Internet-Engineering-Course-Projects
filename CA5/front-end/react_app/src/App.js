@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Home from "./pages/home/Home";
 import Schedule from "./pages/schedule/Schedule";
-import UnitSelection from "./pages/unitSelection/UnitSelection";
+import UnitSelection from "./pages/unitSelection/unitSelection";
 import Login from "./pages/login/Login";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
@@ -13,12 +13,6 @@ import { ToastContainer } from "react-toastify";
 
 
 function App() {
-  // const [token, setToken] = useState();
-  
-  // if(!token) {
-  //   return <Login setToken={setToken} />
-  // }
-
   return (
     <Router>
       <Switch>

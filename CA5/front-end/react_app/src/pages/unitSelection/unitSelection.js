@@ -6,6 +6,7 @@ import SearchBar from "../../components/unitSelection/searchBar/searchBar"
 import CoursesList from "../../components/unitSelection/coursesList/coursesList"
 import { toast } from 'react-toastify';
 import API from '../../apis/api';
+import './unitSelection-styles.css'
 
 export default class UnitSelection extends React.Component {
 
@@ -14,7 +15,8 @@ export default class UnitSelection extends React.Component {
         this.state = {
             test: 1,
             courses: undefined,
-            courseSearched: undefined
+            courseSearched: undefined,
+            searchFilter: 'All'
         };
         this.updateCourses = this.updateCourses.bind(this);
     }
@@ -23,13 +25,17 @@ export default class UnitSelection extends React.Component {
         document.title = "انتخاب واحد";
         toast.configure({rtl: true, className: "text-center", position: "top-right"});
         this.updateCourses('')
+        console.log(this.state.searchFilter)
     }
 
     updateCourses(courseSearchedName) {
         var requestParam = new FormData();
         requestParam.append('searchKey', courseSearchedName) 
         API.post('offering/search',
-            requestParam
+            {
+                keyword: courseSearchedName,
+                type: this.state.searchFilter
+            }
         ).then(resp => {
             // console.log('resp.data = ' , resp.data)
             if(resp.status == 200) {
@@ -41,14 +47,14 @@ export default class UnitSelection extends React.Component {
             }}).catch(error => {
                 console.log(error)
                 if(error.response.status == 401 || error.response.status == 403) {
-                    window.location.href = "http://localhost:3000/login"
+                    // window.location.href = "http://localhost:3000/login"
                 }
             })
         }
 
     render() {
         return (
-            <div>
+            <div className="main-container">
                 <Header firstOption={"خانه"}
                         secondOption={"برنامه هفتگی"}
                         firstRoute={""}

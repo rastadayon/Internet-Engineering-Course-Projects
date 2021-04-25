@@ -47,6 +47,7 @@ export default class Login extends React.Component {
             if(resp.status === 200) {
                 console.log('شد شد')
                 toast.success('ورود با موفقیت انجام شد.')
+                window.location.href = "http://localhost:3000/"
             }
         }).catch(error => {
             console.log('نشد')

@@ -2,9 +2,9 @@ package ir.ac.ut.ie.Bolbolestan05.controllers;
 
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Bolbolestan;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Offering.Offering;
-import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.Student;
 import ir.ac.ut.ie.Bolbolestan05.controllers.models.Login;
-import ir.ac.ut.ie.Bolbolestan05.services.AuthService;
+import ir.ac.ut.ie.Bolbolestan05.controllers.models.SearchData;
+import ir.ac.ut.ie.Bolbolestan05.services.SearchService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,12 +36,12 @@ public class OfferingController {
 
     @PostMapping("/search")
     public ResponseEntity searchForCourses(
-            @RequestParam String searchKey) throws IOException {
+            @RequestBody SearchData searchData) throws IOException {
         System.out.println("searching");
-        System.out.println("search keyword is : " + searchKey);
+        System.out.println("search keyword is : " + searchData.getKeyword());
+        System.out.println("search filter is : " + searchData.getType());
         try {
-            Bolbolestan.getInstance().searchForCourses(searchKey);
-            List<Offering> searchResult = Bolbolestan.getInstance().getSearchedOfferings();
+            List<Offering> searchResult = SearchService.searchKeyword(searchData);
             return ResponseEntity.status(HttpStatus.OK).body(searchResult);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("student not found. invalid login");
