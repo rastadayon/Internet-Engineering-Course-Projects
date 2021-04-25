@@ -4,6 +4,7 @@ import Header from "../general/Header";
 import Footer from "../general/Footer";
 import SearchBar from "../../components/unitSelection/searchBar/searchBar"
 import CoursesList from "../../components/unitSelection/coursesList/coursesList"
+import Selection from "./Selection"
 import { toast } from 'react-toastify';
 import API from '../../apis/api';
 import './unitSelection-styles.css'
@@ -60,6 +61,7 @@ export default class UnitSelection extends React.Component {
                         firstRoute={""}
                         secondRoute={"/schedule"}/>
 
+                <Selection />
                 <SearchBar updateCourses={this.updateCourses}/>
                 <CoursesList courses={this.state.courses}/>
 
