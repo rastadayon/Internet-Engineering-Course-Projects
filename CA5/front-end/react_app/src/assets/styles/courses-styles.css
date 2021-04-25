@@ -92,6 +92,7 @@ main {
   vertical-align: center;
   font-size: 1em;
   margin-left: 0;
+  padding-top: 0.5em;
 }
 
 .col-refresh {
@@ -186,6 +187,7 @@ main {
   border-left: 0.1em solid;
   font-size: 1em;
   border-bottom: 0.1em solid gray;
+  height: 100%;
 }
 
 .selection-units {
@@ -209,26 +211,29 @@ main {
 .trash {
   color: red;
   font-size: 1.8em;
+  padding-top: 0.2em;
 }
 
 .add-sign {
   background-color: #6abe6a;
-  font-size: 1em;
+  font-size: 1.1em;
+  padding-top: 0.5em;
 }
 
 .full-sign {
   background-color: #AAAAAA;
   font-size: 1.2em;
+  padding-top: 0.4em;
 }
 
 .edit {
   color: white;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 0.5em solid;
   border-radius: 0.8em;
+  height: 3em;
 }
 
 .icon {
