@@ -2,6 +2,7 @@ package ir.ac.ut.ie.Bolbolestan05.controllers;
 
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Bolbolestan;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Offering.Offering;
+import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.CourseSelection;
 import ir.ac.ut.ie.Bolbolestan05.controllers.models.Login;
 import ir.ac.ut.ie.Bolbolestan05.controllers.models.SearchData;
 import ir.ac.ut.ie.Bolbolestan05.services.SearchService;
@@ -46,5 +47,22 @@ public class OfferingController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("student not found. invalid login");
         }
+    }
+
+    @GetMapping("/selections")
+    public ResponseEntity<Object> getSelections(final HttpServletResponse response) throws IOException {
+        Bolbolestan bolbolestan = Bolbolestan.getInstance();
+        if (bolbolestan.isAnybodyLoggedIn()) {
+            try {
+                CourseSelection courseSelection =  bolbolestan.getLoggedInStudent().getCourseSelection();
+                for (int i = 0; i < 5; i++)
+                    courseSelection.addToSelectedOfferings(bolbolestan.getOfferings().get(i));
+                return ResponseEntity.status(HttpStatus.OK).body(courseSelection);
+            } catch (Exception e) {
+                response.sendError(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+            }
+        }
+        response.sendError(HttpStatus.BAD_REQUEST.value(), "No user logged in");
+        return null;
     }
 }

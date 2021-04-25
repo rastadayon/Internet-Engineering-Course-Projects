@@ -311,4 +311,8 @@ public class Student {
         return (reportCards.size() + 1);
     }
 
+    public CourseSelection getCourseSelection() {
+        return courseSelection;
+    }
+
 }

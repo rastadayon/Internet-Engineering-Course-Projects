@@ -426,10 +426,14 @@ main {
           
 /* Media Query for Tablets Ipads portrait mode */
 @media (min-width: 768px) and (max-width: 1024px) {
+  main {
+    font-size: 0.6em;
+  }
   .filter-index {
     width: 6em;
   }
   .add-sign {
+    
     font-size: 0.9em;
   }
   .full-sign {

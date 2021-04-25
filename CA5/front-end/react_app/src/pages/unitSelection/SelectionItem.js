@@ -9,6 +9,40 @@ export default class SelectionItem extends React.Component{
         }
      }
 
+     getStatusStyle(status) {
+        let style = "status-box sched-item " + this.props.status;
+        return style;
+    }
+
+    translateStatus(englisStatus) {
+        switch(englisStatus) {
+            case "submitted":
+                return "ثبت شده";
+            case "not-submitted":
+                return "ثبت نهایی نشده";
+            case "waiting":
+                return "در انتظار";
+
+            default:
+                return ""
+        }
+    }
+
+    getOfferingCode(offering) {
+        if (offering) {
+            let code = offering.course.courseCode + "-0" + offering.classCode;
+            return this.translateNumbersInText(code);
+        }
+        return "";
+    }
+
+    translateNumbersInText(text) { 
+        const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        return text.replace(/[0-9]/g, function (d) {
+            return farsiDigits[d];
+        });
+    }
+        
      render() {
          return (
              <div className="selection-item">
@@ -22,9 +56,9 @@ export default class SelectionItem extends React.Component{
                     </div>
                     <div className="col-status">
                         <div className="selection-index course-status first-index">
-                            <div className="status-box submitted">
+                            <div className={this.getStatusStyle(this.props.courseStatus ? this.props.courseStatus : "")}>
                                 <span>
-                                    ثبت شده
+                                    {this.props.offering ? this.translateStatus(this.props.offering) : ''}
                                 </span>
                             </div>
                         </div>
@@ -32,28 +66,28 @@ export default class SelectionItem extends React.Component{
                     <div className="col-code">
                         <div className="selection-index">
                             <span>
-                                ۸۱۰۱۸۶۴-۰۱
+                                {this.props.courseStatus ? this.getOfferingCode(this.props.courseStatus) : ''}
                             </span>
                         </div>
                     </div>
                     <div className="col-name">
                         <div className="selection-index">
                             <span>
-                                پایگاه داده‌ها
+                                {this.props.offering ? this.props.offering.course.name : ''}
                             </span>
                         </div>
                     </div>
                     <div className="col-instructor">
                         <div className="selection-index">
                             <span>
-                                آزاده شاکری
+                                {this.props.offering ? this.props.offering.instructor : ''}
                             </span>
                         </div>
                     </div>
                     <div className="col-1">
                         <div className="selection-units">
                             <span>
-                                ۳
+                                {this.props.offering ? this.translateNumbersInText(this.props.offering.course.units) : ''}
                             </span>
                         </div>
                     </div>

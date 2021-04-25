@@ -12,13 +12,24 @@ export default class Selection extends React.Component{
         }
      }
      
-     getRows(courses) {
-        /*var items = [];
-        for (var i = 0; i < slots.length; i++) {
-             items.push( <ScheduleItem slot={slots[i]} 
-                courses={courses} index={i}/> );
+     getRows(selections) {
+        var items = [];
+        for (var i = 0; i < selections.submittedOfferings.totalUnits; i++) {
+             items.push( <SelectionItem courseStatus={"submitted"}
+                offering={selections.submittedOfferings.offerings[i]}/> );
          }
-         return items;*/
+
+         for (var j = 0; j < selections.selectedOfferings.totalUnits; j++) {
+             items.push( <SelectionItem courseStatus={"not-submitted"}
+                offering={selections.selectedOfferings.offerings[j]}/> );
+         }
+
+         for (var k = 0; k < selections.waitingOfferings.totalUnits; k++) {
+             items.push( <SelectionItem courseStatus={"waiting"}
+                offering={selections.waitingOfferings.offerings[k]}/> );
+         }
+         console.log(items.length)
+         return items;
      }
 
      toFarsiNumber(n) {
@@ -41,57 +52,9 @@ export default class Selection extends React.Component{
 
                         <SelectionHeader />
                         
-                        <SelectionItem />
+                        {this.props.selections ? this.getRows(this.props.selections) : ''}
 
     
-                        <div className="selection-item">
-                            <div className="row no-gutters">
-                                <div className="col-trash">
-                                    <div className="trash clickable">
-                                        <span>
-                                            <i className="icon flaticon-trash-bin"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div className="col-status">
-                                    <div className="selection-index course-status first-index">
-                                        <div className="status-box not-submitted">
-                                            <span>
-                                                ثبت نهایی نشده
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-code">
-                                    <div className="selection-index">
-                                        <span>
-                                            ۸۱۰۱۲۹۹-۰۱
-                                        </span>
-                                    </div>
-                                </div>
-                                <div className="col-name">
-                                    <div className="selection-index">
-                                        <span>
-                                            مهندسی نرم‌افزار
-                                        </span>
-                                    </div>
-                                </div>
-                                <div className="col-instructor">
-                                    <div className="selection-index">
-                                        <span>
-                                            رامتین خسروی
-                                        </span>
-                                    </div>
-                                </div>
-                                <div className="col-1">
-                                    <div className="selection-units">
-                                        <span>
-                                            ۳
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> 
     
                         <div className="selection-item">
                             <div className="row no-gutters">

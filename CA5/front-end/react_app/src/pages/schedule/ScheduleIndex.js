@@ -43,7 +43,7 @@ export default class ScheduleIndex extends React.Component{
     }
 
     translateTime(englishTime) { 
-        const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹', '۱۰'];
+        const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
         return englishTime.replace(/[0-9]/g, function (d) {
             return farsiDigits[d];
         });

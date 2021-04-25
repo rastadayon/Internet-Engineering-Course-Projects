@@ -16,9 +16,11 @@ export default class UnitSelection extends React.Component {
         this.state = {
             test: 1,
             courses: undefined,
+            selections: undefined,
             searchKeyword: null,
             searchFilter: 'All'
         };
+        this.updateSelections = this.updateSelections.bind(this);
         this.updateCourses = this.updateCourses.bind(this);
         this.updateSearchFilter = this.updateSearchFilter.bind(this);
         this.initSearchKeyword = this.initSearchKeyword.bind(this);
@@ -28,6 +30,7 @@ export default class UnitSelection extends React.Component {
     async componentDidMount() {
         document.title = "انتخاب واحد"
         toast.configure({rtl: true, className: "text-center", position: "top-right"})
+        this.updateSelections()
         this.updateCourses('')
         this.initSearchKeyword()
     }
@@ -56,6 +59,21 @@ export default class UnitSelection extends React.Component {
 
     updateSearchKeyword(newSearchKeyword) {
         this.setState({searchKeyword: newSearchKeyword})
+    }
+
+    updateSelections() {
+        API.get("offering/selections").then(resp => {
+            if(resp.status == 200) {
+                this.setState({selections: resp.data});
+            }
+            else{
+                toast.error('خطا در انجام عملیات')
+            }}).catch(error => {
+                console.log(error)
+                if(error.response.status == 401 || error.response.status == 403) {
+                    window.location.href = "http://localhost:3000/login"
+                }
+            })
     }
 
     updateCourses() {
@@ -87,7 +105,7 @@ export default class UnitSelection extends React.Component {
                         firstRoute={""}
                         secondRoute={"/schedule"}/>
 
-                <Selection />
+                <Selection selections = {this.state.selections} />
                 <SearchBar updateCourses={this.updateCourses} searchKeyword={this.state.searchKeyword} updateSearchKeyword={this.updateSearchKeyword}/>
                 <CoursesList courses={this.state.courses} searchFilter={this.state.searchFilter} updateSearchFilter={this.updateSearchFilter}/>
 
