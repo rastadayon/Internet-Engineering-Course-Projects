@@ -44,11 +44,11 @@
     
   }
 
-.col-blank {
+.col-empty {
     width: 50%;
 }
 
-.col-option {
+.col-choice {
     width: 25%;
 }
 
@@ -57,7 +57,7 @@
     width: 30%;
   }
 
-  .col-option {
+  .col-empty {
     width: 35%;
   }
 }

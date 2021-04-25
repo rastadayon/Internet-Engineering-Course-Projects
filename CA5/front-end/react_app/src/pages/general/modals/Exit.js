@@ -31,19 +31,19 @@ export default class Exit extends React.Component {
                     آیا می‌خواهید از حساب کاربری خود خارج شوید؟
                 </div>
                 <div className="row">
-                    <div class="col-blank">
+                    <div class="col-empty">
                         <span>
                             &nbsp;
                         </span>
                     </div>
-                    <div className="col-option">
+                    <div className="col-choice">
                         <Link to= "" style={{ color: 'inherit', textDecoration: 'inherit'}}>
                             <span className="option-box reject">
                                 انصراف
                             </span>
                         </Link>
                     </div>
-                    <div className="col-option">
+                    <div className="col-choice">
                         <Link to= "/login" style={{ color: 'inherit', textDecoration: 'inherit'}}>
                             <span className="option-box leave">
                                 خروج
