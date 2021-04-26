@@ -86,6 +86,48 @@ public class OfferingController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("student not found. invalid login");
     }
 
+    @PostMapping("/reset")
+    public ResponseEntity resetSelections() throws IOException {
+        System.out.println("in reset selections");
+        Bolbolestan bolbolestan = Bolbolestan.getInstance();
+        if (bolbolestan.isAnybodyLoggedIn()) {
+            try {
+                String loggedInStudentId = bolbolestan.getLoggedInId();
+                bolbolestan.resetSelectedOfferings(loggedInStudentId);
+                System.out.println("reset successful");
+                return ResponseEntity.status(HttpStatus.OK).body("OK");
+            } catch (Exception e) {
+                System.out.println("reset failed");
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("student not found. invalid login");
+    }
+
+    @PostMapping("/finalize")
+    public ResponseEntity finalizeSelections() throws IOException {
+        System.out.println("in finalize selections");
+        Bolbolestan bolbolestan = Bolbolestan.getInstance();
+        if (bolbolestan.isAnybodyLoggedIn()) {
+            try {
+                String loggedInStudentId = bolbolestan.getLoggedInId();
+                if (bolbolestan.finalizeSchedule(loggedInStudentId)) {
+                    System.out.println("finalize successful");
+                    return ResponseEntity.status(HttpStatus.OK).body("OK");
+                } else {
+                    System.out.println("finalize failed");
+                    String errors = bolbolestan.getSubmissionErrors();
+                    System.out.println(errors);
+                    return ResponseEntity.status(HttpStatus.OK).body(errors);
+                }
+            } catch (Exception e) {
+                System.out.println("finalize failed");
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("student not found. invalid login");
+    }
+
     @GetMapping("/selections")
     public ResponseEntity getSelections() throws IOException {
         System.out.println("in get selections");
@@ -93,7 +135,6 @@ public class OfferingController {
         if (bolbolestan.isAnybodyLoggedIn()) {
             try {
                 CourseSelection courseSelection =  bolbolestan.getLoggedInStudent().getCourseSelection();
-                courseSelection.addToSelectedOfferings(bolbolestan.getOfferings().get(1));
                 System.out.println("selections successful");
                 return ResponseEntity.status(HttpStatus.OK).body(courseSelection);
             } catch (Exception e) {

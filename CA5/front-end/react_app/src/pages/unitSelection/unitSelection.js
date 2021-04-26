@@ -107,7 +107,8 @@ export default class UnitSelection extends React.Component {
 
                 <Selection updateSelections={this.updateSelections} selections = {this.state.selections} />
                 <SearchBar updateCourses={this.updateCourses} searchKeyword={this.state.searchKeyword} updateSearchKeyword={this.updateSearchKeyword}/>
-                <CoursesList courses={this.state.courses} searchFilter={this.state.searchFilter} updateSearchFilter={this.updateSearchFilter}/>
+                <CoursesList courses={this.state.courses} searchFilter={this.state.searchFilter} updateSearchFilter={this.updateSearchFilter} 
+                            updateSelections={this.updateSelections}/>
 
                 <Footer/>
             </div>

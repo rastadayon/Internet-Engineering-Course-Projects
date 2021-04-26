@@ -191,4 +191,14 @@ public class Bolbolestan {
         Student student = studentManager.getStudentById(studentManager.getLoggedInId());
         return student.getSearchString();
     }
+
+    public String getSubmissionErrors() throws Exception {
+        Student student = studentManager.getStudentById(studentManager.getLoggedInId());
+        String errors = "";
+        for (String error: student.getSubmissionErrors()) {
+            errors += error;
+            errors += "\n";
+        }
+        return errors;
+    }
 }

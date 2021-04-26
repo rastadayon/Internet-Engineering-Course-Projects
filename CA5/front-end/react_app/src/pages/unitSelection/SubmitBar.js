@@ -1,5 +1,7 @@
 import * as React from "react";
 import "../../assets/styles/courses-styles.css";
+import { toast } from 'react-toastify';
+import API from '../../apis/api';
 
 export default class SubmitBar extends React.Component{
 
@@ -8,24 +10,53 @@ export default class SubmitBar extends React.Component{
          this.state = {      
         }
      }
-     
-     getRows(courses) {
-        /*const slots = ["۸:۰۰ - ۷:۰۰", "۹:۰۰ - ۸:۰۰", "۱۰:۰۰ - ۹:۰۰", "۱۱:۰۰ - ۱۰:۰۰",
-                        "۱۲:۰۰ - ۱۱:۰۰", "۱۳:۰۰ - ۱۲:۰۰", "۱۴:۰۰ - ۱۳:۰۰",
-                        "۱۵:۰۰ - ۱۴:۰۰", "۱۶:۰۰ - ۱۵:۰۰", "۱۷:۰۰ - ۱۶:۰۰",
-                        "۱۸:۰۰ - ۱۷:۰۰"];
-
-        var items = [];
-        for (var i = 0; i < slots.length; i++) {
-             items.push( <ScheduleItem slot={slots[i]} 
-                courses={courses} index={i}/> );
-         }
-         return items;*/
-     }
 
      toFarsiNumber(n) {
         const farsiDigits = ['۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹', '۱۰'];
         return farsiDigits[n-1];
+    }
+
+    resetSelections(props) {
+
+        var requestParam = new FormData();
+        API.post('offering/reset', requestParam).then(resp => {
+            if(resp.status == 200) {
+                console.log("done");
+                props.updateSelections();
+            }
+            else{
+                toast.error('خطا در انجام عملیات')
+            }}).catch(error => {
+                console.log(error)
+                if(error.response.status == 401 || error.response.status == 403) {
+                    window.location.href = "http://localhost:3000/login"
+                }
+            })
+    }
+
+    finalizeSelections(props) {
+
+        var requestParam = new FormData();
+        API.post('offering/finalize', requestParam).then(resp => {
+            if(resp.status == 200) {
+                console.log(Object.keys(resp))
+                if (resp.data === "OK") {
+                    props.updateSelections();
+                    console.log("done");
+                    window.location.href = "http://localhost:3000/schedule"
+                }
+                else {
+                    toast.error(resp.data)
+                }
+            }
+            else{
+                toast.error('خطا در انجام عملیات')
+            }}).catch(error => {
+                console.log(error)
+                if(error.response.status == 401 || error.response.status == 403) {
+                    window.location.href = "http://localhost:3000/login"
+                }
+            })
     }
 
      render() {
@@ -46,11 +77,12 @@ export default class SubmitBar extends React.Component{
                 <div className="col-refresh submit-box refresh">
                     <div className="clickable">
                         <span>
-                            <i className="icon flaticon-refresh-arrow"></i>
+                            <i className="icon flaticon-refresh-arrow" 
+                                onClick={() => this.resetSelections(this.props)}></i>
                         </span>
                     </div>
                 </div>
-                <div className="col-submit submit-box">
+                <div className="col-submit submit-box" onClick={() => this.finalizeSelections(this.props)}>
                     <div className="clickable">
                         <span>
                             ثبت نهایی

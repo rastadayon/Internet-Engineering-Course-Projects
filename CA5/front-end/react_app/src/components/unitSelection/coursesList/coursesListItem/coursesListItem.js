@@ -1,6 +1,9 @@
 import React from 'react'
 import './coursesListItem-styles.css'
 import {enToFaNumber} from "../../../../utils/utils"
+import { toast } from 'react-toastify';
+import API from '../../../../apis/api';
+
 
 
 function getIcon(capacity, signedup) {
@@ -18,6 +21,15 @@ function getIconClass(capacity, signedup) {
     }
     else {
         return "full-sign"
+    }
+}
+
+function getAction(capacity, signedup) {
+    if (signedup < capacity) {
+        return "add"
+    }
+    else {
+        return "wait"
     }
 }
 
@@ -43,6 +55,31 @@ function getCourseTypeClass(type) {
         return "basic"
 }
 
+function selectCourse(props) {
+    console.log(props.course.classCode)
+
+    var requestParam = new FormData();
+    requestParam.append('courseCode', props.course.courseCode);
+    requestParam.append('classCode', props.course.classCode);
+
+    var action = getAction(props.course.capacity, props.course.signedUp)
+
+    API.post('offering/' + action, requestParam).then(resp => {
+        if(resp.status == 200) {
+            console.log("done");
+            props.updateSelections();
+
+        }
+        else{
+            toast.error('خطا در انجام عملیات')
+        }}).catch(error => {
+            console.log(error)
+            if(error.response.status == 401 || error.response.status == 403) {
+                window.location.href = "http://localhost:3000/login"
+            }
+        })
+}
+
 function CoursesListItem(props) {
     return(
         <div className="course-item">
@@ -50,7 +87,8 @@ function CoursesListItem(props) {
                 <div className="col-add edit-option">
                     <div className={["edit", getIconClass(props.course.capacity, props.course.signedUp), "clickable"].join(' ')}>
                         <span>
-                            <i className={getIcon(props.course.capacity, props.course.signedUp)}></i>
+                            <i className={getIcon(props.course.capacity, props.course.signedUp)} 
+                                onClick={() => selectCourse(props)}></i>
                         </span>
                     </div>
                 </div>

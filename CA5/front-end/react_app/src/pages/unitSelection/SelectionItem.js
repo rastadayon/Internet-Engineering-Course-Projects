@@ -80,9 +80,7 @@ export default class SelectionItem extends React.Component{
                     <div className="col-trash">
                         <div className="trash clickable">
                             <span>
-                                <button className="trash-btn" onClick={this.removeCourse}>
-                                    <i className="icon flaticon-trash-bin"></i>
-                                </button>
+                                    <i className="icon flaticon-trash-bin" onClick={this.removeCourse}></i>
                             </span>
                         </div>
                     </div>

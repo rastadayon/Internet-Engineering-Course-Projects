@@ -8,7 +8,8 @@ export default class Selection extends React.Component{
 
      constructor(props) {
          super(props);
-         this.state = {      
+         this.state = {    
+            updateSelections : this.props.updateSelections
         }
      }
      
@@ -57,7 +58,8 @@ export default class Selection extends React.Component{
                         {this.props.selections ? this.getRows(this.props.selections) : ''}
                     </div>
 
-                    <SubmitBar />
+                    <SubmitBar updateSelections={this.state.updateSelections ? 
+                                this.state.updateSelections : ""}/>
 
                 </div>
             </div>

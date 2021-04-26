@@ -129,7 +129,8 @@ function CoursesList(props) {
                             <div className="text-center mt-5">
                                 <div className="spinner-border" role="status"></div>
                             </div> :
-                            props.courses.map((course, index) => <CoursesListItem key={index} course={course}/>)
+                            props.courses.map((course, index,) => <CoursesListItem key={index} course={course} 
+                            updateSelections={props.updateSelections}/>)
                         }
                     </div>
                 </div>
