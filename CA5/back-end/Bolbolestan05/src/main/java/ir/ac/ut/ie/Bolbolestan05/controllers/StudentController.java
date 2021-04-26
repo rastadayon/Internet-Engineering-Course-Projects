@@ -53,8 +53,7 @@ public class StudentController {
         if (bolbolestan.isAnybodyLoggedIn()) {
             try {
                 WeeklySchedule schedule =  bolbolestan.getLoggedInStudent().getSubmittedOfferings();
-                for (int i = 0; i < 5; i++)
-                    schedule.addToWeeklySchedule(bolbolestan.getOfferings().get(i));
+                schedule.addToWeeklySchedule(bolbolestan.getOfferings().get(0));
                 return ResponseEntity.status(HttpStatus.OK).body(schedule);
             } catch (Exception e) {
                 response.sendError(HttpStatus.BAD_REQUEST.value(), e.getMessage());

@@ -46,6 +46,46 @@ public class OfferingController {
         }
     }
 
+    @PostMapping("/remove")
+    public ResponseEntity removeCourse(
+            @RequestParam String courseCode,
+            @RequestParam String classCode) throws IOException {
+        System.out.println("in remove course");
+        Bolbolestan bolbolestan = Bolbolestan.getInstance();
+        if (bolbolestan.isAnybodyLoggedIn()) {
+            try {
+                String loggedInStudentId = bolbolestan.getLoggedInId();
+                bolbolestan.removeFromWeeklySchedule(loggedInStudentId, courseCode, classCode);
+                System.out.println("remove successful");
+                return ResponseEntity.status(HttpStatus.OK).body("OK");
+            } catch (Exception e) {
+                System.out.println("remove failed");
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("student not found. invalid login");
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity addCourse(
+            @RequestParam String courseCode,
+            @RequestParam String classCode) throws IOException {
+        System.out.println("in add course");
+        Bolbolestan bolbolestan = Bolbolestan.getInstance();
+        if (bolbolestan.isAnybodyLoggedIn()) {
+            try {
+                String loggedInStudentId = bolbolestan.getLoggedInId();
+                bolbolestan.addCourseToStudent(loggedInStudentId, courseCode, classCode);
+                System.out.println("add successful");
+                return ResponseEntity.status(HttpStatus.OK).body("OK");
+            } catch (Exception e) {
+                System.out.println("add failed");
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("student not found. invalid login");
+    }
+
     @GetMapping("/selections")
     public ResponseEntity getSelections() throws IOException {
         System.out.println("in get selections");
@@ -53,8 +93,7 @@ public class OfferingController {
         if (bolbolestan.isAnybodyLoggedIn()) {
             try {
                 CourseSelection courseSelection =  bolbolestan.getLoggedInStudent().getCourseSelection();
-                for (int i = 0; i < 5; i++)
-                    courseSelection.addToSelectedOfferings(bolbolestan.getOfferings().get(i));
+                courseSelection.addToSelectedOfferings(bolbolestan.getOfferings().get(1));
                 System.out.println("selections successful");
                 return ResponseEntity.status(HttpStatus.OK).body(courseSelection);
             } catch (Exception e) {

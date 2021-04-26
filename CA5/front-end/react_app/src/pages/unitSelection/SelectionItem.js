@@ -1,12 +1,17 @@
 import * as React from "react";
 import "../../assets/styles/courses-styles.css";
+import { toast } from 'react-toastify';
+import API from '../../apis/api';
 
 export default class SelectionItem extends React.Component{
 
      constructor(props) {
          super(props);
-         this.state = {      
-        }
+         this.state = {    
+            course : this.props.offering
+        };
+
+        this.removeCourse = this.removeCourse.bind(this);
      }
 
      getStatusStyle(status) {
@@ -40,7 +45,32 @@ export default class SelectionItem extends React.Component{
         const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
         return text.toString().replace(/[0-9]/g, function (d) {
             return farsiDigits[d];
+            //<i className="icon flaticon-trash-bin"></i>
         });
+    }
+
+    removeCourse() {
+
+        console.log(this.state.course.classCode)
+
+        var requestParam = new FormData();
+        requestParam.append('courseCode', this.state.course.courseCode);
+        requestParam.append('classCode', this.state.course.classCode);
+
+        API.post('offering/remove', requestParam).then(resp => {
+            if(resp.status == 200) {
+                console.log("done");
+                this.props.updateSelections();
+
+            }
+            else{
+                toast.error('خطا در انجام عملیات')
+            }}).catch(error => {
+                console.log(error)
+                if(error.response.status == 401 || error.response.status == 403) {
+                    window.location.href = "http://localhost:3000/login"
+                }
+            })
     }
         
      render() {
@@ -50,7 +80,9 @@ export default class SelectionItem extends React.Component{
                     <div className="col-trash">
                         <div className="trash clickable">
                             <span>
-                                <i className="icon flaticon-trash-bin"></i>
+                                <button className="trash-btn" onClick={this.removeCourse}>
+                                    <i className="icon flaticon-trash-bin"></i>
+                                </button>
                             </span>
                         </div>
                     </div>

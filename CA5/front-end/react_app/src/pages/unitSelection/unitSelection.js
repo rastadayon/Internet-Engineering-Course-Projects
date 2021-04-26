@@ -105,7 +105,7 @@ export default class UnitSelection extends React.Component {
                         firstRoute={""}
                         secondRoute={"/schedule"}/>
 
-                <Selection selections = {this.state.selections} />
+                <Selection updateSelections={this.updateSelections} selections = {this.state.selections} />
                 <SearchBar updateCourses={this.updateCourses} searchKeyword={this.state.searchKeyword} updateSearchKeyword={this.updateSearchKeyword}/>
                 <CoursesList courses={this.state.courses} searchFilter={this.state.searchFilter} updateSearchFilter={this.updateSearchFilter}/>
 

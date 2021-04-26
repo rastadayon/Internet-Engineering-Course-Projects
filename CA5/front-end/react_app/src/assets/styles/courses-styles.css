@@ -354,6 +354,7 @@ main {
 
 .col-trash{
   width: calc(100% / 30*2);
+  height: 1em;
 }
 
 .col-status{
@@ -362,14 +363,17 @@ main {
 
 .col-code{
   width: calc(100% / 8);
+  height: 1em;
 }
 
 .col-name{
   width: calc(100% / 4);
+  height: 1em;
 }
 
 .col-instructor{
   width: calc(100% / 5);
+  height: 1em;
 }
 
 .col-add{
@@ -402,6 +406,13 @@ main {
 
 .col-explain{
   width: calc(100% / 5.5);
+}
+
+.trash-btn {
+  color: inherit;
+  border: none;
+  background: inherit;
+  margin-left: 0.6em;
 }
 
 /* Media Query for Mobile Devices */
