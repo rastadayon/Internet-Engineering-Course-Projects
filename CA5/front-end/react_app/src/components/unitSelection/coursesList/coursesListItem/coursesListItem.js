@@ -3,6 +3,7 @@ import './coursesListItem-styles.css'
 import {enToFaNumber} from "../../../../utils/utils"
 import { toast } from 'react-toastify';
 import API from '../../../../apis/api';
+import { Tooltip } from '@material-ui/core';
 
 
 
@@ -149,13 +150,13 @@ function CoursesListItem(props) {
                         </span>
                     </div>
                 </div>
-                <div className="col-explain">
+                {/* <div className="col-explain">
                     <div className="selection-units">
                         <span>
                             &nbsp;
                         </span>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     );

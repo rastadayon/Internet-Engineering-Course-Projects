@@ -3,6 +3,7 @@ package ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Offering;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.Student;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.exeptions.BolbolestanCourseNotFoundError;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.exeptions.BolbolestanRulesViolationError;
+import ir.ac.ut.ie.Bolbolestan05.controllers.models.ClassTimeData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,5 +73,11 @@ public class OfferingManager {
             }
         }
         return units;
+    }
+
+    public ClassTimeData getFarsiClassTime(String courseCode, String classCode)
+        throws Exception {
+        Offering offering = getOfferingById(courseCode, classCode);
+        return new ClassTimeData(offering.getClassTime().getTime(), offering.getClassTime().getDays());
     }
 }

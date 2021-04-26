@@ -3,6 +3,7 @@ package ir.ac.ut.ie.Bolbolestan05.controllers;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Bolbolestan;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Offering.Offering;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.CourseSelection;
+import ir.ac.ut.ie.Bolbolestan05.controllers.models.ClassTimeData;
 import ir.ac.ut.ie.Bolbolestan05.controllers.models.Login;
 import ir.ac.ut.ie.Bolbolestan05.controllers.models.SearchData;
 import ir.ac.ut.ie.Bolbolestan05.services.SearchService;
@@ -32,6 +33,18 @@ public class OfferingController {
             System.out.println(e.getMessage());
             response.sendError(HttpStatus.BAD_REQUEST.value(), e.getMessage());
             return null;
+        }
+    }
+
+    @GetMapping("/classTime/{courseCode}/{classCode}")
+    public ResponseEntity getFarsiClassTime(
+        @PathVariable String courseCode,
+        @PathVariable String classCode) {
+        try {
+            ClassTimeData classTimeData = Bolbolestan.getInstance().getFarsiClassTime(courseCode, classCode);
+            return ResponseEntity.status(HttpStatus.OK).body(classTimeData);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
         }
     }
 
