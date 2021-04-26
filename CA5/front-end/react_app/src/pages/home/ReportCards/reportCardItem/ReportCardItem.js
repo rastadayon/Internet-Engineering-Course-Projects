@@ -22,9 +22,7 @@ function getStatusClass(grade, defaultClass) {
 }
 
 function ReportCardItem(props) {
-    // console.log(key)
-    // var key = key + 1;
-    // console.log(key)
+    console.log(props)
     if(props.reportDataItem)
         console.log(props.reportDataItem)
     // console.log(props)
@@ -32,7 +30,7 @@ function ReportCardItem(props) {
         <div className="report-card-item row">
             <div className="report-index col-sm-1">
                 <span>
-                    ?
+                    {enToFaNumber(props.index + 1)}
                 </span>
             </div>
             <div className="course-id col-sm-2">

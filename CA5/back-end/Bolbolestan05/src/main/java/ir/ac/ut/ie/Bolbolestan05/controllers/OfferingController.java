@@ -38,9 +38,6 @@ public class OfferingController {
     @PostMapping("/search")
     public ResponseEntity searchForCourses(
             @RequestBody SearchData searchData) throws IOException {
-        System.out.println("searching");
-        System.out.println("search keyword is : " + searchData.getKeyword());
-        System.out.println("search filter is : " + searchData.getType());
         try {
             List<Offering> searchResult = SearchService.searchKeyword(searchData);
             return ResponseEntity.status(HttpStatus.OK).body(searchResult);
@@ -50,19 +47,21 @@ public class OfferingController {
     }
 
     @GetMapping("/selections")
-    public ResponseEntity<Object> getSelections(final HttpServletResponse response) throws IOException {
+    public ResponseEntity getSelections() throws IOException {
+        System.out.println("in get selections");
         Bolbolestan bolbolestan = Bolbolestan.getInstance();
         if (bolbolestan.isAnybodyLoggedIn()) {
             try {
                 CourseSelection courseSelection =  bolbolestan.getLoggedInStudent().getCourseSelection();
                 for (int i = 0; i < 5; i++)
                     courseSelection.addToSelectedOfferings(bolbolestan.getOfferings().get(i));
+                System.out.println("selections successful");
                 return ResponseEntity.status(HttpStatus.OK).body(courseSelection);
             } catch (Exception e) {
-                response.sendError(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+                System.out.println("selection failed");
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
             }
         }
-        response.sendError(HttpStatus.BAD_REQUEST.value(), "No user logged in");
-        return null;
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("student not found. invalid login");
     }
 }

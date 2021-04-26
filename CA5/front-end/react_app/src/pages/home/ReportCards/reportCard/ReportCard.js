@@ -25,7 +25,7 @@ function ReportCard(props) {
             <div className="text-center mt-5">
                 <div className="spinner-border" role="status"></div>
             </div> :
-            Object.entries(props.reportData[1].grades).map((reportDataItem, index) => <ReportCardItem key={index} reportDataItem={reportDataItem[1]}/>)
+            Object.entries(props.reportData[1].grades).map((reportDataItem, key) => <ReportCardItem key={key} index={key} reportDataItem={reportDataItem[1]}/>)
         }
 
         <div className="GPA">
