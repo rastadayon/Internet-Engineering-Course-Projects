@@ -10,7 +10,7 @@ export default class SelectionItem extends React.Component{
      }
 
      getStatusStyle(status) {
-        let style = "status-box sched-item " + this.props.status;
+        let style = "status-box " + status;
         return style;
     }
 
@@ -38,7 +38,7 @@ export default class SelectionItem extends React.Component{
 
     translateNumbersInText(text) { 
         const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-        return text.replace(/[0-9]/g, function (d) {
+        return text.toString().replace(/[0-9]/g, function (d) {
             return farsiDigits[d];
         });
     }
@@ -58,7 +58,7 @@ export default class SelectionItem extends React.Component{
                         <div className="selection-index course-status first-index">
                             <div className={this.getStatusStyle(this.props.courseStatus ? this.props.courseStatus : "")}>
                                 <span>
-                                    {this.props.offering ? this.translateStatus(this.props.offering) : ''}
+                                    {this.props.courseStatus ? this.translateStatus(this.props.courseStatus) : ''}
                                 </span>
                             </div>
                         </div>
@@ -66,7 +66,7 @@ export default class SelectionItem extends React.Component{
                     <div className="col-code">
                         <div className="selection-index">
                             <span>
-                                {this.props.courseStatus ? this.getOfferingCode(this.props.courseStatus) : ''}
+                                {this.props.offering ? this.getOfferingCode(this.props.offering) : ''}
                             </span>
                         </div>
                     </div>
