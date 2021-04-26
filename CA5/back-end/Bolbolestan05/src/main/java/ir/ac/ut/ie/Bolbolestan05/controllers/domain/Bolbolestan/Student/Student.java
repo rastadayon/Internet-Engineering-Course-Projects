@@ -194,8 +194,8 @@ public class Student {
     }
 
     public String makePassedMessage(Offering offering) {
-        String message = "Course with code " + offering.getCourseCode() +
-                " has been passed before";
+        String message = "درس با کد " + offering.getCourseCode() +
+                " قبلا گذرانده شده است.";
         return message;
     }
 
@@ -215,8 +215,8 @@ public class Student {
     }
 
     public String makePrerequisitesMessage(List<String> notPassed, Offering offering) {
-        String message = "Prerequisites for course with code " + offering.getCourseCode() +
-        " are not passed {";
+        String message = "پیشنیازی‌ها برای درس با کد " + offering.getCourseCode() +
+        " هنوز گذرانده نشده است. {";
         for (int i=0; i<notPassed.size(); i++) {
             message += notPassed.get(i);
             if (i == (notPassed.size()-1))

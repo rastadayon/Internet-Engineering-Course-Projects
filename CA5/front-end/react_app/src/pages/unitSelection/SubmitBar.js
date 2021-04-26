@@ -1,6 +1,6 @@
 import * as React from "react";
 import "../../assets/styles/courses-styles.css";
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import API from '../../apis/api';
 
 export default class SubmitBar extends React.Component{
@@ -14,6 +14,13 @@ export default class SubmitBar extends React.Component{
      toFarsiNumber(n) {
         const farsiDigits = ['۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹', '۱۰'];
         return farsiDigits[n-1];
+    }
+
+    translateNumbersInText(text) { 
+        const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        return text.toString().replace(/[0-9]/g, function (d) {
+            return farsiDigits[d];
+        });
     }
 
     resetSelections(props) {
@@ -43,10 +50,11 @@ export default class SubmitBar extends React.Component{
                 if (resp.data === "OK") {
                     props.updateSelections();
                     console.log("done");
+                    toast.success('تغییرات با موفقیت اعمال شد.')
                     window.location.href = "http://localhost:3000/schedule"
                 }
                 else {
-                    toast.error(resp.data)
+                    toast.error(this.translateNumbersInText(resp.data))
                 }
             }
             else{
@@ -79,6 +87,7 @@ export default class SubmitBar extends React.Component{
                         <span>
                             <i className="icon flaticon-refresh-arrow" 
                                 onClick={() => this.resetSelections(this.props)}></i>
+                                <ToastContainer rtl/>
                         </span>
                     </div>
                 </div>

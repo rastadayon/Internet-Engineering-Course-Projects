@@ -423,6 +423,13 @@ main {
     font-size: 0.9em;
   }
 }
+
+.Toastify__toast--error {
+  background: #FCA7A9 !important;
+  direction: ltr !important;
+  width: 35em;
+  text-align: left;
+}
           
 /* Media Query for Tablets Ipads portrait mode */
 @media (min-width: 768px) and (max-width: 1024px) {

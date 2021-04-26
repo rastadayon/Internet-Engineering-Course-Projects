@@ -45,7 +45,6 @@ export default class SelectionItem extends React.Component{
         const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
         return text.toString().replace(/[0-9]/g, function (d) {
             return farsiDigits[d];
-            //<i className="icon flaticon-trash-bin"></i>
         });
     }
 

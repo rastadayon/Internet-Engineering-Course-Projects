@@ -59,8 +59,8 @@ public class WeeklySchedule {
     }
 
     private String makeCapacityMessage(Offering offering) {
-        String message = "Capacity of course with code " + offering.getCourseCode() +
-                " is full.";
+        String message = "ظرفیت درس با کد " + offering.getCourseCode() +
+                " پر است.";
         return message;
     }
 

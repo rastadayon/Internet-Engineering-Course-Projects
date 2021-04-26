@@ -85,16 +85,16 @@ public class CourseSelection {
     }
 
     public String makeClassTimeConflictMessage(Offering first, Offering second) {
-        String message = "Course with code " + first.getCourseCode() +
-                " has class time collision with course with code " +
-                second.getCourseCode();
+        String message = "درس با کد " + first.getCourseCode() +
+                " با درس با کد " +
+                second.getCourseCode() + " تداخل زمان کلاس دارد.";
         return message;
     }
 
     public String makeExamTimeConflictMessage(Offering first, Offering second) {
-        String message = "Course with code " + first.getCourseCode() +
-                " has exam time collision with course with code " +
-                second.getCourseCode();
+        String message = "درس با کد " + first.getCourseCode() +
+                " با درس با کد " +
+                second.getCourseCode() + " تداخل زمان امتحان دارد.";
         return message;
     }
 
