@@ -52,6 +52,10 @@
     width: 25%;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 @media screen and (max-width: 600px) {
   .col-blank {
     width: 30%;
