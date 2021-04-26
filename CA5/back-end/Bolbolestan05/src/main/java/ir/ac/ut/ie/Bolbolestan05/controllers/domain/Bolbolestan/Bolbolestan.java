@@ -9,6 +9,7 @@ import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.ReportCa
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.Student;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.StudentManager;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.exeptions.BolbolestanStudentNotFoundError;
+import ir.ac.ut.ie.Bolbolestan05.controllers.models.ClassTimeData;
 import ir.ac.ut.ie.Bolbolestan05.controllers.models.StudentInfo;
 
 
@@ -200,5 +201,12 @@ public class Bolbolestan {
             errors += "\n";
         }
         return errors;
+    }
+
+    public ClassTimeData getFarsiClassTime(String courseCode, String classCode)
+            throws Exception {
+        if (!isAnybodyLoggedIn())
+            throw new BolbolestanStudentNotFoundError();
+        return offeringManager.getFarsiClassTime(courseCode, classCode);
     }
 }
