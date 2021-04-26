@@ -87,7 +87,6 @@ export default class SubmitBar extends React.Component{
                         <span>
                             <i className="icon flaticon-refresh-arrow" 
                                 onClick={() => this.resetSelections(this.props)}></i>
-                                <ToastContainer rtl/>
                         </span>
                     </div>
                 </div>

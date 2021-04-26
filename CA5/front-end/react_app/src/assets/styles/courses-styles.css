@@ -426,9 +426,11 @@ main {
 
 .Toastify__toast--error {
   background: #FCA7A9 !important;
-  direction: ltr !important;
+  white-space: pre-line !important;
+  direction: rtl !important;
   width: 35em;
-  text-align: left;
+  text-align: right;
+  
 }
           
 /* Media Query for Tablets Ipads portrait mode */

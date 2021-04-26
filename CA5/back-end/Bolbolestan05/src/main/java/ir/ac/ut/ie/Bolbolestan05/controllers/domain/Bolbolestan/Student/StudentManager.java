@@ -63,6 +63,14 @@ public class StudentManager {
         student.removeFromWeeklySchedule(offering);
     }
 
+    public boolean hasCapacityError(List<String> errors) {
+        for (String error: errors) {
+            if (error.contains("ظرفیت"))
+                return true;
+        }
+        return false;
+    }
+
     public boolean addCourseToWaitingList(String studentId, Offering offering) throws Exception {
         Student student = getStudentById(studentId);
         student.addToWaitingOfferings(offering);
@@ -70,8 +78,11 @@ public class StudentManager {
         if (student.getSubmissionErrors().size() == 0)
             return true;
         else {
+            if (student.getSubmissionErrors().size() == 1 && 
+                hasCapacityError(student.getSubmissionErrors()))
+                return true;
             student.removeFromWeeklySchedule(offering);
-            student.addToSelectedOfferings(offering);
+            //student.addToSelectedOfferings(offering);
             return false;
         }
     }

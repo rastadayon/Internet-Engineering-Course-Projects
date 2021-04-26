@@ -86,6 +86,33 @@ public class OfferingController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("student not found. invalid login");
     }
 
+    @PostMapping("/wait")
+    public ResponseEntity waitForCourse(
+            @RequestParam String courseCode,
+            @RequestParam String classCode) throws IOException {
+        System.out.println("in wait for course");
+        Bolbolestan bolbolestan = Bolbolestan.getInstance();
+        if (bolbolestan.isAnybodyLoggedIn()) {
+            try {
+                String loggedInStudentId = bolbolestan.getLoggedInId();
+                if (bolbolestan.addCourseToWaitingList(loggedInStudentId, courseCode,
+                            classCode)) {
+                    System.out.println("wait successful");
+                    return ResponseEntity.status(HttpStatus.OK).body("OK");
+                } else {
+                    System.out.println("wait failed");
+                    String errors = bolbolestan.getWaitingErrors();
+                    System.out.println(errors);
+                    return ResponseEntity.status(HttpStatus.OK).body(errors);
+                }
+            } catch (Exception e) {
+                System.out.println("wait failed");
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("student not found. invalid login");
+    }
+
     @PostMapping("/reset")
     public ResponseEntity resetSelections() throws IOException {
         System.out.println("in reset selections");

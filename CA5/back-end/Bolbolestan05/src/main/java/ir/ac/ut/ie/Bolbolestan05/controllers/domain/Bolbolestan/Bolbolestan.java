@@ -201,4 +201,14 @@ public class Bolbolestan {
         }
         return errors;
     }
+
+    public String getWaitingErrors() throws Exception {
+        Student student = studentManager.getStudentById(studentManager.getLoggedInId());
+        String errors = "";
+        for (String error: student.getWaitingErrors()) {
+            errors += error;
+            errors += "\n";
+        }
+        return errors;
+    }
 }

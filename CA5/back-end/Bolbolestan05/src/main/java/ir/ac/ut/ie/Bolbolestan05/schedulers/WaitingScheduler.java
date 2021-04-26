@@ -16,7 +16,7 @@ public class WaitingScheduler implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent event) {
         scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(new MinJob(), 0, 15, TimeUnit.MINUTES);
+        scheduler.scheduleAtFixedRate(new MinJob(), 0, 1, TimeUnit.MINUTES);
     }
 
     @Override

@@ -55,6 +55,13 @@ function getCourseTypeClass(type) {
         return "basic"
 }
 
+function translateNumbersInText(text) { 
+        const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        return text.toString().replace(/[0-9]/g, function (d) {
+            return farsiDigits[d];
+        });
+    }
+
 function selectCourse(props) {
     console.log(props.course.classCode)
 
@@ -66,8 +73,14 @@ function selectCourse(props) {
 
     API.post('offering/' + action, requestParam).then(resp => {
         if(resp.status == 200) {
-            console.log("done");
-            props.updateSelections();
+            if (resp.data === "OK") {
+                props.updateSelections();
+                console.log("done");
+            }
+            else {
+                if (action == "wait")
+                    toast.error(translateNumbersInText(resp.data))
+            }
 
         }
         else{
