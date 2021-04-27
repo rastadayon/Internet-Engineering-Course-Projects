@@ -52,6 +52,8 @@ public class Bolbolestan {
     }
 
     public Offering getOffering(String courseCode, String classCode) throws Exception {
+        if(!isAnybodyLoggedIn())
+            throw new BolbolestanStudentNotFoundError();
         return offeringManager.getOfferingById(courseCode, classCode);
     }
 
@@ -218,5 +220,12 @@ public class Bolbolestan {
         if (!isAnybodyLoggedIn())
             throw new BolbolestanStudentNotFoundError();
         return offeringManager.getFarsiClassTime(courseCode, classCode);
+    }
+
+    public String getCourseNameById (String courseCode) throws Exception {
+        if (!isAnybodyLoggedIn())
+            throw new BolbolestanStudentNotFoundError();
+        Course course = courseManager.getCourseByCode(courseCode);
+        return course.getName();
     }
 }

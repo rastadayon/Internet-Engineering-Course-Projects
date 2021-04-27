@@ -1,5 +1,7 @@
 package ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Utilities;
 
+import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Offering.ExamTime;
+
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -56,5 +58,45 @@ public final class Utils {
         BigDecimal bd = new BigDecimal(Float.toString(d));
         bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
         return bd.floatValue();
+    }
+
+    public static String informalDate(ExamTime examTime) {
+        String date = "";
+        String end = examTime.getEnd();
+        String[] tempData = end.split("T");
+        assert (tempData.length == 2);
+        String tempDate = tempData[0];
+        tempData = tempDate.split("-");
+        assert (tempData.length == 3);
+        for (int i = tempData.length - 2; i < tempData.length; i++) {
+            date += tempData[i];
+            if (i != tempData.length - 1) date += '/';
+        }
+
+        return date;
+    }
+
+    public static String informalTimeSpan(ExamTime examTime) {
+        String start = examTime.getStart();
+        String end = examTime.getEnd();
+        String[] tempStart = start.split("T");
+        String[] tempEnd = end.split("T");
+        assert (tempStart.length == 2 && tempEnd.length == 2);
+        start = tempStart[1];
+        end = tempEnd[1];
+        tempStart = start.split(":");
+        tempEnd = end.split(":");
+        assert (tempStart.length == 3 && tempEnd.length == 3);
+        start = "";
+        end = "";
+        for (int i = 0; i < tempStart.length-1; i++) {
+            start += tempStart[i];
+            end += tempEnd[i];
+            if (i != tempStart.length-2) {
+                start += ":";
+                end += ":";
+            }
+        }
+        return start + " - " + end;
     }
 }

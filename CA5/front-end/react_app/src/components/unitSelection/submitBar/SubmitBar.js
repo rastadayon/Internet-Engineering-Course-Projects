@@ -2,6 +2,7 @@ import * as React from "react";
 import "./submitBar-styles.css";
 import { ToastContainer, toast } from 'react-toastify';
 import API from '../../../apis/api';
+import {enToFaNumber} from "../../../utils/utils" 
 
 export default class SubmitBar extends React.Component{
 
@@ -10,13 +11,6 @@ export default class SubmitBar extends React.Component{
          this.state = {      
         }
      }
-
-    translateNumbersInText(text) { 
-        const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-        return text.toString().replace(/[0-9]/g, function (d) {
-            return farsiDigits[d];
-        });
-    }
 
     resetSelections(props) {
 
@@ -47,7 +41,7 @@ export default class SubmitBar extends React.Component{
                     window.location.href = "http://localhost:3000/schedule"
                 }
                 else {
-                    toast.error(this.translateNumbersInText(resp.data))
+                    toast.error(enToFaNumber(resp.data))
                 }
             }
             else{
@@ -60,13 +54,13 @@ export default class SubmitBar extends React.Component{
             })
     }
 
-     render() {
-         return (
-             <div className="submit-bar col-sm-12">
+    render() {
+        return (
+            <div className="submit-bar col-sm-12">
                 <div className="col-unit-count unit-count">
                     <div className="bold-item">
                         <span>
-                            تعداد واحد ثبت شده: {this.props.selections ? this.translateNumbersInText(this.props.selections.totalSubmittedUnits) : ''}
+                            تعداد واحد ثبت شده: {this.props.selections ? enToFaNumber(this.props.selections.totalSubmittedUnits) : ''}
                         </span>
                     </div>
                 </div>
@@ -91,6 +85,6 @@ export default class SubmitBar extends React.Component{
                     </div>
                 </div>
             </div>
-         );
-     }
+        );
+    }
 }

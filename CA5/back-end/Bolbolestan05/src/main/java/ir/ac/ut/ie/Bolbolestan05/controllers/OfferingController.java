@@ -4,6 +4,7 @@ import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Bolbolestan;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Offering.Offering;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.CourseSelection;
 import ir.ac.ut.ie.Bolbolestan05.controllers.models.ClassTimeData;
+import ir.ac.ut.ie.Bolbolestan05.controllers.models.ExamTimeData;
 import ir.ac.ut.ie.Bolbolestan05.controllers.models.Login;
 import ir.ac.ut.ie.Bolbolestan05.controllers.models.SearchData;
 import ir.ac.ut.ie.Bolbolestan05.services.SearchService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -43,6 +45,35 @@ public class OfferingController {
         try {
             ClassTimeData classTimeData = Bolbolestan.getInstance().getFarsiClassTime(courseCode, classCode);
             return ResponseEntity.status(HttpStatus.OK).body(classTimeData);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/examTime/{courseCode}/{classCode}")
+    public ResponseEntity getExamTime(
+            @PathVariable String courseCode,
+            @PathVariable String classCode) {
+        try {
+            Offering offering = Bolbolestan.getInstance().getOffering(courseCode, classCode);
+            ExamTimeData examTimeData = new ExamTimeData(offering.getExamTime());
+            return ResponseEntity.status(HttpStatus.OK).body(examTimeData);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/prerequisites/{courseCode}/{classCode}")
+    public ResponseEntity getFarsiPrerequisites(
+            @PathVariable String courseCode,
+            @PathVariable String classCode) {
+        try {
+            ArrayList<String> farsiPrerequisites = new ArrayList<>();
+            Offering offering = Bolbolestan.getInstance().getOffering(courseCode, classCode);
+            ArrayList<String> prerequisites = offering.getPrerequisites();
+            for (String prerequisite: prerequisites)
+                farsiPrerequisites.add(Bolbolestan.getInstance().getCourseNameById(courseCode));
+            return ResponseEntity.status(HttpStatus.OK).body(farsiPrerequisites);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
         }
