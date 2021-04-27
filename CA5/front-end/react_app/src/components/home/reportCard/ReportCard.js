@@ -1,7 +1,7 @@
 import React from "react";
-import {enToFaNumber} from "../../../../utils/utils"
+import {enToFaNumber} from "../../../utils/utils"
 
-import "../reportCardItem/reportcardItem-styles.css"
+import "../reportCardItem/reportCardItem-styles.css"
 import ReportCardItem from '../reportCardItem/ReportCardItem'
 
 function ReportCard(props) {

@@ -1,5 +1,5 @@
 import React from "react";
-import "../../assets/styles/schedule-styles.css";
+import "./scheduleIndex-styles.css";
 
 export default class ScheduleIndex extends React.Component{
     constructor(props) {

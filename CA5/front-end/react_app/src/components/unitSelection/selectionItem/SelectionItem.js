@@ -1,7 +1,7 @@
 import * as React from "react";
-import "../../assets/styles/courses-styles.css";
+import "./selectionItem-styles.css";
 import { toast } from 'react-toastify';
-import API from '../../apis/api';
+import API from '../../../apis/api';
 
 export default class SelectionItem extends React.Component{
 

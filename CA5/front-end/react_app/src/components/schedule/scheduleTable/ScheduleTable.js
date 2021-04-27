@@ -1,7 +1,7 @@
 import * as React from "react";
-import "../../assets/styles/schedule-styles.css";
-import ScheduleItem from "./ScheduleItem";
-import TableHeader from "./TableHeader";
+import "./scheduleTable-styles.css";
+import ScheduleItem from "../scheduleItem/ScheduleItem";
+import TableHeader from "../tableHeader/TableHeader";
 
 export default class ScheduleTable extends React.Component{
 

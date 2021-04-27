@@ -1,0 +1,85 @@
+@import "../../../assets/mycollection/font/flaticon.css";
+@import "../../../assets/fonts/vazir-fonts/fonts.css";
+
+.main-sched {
+  min-height: 100%;
+  margin-top: 6em;
+  margin-bottom: 7em;
+  min-height: 100vh; 
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 100px; 
+}
+
+.schedule-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1em;
+}
+
+.schedule {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 0.15em solid;
+  border-top-left-radius: 0.7em;
+  border-top-right-radius: 0.7em;
+  border-color: #0087e0;
+  background: white;
+  padding-top: 3em;
+  margin-bottom: 2em;
+}
+
+.col-calendar {
+  width: 8%;
+}
+
+.schedule-label {
+  justify-content: center;
+  align-items: center;
+  text-align: right;
+  margin-top: -1.5em;
+  margin-bottom: 1.5em;
+  font-size: 1em;
+}
+
+.calendar {
+  color: #0087e0;
+  font-size: 1.6em;
+}
+
+.icon-sched {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin-left: -1em;
+}
+
+.col-plan {
+  width: 12%;
+}
+
+.col-hidden-sched {
+  width: 73%;
+}
+
+.col-term {
+  width: 7%;
+}
+
+.list-sched {
+  width: 100%;
+  border-top: 0.1em solid;
+  border-top: 0.15em solid;
+  border-top-color: #0087e0;
+}
+
+.sections {
+    width: 100%;
+  }

@@ -145,6 +145,11 @@ public class CourseSelection {
         return totalSelectedUnits;
     }
 
+    public int getTotalSubmittedUnits() {
+        int totalSelectedUnits = submittedOfferings.getTotalUnits();
+        return totalSelectedUnits;
+    }
+
     public void checkWaitingCourses() {
         List<Offering> waiting = waitingOfferings.getOfferings();
         for (Offering  offering: waiting) {

@@ -1,8 +1,8 @@
 import React from 'react'
 import './coursesListItem-styles.css'
-import {enToFaNumber} from "../../../../utils/utils"
+import {enToFaNumber} from "../../../utils/utils"
 import { toast } from 'react-toastify';
-import API from '../../../../apis/api';
+import API from '../../../apis/api';
 import { Tooltip } from '@material-ui/core';
 
 

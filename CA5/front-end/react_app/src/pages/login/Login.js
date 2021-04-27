@@ -1,4 +1,4 @@
-import "../../assets/styles/login-styles.css"
+import "./login-styles.css"
 import * as React from "react";
 import {toast} from "react-toastify";
 import API from '../../apis/api';

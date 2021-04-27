@@ -1,9 +1,9 @@
 import React from 'react';
-import "../../assets/styles/schedule-styles.css";
 import Header from "../general/Header";
 import Footer from "../general/Footer";
 import API from '../../apis/api';
-import ScheduleTable from './ScheduleTable';
+import ScheduleTable from "../../components/schedule/scheduleTable/ScheduleTable"
+import './schedule-styles.css'
 
 
 export default class Home extends React.Component {

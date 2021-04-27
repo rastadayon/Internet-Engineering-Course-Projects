@@ -1,7 +1,7 @@
 import * as React from "react";
-import "../../assets/styles/courses-styles.css";
+import "./submitBar-styles.css";
 import { ToastContainer, toast } from 'react-toastify';
-import API from '../../apis/api';
+import API from '../../../apis/api';
 
 export default class SubmitBar extends React.Component{
 
@@ -10,11 +10,6 @@ export default class SubmitBar extends React.Component{
          this.state = {      
         }
      }
-
-     toFarsiNumber(n) {
-        const farsiDigits = ['۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹', '۱۰'];
-        return farsiDigits[n-1];
-    }
 
     translateNumbersInText(text) { 
         const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
@@ -42,11 +37,9 @@ export default class SubmitBar extends React.Component{
     }
 
     finalizeSelections(props) {
-
         var requestParam = new FormData();
         API.post('offering/finalize', requestParam).then(resp => {
             if(resp.status == 200) {
-                console.log(Object.keys(resp))
                 if (resp.data === "OK") {
                     props.updateSelections();
                     console.log("done");
@@ -73,7 +66,7 @@ export default class SubmitBar extends React.Component{
                 <div className="col-unit-count unit-count">
                     <div className="bold-item">
                         <span>
-                            تعداد واحد ثبت شده: ۱۵
+                            تعداد واحد ثبت شده: {this.props.selections ? this.translateNumbersInText(this.props.selections.totalSubmittedUnits) : ''}
                         </span>
                     </div>
                 </div>

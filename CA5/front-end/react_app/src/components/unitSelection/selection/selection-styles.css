@@ -430,6 +430,13 @@ main {
   direction: rtl !important;
   width: 35em;
   text-align: right;
+}
+
+.Toastify__toast--success {
+  white-space: pre-line !important;
+  direction: rtl !important;
+  width: 15em;
+  text-align: right;
   
 }
           

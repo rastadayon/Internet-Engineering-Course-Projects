@@ -1,8 +1,8 @@
 import React from "react";
 import {enToFaNumber, sizeOf} from "../../../utils/utils"
 
-import "./reportcards-styles.css"
-import ReportCard from './reportCard/ReportCard'
+import "./reportCards-styles.css"
+import ReportCard from '../reportCard/ReportCard'
 
 function ReportCards(props) {
     // if(props.reportCards)

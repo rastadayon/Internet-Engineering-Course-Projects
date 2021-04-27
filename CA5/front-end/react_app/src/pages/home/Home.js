@@ -2,9 +2,9 @@ import React from 'react';
 import "./home-styles.css";
 import Header from "../general/Header";
 import Footer from "../general/Footer";
-import HomeTopSection from "./HomeTopSection";
-import ProfileInfo from './ProfileInfo/ProfileInfo';
-import ReportCards from './ReportCards/ReportCards'
+import HomeTopSection from "../../components/home/homeTopSection/HomeTopSection";
+import ProfileInfo from '../../components/home/profileInfo/ProfileInfo';
+import ReportCards from '../../components/home/reportCards/ReportCards'
 import API from '../../apis/api';
 
 

@@ -1,5 +1,5 @@
 import React from "react";
-import "../../assets/styles/schedule-styles.css";
+import "./tableHeader-styles.css";
 
 export default class TableHeader extends React.Component{
     constructor(props) {

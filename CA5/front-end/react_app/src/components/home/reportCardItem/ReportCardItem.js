@@ -1,7 +1,7 @@
 import React from "react";
-import {enToFaNumber} from "../../../../utils/utils"
+import {enToFaNumber} from "../../../utils/utils"
 
-import "./reportcardItem-styles.css"
+import "./reportCardItem-styles.css"
 
 function getStatusText(grade) {
     if(grade >= 10)

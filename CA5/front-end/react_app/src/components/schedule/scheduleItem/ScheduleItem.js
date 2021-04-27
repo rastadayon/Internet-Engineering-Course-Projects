@@ -1,6 +1,6 @@
 import * as React from "react";
-import "../../assets/styles/schedule-styles.css";
-import ScheduleIndex from "./ScheduleIndex";
+import "./scheduleItem-styles.css";
+import ScheduleIndex from "../scheduleIndex/ScheduleIndex";
 
 export default class ScheduleItem extends React.Component{
 

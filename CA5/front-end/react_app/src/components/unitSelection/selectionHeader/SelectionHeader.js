@@ -1,5 +1,5 @@
 import * as React from "react";
-import "../../assets/styles/courses-styles.css";
+import "./selectionHeader-styles.css";
 
 export default class SelectionHeader extends React.Component{
 

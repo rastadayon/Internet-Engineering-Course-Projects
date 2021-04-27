@@ -1,7 +1,7 @@
 import React from 'react'
 import './coursesList-styles.css'
 
-import CoursesListItem from './coursesListItem/coursesListItem'
+import CoursesListItem from '../coursesListItem/coursesListItem'
 
 function CoursesList(props) {
     // console.log(props)

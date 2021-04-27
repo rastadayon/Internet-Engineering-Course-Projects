@@ -1,8 +1,8 @@
 import * as React from "react";
-import "../../assets/styles/courses-styles.css";
-import SubmitBar from "./SubmitBar";
-import SelectionHeader from "./SelectionHeader";
-import SelectionItem from "./SelectionItem";
+import "./selection-styles.css";
+import SubmitBar from "../submitBar/SubmitBar";
+import SelectionHeader from "../selectionHeader/SelectionHeader";
+import SelectionItem from "../selectionItem/SelectionItem";
 
 export default class Selection extends React.Component{
 
@@ -59,7 +59,9 @@ export default class Selection extends React.Component{
                     </div>
 
                     <SubmitBar updateSelections={this.state.updateSelections ? 
-                                this.state.updateSelections : ""}/>
+                                this.state.updateSelections : ""} 
+                                selections={this.props.selections ? 
+                                    this.props.selections : ''}/>
 
                 </div>
             </div>

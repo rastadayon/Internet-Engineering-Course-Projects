@@ -5,7 +5,7 @@ export default class HomeTopSection extends React.Component {
         return (
             <nav>
                 <div className="background-img">
-                    <img src={require("../../assets/images/cover_photo.png")} alt=""/>
+                    <img src={require("../../../assets/images/cover_photo.png")} alt=""/>
                 </div>
             </nav>
         );
