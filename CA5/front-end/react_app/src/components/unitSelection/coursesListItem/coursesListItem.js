@@ -72,7 +72,7 @@ function selectCourse(props) {
 
     var action = getAction(props.course.capacity, props.course.signedUp)
 
-    API.post('offering/' + action, requestParam).then(resp => {
+    API.put('offering/' + action, requestParam).then(resp => {
         if(resp.status == 200) {
             if (resp.data === "OK") {
                 props.updateSelections();

@@ -1,7 +1,6 @@
 package ir.ac.ut.ie.Bolbolestan05.controllers;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Bolbolestan;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.Grade;
-import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.WeeklySchedule;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.Student;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.ReportCard;
 import ir.ac.ut.ie.Bolbolestan05.controllers.models.Login;
@@ -45,21 +44,6 @@ public class StudentController {
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("no student is logged in.");
         }
-    }
-
-    @GetMapping("/schedule")
-    public ResponseEntity<Object> getSchedule(final HttpServletResponse response) throws IOException {
-        Bolbolestan bolbolestan = Bolbolestan.getInstance();
-        if (bolbolestan.isAnybodyLoggedIn()) {
-            try {
-                WeeklySchedule schedule =  bolbolestan.getLoggedInStudent().getSubmittedOfferings();
-                return ResponseEntity.status(HttpStatus.OK).body(schedule);
-            } catch (Exception e) {
-                response.sendError(HttpStatus.BAD_REQUEST.value(), e.getMessage());
-            }
-        }
-        response.sendError(HttpStatus.BAD_REQUEST.value(), "No user logged in");
-        return null;
     }
 
     @GetMapping("/searchKeyword")

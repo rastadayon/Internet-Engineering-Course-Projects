@@ -18,7 +18,7 @@ export default class Home extends React.Component {
     }
 
     updateScheduleInfo() {
-        API.get("student/schedule").then(
+        API.get("/schedule/").then(
             jsonData => {
                 this.setState({scheduleInfo: jsonData.data});
         }).catch(error => {

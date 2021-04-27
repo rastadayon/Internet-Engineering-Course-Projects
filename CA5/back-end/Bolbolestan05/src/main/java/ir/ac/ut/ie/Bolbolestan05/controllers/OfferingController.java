@@ -59,7 +59,7 @@ public class OfferingController {
         }
     }
 
-    @PostMapping("/remove")
+    @PutMapping("/remove")
     public ResponseEntity removeCourse(
             @RequestParam String courseCode,
             @RequestParam String classCode) throws IOException {
@@ -79,7 +79,7 @@ public class OfferingController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("student not found. invalid login");
     }
 
-    @PostMapping("/add")
+    @PutMapping("/add")
     public ResponseEntity addCourse(
             @RequestParam String courseCode,
             @RequestParam String classCode) throws IOException {
@@ -99,7 +99,7 @@ public class OfferingController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("student not found. invalid login");
     }
 
-    @PostMapping("/wait")
+    @PutMapping("/wait")
     public ResponseEntity waitForCourse(
             @RequestParam String courseCode,
             @RequestParam String classCode) throws IOException {
