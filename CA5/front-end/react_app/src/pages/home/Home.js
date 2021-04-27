@@ -57,6 +57,7 @@ export default class Home extends React.Component {
                         secondOption={"برنامه هفتگی"}
                         firstRoute={"/courses"}
                         secondRoute={"/schedule"}/>
+                <main>
                 <HomeTopSection/>
                 <div className="container-fluid text-center">
                     <div className="main row">
@@ -64,6 +65,7 @@ export default class Home extends React.Component {
                     <ReportCards reportCards = {this.state.reportCards}/>
                     </div>
                 </div>
+                </main>
                 <Footer/>
             </div>
         );

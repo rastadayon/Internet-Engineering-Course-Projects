@@ -34,6 +34,14 @@ function getAction(capacity, signedup) {
     }
 }
 
+function getCapacityStyle(capacity, signedup) {
+    let style = "course-index bold-item ";
+    if (signedup >= capacity) {
+        style = style + "unavailable";
+    }
+    return style;
+}
+
 function getCourseType(type) {
     if (type == "Umumi")
         return "عمومی"
@@ -114,7 +122,7 @@ function CoursesListItem(props) {
                     </div>
                 </div>
                 <div className="col-capacity">
-                    <div className="course-index bold-item">
+                    <div className={getCapacityStyle(props.course.capacity, props.course.signedUp)}>
                         <span>
                             {enToFaNumber(props.course.signedUp) + '/' + enToFaNumber(props.course.capacity)}
                         </span>
