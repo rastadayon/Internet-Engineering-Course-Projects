@@ -170,3 +170,32 @@
     font-size: 1em;
   }
 }
+
+.selected {
+
+}
+
+.item {
+}
+
+.last-item {
+}
+
+.first-item {
+}
+
+.selected:hover .item {
+  border-top: 0.14em solid #0087e0;
+  border-bottom: 0.14em solid #0087e0;
+}
+
+.selected:hover .first-item {
+    border-right: 0.3em solid #0087e0;
+    border-top: 0.14em solid #0087e0;
+    border-bottom: 0.14em solid #0087e0;
+}
+
+.selected:hover .last-item {
+    border-left: 0.14em solid #0087e0;
+  border-top: 0.14em solid #0087e0;
+    border-bottom: 0.14em solid #0087e0;}

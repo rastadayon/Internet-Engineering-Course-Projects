@@ -54,8 +54,15 @@ export default class Selection extends React.Component{
                     <div className="selections">
 
                         <SelectionHeader />
+
+                        {
+                            this.props.selections == undefined ?
+                            <div className="text-center mt-5">
+                                <div className="spinner-border" role="status"></div>
+                            </div> :
+                            this.getRows(this.props.selections)
+                        }
                         
-                        {this.props.selections ? this.getRows(this.props.selections) : ''}
                     </div>
 
                     <SubmitBar updateSelections={this.state.updateSelections ? 
