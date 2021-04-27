@@ -1,5 +1,5 @@
 .exit-wrapper {
-    top: 100em;
+    top: 10em;
     background: rgb(230, 230, 230);
     border: 0.8em solid rgb(230, 230, 230);
     border-radius: 0.5em;
@@ -10,6 +10,8 @@
     padding-bottom: 0.5em;
     width: 100%;
     font-weight: bold;
+    position: absolute;
+    vertical-align: middle;
 }
 
 .exit-question {

@@ -59,7 +59,7 @@ public class OfferingController {
         }
     }
 
-    @PutMapping("/remove")
+    @DeleteMapping("/remove")
     public ResponseEntity removeCourse(
             @RequestParam String courseCode,
             @RequestParam String classCode) throws IOException {
@@ -179,6 +179,26 @@ public class OfferingController {
                 return ResponseEntity.status(HttpStatus.OK).body(courseSelection);
             } catch (Exception e) {
                 System.out.println("selection failed");
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("student not found. invalid login");
+    }
+
+    @PutMapping("/remove")
+    public ResponseEntity editSelection(
+            @RequestParam String courseCode,
+            @RequestParam String classCode) throws IOException {
+        System.out.println("in edit selection");
+        Bolbolestan bolbolestan = Bolbolestan.getInstance();
+        if (bolbolestan.isAnybodyLoggedIn()) {
+            try {
+                String loggedInStudentId = bolbolestan.getLoggedInId();
+                bolbolestan.removeFromWeeklySchedule(loggedInStudentId, courseCode, classCode);
+                System.out.println("edit successful");
+                return ResponseEntity.status(HttpStatus.OK).body("OK");
+            } catch (Exception e) {
+                System.out.println("edit failed");
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
             }
         }

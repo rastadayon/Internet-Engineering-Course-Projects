@@ -3,6 +3,7 @@
     padding-left: 2%;
     text-align: center;
     justify-content: center;
+    font-size: 1em;
 }
 
 .std-info ul {
@@ -37,4 +38,24 @@
     align-items: center;
     vertical-align: middle;
     padding: 2%;
+}
+
+@media (max-width: 480px) {
+  .std-info {
+    font-size: 1em;
+  }
+}
+          
+/* Media Query for low resolution  Tablets, Ipads */
+@media (min-width: 481px) and (max-width: 767px) {
+  .std-info {
+    font-size: 2.7em;
+  }
+}
+          
+/* Media Query for Tablets Ipads portrait mode */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .std-info {
+    font-size: 1.8em;
+  }
 }

@@ -29,7 +29,7 @@ export default class UnitSelection extends React.Component {
     }
 
     async componentDidMount() {
-        document.title = "انتخاب واحد"
+        document.title = "Courses"
         toast.configure({rtl: true, className: "text-center", position: "top-right"})
         this.updateSelections()
         this.updateCourses('')

@@ -36,7 +36,7 @@ main {
 /* Media Query for Mobile Devices */
 @media (max-width: 480px) {
   main {
-    font-size: 0.5em;
+    font-size: 0.4em;
   }
 }
           
