@@ -11,7 +11,7 @@ export default class SelectionItem extends React.Component{
             course : this.props.offering
         };
 
-        this.removeCourse = this.removeCourse.bind(this);
+        this.editSelection = this.editSelection.bind(this);
      }
 
      getStatusStyle(status) {
@@ -48,7 +48,7 @@ export default class SelectionItem extends React.Component{
         });
     }
 
-    removeCourse() {
+    editSelection() {
 
         console.log(this.state.course.classCode)
 
@@ -79,7 +79,7 @@ export default class SelectionItem extends React.Component{
                     <div className="col-trash">
                         <div className="trash clickable">
                             <span>
-                                    <i className="icon flaticon-trash-bin" onClick={this.removeCourse}></i>
+                                    <i className="icon flaticon-trash-bin" onClick={this.editSelection}></i>
                             </span>
                         </div>
                     </div>

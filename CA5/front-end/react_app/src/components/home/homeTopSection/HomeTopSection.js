@@ -1,4 +1,5 @@
 import React from "react";
+import "./homeTopSection-styles.css";
 
 export default class HomeTopSection extends React.Component {
     render() {
