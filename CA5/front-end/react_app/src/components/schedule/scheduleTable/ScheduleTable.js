@@ -57,7 +57,13 @@ export default class ScheduleTable extends React.Component{
                     <div className="list-sched">
                         <div className="sections">
                             <TableHeader/>
-                            {this.props.scheduleInfo ? this.getRows(this.props.scheduleInfo.offerings) : ''}
+                            {
+                                this.props.scheduleInfo == undefined ?
+                                <div className="text-center mt-5">
+                                    <div className="spinner-border" role="status"></div>
+                                </div> :
+                                this.getRows(this.props.scheduleInfo.offerings)
+                            }
                         </div>
                     </div>
                 </div>

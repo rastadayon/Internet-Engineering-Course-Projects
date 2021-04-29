@@ -23,8 +23,10 @@ const theme = createMuiTheme({
           textAlign: "center",
           borderRadius: "0px",
           border: "0.1em solid grey",
-          maxWidth: "200px",
-          whiteSpace: "pre-line !important"
+          width: "12em",
+          whiteSpace: "pre-line !important",
+          position: "absolute",
+          right: "-3.7em"
         },
         arrow: {
             "&::before": {
@@ -226,12 +228,12 @@ export default class CoursesListItem extends React.Component {
 
     render() {
         return(
-            <div className="course-item">
+            <div className="course-item selected">
                 <MuiThemeProvider theme={theme}>
                 <Tooltip title={this.getTooltipInfo()} placement="right" arrow>
                 <div className="row no-gutters">
                     {/* <div className="tooltip"> */}
-                    <div className="col-add edit-option">
+                    <div className="col-add edit-option first-item">
                         <div className={["edit", this.getIconClass(this.props.course.capacity, this.props.course.signedUp), "clickable"].join(' ')}>
                             <span>
                                 <i className={this.getIcon(this.props.course.capacity, this.props.course.signedUp)} 
@@ -239,21 +241,21 @@ export default class CoursesListItem extends React.Component {
                             </span>
                         </div>
                     </div>
-                    <div className="col-code-2">
+                    <div className="col-code-2 item">
                         <div className="course-index code">
                             <span>
                                 {enToFaNumber(this.props.course.courseCode) + '-' + enToFaNumber(this.props.course.classCode)}
                             </span>
                         </div>
                     </div>
-                    <div className="col-capacity">
+                    <div className="col-capacity item">
                         <div className={this.getCapacityStyle(this.props.course.capacity, this.props.course.signedUp)}>
                             <span>
                                 {enToFaNumber(this.props.course.signedUp) + '/' + enToFaNumber(this.props.course.capacity)}
                             </span>
                         </div>
                     </div>
-                    <div className="col-type">
+                    <div className="col-type item">
                         <div className="course-index course-status">
                             <div className={["type-box", this.getCourseTypeClass(this.props.course.type)].join(' ')}>
                                 <span>
@@ -262,21 +264,21 @@ export default class CoursesListItem extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col-name-2">
+                    <div className="col-name-2 item">
                         <div className="course-index">
                             <span>
                                 {this.props.course.name}
                             </span>
                         </div>
                     </div>
-                    <div className="col-instructor-2">
+                    <div className="col-instructor-2 item">
                         <div className="course-index">
                             <span>
                                 {this.props.course.instructor}
                             </span>
                         </div>
                     </div>
-                    <div className="col-units">
+                    <div className="col-units last-item">
                         <div className="course-index bold-item">
                             <span>
                                 {enToFaNumber(this.props.course.units)}
