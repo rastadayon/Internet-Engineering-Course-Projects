@@ -90,7 +90,7 @@ body {
 
 .report-cards-wrapper .report-card {
     margin-top: 10%;
-    font-size: medium;
+    font-size: small;
     height: auto !important;
     width: 100%;
     padding: 5%;
@@ -149,10 +149,9 @@ body {
  .report-card
  .report-card-item
  .status {
-    padding: 2%;
     padding-bottom: 2%;
     width: 100%;
-    border-radius: 0.8em;
+    border-radius: 0.4em;
 }
 
 .report-cards-wrapper
