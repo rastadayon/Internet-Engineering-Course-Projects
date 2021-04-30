@@ -60,6 +60,14 @@ public class StudentManager {
         student.removeFromWeeklySchedule(offering);
     }
 
+    public boolean hasCapacityError(List<String> errors) {
+        for (String error: errors) {
+            if (error.contains("full"))
+                return true;
+        }
+        return false;
+    }
+
     public boolean addCourseToWaitingList(String studentId, Offering offering) throws Exception {
         Student student = getStudentById(studentId);
         student.addToWaitingOfferings(offering);
