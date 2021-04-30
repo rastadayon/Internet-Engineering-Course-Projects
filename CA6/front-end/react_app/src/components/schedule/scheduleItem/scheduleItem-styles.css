@@ -1,0 +1,24 @@
+@import "../../../assets/mycollection/font/flaticon.css";
+@import "../../../assets/fonts/vazir-fonts/fonts.css";
+
+.schedule-item {
+  border-bottom: 0.1em solid gray;
+  height: calc(100% / 14);
+}
+
+.last-sched {
+  border-bottom: 0em;
+}
+
+.schedule-index {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-left: 0.1em solid gray;
+  font-size: 1em;
+  height: 4em;
+}
+
+.col-day{
+  width: calc(100% / 7);
+}

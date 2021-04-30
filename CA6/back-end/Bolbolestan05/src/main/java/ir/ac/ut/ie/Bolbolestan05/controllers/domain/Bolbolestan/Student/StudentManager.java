@@ -1,8 +1,9 @@
-package Bolbolestan.Student;
+package ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student;
 
-import Bolbolestan.Offering.Offering;
-import Bolbolestan.exeptions.BolbolestanRulesViolationError;
-import Bolbolestan.exeptions.BolbolestanStudentNotFoundError;
+import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Offering.Offering;
+import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.exeptions.BolbolestanRulesViolationError;
+import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.exeptions.BolbolestanStudentNotFoundError;
+import ir.ac.ut.ie.Bolbolestan05.controllers.models.StudentInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,8 @@ public class StudentManager {
     String loggedInStudent = null;
 
     public Student getStudentById(String studentId) throws Exception{
+        if (studentId == null)
+            throw new BolbolestanStudentNotFoundError();
         for (Student student : students)
             if (student.getId().equals(studentId))
                 return student;
@@ -45,10 +48,10 @@ public class StudentManager {
         students.add(student);
     }
 
-    public void addGradeToStudent(String studentId, Grade grade) throws Exception{
-        Student student = getStudentById(studentId);
-        student.addGrade(grade);
-    }
+//    public void addGradeToStudent(String studentId, Grade grade) throws Exception{
+//        Student student = getStudentById(studentId);
+//        student.addGrade(grade);
+//    }
 
     public void addToSelectedOfferings(String studentId, Offering offering) throws Exception {
         Student student = getStudentById(studentId);
@@ -60,23 +63,9 @@ public class StudentManager {
         student.removeFromWeeklySchedule(offering);
     }
 
-<<<<<<< HEAD
-//    public boolean addCourseToWaitingList(String studentId, Offering offering) throws Exception {
-//        Student student = getStudentById(studentId);
-//        student.addToWaitingOfferings(offering);
-//        student.setWaitingErrors(offering);
-//        if (student.getSubmissionErrors().size() == 0)
-//            return true;
-//        else {
-//            student.removeFromWeeklySchedule(offering);
-//            student.addToSelectedOfferings(offering);
-//            return false;
-//        }
-//    }
-=======
     public boolean hasCapacityError(List<String> errors) {
         for (String error: errors) {
-            if (error.contains("full"))
+            if (error.contains("ظرفیت"))
                 return true;
         }
         return false;
@@ -89,12 +78,14 @@ public class StudentManager {
         if (student.getSubmissionErrors().size() == 0)
             return true;
         else {
+            if (student.getSubmissionErrors().size() == 1 && 
+                hasCapacityError(student.getSubmissionErrors()))
+                return true;
             student.removeFromWeeklySchedule(offering);
-            student.addToSelectedOfferings(offering);
+            //student.addToSelectedOfferings(offering);
             return false;
         }
     }
->>>>>>> 3e1a062d9c2bdb39d52aae3134d5b39ff091c4eb
 
     public boolean finalizeSchedule(String studentId) throws Exception {
         Student student = getStudentById(studentId);
@@ -151,28 +142,32 @@ public class StudentManager {
         }
     }
 
-    public boolean hasCapacityError(List<String> errors) {
-        for (String error: errors) {
-            if (error.contains("full"))
-                return true;
+    public StudentInfo getStudentInfo() throws Exception{
+        Student loggedInStudent = getStudentById(getLoggedInId());
+        if (loggedInStudent == null) {
+            throw new BolbolestanStudentNotFoundError();
         }
-        return false;
+        return loggedInStudent.getInfo();
     }
 
-    public boolean addCourseToWaitingList(String studentId, Offering offering) throws Exception {
+    public ArrayList<ReportCard> getStudentReports() throws Exception {
+        Student loggedInStudent = getStudentById(getLoggedInId());
+        if (loggedInStudent == null) {
+            throw new BolbolestanStudentNotFoundError();
+        }
+        return loggedInStudent.getReportCards();
+    }
+
+    public void setReportCards(String studentId, ArrayList<Grade> grades) throws Exception {
+        System.out.println("setting report cards for: " + studentId);
         Student student = getStudentById(studentId);
-        student.addToWaitingOfferings(offering);
-        student.setWaitingErrors(offering);
-        if (student.getSubmissionErrors().size() == 0)
-            return true;
-        else {
-            if (student.getSubmissionErrors().size() == 1 &&
-                    hasCapacityError(student.getSubmissionErrors()))
-                return true;
-            student.removeFromWeeklySchedule(offering);
-            student.addToSelectedOfferings(offering);
-            return false;
-        }
+        student.setReportCards(grades);
     }
 
+    public void searchForCourses(String searchCourse) throws Exception {
+        if(!isAnybodyLoggedIn())
+            throw new BolbolestanStudentNotFoundError();
+        Student loggedIn = getStudentById(loggedInStudent);
+        loggedIn.searchFor(searchCourse);
+    }
 }
