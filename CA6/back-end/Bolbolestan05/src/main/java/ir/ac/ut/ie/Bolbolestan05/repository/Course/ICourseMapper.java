@@ -1,0 +1,11 @@
+package ir.ac.ut.ie.Bolbolestan05.repository.Course;
+
+import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Course.Course;
+import ir.ac.ut.ie.Bolbolestan05.repository.IMapper;
+
+import java.sql.SQLException;
+import java.util.List;
+
+public interface ICourseMapper extends IMapper<Course, String> {
+    List<Course> getAll() throws SQLException;
+}
