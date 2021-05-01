@@ -57,6 +57,17 @@ public class Student {
 
     public String getBirthDate() { return birthDate; }
 
+    public String getField() { return field; }
+
+    public String getFaculty() { return faculty; }
+
+    public String getLevel() { return level; }
+
+    public String getStatus() { return status; }
+
+    public String getImg() { return img; }
+
+
 //    public ArrayList<Grade> getGrades() { return grades; }
 
     public ArrayList<ReportCard> getReportCards() { return reportCards; }

@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Bolbolestan;
+import ir.ac.ut.ie.Bolbolestan05.repository.BolbolestanRepository;
+
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Course.Course;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Offering.Offering;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Student.Grade;
@@ -48,6 +50,7 @@ public class EducationSystem {
             try {
                 student.print();
                 Bolbolestan.getInstance().addStudent(student);
+                BolbolestanRepository.getInstance().insertStudent(student);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -66,6 +69,7 @@ public class EducationSystem {
                 Offering offering = offerings.get(i);
                 offering.setCourse(courses.get(i));
                 Bolbolestan.getInstance().addOffering(offering);
+                BolbolestanRepository.getInstance().insertOffering(offering);
                 offerings.get(i).print();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
