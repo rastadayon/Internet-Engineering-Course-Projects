@@ -33,6 +33,7 @@ public class OfferingMapper extends Mapper<Offering, String> implements IOfferin
                             "    foreign key (courseCode) references COURSES(code)\n" +
                             ");",
                     TABLE_NAME));
+            st.execute(String.format("ALTER TABLE %s CHARACTER SET utf8 COLLATE utf8_general_ci;", TABLE_NAME));
             st.close();
             con.close();
         }
@@ -48,7 +49,7 @@ public class OfferingMapper extends Mapper<Offering, String> implements IOfferin
 
     @Override
     protected String getInsertStatement(Offering offering) {
-        return String.format("INSERT INTO %s ( %s ) values (%s, %s, %s, %s, %d, %d);", TABLE_NAME, COLUMNS,
+        return String.format("INSERT IGNORE INTO %s ( %s ) values (%s, %s, %s, %s, %d, %d);", TABLE_NAME, COLUMNS,
                 Utils.quoteWrapper(offering.getCourseCode()), Utils.quoteWrapper(offering.getClassCode()),
                 Utils.quoteWrapper(offering.getName()), Utils.quoteWrapper(offering.getInstructor()),
                 offering.getCapacity(), offering.getSignedUp());

@@ -33,6 +33,7 @@ public class StudentMapper extends Mapper<Student, String> implements IStudentMa
                             "    img text not null\n" +
                             ");",
                     TABLE_NAME));
+            st.execute(String.format("ALTER TABLE %s CHARACTER SET utf8 COLLATE utf8_general_ci;", TABLE_NAME));
             st.close();
             con.close();
         }
@@ -48,8 +49,7 @@ public class StudentMapper extends Mapper<Student, String> implements IStudentMa
 
     @Override
     protected String getInsertStatement(Student student) {
-        System.out.println("STUDENT NAME: " + student.getName());
-        return String.format("INSERT INTO %s ( %s ) values (%s, %s, %s, %s, %s, %s, %s, %s, %s);", TABLE_NAME, COLUMNS,
+        return String.format("INSERT IGNORE INTO %s ( %s ) values (%s, %s, %s, %s, %s, %s, %s, %s, %s);", TABLE_NAME, COLUMNS,
                 Utils.quoteWrapper(student.getId()), Utils.quoteWrapper(student.getName()),
                 Utils.quoteWrapper(student.getSecondName()), Utils.quoteWrapper(student.getBirthDate()),
                 Utils.quoteWrapper(student.getField()), Utils.quoteWrapper(student.getFaculty()),

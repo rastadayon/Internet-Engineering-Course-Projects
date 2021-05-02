@@ -20,16 +20,17 @@ public class PrerequisiteMapper extends Mapper<HashMap<String, ArrayList<String>
         if (doManage) {
             Connection con = ConnectionPool.getConnection();
             Statement st = con.createStatement();
-//            st.executeUpdate(String.format("DROP TABLE IF EXISTS %s", TABLE_NAME));
+            st.executeUpdate(String.format("DROP TABLE IF EXISTS %s", TABLE_NAME));
             st.executeUpdate(String.format(
                     "CREATE TABLE IF NOT EXISTS %s (\n" +
                             "    courseCode varchar(255) not null,\n" +
                             "    prerequisite varchar(255) not null,\n" +
                             "    primary key(courseCode, prerequisite),\n" +
-                            "    foreign key (courseCode) references COURSES(code),\n" +
-                            "    foreign key (prerequisite) references COURSES(code)\n" +
+                            "    foreign key (courseCode) references COURSES(courseCode),\n" +
+                            "    foreign key (prerequisite) references COURSES(prerequisite)\n" +
                             ");",
                     TABLE_NAME));
+            st.execute(String.format("ALTER TABLE %s CHARACTER SET utf8 COLLATE utf8_general_ci;", TABLE_NAME));
             st.close();
             con.close();
         }

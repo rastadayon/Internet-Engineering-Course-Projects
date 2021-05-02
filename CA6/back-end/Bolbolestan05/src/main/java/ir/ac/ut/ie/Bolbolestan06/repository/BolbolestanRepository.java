@@ -43,21 +43,21 @@ public class BolbolestanRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        try {
-            ExamTimeMapper examTimeMapper = new ExamTimeMapper(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            ClassTimeMapper classTimeMapper = new ClassTimeMapper(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            PrerequisiteMapper prerequisiteMapper = new PrerequisiteMapper(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            ExamTimeMapper examTimeMapper = new ExamTimeMapper(true);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        try {
+//            ClassTimeMapper classTimeMapper = new ClassTimeMapper(true);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        try {
+//            PrerequisiteMapper prerequisiteMapper = new PrerequisiteMapper(true);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     //    Student

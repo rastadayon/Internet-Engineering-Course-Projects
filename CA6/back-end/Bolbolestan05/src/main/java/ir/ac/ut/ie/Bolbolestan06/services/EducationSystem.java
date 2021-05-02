@@ -48,7 +48,7 @@ public class EducationSystem {
         System.out.println(String.format("------------------> total number of students : %d", students.size()));
         for (Student student : students) {
             try {
-                student.print();
+//                student.print();
                 Bolbolestan.getInstance().addStudent(student);
                 BolbolestanRepository.getInstance().insertStudent(student);
             } catch (Exception e) {
@@ -71,8 +71,8 @@ public class EducationSystem {
                 offering.setCourse(course);
                 Bolbolestan.getInstance().addOffering(offering);
                 BolbolestanRepository.getInstance().insertCourse(course);
-                //BolbolestanRepository.getInstance().insertPrerequisite(course.getPrerequisiteInfo());
                 BolbolestanRepository.getInstance().insertOffering(offering);
+                //BolbolestanRepository.getInstance().insertPrerequisite(course.getPrerequisiteInfo());
                 offerings.get(i).print();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
