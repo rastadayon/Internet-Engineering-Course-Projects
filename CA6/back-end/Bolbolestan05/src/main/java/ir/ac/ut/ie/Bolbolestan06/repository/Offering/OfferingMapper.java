@@ -1,5 +1,6 @@
 package ir.ac.ut.ie.Bolbolestan06.repository.Offering;
 
+import ir.ac.ut.ie.Bolbolestan06.Utils.Pair;
 import ir.ac.ut.ie.Bolbolestan06.Utils.Utils;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.Offering;
 import ir.ac.ut.ie.Bolbolestan06.repository.ConnectionPool;
@@ -11,7 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-public class OfferingMapper extends Mapper<Offering, String> implements IOfferingMapper {
+public class OfferingMapper extends Mapper<Offering, Pair> implements IOfferingMapper {
 
     private static final String COLUMNS = " courseCode, classCode, name, instructor, capacity, signedUp ";
     private static final String TABLE_NAME = "OFFERINGS";
@@ -43,8 +44,10 @@ public class OfferingMapper extends Mapper<Offering, String> implements IOfferin
     }
 
     @Override
-    protected String getFindStatement(String id) {
-        return null;
+    protected String getFindStatement(Pair id) {
+        return String.format("select * from %s where %s = %s and %s = %s;", TABLE_NAME,
+                "courseCode", Utils.quoteWrapper(id.getArgs().get(0)),
+                "classCode", Utils.quoteWrapper(id.getArgs().get(1)));
     }
 
     @Override
@@ -56,7 +59,7 @@ public class OfferingMapper extends Mapper<Offering, String> implements IOfferin
     }
 
     @Override
-    protected String getDeleteStatement(String id) {
+    protected String getDeleteStatement(Pair id) {
         return null;
     }
 

@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ExamTimeMapper extends Mapper<ExamTime, Pair> implements IExamTimeMapper {
 
-    private static final String COLUMNS = " start, end ";
+    private static final String COLUMNS = " courseCode, classCode, start, end ";
     private static final String TABLE_NAME = "EXAM_TIMES";
 
     public ExamTimeMapper(Boolean doManage) throws SQLException {
@@ -22,9 +22,12 @@ public class ExamTimeMapper extends Mapper<ExamTime, Pair> implements IExamTimeM
 //            st.executeUpdate(String.format("DROP TABLE IF EXISTS %s", TABLE_NAME));
             st.executeUpdate(String.format(
                     "CREATE TABLE IF NOT EXISTS %s (\n" +
+                            "    courseCode varchar(255),\n" +
+                            "    classCode varchar(255),\n" +
                             "    start varchar(255) not null,\n" +
                             "    end varchar(255) not null,\n" +
-                            "    primary key(start, end)\n" +
+                            "    primary key(courseCode, classCode),\n" +
+                            "    foreign key (courseCode, classCode) references OFFERINGS(courseCode, classCode)\n" +
                             ");",
                     TABLE_NAME));
             st.close();
@@ -36,12 +39,15 @@ public class ExamTimeMapper extends Mapper<ExamTime, Pair> implements IExamTimeM
 
     @Override
     protected String getFindStatement(Pair id) {
-        return null;
+        return String.format("select * from %s where %s = %s and %s = %s;", TABLE_NAME,
+                "courseCode", Utils.quoteWrapper(id.getArgs().get(0)),
+                "classCode", Utils.quoteWrapper(id.getArgs().get(1)));
     }
 
     @Override
     protected String getInsertStatement(ExamTime examTime) {
-        return String.format("INSERT INTO %s ( %s ) values (%s, %s);", TABLE_NAME, COLUMNS,
+        return String.format("INSERT INTO %s ( %s ) values (%s, %s, %s, %s);", TABLE_NAME, COLUMNS,
+                Utils.quoteWrapper(examTime.getCourseCode()), Utils.quoteWrapper(examTime.getClassCode()),
                 Utils.quoteWrapper(examTime.getStart()), Utils.quoteWrapper(examTime.getEnd()));
     }
 
@@ -53,6 +59,8 @@ public class ExamTimeMapper extends Mapper<ExamTime, Pair> implements IExamTimeM
     @Override
     protected ExamTime convertResultSetToObject(ResultSet rs) throws SQLException {
         return new ExamTime(
+                rs.getString("courseCode"),
+                rs.getString("classCode"),
                 rs.getString("start"),
                 rs.getString("end")
         );

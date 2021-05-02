@@ -14,7 +14,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class GradeMapper extends Mapper<Grade, String> implements IGradeMapper { // returns Grade objects which do not have the course name and
+public class GradeMapper extends Mapper<HashMap<String, Grade>, String> implements IGradeMapper { // returns Grade objects which do not have the course name and
     // should be set later via the getCourseNameByCourseCode function
 
     private static final String COLUMNS = " studentId, courseCode, grade, term";
@@ -50,11 +50,16 @@ public class GradeMapper extends Mapper<Grade, String> implements IGradeMapper {
     }
 
     @Override
+    protected String getInsertStatement(HashMap<String, Grade> stringGradeHashMap) {
+        return null;
+    }
+
+    /*@Override
     protected String getInsertStatement(Grade grade) {
         return String.format("INSERT IGNORE INTO %s ( %s ) values (%s, %s, %d, %s);", TABLE_NAME, COLUMNS,
                 Utils.quoteWrapper(grade.getStudentId()), Utils.quoteWrapper(grade.getCode()),
                 grade.getGrade(), grade.getTerm());
-    }
+    }*/
 
     @Override
     protected String getDeleteStatement(String studentId) {
@@ -62,6 +67,12 @@ public class GradeMapper extends Mapper<Grade, String> implements IGradeMapper {
     }
 
     @Override
+    protected HashMap<String, Grade> convertResultSetToObject(ResultSet rs) throws SQLException {
+        return null;
+    }
+
+
+    /*@Override
     protected HashMap<String, ArrayList<String>> convertResultSetToObject(ResultSet rs) throws SQLException {
         HashMap<String, ArrayList<String>> result = new HashMap<>();
         ArrayList<String> courses = new ArrayList<>();
@@ -80,5 +91,5 @@ public class GradeMapper extends Mapper<Grade, String> implements IGradeMapper {
         }
         result.put(courseCode, courses);
         return result;
-    }
+    }*/
 }

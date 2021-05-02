@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClassTime {
+
     private String time;
+    private String courseCode;
+    private String classCode;
     private List<String> days = new ArrayList<String>();
 
     public ClassTime(String time, List<String> days) {
@@ -14,9 +17,24 @@ public class ClassTime {
         this.days = days;
     }
 
+    public ClassTime(String courseCode, String classCode, String time, String firstDay,
+                    String secondDay) {
+        this.courseCode = courseCode;
+        this.classCode = classCode;
+        this.time = time;
+        this.days.add(firstDay);
+        if (secondDay != null)
+            this.days.add(secondDay);
+    }
+
     public String getTime() { return time; }
 
     public List<String> getDays() { return days; }
+
+    public void setOffering(String courseCode, String classCode) {
+        this.courseCode = courseCode;
+        this.classCode = classCode;
+    }
 
     public void print() {
         System.out.println("class time :");
@@ -30,8 +48,22 @@ public class ClassTime {
         System.out.println(String.format("\ttime : %s", time));
     }
 
+    public String getCourseCode() { return courseCode; }
+
+    public String getClassCode() { return classCode; }
+
+    public String getFirstDay() { return days.get(0); }
+
+    public String getSecondDay() { return days.get(1); }
+
     public boolean hasTime(String day, String startTime) {
         if (days.contains(day) && time.startsWith(startTime))
+            return true;
+        return false;
+    }
+
+    public boolean hasTowDays() {
+        if (days.size() == 2)
             return true;
         return false;
     }

@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Bolbolestan;
+import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.ClassTime;
+import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.ExamTime;
 import ir.ac.ut.ie.Bolbolestan06.repository.BolbolestanRepository;
 
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Course.Course;
@@ -33,8 +35,8 @@ public class EducationSystem {
             importStudentsFromWeb(STUDENTS_URL);
             System.out.println("importing offerings..");
             importCoursesFromWeb(COURSES_URL);
-//            System.out.println("importing grades..");
-//            importGradesFromWeb(GRADES_URL);
+            System.out.println("importing grades..");
+            importGradesFromWeb(GRADES_URL);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -72,6 +74,12 @@ public class EducationSystem {
                 Bolbolestan.getInstance().addOffering(offering);
                 BolbolestanRepository.getInstance().insertCourse(course);
                 BolbolestanRepository.getInstance().insertOffering(offering);
+                ClassTime classTime = offering.getClassTime();
+                classTime.setOffering(offering.getCourseCode(), offering.getClassCode());
+                BolbolestanRepository.getInstance().insertClassTime(classTime);
+                ExamTime examTime = offering.getExamTime();
+                examTime.setOffering(offering.getCourseCode(), offering.getClassCode());
+                BolbolestanRepository.getInstance().insertExamTime(examTime);
                 if (course.getPrerequisiteInfo() != null)
                     BolbolestanRepository.getInstance().insertPrerequisite(course.getPrerequisiteInfo());
                 offerings.get(i).print();
