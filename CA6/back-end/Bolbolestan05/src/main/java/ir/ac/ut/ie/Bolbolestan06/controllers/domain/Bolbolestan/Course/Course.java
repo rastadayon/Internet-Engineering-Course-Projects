@@ -29,6 +29,8 @@ public class Course {
     public ArrayList<String> getPrerequisites() { return prerequisites; }
 
     public HashMap<String, ArrayList<String>> getPrerequisiteInfo() {
+        if(prerequisites.size() == 0)
+            return null;
         HashMap<String, ArrayList<String>> prerequisiteInfo =
             new HashMap<String, ArrayList<String>>(); 
             prerequisiteInfo.put(code, prerequisites);

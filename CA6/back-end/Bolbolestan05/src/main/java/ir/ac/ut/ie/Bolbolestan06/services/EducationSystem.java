@@ -72,7 +72,8 @@ public class EducationSystem {
                 Bolbolestan.getInstance().addOffering(offering);
                 BolbolestanRepository.getInstance().insertCourse(course);
                 BolbolestanRepository.getInstance().insertOffering(offering);
-                //BolbolestanRepository.getInstance().insertPrerequisite(course.getPrerequisiteInfo());
+                if (course.getPrerequisiteInfo() != null)
+                    BolbolestanRepository.getInstance().insertPrerequisite(course.getPrerequisiteInfo());
                 offerings.get(i).print();
             } catch (Exception e) {
                 System.out.println(e.getMessage());

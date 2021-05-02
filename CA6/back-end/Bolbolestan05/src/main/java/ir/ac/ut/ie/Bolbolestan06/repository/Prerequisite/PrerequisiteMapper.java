@@ -24,10 +24,10 @@ public class PrerequisiteMapper extends Mapper<HashMap<String, ArrayList<String>
             st.executeUpdate(String.format(
                     "CREATE TABLE IF NOT EXISTS %s (\n" +
                             "    courseCode varchar(255) not null,\n" +
-                            "    prerequisite varchar(255) not null,\n" +
-                            "    primary key(courseCode, prerequisite),\n" +
-                            "    foreign key (courseCode) references COURSES(courseCode),\n" +
-                            "    foreign key (prerequisite) references COURSES(prerequisite)\n" +
+                            "    prerequisiteCode varchar(255) not null,\n" +
+                            "    primary key(courseCode, prerequisiteCode),\n" +
+                            "    foreign key (courseCode) references COURSES(code),\n" +
+                            "    foreign key (prerequisiteCode) references COURSES(code)\n" +
                             ");",
                     TABLE_NAME));
             st.execute(String.format("ALTER TABLE %s CHARACTER SET utf8 COLLATE utf8_general_ci;", TABLE_NAME));
@@ -51,7 +51,7 @@ public class PrerequisiteMapper extends Mapper<HashMap<String, ArrayList<String>
         String courseCode = courses.entrySet().stream().findFirst().get().getKey();
         ArrayList<String> prerequisites = courses.entrySet().stream().findFirst().get().getValue();
         for (String prerequisite: prerequisites) {
-            insertString += String.format("INSERT INTO %s ( %s ) values (%s, %s);\n", TABLE_NAME, COLUMNS,
+            insertString += String.format("INSERT IGNORE INTO %s ( %s ) values (%s, %s);\n", TABLE_NAME, COLUMNS,
                 Utils.quoteWrapper(courseCode), Utils.quoteWrapper(prerequisite));
         }
         return insertString;
@@ -76,7 +76,7 @@ public class PrerequisiteMapper extends Mapper<HashMap<String, ArrayList<String>
             else
                 courseCode = correspondingCourseCode;
 
-            String prerequisiteCode = rs.getString("prerequisite");
+            String prerequisiteCode = rs.getString("prerequisiteCode");
             courses.add(prerequisiteCode);
         }
         result.put(courseCode, courses);
