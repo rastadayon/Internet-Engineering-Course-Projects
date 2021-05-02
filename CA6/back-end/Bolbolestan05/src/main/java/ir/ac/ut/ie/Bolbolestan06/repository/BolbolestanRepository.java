@@ -7,9 +7,12 @@ import ir.ac.ut.ie.Bolbolestan06.repository.ClassTime.ClassTimeMapper;
 import ir.ac.ut.ie.Bolbolestan06.repository.Course.CourseMapper;
 import ir.ac.ut.ie.Bolbolestan06.repository.ExamTime.ExamTimeMapper;
 import ir.ac.ut.ie.Bolbolestan06.repository.Offering.OfferingMapper;
+import ir.ac.ut.ie.Bolbolestan06.repository.Prerequisite.PrerequisiteMapper;
 import ir.ac.ut.ie.Bolbolestan06.repository.Student.StudentMapper;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BolbolestanRepository {
     private static BolbolestanRepository instance;
@@ -50,6 +53,11 @@ public class BolbolestanRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        try {
+            PrerequisiteMapper prerequisiteMapper = new PrerequisiteMapper(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     //    Student
@@ -68,5 +76,11 @@ public class BolbolestanRepository {
     public void insertOffering(Offering offering) throws SQLException {
         OfferingMapper offeringMapper = new OfferingMapper();
         offeringMapper.insert(offering);
+    }
+
+    //    Prerequisite
+    public void insertPrerequisite(HashMap<String, ArrayList<String>> prerequisiteInfo) throws SQLException {
+        PrerequisiteMapper prerequisiteMapper = new PrerequisiteMapper();
+        prerequisiteMapper.insert(prerequisiteInfo);
     }
 }

@@ -1,6 +1,7 @@
 package ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Course;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Course {
     private String code;
@@ -26,4 +27,11 @@ public class Course {
     public String getType() { return type; }
 
     public ArrayList<String> getPrerequisites() { return prerequisites; }
+
+    public HashMap<String, ArrayList<String>> getPrerequisiteInfo() {
+        HashMap<String, ArrayList<String>> prerequisiteInfo =
+            new HashMap<String, ArrayList<String>>(); 
+            prerequisiteInfo.put(code, prerequisites);
+            return prerequisiteInfo;
+    }
 }

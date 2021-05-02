@@ -31,8 +31,8 @@ public class EducationSystem {
         try {
             System.out.println("importing students..");
             importStudentsFromWeb(STUDENTS_URL);
-//            System.out.println("importing offerings..");
-//            importCoursesFromWeb(COURSES_URL);
+            System.out.println("importing offerings..");
+            importCoursesFromWeb(COURSES_URL);
 //            System.out.println("importing grades..");
 //            importGradesFromWeb(GRADES_URL);
         } catch (Exception e) {
@@ -66,9 +66,12 @@ public class EducationSystem {
         }.getType());
         for (int i = 0; i < offerings.size(); i++) {
             try {
+                Course course = courses.get(i);
                 Offering offering = offerings.get(i);
-                offering.setCourse(courses.get(i));
+                offering.setCourse(course);
                 Bolbolestan.getInstance().addOffering(offering);
+                BolbolestanRepository.getInstance().insertCourse(course);
+                //BolbolestanRepository.getInstance().insertPrerequisite(course.getPrerequisiteInfo());
                 BolbolestanRepository.getInstance().insertOffering(offering);
                 offerings.get(i).print();
             } catch (Exception e) {
