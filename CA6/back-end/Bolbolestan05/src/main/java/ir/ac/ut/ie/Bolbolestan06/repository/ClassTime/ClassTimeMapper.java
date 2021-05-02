@@ -23,7 +23,7 @@ public class ClassTimeMapper extends Mapper<ClassTime, String> implements IClass
 //            st.executeUpdate(String.format("DROP TABLE IF EXISTS %s", TABLE_NAME));
             st.executeUpdate(String.format(
                     "CREATE TABLE IF NOT EXISTS %s (\n" +
-                            "    time text primary key\n" +
+                            "    time varchar(255) primary key\n" +
                             ");",
                     TABLE_NAME));
             st.close();

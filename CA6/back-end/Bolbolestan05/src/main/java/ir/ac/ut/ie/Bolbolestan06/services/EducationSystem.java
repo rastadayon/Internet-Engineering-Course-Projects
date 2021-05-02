@@ -31,10 +31,10 @@ public class EducationSystem {
         try {
             System.out.println("importing students..");
             importStudentsFromWeb(STUDENTS_URL);
-            System.out.println("importing offerings..");
-            importCoursesFromWeb(COURSES_URL);
-            System.out.println("importing grades..");
-            importGradesFromWeb(GRADES_URL);
+//            System.out.println("importing offerings..");
+//            importCoursesFromWeb(COURSES_URL);
+//            System.out.println("importing grades..");
+//            importGradesFromWeb(GRADES_URL);
         } catch (Exception e) {
             e.printStackTrace();
         }

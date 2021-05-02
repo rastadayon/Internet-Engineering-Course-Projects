@@ -11,7 +11,7 @@ import java.util.List;
 
 public class CourseMapper extends Mapper<Course, String> implements ICourseMapper {
 
-    private static final String COLUMNS = " time ";
+    private static final String COLUMNS = " code, name, units, type ";
     private static final String TABLE_NAME = "COURSES";
 
     public CourseMapper(Boolean doManage) throws SQLException {
@@ -24,9 +24,9 @@ public class CourseMapper extends Mapper<Course, String> implements ICourseMappe
                             "    code varchar(255) primary key,\n" +
                             "    name varchar(255) not null,\n" +
                             "    units int not null,\n" +
-                            "    type text not null,\n" +
-                            "    prerequisite text,\n" +
-                            "    foreign key (prerequisite) references COURSES(code) \n" +
+                            "    type text not null\n" +
+//                            "    prerequisite text,\n" +
+//                            "    foreign key (prerequisite) references COURSES(code) \n" +
                             ");",
                     TABLE_NAME));
             st.close();

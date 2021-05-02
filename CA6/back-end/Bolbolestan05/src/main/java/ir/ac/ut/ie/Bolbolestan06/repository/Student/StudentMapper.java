@@ -18,7 +18,8 @@ public class StudentMapper extends Mapper<Student, String> implements IStudentMa
         if (doManage) {
             Connection con = ConnectionPool.getConnection();
             Statement st = con.createStatement();
-//            st.executeUpdate(String.format("DROP TABLE IF EXISTS %s", TABLE_NAME));
+            // @TODO comment the following line later
+            st.executeUpdate(String.format("DROP TABLE IF EXISTS %s", TABLE_NAME));
             st.executeUpdate(String.format(
                     "CREATE TABLE IF NOT EXISTS %s (\n" +
                             "    id varchar(255) primary key,\n" +
@@ -47,6 +48,7 @@ public class StudentMapper extends Mapper<Student, String> implements IStudentMa
 
     @Override
     protected String getInsertStatement(Student student) {
+        System.out.println("STUDENT NAME: " + student.getName());
         return String.format("INSERT INTO %s ( %s ) values (%s, %s, %s, %s, %s, %s, %s, %s, %s);", TABLE_NAME, COLUMNS,
                 Utils.quoteWrapper(student.getId()), Utils.quoteWrapper(student.getName()),
                 Utils.quoteWrapper(student.getSecondName()), Utils.quoteWrapper(student.getBirthDate()),

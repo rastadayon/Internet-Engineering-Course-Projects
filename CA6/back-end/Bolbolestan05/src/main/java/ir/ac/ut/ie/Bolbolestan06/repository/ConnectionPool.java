@@ -3,6 +3,7 @@ package ir.ac.ut.ie.Bolbolestan06.repository;
 import org.apache.commons.dbcp.BasicDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class ConnectionPool {
 
@@ -18,6 +19,7 @@ public class ConnectionPool {
         ds.setMinIdle(1);
         ds.setMaxIdle(2000);
         ds.setMaxOpenPreparedStatements(2000);
+        setEncoding();
     }
 
     public static Connection getConnection() throws SQLException {
@@ -29,6 +31,19 @@ public class ConnectionPool {
         }
     }
 
-    private ConnectionPool() {
+    public static void setEncoding(){
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            statement.execute("ALTER DATABASE BolbolestanDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;");
+            connection.close();
+            statement.close();
+            System.out.println("SET KARD UTF ESHO >>>>>>>>>>>>>>>>>");
+        }
+        catch (SQLException e)
+        {
+            System.out.println("NATUNEST SET KONE UTF ESHO...........");
+            System.out.println(e.getMessage());
+        }
     }
 }

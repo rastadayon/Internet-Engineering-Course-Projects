@@ -10,9 +10,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExamTimeMapper extends Mapper<ExamTime, String> implements IExamTimeMapper {
+public class ExamTimeMapper extends Mapper<ExamTime, Pair> implements IExamTimeMapper {
 
-    private static final String COLUMNS = " time ";
+    private static final String COLUMNS = " start, end ";
     private static final String TABLE_NAME = "EXAM_TIMES";
 
     public ExamTimeMapper(Boolean doManage) throws SQLException {
@@ -23,8 +23,7 @@ public class ExamTimeMapper extends Mapper<ExamTime, String> implements IExamTim
             st.executeUpdate(String.format(
                     "CREATE TABLE IF NOT EXISTS %s (\n" +
                             "    start varchar(255) not null,\n" +
-                            "    end varchar(255), not null\n" +
-                            "    name varchar(255) not null,\n" +
+                            "    end varchar(255) not null,\n" +
                             "    primary key(start, end)\n" +
                             ");",
                     TABLE_NAME));
@@ -36,7 +35,7 @@ public class ExamTimeMapper extends Mapper<ExamTime, String> implements IExamTim
     public ExamTimeMapper() throws SQLException {}
 
     @Override
-    protected String getFindStatement(String id) {
+    protected String getFindStatement(Pair id) {
         return null;
     }
 
@@ -47,13 +46,8 @@ public class ExamTimeMapper extends Mapper<ExamTime, String> implements IExamTim
     }
 
     @Override
-    protected String getDeleteStatement(String id) {
-        return null;
-    }
-
     protected String getDeleteStatement(Pair id) {
-        return String.format("delete from %s where %s.%s = %s and %s.%s = %s", TABLE_NAME, TABLE_NAME, "restaurantId",
-                Utils.quoteWrapper(id.getArgs().get(0)), TABLE_NAME, "name", Utils.quoteWrapper(id.getArgs().get(1)));
+        return null;
     }
 
     @Override
