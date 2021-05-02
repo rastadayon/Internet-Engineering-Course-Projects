@@ -1,17 +1,21 @@
 package ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student;
 
 public class Grade {
+    private final String studentId;
     private final String code;
     private String courseName;
     private final float grade;
     private final int term;
     private int units = 0;
 
-    public Grade(String code, float grade, int term) {
+    public Grade(String studentId, String code, float grade, int term) {
+        this.studentId = studentId;
         this.code = code;
         this.grade = grade;
         this.term  = term;
     }
+
+    public String getStudentId() { return studentId; }
 
     public void setUnits(int units) {
         this.units = units;

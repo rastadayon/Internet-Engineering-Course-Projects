@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class PrerequisiteMapper extends Mapper<HashMap<String, ArrayList<String>>, String> implements IPrerequisiteMapper{
+public class PrerequisiteMapper extends Mapper<HashMap<String, ArrayList<String>>, String> implements IPrerequisiteMapper {
     private static final String COLUMNS = " courseCode, prerequisiteCode";
     private static final String TABLE_NAME = "PREREQUISITES";
 
