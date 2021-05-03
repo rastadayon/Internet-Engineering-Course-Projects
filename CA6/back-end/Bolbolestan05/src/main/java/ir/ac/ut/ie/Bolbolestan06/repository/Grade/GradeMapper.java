@@ -16,7 +16,7 @@ import java.util.List;
 public class GradeMapper extends Mapper<Grade, Pair> implements IGradeMapper { // returns Grade objects which do not have the course name and
     // should be set later via the getCourseNameByCourseCode function
 
-    private static final String COLUMNS = "studentId, courseCode, grade, term";
+    private static final String COLUMNS = "studentId, courseCode, courseName, grade, units, term";
     private static final String TABLE_NAME = "GRADES";
 
     public GradeMapper(Boolean doManage) throws SQLException {
@@ -28,7 +28,9 @@ public class GradeMapper extends Mapper<Grade, Pair> implements IGradeMapper { /
                     "CREATE TABLE IF NOT EXISTS %s (\n" +
                             "    studentId varchar(255) not null,\n" +
                             "    courseCode varchar(255) not null,\n" +
+                            "    courseName varchar(255) not null,\n" +
                             "    grade int,\n" +
+                            "    units int not null,\n" +
                             "    term int not null,\n" +
                             "    primary key(studentId, courseCode, term),\n" +
                             "    foreign key (courseCode) references COURSES(code)\n" +
@@ -46,15 +48,15 @@ public class GradeMapper extends Mapper<Grade, Pair> implements IGradeMapper { /
     @Override
     protected String getFindStatement(Pair pair) {
         String studentId = pair.getArgs().get(0);
-        return String.format("select * from %s where %s.%s = %s;", TABLE_NAME, TABLE_NAME, "studentId", Utils.quoteWrapper(studentId));
+        return String.format("select * from %s where %s.%s = %s order by term ASC;", TABLE_NAME, TABLE_NAME, "studentId", Utils.quoteWrapper(studentId));
     }
 
 
     @Override
     protected String getInsertStatement(Grade grade) {
-        return String.format("INSERT IGNORE INTO %s ( %s ) values (%s, %s, %d, %s);", TABLE_NAME, COLUMNS,
+        return String.format("INSERT IGNORE INTO %s ( %s ) values (%s, %s, %s, %d, %d, %d);", TABLE_NAME, COLUMNS,
                 Utils.quoteWrapper(grade.getStudentId()), Utils.quoteWrapper(grade.getCode()),
-                grade.getGrade(), grade.getTerm());
+                Utils.quoteWrapper(grade.getCourseName()), grade.getGrade(), grade.getUnits(), grade.getTerm());
     }
 
     @Override
@@ -68,7 +70,9 @@ public class GradeMapper extends Mapper<Grade, Pair> implements IGradeMapper { /
         return new Grade(
                 rs.getString("studentId"),
                 rs.getString("courseCode"),
+                rs.getString("courseName"),
                 rs.getInt("grade"),
+                rs.getInt("units"),
                 rs.getInt("term")
         );
     }

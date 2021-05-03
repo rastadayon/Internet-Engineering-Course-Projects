@@ -153,9 +153,8 @@ public class StudentManager {
 
     public ArrayList<ReportCard> getStudentReports() throws Exception {
         Student loggedInStudent = getStudentById(getLoggedInId());
-        if (loggedInStudent == null) {
+        if (loggedInStudent == null)
             throw new BolbolestanStudentNotFoundError();
-        }
         return loggedInStudent.getReportCards();
     }
 

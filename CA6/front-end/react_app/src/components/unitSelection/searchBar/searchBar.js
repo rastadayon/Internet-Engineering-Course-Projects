@@ -1,7 +1,6 @@
 import React from 'react'
 import styles from './searchBar-styles.css'
 import {toast} from "react-toastify";
-import API from '../../../apis/api';
 
 class SearchBar extends React.Component {
 

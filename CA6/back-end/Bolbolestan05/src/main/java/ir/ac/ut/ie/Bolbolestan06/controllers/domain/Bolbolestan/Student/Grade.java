@@ -15,6 +15,16 @@ public class Grade {
         this.term  = term;
     }
 
+    public Grade(String studentId, String code, String courseName,
+                 int grade, int units, int term) {
+        this.studentId = studentId;
+        this.code = code;
+        this.courseName = courseName;
+        this.grade = grade;
+        this.term  = term;
+        this.units = units;
+    }
+
     public String getStudentId() { return studentId; }
 
     public void setStudentId(String studentId) { this.studentId = studentId; }
@@ -40,5 +50,7 @@ public class Grade {
     public void print() {
         System.out.println(String.format("grade : %s", grade));
         System.out.println(String.format("course code : %s", code));
+        System.out.println(String.format("course name : %s", courseName));
+        System.out.println(String.format("term : %d", units));
     }
 }

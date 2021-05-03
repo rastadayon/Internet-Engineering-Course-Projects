@@ -3,6 +3,7 @@ package ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.Offering;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Utilities.Utils;
 import ir.ac.ut.ie.Bolbolestan06.controllers.models.StudentInfo;
+import ir.ac.ut.ie.Bolbolestan06.repository.BolbolestanRepository;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -69,7 +70,31 @@ public class Student {
 
 //    public ArrayList<Grade> getGrades() { return grades; }
 
-    public ArrayList<ReportCard> getReportCards() { return reportCards; }
+    public ArrayList<ReportCard> getReportCards() {
+        ArrayList<ReportCard> reportCards = new ArrayList<>();
+        ArrayList<Grade> grades = BolbolestanRepository.getInstance().getStudentGrades(this.id);
+        if(grades == null) return null;
+        for (Grade grade : grades) {
+            int semester = grade.getTerm();
+            boolean found = false;
+            for (ReportCard reportcard : reportCards) {
+                if (reportcard.getSemester() == semester) {
+                    reportcard.addGrade(grade);
+                    found = true;
+                }
+            }
+            if(!found) {
+                ReportCard reportCard = new ReportCard(semester);
+                reportCard.addGrade(grade);
+                reportCards.add(reportCard);
+            }
+        }
+        for (ReportCard reportCard : reportCards) {
+            reportCard.setGPA();
+        }
+        Collections.sort(reportCards);
+        return reportCards;
+    }
 
     public WeeklySchedule getSelectedOfferings() {
         return courseSelection.getSelectedOfferings();
@@ -97,26 +122,26 @@ public class Student {
     }
 
     public int getTotalPassedUnits() {
+        ArrayList<Grade> grades = BolbolestanRepository.getInstance().getStudentGrades(this.id);
         int totalPassedUnits = 0;
-        if (reportCards != null)
-            for (ReportCard reportCard : reportCards) {
-                totalPassedUnits += reportCard.getUnits();
+        if (grades != null)
+            for (Grade grade : grades) {
+                if(grade.getGrade() >= 10)
+                    totalPassedUnits += grade.getUnits();
             }
         return totalPassedUnits;
     }
 
     public float getGPA() {
-
+        ArrayList<Grade> grades = BolbolestanRepository.getInstance().getStudentGrades(this.id);
+        if(grades == null)
+            return 0;
         int count = 0;
         float gradeSum = 0;
         Utils utils = Utils.getInstance();
-        if (reportCards != null) {
-            for (ReportCard reportCard : reportCards) {
-                for (Grade grade : reportCard.getGrades()) {
-                    gradeSum += (grade.getGrade() * grade.getUnits());
-                    count += grade.getUnits();
-                }
-            }
+        for (Grade grade : grades) {
+            gradeSum += (grade.getGrade() * grade.getUnits());
+            count += grade.getUnits();
         }
         if (count != 0)
             return utils.round(gradeSum/count, 2);
