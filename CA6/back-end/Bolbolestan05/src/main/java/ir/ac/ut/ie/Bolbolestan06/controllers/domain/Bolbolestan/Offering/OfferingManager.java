@@ -18,8 +18,10 @@ public class OfferingManager {
 
     public Offering getOfferingById(String courseCode, String classCode) throws Exception {
         try {
+//            BolbolestanRepository.getInstance().findOfferingById(courseCode, classCode).print();
             return BolbolestanRepository.getInstance().findOfferingById(courseCode, classCode);
         }catch (SQLException e){
+            System.out.println( "Moshkele SQL " + e.getMessage() + " -- course code " + courseCode + '-' + classCode);
             throw new BolbolestanCourseNotFoundError();
         }
         //for (Offering offering : offerings)

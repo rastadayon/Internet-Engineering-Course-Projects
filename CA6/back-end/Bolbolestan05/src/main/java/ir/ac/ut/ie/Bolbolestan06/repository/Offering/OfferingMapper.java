@@ -63,6 +63,10 @@ public class OfferingMapper extends Mapper<Offering, Pair> implements IOfferingM
 
     @Override
     protected Offering convertResultSetToObject(ResultSet rs) throws SQLException {
+//        if(!rs.next())
+//            System.out.println("NOOOOOOOOOOO");
+//        else rs.previous();
+        System.out.println(rs);
         return new Offering(
                 rs.getString("classCode"),
                 rs.getString("instructor"),

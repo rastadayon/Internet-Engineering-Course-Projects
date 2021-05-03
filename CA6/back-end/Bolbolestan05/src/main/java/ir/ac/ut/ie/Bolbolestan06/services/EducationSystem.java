@@ -101,9 +101,13 @@ public class EducationSystem {
             for (Grade grade : grades) {
 //                grade.print();
                 grade.setStudentId(studentId);
+                Course course = BolbolestanRepository.getInstance().getCourseByCode(grade.getCode());
+                if(course != null) {
+                    grade.setUnits(course.getUnits());
+                    grade.setCourseName(course.getName());
+                }
                 try {
                     BolbolestanRepository.getInstance().insertGrade(grade);
-//                    Bolbolestan.getInstance().setReportCards(studentId, grades);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }

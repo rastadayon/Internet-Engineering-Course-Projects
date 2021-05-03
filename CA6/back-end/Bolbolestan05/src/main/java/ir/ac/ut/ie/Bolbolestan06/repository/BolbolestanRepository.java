@@ -139,13 +139,20 @@ public class BolbolestanRepository {
         List<String> args = new ArrayList<>();
         args.add(courseCode);
         args.add(classCode);
+//        System.out.println("Offering we wanna get : " + courseCode + '-' + classCode);
         Offering offering = new OfferingMapper().find(new Pair(args));
+//        System.out.println("offering found");
         Course course =  new CourseMapper().find(courseCode);
+//        System.out.println("course found");
         ExamTime examTime = new ExamTimeMapper().find(new Pair(args));
+//        System.out.println("exam time found");
         ClassTime classTime = new ClassTimeMapper().find(new Pair(args));
+//        System.out.println("class time found");
         offering.setCourse(course);
         offering.setClassTime(classTime);
         offering.setExamTime(examTime);
+//        System.out.println("IN THE DAMN DATABASE");
+        offering.print();
         return offering;
     }
 
@@ -200,6 +207,15 @@ public class BolbolestanRepository {
         try {
             ArrayList<Grade> grades = new GradeMapper().getStudentGrades(studentId);
             return grades;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public Course getCourseByCode(String code) {
+        try {
+            Course course = new CourseMapper().find(code);
+            return course;
         } catch (Exception e) {
             return null;
         }

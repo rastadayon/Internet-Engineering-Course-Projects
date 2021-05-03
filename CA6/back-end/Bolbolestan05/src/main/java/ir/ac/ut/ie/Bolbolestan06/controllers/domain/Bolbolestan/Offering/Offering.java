@@ -73,13 +73,13 @@ public class Offering {
         System.out.println(String.format("type : %s", course.getType()));
         System.out.println(String.format("instructor : %s", instructor));
         System.out.println(String.format("capacity : %d", capacity));
-        System.out.print("prerequisites : [ ");
-        for (int i = 0; i < course.getPrerequisites().size(); i++) {
-            if (i != 0)
-                System.out.print(", ");
-            System.out.print(course.getPrerequisites().get(i));
-        }
-        System.out.println(" ]");
+//        System.out.print("prerequisites : [ ");
+//        for (int i = 0; i < course.getPrerequisites().size(); i++) {
+//            if (i != 0)
+//                System.out.print(", ");
+//            System.out.print(course.getPrerequisites().get(i));
+//        }
+//        System.out.println(" ]");
         classTime.print();
         examTime.print();
     }

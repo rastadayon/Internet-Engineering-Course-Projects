@@ -28,7 +28,7 @@ public class StudentController {
 
 
 
-    @GetMapping("/reportCards") // change this
+    @GetMapping("/reportCards")
     public ResponseEntity getReportCards() throws IOException {
         System.out.println("getting report cards");
         try{
