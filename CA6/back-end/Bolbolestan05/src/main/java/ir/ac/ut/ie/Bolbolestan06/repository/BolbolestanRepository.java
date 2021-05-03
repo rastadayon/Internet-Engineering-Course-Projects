@@ -5,10 +5,12 @@ import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Course.Course;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.ClassTime;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.ExamTime;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.Offering;
+import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student.Grade;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student.Student;
 import ir.ac.ut.ie.Bolbolestan06.repository.ClassTime.ClassTimeMapper;
 import ir.ac.ut.ie.Bolbolestan06.repository.Course.CourseMapper;
 import ir.ac.ut.ie.Bolbolestan06.repository.ExamTime.ExamTimeMapper;
+import ir.ac.ut.ie.Bolbolestan06.repository.Grade.GradeMapper;
 import ir.ac.ut.ie.Bolbolestan06.repository.Offering.OfferingMapper;
 import ir.ac.ut.ie.Bolbolestan06.repository.Prerequisite.PrerequisiteMapper;
 import ir.ac.ut.ie.Bolbolestan06.repository.Student.StudentMapper;
@@ -62,6 +64,11 @@ public class BolbolestanRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        try {
+            GradeMapper gradeMapper = new GradeMapper(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     //    Student
@@ -98,6 +105,12 @@ public class BolbolestanRepository {
     public void insertPrerequisite(HashMap<String, ArrayList<String>> prerequisiteInfo) throws SQLException {
         PrerequisiteMapper prerequisiteMapper = new PrerequisiteMapper();
         prerequisiteMapper.insert(prerequisiteInfo);
+    }
+
+    //    Grade
+    public void insertGrade(Grade grade) throws SQLException {
+        GradeMapper gradeMapper = new GradeMapper();
+        gradeMapper.insert(grade);
     }
 
     public Offering findOfferingById(String courseCode, String classCode) throws SQLException {

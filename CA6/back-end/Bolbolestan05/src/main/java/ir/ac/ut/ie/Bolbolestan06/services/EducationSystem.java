@@ -82,7 +82,7 @@ public class EducationSystem {
                 BolbolestanRepository.getInstance().insertExamTime(examTime);
                 if (course.getPrerequisiteInfo() != null)
                     BolbolestanRepository.getInstance().insertPrerequisite(course.getPrerequisiteInfo());
-                offerings.get(i).print();
+//                offerings.get(i).print();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -97,11 +97,16 @@ public class EducationSystem {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             ArrayList<Grade> grades = gson.fromJson(gradesJsonString, new TypeToken<List<Grade>>() {
             }.getType());
-            try {
-                System.out.println("getting grades for : " + studentId);
-                Bolbolestan.getInstance().setReportCards(studentId, grades);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            System.out.println("getting grades for : " + studentId);
+            for (Grade grade : grades) {
+//                grade.print();
+                grade.setStudentId(studentId);
+                try {
+                    BolbolestanRepository.getInstance().insertGrade(grade);
+//                    Bolbolestan.getInstance().setReportCards(studentId, grades);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
     }

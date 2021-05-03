@@ -14,7 +14,7 @@ import java.util.List;
 
 public class OfferingMapper extends Mapper<Offering, Pair> implements IOfferingMapper {
 
-    private static final String COLUMNS = " courseCode, classCode, instructor, capacity, signedUp ";
+    private static final String COLUMNS = "courseCode, classCode, instructor, capacity, signedUp";
     private static final String TABLE_NAME = "OFFERINGS";
 
     public OfferingMapper(Boolean doManage) throws SQLException {

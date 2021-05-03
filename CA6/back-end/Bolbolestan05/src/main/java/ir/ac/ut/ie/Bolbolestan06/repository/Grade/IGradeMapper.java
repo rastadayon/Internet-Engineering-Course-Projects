@@ -6,5 +6,5 @@ import ir.ac.ut.ie.Bolbolestan06.repository.IMapper;
 
 import java.util.HashMap;
 
-public interface IGradeMapper extends IMapper<HashMap<String, Grade>, String> {
+public interface IGradeMapper extends IMapper<Grade, Pair> {
 }
