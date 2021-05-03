@@ -26,8 +26,24 @@ public class Offering {
         this.examTime = examTime;
         this.signedUp = 0;
     }
+
+    public Offering(String classCode, String instructor, int capacity, int signedUp) {
+        this.classCode = classCode;
+        this.instructor = instructor;
+        this.capacity = capacity;
+        this.signedUp = signedUp;
+    }
+
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public void setClassTime(ClassTime classTime) {
+        this.classTime = classTime;
+    }
+
+    public void setExamTime(ExamTime examTime) {
+        this.examTime = examTime;
     }
 
     public String getType() { return course.getType(); }

@@ -13,13 +13,6 @@ public class ExamTime {
         this.end = end;
     }
 
-    public ExamTime(String courseCode, String classCode, String start, String end) {
-        this.courseCode = courseCode;
-        this.classCode = classCode;
-        this.start = start;
-        this.end = end;
-    }
-
     public String getStart() { return start; }
 
     public String getEnd() { return end; }

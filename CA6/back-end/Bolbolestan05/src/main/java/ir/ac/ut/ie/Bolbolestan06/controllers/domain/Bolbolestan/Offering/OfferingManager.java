@@ -3,7 +3,9 @@ package ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.exeptions.BolbolestanCourseNotFoundError;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.exeptions.BolbolestanRulesViolationError;
 import ir.ac.ut.ie.Bolbolestan06.controllers.models.ClassTimeData;
+import ir.ac.ut.ie.Bolbolestan06.repository.BolbolestanRepository;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +17,15 @@ public class OfferingManager {
     }
 
     public Offering getOfferingById(String courseCode, String classCode) throws Exception {
-        for (Offering offering : offerings)
-            if (offering.getCourseCode().equals(courseCode) && offering.getClassCode().equals(classCode))
-                return offering;
-        throw new BolbolestanCourseNotFoundError();
+        try {
+            return BolbolestanRepository.getInstance().findOfferingById(courseCode, classCode);
+        }catch (SQLException e){
+            throw new BolbolestanCourseNotFoundError();
+        }
+        //for (Offering offering : offerings)
+            //if (offering.getCourseCode().equals(courseCode) && offering.getClassCode().equals(classCode))
+                //return offering;
+        //throw new BolbolestanCourseNotFoundError();
     }
 
     public boolean offeringHasCapacity(String courseCode, String classCode) throws Exception {

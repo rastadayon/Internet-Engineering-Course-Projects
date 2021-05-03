@@ -14,7 +14,7 @@ import java.util.List;
 
 public class OfferingMapper extends Mapper<Offering, Pair> implements IOfferingMapper {
 
-    private static final String COLUMNS = " courseCode, classCode, name, instructor, capacity, signedUp ";
+    private static final String COLUMNS = " courseCode, classCode, instructor, capacity, signedUp ";
     private static final String TABLE_NAME = "OFFERINGS";
 
     public OfferingMapper(Boolean doManage) throws SQLException {
@@ -26,7 +26,6 @@ public class OfferingMapper extends Mapper<Offering, Pair> implements IOfferingM
                     "CREATE TABLE IF NOT EXISTS %s (\n" +
                             "    courseCode varchar(255) not null,\n" +
                             "    classCode varchar(255) not null,\n" +
-                            "    name varchar(255) not null,\n" +
                             "    instructor varchar(255) not null,\n" +
                             "    capacity int not null,\n" +
                             "    signedUp int not null,\n" +
@@ -52,10 +51,9 @@ public class OfferingMapper extends Mapper<Offering, Pair> implements IOfferingM
 
     @Override
     protected String getInsertStatement(Offering offering) {
-        return String.format("INSERT IGNORE INTO %s ( %s ) values (%s, %s, %s, %s, %d, %d);", TABLE_NAME, COLUMNS,
-                Utils.quoteWrapper(offering.getCourseCode()), Utils.quoteWrapper(offering.getClassCode()),
-                Utils.quoteWrapper(offering.getName()), Utils.quoteWrapper(offering.getInstructor()),
-                offering.getCapacity(), offering.getSignedUp());
+        return String.format("INSERT IGNORE INTO %s ( %s ) values (%s, %s, %s, %d, %d);", TABLE_NAME, COLUMNS,
+                Utils.quoteWrapper(offering.getCourseCode()), Utils.quoteWrapper(offering.getClassCode()), 
+                Utils.quoteWrapper(offering.getInstructor()), offering.getCapacity(), offering.getSignedUp());
     }
 
     @Override
@@ -65,7 +63,12 @@ public class OfferingMapper extends Mapper<Offering, Pair> implements IOfferingM
 
     @Override
     protected Offering convertResultSetToObject(ResultSet rs) throws SQLException {
-        return null;
+        return new Offering(
+                rs.getString("classCode"),
+                rs.getString("instructor"),
+                rs.getInt("capacity"),
+                rs.getInt("signedUp")
+        );
     }
 
     @Override

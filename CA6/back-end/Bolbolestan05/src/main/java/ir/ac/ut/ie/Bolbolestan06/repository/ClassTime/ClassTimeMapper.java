@@ -69,8 +69,6 @@ public class ClassTimeMapper extends Mapper<ClassTime, Pair> implements IClassTi
     @Override
     protected ClassTime convertResultSetToObject(ResultSet rs) throws SQLException {
         return new ClassTime(
-                rs.getString("courseCode"),
-                rs.getString("classCode"),
                 rs.getString("time"),
                 rs.getString("firstDay"),
                 rs.getString("secondDay")

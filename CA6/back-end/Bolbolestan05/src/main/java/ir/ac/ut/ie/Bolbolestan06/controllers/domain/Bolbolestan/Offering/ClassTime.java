@@ -17,10 +17,7 @@ public class ClassTime {
         this.days = days;
     }
 
-    public ClassTime(String courseCode, String classCode, String time, String firstDay,
-                    String secondDay) {
-        this.courseCode = courseCode;
-        this.classCode = classCode;
+    public ClassTime(String time, String firstDay, String secondDay) {
         this.time = time;
         this.days.add(firstDay);
         if (secondDay != null)

@@ -1,5 +1,6 @@
 package ir.ac.ut.ie.Bolbolestan06.repository;
 
+import ir.ac.ut.ie.Bolbolestan06.Utils.Pair;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Course.Course;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.ClassTime;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.ExamTime;
@@ -15,6 +16,7 @@ import ir.ac.ut.ie.Bolbolestan06.repository.Student.StudentMapper;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class BolbolestanRepository {
     private static BolbolestanRepository instance;
@@ -96,5 +98,19 @@ public class BolbolestanRepository {
     public void insertPrerequisite(HashMap<String, ArrayList<String>> prerequisiteInfo) throws SQLException {
         PrerequisiteMapper prerequisiteMapper = new PrerequisiteMapper();
         prerequisiteMapper.insert(prerequisiteInfo);
+    }
+
+    public Offering findOfferingById(String courseCode, String classCode) throws SQLException {
+        List<String> args = new ArrayList<>();
+        args.add(courseCode);
+        args.add(classCode);
+        Offering offering = new OfferingMapper().find(new Pair(args));
+        Course course =  new CourseMapper().find(courseCode);
+        ExamTime examTime = new ExamTimeMapper().find(new Pair(args));
+        ClassTime classTime = new ClassTimeMapper().find(new Pair(args));
+        offering.setCourse(course);
+        offering.setClassTime(classTime);
+        offering.setExamTime(examTime);
+        return offering;
     }
 }

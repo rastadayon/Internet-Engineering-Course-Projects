@@ -59,8 +59,6 @@ public class ExamTimeMapper extends Mapper<ExamTime, Pair> implements IExamTimeM
     @Override
     protected ExamTime convertResultSetToObject(ResultSet rs) throws SQLException {
         return new ExamTime(
-                rs.getString("courseCode"),
-                rs.getString("classCode"),
                 rs.getString("start"),
                 rs.getString("end")
         );
