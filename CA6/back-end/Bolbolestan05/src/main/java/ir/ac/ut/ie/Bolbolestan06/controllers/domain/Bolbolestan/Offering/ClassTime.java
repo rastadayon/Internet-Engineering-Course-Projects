@@ -20,7 +20,7 @@ public class ClassTime {
     public ClassTime(String time, String firstDay, String secondDay) {
         this.time = time;
         this.days.add(firstDay);
-        if (secondDay != null)
+        if (!secondDay.equals(""))
             this.days.add(secondDay);
     }
 

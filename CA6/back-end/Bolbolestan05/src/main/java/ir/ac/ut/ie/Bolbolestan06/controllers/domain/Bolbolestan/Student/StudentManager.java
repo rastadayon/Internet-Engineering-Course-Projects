@@ -1,11 +1,14 @@
 package ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student;
 
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.Offering;
+import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.exeptions.BolbolestanCourseNotFoundError;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.exeptions.BolbolestanRulesViolationError;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.exeptions.BolbolestanStudentNotFoundError;
+import ir.ac.ut.ie.Bolbolestan06.controllers.models.Selection;
 import ir.ac.ut.ie.Bolbolestan06.controllers.models.StudentInfo;
 import ir.ac.ut.ie.Bolbolestan06.repository.BolbolestanRepository;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,10 +19,11 @@ public class StudentManager {
     public Student getStudentById(String studentId) throws Exception{
         if (studentId == null)
             throw new BolbolestanStudentNotFoundError();
-        for (Student student : students)
-            if (student.getId().equals(studentId))
-                return student;
-        throw new BolbolestanStudentNotFoundError();
+        try {
+            return BolbolestanRepository.getInstance().findStudentById(studentId);
+        }catch (SQLException e){
+            throw new BolbolestanStudentNotFoundError();
+        }
     }
 
     public ArrayList<String> getStudentIds() {
@@ -55,14 +59,15 @@ public class StudentManager {
 //    }
 
     public void addToSelectedOfferings(String studentId, Offering offering) throws Exception {
-        Student student = getStudentById(studentId);
+        Student student = getStudentById(studentId); //TODO: duplicatedMethod
         student.addToSelectedOfferings(offering);
+        addCourseToStudent(studentId, offering);
     }
 
-    public void removeFromWeeklySchedule(String studentId, Offering offering) throws Exception {
-        Student student = getStudentById(studentId);
-        student.removeFromWeeklySchedule(offering);
-    }
+    //public void removeFromWeeklySchedule(String studentId, Offering offering) throws Exception {
+        //Student student = getStudentById(studentId);
+        //student.removeFromWeeklySchedule(offering);
+    //}
 
     public boolean hasCapacityError(List<String> errors) {
         for (String error: errors) {
@@ -74,7 +79,8 @@ public class StudentManager {
 
     public boolean addCourseToWaitingList(String studentId, Offering offering) throws Exception {
         Student student = getStudentById(studentId);
-        student.addToWaitingOfferings(offering);
+        student.addToWaitingOfferings(offering); //TODO: Remove
+        addCourseToWaitingForStudent(studentId, offering);
         student.setWaitingErrors(offering);
         if (student.getSubmissionErrors().size() == 0)
             return true;
@@ -82,7 +88,8 @@ public class StudentManager {
             if (student.getSubmissionErrors().size() == 1 && 
                 hasCapacityError(student.getSubmissionErrors()))
                 return true;
-            student.removeFromWeeklySchedule(offering);
+            student.removeFromWeeklySchedule(offering); //TODO: Remove
+            removeFromWeeklySchedule(studentId, offering);
             //student.addToSelectedOfferings(offering);
             return false;
         }
@@ -116,9 +123,29 @@ public class StudentManager {
         return student.getPrerequisitesNotPassed(offering);
     }
 
+    public void removeFromWeeklySchedule(String studentId, Offering offering) {
+        try {
+            BolbolestanRepository.getInstance().removeSelection(studentId, offering.getCourseCode());
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void addCourseToStudent(String studentId, Offering offering) throws Exception {
         Student student = getStudentById(studentId);
-        student.addToSelectedOfferings(offering);
+        student.addToSelectedOfferings(offering); //TODO: Delete
+        Selection selection = new Selection(studentId, offering.getCourseCode(),
+                offering.getClassCode(), "not-submitted");
+        BolbolestanRepository.getInstance().insertSelection(selection);
+    }
+
+    public void addCourseToWaitingForStudent(String studentId, Offering offering) throws Exception {
+        Student student = getStudentById(studentId);
+        student.addToSelectedOfferings(offering); //TODO: Delete
+        Selection selection = new Selection(studentId, offering.getCourseCode(),
+                offering.getClassCode(), "waiting");
+        BolbolestanRepository.getInstance().insertSelection(selection);
     }
 
     public String getLoggedInId() { return this.loggedInStudent; }

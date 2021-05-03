@@ -7,12 +7,14 @@ import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.ExamTim
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.Offering;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student.Grade;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student.Student;
+import ir.ac.ut.ie.Bolbolestan06.controllers.models.Selection;
 import ir.ac.ut.ie.Bolbolestan06.repository.ClassTime.ClassTimeMapper;
 import ir.ac.ut.ie.Bolbolestan06.repository.Course.CourseMapper;
 import ir.ac.ut.ie.Bolbolestan06.repository.ExamTime.ExamTimeMapper;
 import ir.ac.ut.ie.Bolbolestan06.repository.Grade.GradeMapper;
 import ir.ac.ut.ie.Bolbolestan06.repository.Offering.OfferingMapper;
 import ir.ac.ut.ie.Bolbolestan06.repository.Prerequisite.PrerequisiteMapper;
+import ir.ac.ut.ie.Bolbolestan06.repository.Selection.SelectionMapper;
 import ir.ac.ut.ie.Bolbolestan06.repository.Student.StudentMapper;
 
 import java.sql.SQLException;
@@ -69,6 +71,11 @@ public class BolbolestanRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        try {
+            SelectionMapper selectionMapper = new SelectionMapper(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     //    Student
@@ -113,6 +120,19 @@ public class BolbolestanRepository {
         gradeMapper.insert(grade);
     }
 
+    //    Selection
+    public void insertSelection(Selection selection) throws SQLException {
+        SelectionMapper selectionMapper = new SelectionMapper();
+        selectionMapper.insert(selection);
+    }
+
+    public void removeSelection(String studentId, String courseCode) throws SQLException {
+        List<String> args = new ArrayList<>();
+        args.add(studentId);
+        args.add(courseCode);
+        new SelectionMapper().delete(new Pair(args));
+    }
+
     public Offering findOfferingById(String courseCode, String classCode) throws SQLException {
         List<String> args = new ArrayList<>();
         args.add(courseCode);
@@ -134,6 +154,14 @@ public class BolbolestanRepository {
         return offering;
     }
 
+    public static Course findCourseByCode(String courseCode) throws SQLException {
+        return new CourseMapper().find(courseCode);
+    }
+
+    public static Student findStudentById(String studentId) throws SQLException {
+        return new StudentMapper().find(studentId);
+    }
+    
     public Student getStudent(String studentId) {
         try {
             Student student = new StudentMapper().find(studentId);
