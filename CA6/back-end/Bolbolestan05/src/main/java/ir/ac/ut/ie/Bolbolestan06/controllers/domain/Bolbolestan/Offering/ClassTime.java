@@ -49,9 +49,17 @@ public class ClassTime {
 
     public String getClassCode() { return classCode; }
 
-    public String getFirstDay() { return days.get(0); }
+    public String getFirstDay() { 
+    	if (days.size() >= 1)
+    		return days.get(0); 
+    	return "";
+    }
 
-    public String getSecondDay() { return days.get(1); }
+    public String getSecondDay() { 
+    if (days.size() >= 2)
+    		return days.get(1); 
+    	return ""; 
+    }
 
     public boolean hasTime(String day, String startTime) {
         if (days.contains(day) && time.startsWith(startTime))
