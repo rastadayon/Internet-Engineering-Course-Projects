@@ -147,11 +147,30 @@ public class BolbolestanRepository {
         return offering;
     }
 
+<<<<<<< HEAD
     public static Course findCourseByCode(String courseCode) throws SQLException {
         return new CourseMapper().find(courseCode);
     }
 
     public static Student findStudentById(String studentId) throws SQLException {
         return new StudentMapper().find(studentId);
+=======
+    public Student getStudent(String studentId) {
+        try {
+            Student student = new StudentMapper().find(studentId);
+            return student;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public ArrayList<Grade> getStudentGrades(String studentId) {
+        try {
+            ArrayList<Grade> grades = new GradeMapper().getStudentGrades(studentId);
+            return grades;
+        } catch (Exception e) {
+            return null;
+        }
+>>>>>>> f43af05cfbff7253b466f5ebeacc5fa49ce549ee
     }
 }

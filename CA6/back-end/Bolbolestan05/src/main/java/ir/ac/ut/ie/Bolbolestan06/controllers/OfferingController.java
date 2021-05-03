@@ -83,6 +83,9 @@ public class OfferingController {
             @RequestBody SearchData searchData) throws IOException {
         try {
             List<Offering> searchResult = SearchService.searchKeyword(searchData);
+            System.out.println("GOT THE SEARCH RESULT : ");
+            for (Offering offering : searchResult)
+                offering.print();
             return ResponseEntity.status(HttpStatus.OK).body(searchResult);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("student not found. invalid login");

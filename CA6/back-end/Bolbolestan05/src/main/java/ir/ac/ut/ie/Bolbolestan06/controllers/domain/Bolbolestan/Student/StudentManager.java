@@ -170,8 +170,8 @@ public class StudentManager {
         }
     }
 
-    public StudentInfo getStudentInfo() throws Exception{
-        Student loggedInStudent = getStudentById(getLoggedInId());
+    public StudentInfo getStudentInfo() throws Exception {
+        Student loggedInStudent = BolbolestanRepository.getInstance().getStudent(getLoggedInId());
         if (loggedInStudent == null) {
             throw new BolbolestanStudentNotFoundError();
         }
