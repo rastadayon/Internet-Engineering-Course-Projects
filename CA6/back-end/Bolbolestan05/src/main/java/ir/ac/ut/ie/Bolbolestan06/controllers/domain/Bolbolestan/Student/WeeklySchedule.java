@@ -14,6 +14,11 @@ public class WeeklySchedule {
         weeklySchedule = new ArrayList<Offering>();
     }
 
+    public WeeklySchedule(List<Offering> offerings, int term) {
+        this.term = term;
+        weeklySchedule = offerings;
+    }
+
     public List<Offering> getOfferings() {
         return weeklySchedule;
     }

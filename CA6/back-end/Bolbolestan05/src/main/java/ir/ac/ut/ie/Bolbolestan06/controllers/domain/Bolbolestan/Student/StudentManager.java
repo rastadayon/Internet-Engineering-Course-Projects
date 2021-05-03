@@ -106,6 +106,14 @@ public class StudentManager {
             return false;
     }
 
+    public WeeklySchedule getStudentScheduleById(String studentId) throws Exception {
+        try {
+            return BolbolestanRepository.getInstance().findStudentScheduleById(studentId, "submitted");
+        }catch (SQLException e){
+            throw new BolbolestanStudentNotFoundError();
+        }
+    }
+
     public ArrayList<Offering> getClassTimeConflicts(Student student, Offering offering, List<Offering> schedule) throws Exception {
         ArrayList<Offering> conflictingOfferings = null;
         for (Offering scheduleOffering : schedule) {
@@ -197,5 +205,13 @@ public class StudentManager {
             throw new BolbolestanStudentNotFoundError();
         Student loggedIn = getStudentById(loggedInStudent);
         loggedIn.searchFor(searchCourse);
+    }
+
+    public CourseSelection getStudentCourseSelectionById(String studentId) throws Exception {
+        try {
+            return BolbolestanRepository.getInstance().findCourseSelectionById(studentId);
+        }catch (SQLException e){
+            throw new BolbolestanStudentNotFoundError();
+        }
     }
 }

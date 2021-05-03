@@ -5,8 +5,10 @@ import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Course.Course;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.ClassTime;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.ExamTime;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.Offering;
+import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student.CourseSelection;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student.Grade;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student.Student;
+import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student.WeeklySchedule;
 import ir.ac.ut.ie.Bolbolestan06.controllers.models.Selection;
 import ir.ac.ut.ie.Bolbolestan06.repository.ClassTime.ClassTimeMapper;
 import ir.ac.ut.ie.Bolbolestan06.repository.Course.CourseMapper;
@@ -154,7 +156,37 @@ public class BolbolestanRepository {
     public static Student findStudentById(String studentId) throws SQLException {
         return new StudentMapper().find(studentId);
     }
-    
+
+    public int getCurrentTerm(String studentId) {
+        try {
+            return new GradeMapper().getCurrentTerm(studentId);
+        }
+        catch (SQLException e) {
+            return 1;
+        }
+    }
+
+    public WeeklySchedule findStudentScheduleById(String studentId, String status) throws SQLException {
+        List<Offering> offerings = new ArrayList<Offering>();
+        List<Selection> selections = new SelectionMapper().findStudentSchedule(studentId, status);
+        for (Selection selection: selections) {
+            List<String> args = new ArrayList<>();
+            args.add(selection.getCourseCode());
+            args.add(selection.getClassCode());
+            Offering offering = new OfferingMapper().find(new Pair(args));
+            offerings.add(offering);
+        }
+        int term = getCurrentTerm(studentId);
+        return new WeeklySchedule(offerings, term);
+    }
+
+    public CourseSelection findCourseSelectionById(String studentId) throws SQLException {
+        WeeklySchedule submitted = findStudentScheduleById(studentId, "submitted");
+        WeeklySchedule selected = findStudentScheduleById(studentId, "not-submitted");
+        WeeklySchedule waiting = findStudentScheduleById(studentId, "waiting");
+        return new CourseSelection(submitted, selected, waiting);
+    }
+
     public Student getStudent(String studentId) {
         try {
             Student student = new StudentMapper().find(studentId);

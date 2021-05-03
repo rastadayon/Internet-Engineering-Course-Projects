@@ -165,7 +165,7 @@ export default class CoursesListItem extends React.Component {
             }}).catch(error => {
                 console.log(error)
                 if(error.response.status == 401 || error.response.status == 403) {
-                    window.location.href = "http://localhost:3000/login"
+                    //window.location.href = "http://localhost:3000/login"
                 }
             })
     }
@@ -180,7 +180,7 @@ export default class CoursesListItem extends React.Component {
             }}).catch(error => {
                 console.log(error)
                 if(error.response.status == 401 || error.response.status == 403) {
-                    window.location.href = "http://localhost:3000/login"
+                    //window.location.href = "http://localhost:3000/login"
                 }
             })
     }
@@ -198,7 +198,7 @@ export default class CoursesListItem extends React.Component {
             }}).catch(error => {
                 console.log(error)
                 if(error.response.status == 401 || error.response.status == 403) {
-                    window.location.href = "http://localhost:3000/login"
+                   // window.location.href = "http://localhost:3000/login"
                 }
             })
     }

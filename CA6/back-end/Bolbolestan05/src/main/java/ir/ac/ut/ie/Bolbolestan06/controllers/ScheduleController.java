@@ -17,7 +17,8 @@ public class ScheduleController {
         Bolbolestan bolbolestan = Bolbolestan.getInstance();
         if (bolbolestan.isAnybodyLoggedIn()) {
             try {
-                WeeklySchedule schedule =  bolbolestan.getLoggedInStudent().getSubmittedOfferings();
+                //WeeklySchedule schedule =  bolbolestan.getLoggedInStudent().getSubmittedOfferings();
+                WeeklySchedule schedule =  bolbolestan.getLoggedInStudentSchedule();
                 return ResponseEntity.status(HttpStatus.OK).body(schedule);
             } catch (Exception e) {
                 response.sendError(HttpStatus.BAD_REQUEST.value(), e.getMessage());

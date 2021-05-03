@@ -207,7 +207,8 @@ public class OfferingController {
         Bolbolestan bolbolestan = Bolbolestan.getInstance();
         if (bolbolestan.isAnybodyLoggedIn()) {
             try {
-                CourseSelection courseSelection =  bolbolestan.getLoggedInStudent().getCourseSelection();
+                //CourseSelection courseSelection =  bolbolestan.getLoggedInStudent().getCourseSelection();
+                CourseSelection courseSelection =  bolbolestan.getLoggedInStudentCourseSelection();
                 System.out.println("selections successful");
                 return ResponseEntity.status(HttpStatus.OK).body(courseSelection);
             } catch (Exception e) {
