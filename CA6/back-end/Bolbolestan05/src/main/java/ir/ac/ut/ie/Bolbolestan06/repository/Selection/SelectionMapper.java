@@ -19,7 +19,7 @@ public class SelectionMapper extends Mapper<Selection, Pair> implements ISelecti
         if (doManage) {
             Connection con = ConnectionPool.getConnection();
             Statement st = con.createStatement();
-            st.executeUpdate(String.format("DROP TABLE IF EXISTS %s", TABLE_NAME));
+            //st.executeUpdate(String.format("DROP TABLE IF EXISTS %s", TABLE_NAME));
             st.executeUpdate(String.format(
                     "CREATE TABLE IF NOT EXISTS %s (\n" +
                             "    studentId varchar(255) not null,\n" +
@@ -27,7 +27,7 @@ public class SelectionMapper extends Mapper<Selection, Pair> implements ISelecti
                             "    classCode varchar(255) not null,\n" +
                             "    status varchar(255) not null,\n" +
                             "    primary key(studentId, courseCode),\n" +
-                            "    foreign key (studentId) references STUDENTS(studentId),\n" +
+                            "    foreign key (studentId) references STUDENTS(id),\n" +
                             "    foreign key (courseCode, classCode) references OFFERINGS(courseCode, classCode)\n" +
                             ");",
                     TABLE_NAME));

@@ -177,13 +177,10 @@ public class BolbolestanRepository {
         List<Offering> offerings = new ArrayList<Offering>();
         List<Selection> selections = new SelectionMapper().findStudentSchedule(studentId, status);
         for (Selection selection: selections) {
-            List<String> args = new ArrayList<>();
-            args.add(selection.getCourseCode());
-            args.add(selection.getClassCode());
-            Offering offering = new OfferingMapper().find(new Pair(args));
+            Offering offering = findOfferingById(selection.getCourseCode(), selection.getClassCode());
             offerings.add(offering);
         }
-        int term = getCurrentTerm(studentId);
+        int term = 0;//getCurrentTerm(studentId);
         return new WeeklySchedule(offerings, term);
     }
 

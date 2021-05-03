@@ -63,7 +63,7 @@ public class GradeMapper extends Mapper<Grade, Pair> implements IGradeMapper { /
     @Override
     protected String getDeleteStatement(Pair pair) {
         String studentId = pair.getArgs().get(0);
-        return String.format("delete from %s where %s.%s = %s", TABLE_NAME, TABLE_NAME, "studentId", Utils.quoteWrapper(studentId));
+        return String.format("delete from %s where %s.%s = %s;", TABLE_NAME, TABLE_NAME, "studentId", Utils.quoteWrapper(studentId));
     }
 
     @Override
@@ -79,7 +79,7 @@ public class GradeMapper extends Mapper<Grade, Pair> implements IGradeMapper { /
     }
 
     protected String getFindTermStatement(String studentId) {
-        return String.format("select * from %s where %s = %s order by term limit 1",
+        return String.format("select * from %s where %s = %s order by term desc limit 1;",
                 TABLE_NAME, "studentId", Utils.quoteWrapper(studentId));
     }
 
