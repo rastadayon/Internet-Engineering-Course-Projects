@@ -74,7 +74,7 @@ public class GradeMapper extends Mapper<Grade, Pair> implements IGradeMapper { /
     }
 
 
-    private ArrayList<Grade> getStudentGrades(String studentId) throws SQLException {
+    public ArrayList<Grade> getStudentGrades(String studentId) throws SQLException {
         ArrayList<Grade> result = new ArrayList<>();
         String statement = String.format("select * from %s where %s.%s = %s;", TABLE_NAME, TABLE_NAME, "studentId", Utils.quoteWrapper(studentId));
         try (Connection con = ConnectionPool.getConnection();

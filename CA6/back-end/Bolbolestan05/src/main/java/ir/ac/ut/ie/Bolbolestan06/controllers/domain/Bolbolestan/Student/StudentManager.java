@@ -4,6 +4,7 @@ import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.Offerin
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.exeptions.BolbolestanRulesViolationError;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.exeptions.BolbolestanStudentNotFoundError;
 import ir.ac.ut.ie.Bolbolestan06.controllers.models.StudentInfo;
+import ir.ac.ut.ie.Bolbolestan06.repository.BolbolestanRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -142,8 +143,8 @@ public class StudentManager {
         }
     }
 
-    public StudentInfo getStudentInfo() throws Exception{
-        Student loggedInStudent = getStudentById(getLoggedInId());
+    public StudentInfo getStudentInfo() throws Exception {
+        Student loggedInStudent = BolbolestanRepository.getInstance().getStudent(getLoggedInId());
         if (loggedInStudent == null) {
             throw new BolbolestanStudentNotFoundError();
         }

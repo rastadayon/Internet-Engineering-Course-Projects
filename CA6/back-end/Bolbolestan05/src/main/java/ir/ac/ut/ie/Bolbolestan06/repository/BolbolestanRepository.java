@@ -126,4 +126,22 @@ public class BolbolestanRepository {
         offering.setExamTime(examTime);
         return offering;
     }
+
+    public Student getStudent(String studentId) {
+        try {
+            Student student = new StudentMapper().find(studentId);
+            return student;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public ArrayList<Grade> getStudentGrades(String studentId) {
+        try {
+            ArrayList<Grade> grades = new GradeMapper().getStudentGrades(studentId);
+            return grades;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

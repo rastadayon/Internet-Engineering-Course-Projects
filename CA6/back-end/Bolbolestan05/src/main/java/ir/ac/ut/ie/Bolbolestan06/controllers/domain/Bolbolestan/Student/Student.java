@@ -106,6 +106,7 @@ public class Student {
     }
 
     public float getGPA() {
+
         int count = 0;
         float gradeSum = 0;
         Utils utils = Utils.getInstance();
