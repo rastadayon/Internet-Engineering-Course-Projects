@@ -12,6 +12,13 @@ public class CourseSelection {
     private List<String> submissionErrors = new ArrayList<String>();
     private List<String> waitingErrors = new ArrayList<String>();
 
+    public CourseSelection(WeeklySchedule submitted, WeeklySchedule selected,
+                           WeeklySchedule waiting) {
+        this.submittedOfferings = submitted;
+        this.selectedOfferings = selected;
+        this.waitingOfferings = waiting;
+    }
+
     public CourseSelection(int term) {
         submittedOfferings.setTerm(term);
     }

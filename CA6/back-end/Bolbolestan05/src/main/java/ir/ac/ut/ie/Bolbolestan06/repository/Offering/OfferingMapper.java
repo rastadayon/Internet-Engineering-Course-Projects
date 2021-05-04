@@ -6,10 +6,7 @@ import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.Offerin
 import ir.ac.ut.ie.Bolbolestan06.repository.ConnectionPool;
 import ir.ac.ut.ie.Bolbolestan06.repository.Mapper;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
 
 public class OfferingMapper extends Mapper<Offering, Pair> implements IOfferingMapper {
@@ -78,5 +75,45 @@ public class OfferingMapper extends Mapper<Offering, Pair> implements IOfferingM
     @Override
     public List<Offering> getAll() throws SQLException {
         return null;
+    }
+
+    public String getIncreaseSignedUpStatement(String courseCode, String classCode) {
+        return String.format("update %s set signedUp = signedUp + 1 where %s = %s and %s = %s;",
+                TABLE_NAME, "courseCode", Utils.quoteWrapper(courseCode),
+                "classCode", Utils.quoteWrapper(classCode));
+    }
+
+    public void increaseSignedUp(String courseCode, String classCode) throws SQLException {
+        String statement = getIncreaseSignedUpStatement(courseCode, classCode);
+        try (Connection con = ConnectionPool.getConnection();
+             PreparedStatement st = con.prepareStatement(statement);
+        ) {
+            try {
+                st.executeUpdate();
+            } catch (SQLException ex) {
+                System.out.println("error in Mapper.increaseSignedUp query.");
+                throw ex;
+            }
+        }
+    }
+
+    public String getDecreaseSignedUpStatement(String courseCode, String classCode) {
+        return String.format("update %s set signedUp = signedUp - 1 where %s = %s and %s = %s;",
+                TABLE_NAME, "courseCode", Utils.quoteWrapper(courseCode),
+                "classCode", Utils.quoteWrapper(classCode));
+    }
+
+    public void decreaseSignedUp(String courseCode, String classCode) throws SQLException {
+        String statement = getDecreaseSignedUpStatement(courseCode, classCode);
+        try (Connection con = ConnectionPool.getConnection();
+             PreparedStatement st = con.prepareStatement(statement);
+        ) {
+            try {
+                st.executeUpdate();
+            } catch (SQLException ex) {
+                System.out.println("error in Mapper.decreaseSignedUp query.");
+                throw ex;
+            }
+        }
     }
 }

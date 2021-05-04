@@ -4,6 +4,7 @@ import ir.ac.ut.ie.Bolbolestan06.Utils.Pair;
 import ir.ac.ut.ie.Bolbolestan06.Utils.Utils;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.Offering;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student.Grade;
+import ir.ac.ut.ie.Bolbolestan06.controllers.models.Selection;
 import ir.ac.ut.ie.Bolbolestan06.repository.ConnectionPool;
 import ir.ac.ut.ie.Bolbolestan06.repository.Mapper;
 import ir.ac.ut.ie.Bolbolestan06.repository.Prerequisite.IPrerequisiteMapper;
@@ -62,7 +63,7 @@ public class GradeMapper extends Mapper<Grade, Pair> implements IGradeMapper { /
     @Override
     protected String getDeleteStatement(Pair pair) {
         String studentId = pair.getArgs().get(0);
-        return String.format("delete from %s where %s.%s = %s", TABLE_NAME, TABLE_NAME, "studentId", Utils.quoteWrapper(studentId));
+        return String.format("delete from %s where %s.%s = %s;", TABLE_NAME, TABLE_NAME, "studentId", Utils.quoteWrapper(studentId));
     }
 
     @Override
@@ -77,6 +78,10 @@ public class GradeMapper extends Mapper<Grade, Pair> implements IGradeMapper { /
         );
     }
 
+    protected String getFindTermStatement(String studentId) {
+        return String.format("select * from %s where %s = %s order by term desc limit 1;",
+                TABLE_NAME, "studentId", Utils.quoteWrapper(studentId));
+    }
 
     public ArrayList<Grade> getStudentGrades(String studentId) throws SQLException {
         ArrayList<Grade> result = new ArrayList<>();
@@ -93,6 +98,23 @@ public class GradeMapper extends Mapper<Grade, Pair> implements IGradeMapper { /
                 return result;
             } catch (SQLException ex) {
                 System.out.println("error in Mapper.getStudentGrades query.");
+                throw ex;
+            }
+        }
+    }
+
+    public int getCurrentTerm(String studentId) throws SQLException {
+        String statement = getFindTermStatement(studentId);
+        try (Connection con = ConnectionPool.getConnection();
+             PreparedStatement st = con.prepareStatement(statement);
+        ) {
+            ResultSet resultSet;
+            try {
+                resultSet = st.executeQuery();
+                con.close();
+                return resultSet.getInt("term");
+            } catch (SQLException ex) {
+                System.out.println("error in Mapper.findTerm query.");
                 throw ex;
             }
         }

@@ -4,10 +4,7 @@ import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Course.Course;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Course.CourseManager;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.Offering;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.OfferingManager;
-import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student.Grade;
-import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student.ReportCard;
-import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student.Student;
-import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student.StudentManager;
+import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student.*;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.exeptions.BolbolestanStudentNotFoundError;
 import ir.ac.ut.ie.Bolbolestan06.controllers.models.ClassTimeData;
 import ir.ac.ut.ie.Bolbolestan06.controllers.models.StudentInfo;
@@ -138,6 +135,10 @@ public class Bolbolestan {
         studentManager.searchForCourses(searchCourse);
     }
 
+    public WeeklySchedule getLoggedInStudentSchedule() throws Exception {
+        return studentManager.getStudentScheduleById(getLoggedInId());
+    }
+
     public Student getLoggedInStudent() throws Exception {
         return studentManager.getStudentById(getLoggedInId());
     }
@@ -155,8 +156,8 @@ public class Bolbolestan {
     }
 
     public void resetSelectedOfferings(String studentId) throws Exception {
-        Student student = studentManager.getStudentById(studentId);
-        student.resetSelectedOfferings();
+        studentManager.resetSelectionsById(studentId);
+        //.resetSelectedOfferings();
     }
 
     public void checkWaitingLists() throws Exception {
@@ -228,5 +229,9 @@ public class Bolbolestan {
             throw new BolbolestanStudentNotFoundError();
         Course course = courseManager.getCourseByCode(courseCode);
         return course.getName();
+    }
+
+    public CourseSelection getLoggedInStudentCourseSelection() throws Exception {
+        return studentManager.getStudentCourseSelectionById(getLoggedInId());
     }
 }

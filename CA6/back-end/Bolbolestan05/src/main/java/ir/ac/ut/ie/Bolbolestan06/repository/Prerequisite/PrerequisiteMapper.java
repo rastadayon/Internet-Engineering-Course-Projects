@@ -20,7 +20,7 @@ public class PrerequisiteMapper extends Mapper<HashMap<String, ArrayList<String>
         if (doManage) {
             Connection con = ConnectionPool.getConnection();
             Statement st = con.createStatement();
-            st.executeUpdate(String.format("DROP TABLE IF EXISTS %s", TABLE_NAME));
+            //st.executeUpdate(String.format("DROP TABLE IF EXISTS %s", TABLE_NAME));
             st.executeUpdate(String.format(
                     "CREATE TABLE IF NOT EXISTS %s (\n" +
                             "    courseCode varchar(255) not null,\n" +
