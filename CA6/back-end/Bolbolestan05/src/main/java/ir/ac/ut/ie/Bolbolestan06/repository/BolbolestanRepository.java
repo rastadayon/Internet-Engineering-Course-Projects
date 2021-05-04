@@ -245,7 +245,6 @@ public class BolbolestanRepository {
         }
         new SelectionMapper().updateWaitings();
     }
-}
 
     private void setOfferingData(Offering offering) throws SQLException{
         ArrayList<String> args = new ArrayList<>();
