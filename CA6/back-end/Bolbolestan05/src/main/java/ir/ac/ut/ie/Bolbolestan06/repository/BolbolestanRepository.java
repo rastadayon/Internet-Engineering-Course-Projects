@@ -113,7 +113,7 @@ public class BolbolestanRepository {
 
     //    Prerequisite
     public void insertPrerequisite(HashMap<String, ArrayList<String>> prerequisiteInfo) throws SQLException {
-        System.out.println("inserting prerequisites :))))))))))))))))))))");
+//        System.out.println("inserting prerequisites :))))))))))))))))))))");
         PrerequisiteMapper prerequisiteMapper = new PrerequisiteMapper();
         prerequisiteMapper.insert(prerequisiteInfo);
     }
@@ -158,15 +158,12 @@ public class BolbolestanRepository {
         offering.setClassTime(classTime);
         offering.setExamTime(examTime);
 //        System.out.println("IN THE DAMN DATABASE");
-        offering.print();
+//        offering.print();
         return offering;
     }
 
     public static Course findCourseByCode(String courseCode) throws SQLException {
-
         Course course = new CourseMapper().find(courseCode);
-        ArrayList<String> prerequisites = new PrerequisiteMapper().find(courseCode).get(courseCode);
-        course.setPrerequisites(prerequisites);
         return course;
     }
 

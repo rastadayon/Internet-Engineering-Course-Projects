@@ -68,10 +68,10 @@ public class OfferingController {
             @PathVariable String classCode) {
         try {
             ArrayList<String> farsiPrerequisites = new ArrayList<>();
-            Offering offering = Bolbolestan.getInstance().getOffering(courseCode, classCode);
-            ArrayList<String> prerequisites = offering.getPrerequisites();
-            for (String prerequisite: prerequisites)
-                farsiPrerequisites.add(Bolbolestan.getInstance().getCourseNameById(courseCode));
+            ArrayList<String> prerequisites = Bolbolestan.getInstance().getPrerequisites(courseCode);
+            for (String prerequisite: prerequisites) {
+                farsiPrerequisites.add(Bolbolestan.getInstance().getCourseNameById(prerequisite));
+            }
             return ResponseEntity.status(HttpStatus.OK).body(farsiPrerequisites);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
@@ -83,9 +83,6 @@ public class OfferingController {
             @RequestBody SearchData searchData) throws IOException {
         try {
             List<Offering> searchResult = SearchService.searchKeyword(searchData);
-//            System.out.println("GOT THE SEARCH RESULT : ");
-//            for (Offering offering : searchResult)
-//                offering.print();
             return ResponseEntity.status(HttpStatus.OK).body(searchResult);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("student not found. invalid login");

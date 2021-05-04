@@ -2,6 +2,7 @@ package ir.ac.ut.ie.Bolbolestan06.repository.Prerequisite;
 
 import ir.ac.ut.ie.Bolbolestan06.Utils.Utils;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Course.Course;
+import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.Offering;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student.Student;
 import ir.ac.ut.ie.Bolbolestan06.repository.ConnectionPool;
 import ir.ac.ut.ie.Bolbolestan06.repository.Mapper;
@@ -65,22 +66,31 @@ public class PrerequisiteMapper extends Mapper<HashMap<String, ArrayList<String>
 
     @Override
     protected HashMap<String, ArrayList<String>> convertResultSetToObject(ResultSet rs) throws SQLException {
-        HashMap<String, ArrayList<String>> result = new HashMap<>();
-        ArrayList<String> courses = new ArrayList<>();
-        String courseCode = "";
-        while (rs.next()) {
-            String correspondingCourseCode = rs.getString("courseCode");
-            if(!courseCode.equals("")) {
-                if(!correspondingCourseCode.equals(courseCode)) System.out.println("something went wring in prerequisites");
-                assert correspondingCourseCode.equals(courseCode);
-            }
-            else
-                courseCode = correspondingCourseCode;
+        return null;
+    }
 
-            String prerequisiteCode = rs.getString("prerequisiteCode");
-            courses.add(prerequisiteCode);
+    private String customConvertResultSetToObject(ResultSet rs) throws SQLException {
+        return rs.getString("prerequisiteCode");
+    }
+
+    public ArrayList<String> getPrerequisites(String courseCode) throws SQLException {
+        String statement = getFindStatement(courseCode);
+        ArrayList<String> result = new ArrayList<>();
+
+        try (Connection con = ConnectionPool.getConnection();
+             PreparedStatement st = con.prepareStatement(statement);
+        ) {
+            ResultSet resultSet;
+            try {
+                resultSet = st.executeQuery();
+                while (resultSet.next())
+                    result.add(customConvertResultSetToObject(resultSet));
+                con.close();
+                return result;
+            } catch (SQLException ex) {
+                System.out.println("error in Mapper.getSearchedOfferings query.");
+                throw ex;
+            }
         }
-        result.put(courseCode, courses);
-        return result;
     }
 }

@@ -80,11 +80,10 @@ public class EducationSystem {
                 ExamTime examTime = offering.getExamTime();
                 examTime.setOffering(offering.getCourseCode(), offering.getClassCode());
                 BolbolestanRepository.getInstance().insertExamTime(examTime);
-                System.out.println("course :");
-                course.print();
+
                 if (course.getPrerequisiteInfo() != null)
                     BolbolestanRepository.getInstance().insertPrerequisite(course.getPrerequisiteInfo());
-//                offerings.get(i).print();
+
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
