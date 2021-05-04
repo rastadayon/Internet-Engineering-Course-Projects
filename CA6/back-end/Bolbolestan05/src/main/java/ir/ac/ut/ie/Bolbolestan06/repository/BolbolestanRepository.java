@@ -238,12 +238,18 @@ public class BolbolestanRepository {
     }
 
 
-    public void checkWaitingLists() throws SQLException {
-        List<Selection> selections = new SelectionMapper().findWaitings();
-        for (Selection selection: selections) {
-            new OfferingMapper().increaseCapacity(selection.getCourseCode(), selection.getClassCode());
+    public void checkWaitingLists() {
+        List<Selection> selections;
+        try {
+            selections = new SelectionMapper().findWaitings();
+            for (Selection selection: selections) {
+                new OfferingMapper().increaseCapacity(selection.getCourseCode(), selection.getClassCode());
+            }
+            new SelectionMapper().updateWaitings();
         }
-        new SelectionMapper().updateWaitings();
+        catch (Exception e) {
+            System.out.println("check waiting list exception " + e.getMessage());
+        }
     }
 
     private void setOfferingData(Offering offering) throws SQLException{

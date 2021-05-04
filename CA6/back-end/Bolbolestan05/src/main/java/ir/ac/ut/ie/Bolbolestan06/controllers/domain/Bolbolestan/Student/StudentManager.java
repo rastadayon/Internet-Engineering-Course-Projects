@@ -198,7 +198,8 @@ public class StudentManager {
     public void checkWaitingLists() {
         try {
             BolbolestanRepository.getInstance().checkWaitingLists();
-        }catch (SQLException e){
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
     }
 

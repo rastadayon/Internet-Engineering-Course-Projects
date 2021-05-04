@@ -160,8 +160,7 @@ public class SelectionMapper extends Mapper<Selection, Pair> implements ISelecti
     }
 
     protected String getFindWaitingsStatement() {
-        return String.format("select * from %s where %s = %s;", TABLE_NAME,
-                "status", "waiting");
+        return String.format("select * from %s where status= 'waiting';", TABLE_NAME);
     }
 
     public List<Selection> findWaitings() throws SQLException {
