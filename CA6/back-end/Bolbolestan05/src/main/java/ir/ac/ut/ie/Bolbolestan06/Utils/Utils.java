@@ -21,4 +21,6 @@ public class Utils {
         LocalDateTime dateTime = LocalDateTime.parse(time, formatter);
         return dateTime;
     }
+
+    public static String searchKeywordWrapper(String str) { return "'%" + str + "%'"; }
 }

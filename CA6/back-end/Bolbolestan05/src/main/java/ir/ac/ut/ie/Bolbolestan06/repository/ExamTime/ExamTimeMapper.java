@@ -46,7 +46,7 @@ public class ExamTimeMapper extends Mapper<ExamTime, Pair> implements IExamTimeM
 
     @Override
     protected String getInsertStatement(ExamTime examTime) {
-        return String.format("INSERT INTO %s ( %s ) values (%s, %s, %s, %s);", TABLE_NAME, COLUMNS,
+        return String.format("INSERT IGNORE INTO %s ( %s ) values (%s, %s, %s, %s);", TABLE_NAME, COLUMNS,
                 Utils.quoteWrapper(examTime.getCourseCode()), Utils.quoteWrapper(examTime.getClassCode()),
                 Utils.quoteWrapper(examTime.getStart()), Utils.quoteWrapper(examTime.getEnd()));
     }

@@ -49,13 +49,13 @@ public class ClassTimeMapper extends Mapper<ClassTime, Pair> implements IClassTi
     @Override
     protected String getInsertStatement(ClassTime classTime) {
         if (classTime.hasTowDays()) {
-            return String.format("INSERT INTO %s ( %s ) values (%s, %s, %s, %s, %s);", TABLE_NAME, COLUMNS,
+            return String.format("INSERT IGNORE INTO %s ( %s ) values (%s, %s, %s, %s, %s);", TABLE_NAME, COLUMNS,
                     Utils.quoteWrapper(classTime.getCourseCode()), Utils.quoteWrapper(classTime.getClassCode()),
                     Utils.quoteWrapper(classTime.getTime()), Utils.quoteWrapper(classTime.getFirstDay()),
                     Utils.quoteWrapper(classTime.getSecondDay()));
         }
         else {
-            return String.format("INSERT INTO %s ( %s ) values (%s, %s, %s, %s, %s);", TABLE_NAME, COLUMNS,
+            return String.format("INSERT IGNORE INTO %s ( %s ) values (%s, %s, %s, %s, %s);", TABLE_NAME, COLUMNS,
                     Utils.quoteWrapper(classTime.getCourseCode()), Utils.quoteWrapper(classTime.getClassCode()),
                     Utils.quoteWrapper(classTime.getTime()), Utils.quoteWrapper(classTime.getFirstDay()),
                     Utils.quoteWrapper(""));

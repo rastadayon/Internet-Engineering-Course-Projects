@@ -17,10 +17,6 @@ public class CourseManager {
         }catch (SQLException e){
             throw new BolbolestanCourseNotFoundError();
         }
-        //for (Course course : courses)
-            //if (course.getCourseCode().equals(courseCode))
-                //return course;
-        //throw new BolbolestanCourseNotFoundError();
     }
 
     public boolean doesCourseExist(String courseCode) {

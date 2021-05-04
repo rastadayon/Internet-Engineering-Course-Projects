@@ -9,6 +9,7 @@ import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student.CourseSe
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student.Grade;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student.Student;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student.WeeklySchedule;
+import ir.ac.ut.ie.Bolbolestan06.controllers.models.SearchData;
 import ir.ac.ut.ie.Bolbolestan06.controllers.models.Selection;
 import ir.ac.ut.ie.Bolbolestan06.repository.ClassTime.ClassTimeMapper;
 import ir.ac.ut.ie.Bolbolestan06.repository.Course.CourseMapper;
@@ -112,6 +113,7 @@ public class BolbolestanRepository {
 
     //    Prerequisite
     public void insertPrerequisite(HashMap<String, ArrayList<String>> prerequisiteInfo) throws SQLException {
+//        System.out.println("inserting prerequisites :))))))))))))))))))))");
         PrerequisiteMapper prerequisiteMapper = new PrerequisiteMapper();
         prerequisiteMapper.insert(prerequisiteInfo);
     }
@@ -156,15 +158,12 @@ public class BolbolestanRepository {
         offering.setClassTime(classTime);
         offering.setExamTime(examTime);
 //        System.out.println("IN THE DAMN DATABASE");
-        offering.print();
+//        offering.print();
         return offering;
     }
 
     public static Course findCourseByCode(String courseCode) throws SQLException {
-
         Course course = new CourseMapper().find(courseCode);
-        ArrayList<String> prerequisites = new PrerequisiteMapper().find(courseCode).get(courseCode);
-        course.setPrerequisites(prerequisites);
         return course;
     }
 
@@ -238,11 +237,39 @@ public class BolbolestanRepository {
         new SelectionMapper().finalizeSelection(studentId);
     }
 
+
     public void checkWaitingLists() throws SQLException {
         List<Selection> selections = new SelectionMapper().findWaitings();
         for (Selection selection: selections) {
             new OfferingMapper().increaseCapacity(selection.getCourseCode(), selection.getClassCode());
         }
         new SelectionMapper().updateWaitings();
+    }
+}
+
+    private void setOfferingData(Offering offering) throws SQLException{
+        ArrayList<String> args = new ArrayList<>();
+        args.add(offering.getCourseCode());
+        args.add(offering.getClassCode());
+        Course course = new CourseMapper().find(offering.getCourseCode());
+        offering.setCourse(course);
+        ClassTime classTime = new ClassTimeMapper().find(new Pair(args));
+        offering.setClassTime(classTime);
+        ExamTime examTime = new ExamTimeMapper().find(new Pair(args));
+        offering.setExamTime(examTime);
+    }
+
+    public ArrayList<Offering> searchOfferings(SearchData searchData) {
+        System.out.println("in searchOfferings");
+        ArrayList<Offering> result;
+        try {
+            result = new OfferingMapper().getSearchedOfferings(searchData.getKeyword(), searchData.getType());
+            for (Offering offering : result)
+                setOfferingData(offering);
+            return result;
+        } catch (Exception e) {
+            System.out.println("error in searchOfferings in bolbol repo " + e.getMessage());
+            return null;
+        }
     }
 }

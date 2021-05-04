@@ -9,6 +9,7 @@ import java.util.List;
 
 
 public class Offering {
+    private final String courseCode;
     private final String classCode;
     private final String instructor;
     private Course course;
@@ -17,17 +18,19 @@ public class Offering {
     private ExamTime examTime;
     private int signedUp = 0;
 
-    public Offering(String classCode, String instructor,
-                    int capacity, ClassTime classTime, ExamTime examTime) {
-        this.classCode = classCode;
-        this.instructor = instructor;
-        this.capacity = capacity;
-        this.classTime = classTime;
-        this.examTime = examTime;
-        this.signedUp = 0;
-    }
+//    public Offering(String classCode, String instructor,
+//                    int capacity, ClassTime classTime, ExamTime examTime) {
+//        this.classCode = classCode;
+//        this.instructor = instructor;
+//        this.capacity = capacity;
+//        this.classTime = classTime;
+//        this.examTime = examTime;
+//        this.signedUp = 0;
+//    }
 
-    public Offering(String classCode, String instructor, int capacity, int signedUp) {
+    public Offering(String courseCode, String classCode,
+                    String instructor, int capacity, int signedUp) {
+        this.courseCode = courseCode;
         this.classCode = classCode;
         this.instructor = instructor;
         this.capacity = capacity;
@@ -57,7 +60,7 @@ public class Offering {
     public int getCapacity() { return capacity; }
 
     public String getCourseCode() {
-        return course.getCourseCode();
+        return courseCode;
     }
 
     public Course getCourse() { return course; }

@@ -80,9 +80,10 @@ public class EducationSystem {
                 ExamTime examTime = offering.getExamTime();
                 examTime.setOffering(offering.getCourseCode(), offering.getClassCode());
                 BolbolestanRepository.getInstance().insertExamTime(examTime);
+
                 if (course.getPrerequisiteInfo() != null)
                     BolbolestanRepository.getInstance().insertPrerequisite(course.getPrerequisiteInfo());
-//                offerings.get(i).print();
+
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -99,7 +100,6 @@ public class EducationSystem {
             }.getType());
             System.out.println("getting grades for : " + studentId);
             for (Grade grade : grades) {
-//                grade.print();
                 grade.setStudentId(studentId);
                 Course course = BolbolestanRepository.getInstance().getCourseByCode(grade.getCode());
                 if(course != null) {

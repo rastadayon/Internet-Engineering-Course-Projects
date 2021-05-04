@@ -9,8 +9,10 @@ import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.exeptions.Bolbol
 import ir.ac.ut.ie.Bolbolestan06.controllers.models.ClassTimeData;
 import ir.ac.ut.ie.Bolbolestan06.controllers.models.StudentInfo;
 import ir.ac.ut.ie.Bolbolestan06.repository.BolbolestanRepository;
+import ir.ac.ut.ie.Bolbolestan06.repository.Prerequisite.PrerequisiteMapper;
 
 
+import java.sql.SQLException;
 import java.util.*;
 
 public class Bolbolestan {
@@ -231,5 +233,19 @@ public class Bolbolestan {
 
     public CourseSelection getLoggedInStudentCourseSelection() throws Exception {
         return studentManager.getStudentCourseSelectionById(getLoggedInId());
+    }
+
+    public ArrayList<String> getPrerequisites(String courseCode) {
+        ArrayList<String> result = new ArrayList<>();
+        try {
+            result = new PrerequisiteMapper().getPrerequisites(courseCode);
+            for (String prerequisite : result) {
+                System.out.println(prerequisite);
+            }
+            return result;
+        } catch (Exception e) {
+            System.out.println("get prerequisite error : " + e.getMessage());
+            return result;
+        }
     }
 }

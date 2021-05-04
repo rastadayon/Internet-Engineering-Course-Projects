@@ -3,6 +3,7 @@ package ir.ac.ut.ie.Bolbolestan06.services;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Bolbolestan;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.Offering;
 import ir.ac.ut.ie.Bolbolestan06.controllers.models.SearchData;
+import ir.ac.ut.ie.Bolbolestan06.repository.BolbolestanRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,18 +17,17 @@ public class SearchService {
         ArrayList<Offering> sortedSearchResults = new ArrayList<>();
         for (String type: types) {
             for (Offering offering : offerings) {
-                if (offering.getType().equals(filter) || filter.equals("All")) {
-                    if (offering.getType().equals(type))
-                        sortedSearchResults.add(offering);
-                }
+                if (offering.getType().equals(type))
+                    sortedSearchResults.add(offering);
             }
         }
         return sortedSearchResults;
     }
 
     public static ArrayList<Offering> searchKeyword(SearchData searchData) throws Exception{
+        System.out.println("in searchKeyword");
         Bolbolestan.getInstance().searchForCourses(searchData.getKeyword());
-        List<Offering> searchResult = Bolbolestan.getInstance().getSearchedOfferings();
+        ArrayList<Offering> searchResult = BolbolestanRepository.getInstance().searchOfferings(searchData);
         return sortSearchedOfferings(searchResult, searchData.getType());
     }
 }

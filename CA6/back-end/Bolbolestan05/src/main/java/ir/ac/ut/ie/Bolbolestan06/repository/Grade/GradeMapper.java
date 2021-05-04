@@ -121,24 +121,4 @@ public class GradeMapper extends Mapper<Grade, Pair> implements IGradeMapper { /
         }
     }
 
-    /*@Override
-    protected HashMap<String, ArrayList<String>> convertResultSetToObject(ResultSet rs) throws SQLException {
-        HashMap<String, ArrayList<String>> result = new HashMap<>();
-        ArrayList<String> courses = new ArrayList<>();
-        String courseCode = "";
-        while (rs.next()) {
-            String correspondingCourseCode = rs.getString("courseCode");
-            if(!courseCode.equals("")) {
-                if(!correspondingCourseCode.equals(courseCode)) System.out.println("something went wring in prerequisites");
-                assert correspondingCourseCode.equals(courseCode);
-            }
-            else
-                courseCode = correspondingCourseCode;
-
-            String prerequisiteCode = rs.getString("prerequisiteCode");
-            courses.add(prerequisiteCode);
-        }
-        result.put(courseCode, courses);
-        return result;
-    }*/
 }
