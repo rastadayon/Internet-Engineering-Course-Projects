@@ -7,6 +7,7 @@ import ir.ac.ut.ie.Bolbolestan06.repository.ConnectionPool;
 import ir.ac.ut.ie.Bolbolestan06.repository.Mapper;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OfferingMapper extends Mapper<Offering, Pair> implements IOfferingMapper {
@@ -60,11 +61,9 @@ public class OfferingMapper extends Mapper<Offering, Pair> implements IOfferingM
 
     @Override
     protected Offering convertResultSetToObject(ResultSet rs) throws SQLException {
-//        if(!rs.next())
-//            System.out.println("NOOOOOOOOOOO");
-//        else rs.previous();
         System.out.println(rs);
         return new Offering(
+                rs.getString("courseCode"),
                 rs.getString("classCode"),
                 rs.getString("instructor"),
                 rs.getInt("capacity"),
@@ -112,6 +111,42 @@ public class OfferingMapper extends Mapper<Offering, Pair> implements IOfferingM
                 st.executeUpdate();
             } catch (SQLException ex) {
                 System.out.println("error in Mapper.decreaseSignedUp query.");
+                throw ex;
+            }
+        }
+    }
+
+    private String makeSearchString(String keyword, String filter) {
+        String statement;
+        if (filter.equals("All"))
+            statement = String .format("select * from OFFERINGS inner join COURSES" +
+                    " on COURSES.code=OFFERINGS.courseCode" +
+                    " where name like %s;", Utils.searchKeywordWrapper(keyword));
+        else
+            statement = String .format("select * from OFFERINGS inner join COURSES" +
+                            " on COURSES.code=OFFERINGS.courseCode" +
+                            " where name like %s" +
+                            " and type=%s;", Utils.searchKeywordWrapper(keyword),
+                    Utils.quoteWrapper(filter));
+        return statement;
+    }
+
+    public ArrayList<Offering> getSearchedOfferings(String keyword, String filter) throws SQLException{
+        String statement = makeSearchString(keyword, filter);
+        ArrayList<Offering> result = new ArrayList<>();
+
+        try (Connection con = ConnectionPool.getConnection();
+             PreparedStatement st = con.prepareStatement(statement);
+        ) {
+            ResultSet resultSet;
+            try {
+                resultSet = st.executeQuery();
+                while (resultSet.next())
+                    result.add(convertResultSetToObject(resultSet));
+                con.close();
+                return result;
+            } catch (SQLException ex) {
+                System.out.println("error in Mapper.getSearchedOfferings query.");
                 throw ex;
             }
         }

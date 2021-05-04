@@ -13,8 +13,8 @@ public class ConnectionPool {
         ds.setDriverClassName("com.mysql.jdbc.Driver");
         // remote db
         ds.setUrl("jdbc:mysql://localhost:3306/BolbolestanDB?useUnicode=true&characterEncoding=UTF-8");
-        //ds.setUsername("rasta");
-        ds.setUsername("ghazal");
+        ds.setUsername("rasta");
+//        ds.setUsername("ghazal");
         ds.setPassword("123");
         ds.setMinIdle(1);
         ds.setMaxIdle(2000);

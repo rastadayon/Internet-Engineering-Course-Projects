@@ -9,6 +9,7 @@ import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student.CourseSe
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student.Grade;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student.Student;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student.WeeklySchedule;
+import ir.ac.ut.ie.Bolbolestan06.controllers.models.SearchData;
 import ir.ac.ut.ie.Bolbolestan06.controllers.models.Selection;
 import ir.ac.ut.ie.Bolbolestan06.repository.ClassTime.ClassTimeMapper;
 import ir.ac.ut.ie.Bolbolestan06.repository.Course.CourseMapper;
@@ -237,5 +238,31 @@ public class BolbolestanRepository {
             new OfferingMapper().increaseSignedUp(selection.getCourseCode(), selection.getClassCode());
         }
         new SelectionMapper().finalizeSelection(studentId);
+    }
+
+    private void setOfferingData(Offering offering) throws SQLException{
+        ArrayList<String> args = new ArrayList<>();
+        args.add(offering.getCourseCode());
+        args.add(offering.getClassCode());
+        Course course = new CourseMapper().find(offering.getCourseCode());
+        offering.setCourse(course);
+        ClassTime classTime = new ClassTimeMapper().find(new Pair(args));
+        offering.setClassTime(classTime);
+        ExamTime examTime = new ExamTimeMapper().find(new Pair(args));
+        offering.setExamTime(examTime);
+    }
+
+    public ArrayList<Offering> searchOfferings(SearchData searchData) {
+        System.out.println("in searchOfferings");
+        ArrayList<Offering> result;
+        try {
+            result = new OfferingMapper().getSearchedOfferings(searchData.getKeyword(), searchData.getType());
+            for (Offering offering : result)
+                setOfferingData(offering);
+            return result;
+        } catch (Exception e) {
+            System.out.println("error in searchOfferings in bolbol repo " + e.getMessage());
+            return null;
+        }
     }
 }

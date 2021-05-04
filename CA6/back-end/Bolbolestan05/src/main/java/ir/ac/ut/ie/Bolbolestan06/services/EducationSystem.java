@@ -101,7 +101,6 @@ public class EducationSystem {
             }.getType());
             System.out.println("getting grades for : " + studentId);
             for (Grade grade : grades) {
-//                grade.print();
                 grade.setStudentId(studentId);
                 Course course = BolbolestanRepository.getInstance().getCourseByCode(grade.getCode());
                 if(course != null) {
