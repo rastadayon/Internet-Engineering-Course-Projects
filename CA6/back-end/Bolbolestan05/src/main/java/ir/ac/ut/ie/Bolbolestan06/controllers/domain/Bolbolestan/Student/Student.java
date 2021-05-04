@@ -67,9 +67,6 @@ public class Student {
 
     public String getImg() { return img; }
 
-
-//    public ArrayList<Grade> getGrades() { return grades; }
-
     public ArrayList<ReportCard> getReportCards() {
         ArrayList<ReportCard> reportCards = new ArrayList<>();
         ArrayList<Grade> grades = BolbolestanRepository.getInstance().getStudentGrades(this.id);
@@ -152,16 +149,6 @@ public class Student {
     public String getId() {
         return this.id;
     }
-
-//    public void addGrade(Grade grade) {
-//        if (reportCards == null)
-//            reportCards = new ArrayList<>();
-//        int semester = grade.getTerm();
-//        for (ReportCard reportCard : reportCards) {
-//
-//        }
-//        grades.add(grade);
-//    }
 
     public void addToSelectedOfferings(Offering offering) {
         courseSelection.addToSelectedOfferings(offering);

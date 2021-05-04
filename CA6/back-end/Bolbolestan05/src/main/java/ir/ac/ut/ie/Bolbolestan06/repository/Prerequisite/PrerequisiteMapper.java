@@ -54,6 +54,7 @@ public class PrerequisiteMapper extends Mapper<HashMap<String, ArrayList<String>
             insertString += String.format("INSERT IGNORE INTO %s ( %s ) values (%s, %s);\n", TABLE_NAME, COLUMNS,
                 Utils.quoteWrapper(courseCode), Utils.quoteWrapper(prerequisite));
         }
+        System.out.println(insertString);
         return insertString;
     }
 

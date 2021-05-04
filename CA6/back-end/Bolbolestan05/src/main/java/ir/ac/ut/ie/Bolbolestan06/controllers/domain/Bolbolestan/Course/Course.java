@@ -36,4 +36,19 @@ public class Course {
             prerequisiteInfo.put(code, prerequisites);
             return prerequisiteInfo;
     }
+
+    public void print() {
+        this.code = code;
+        this.name = name;
+        this.units = units;
+        this.prerequisites = prerequisites;
+        this.type = type;
+        System.out.println(String.format("course code : %s", code));
+        System.out.println(String.format("course name : %s", name));
+        System.out.println(String.format("course units : %d", units));
+        System.out.println("Prerequisites : [ ");
+        for (String prerequisite : prerequisites)
+            System.out.println(String.format("  %s  ", prerequisite));
+        System.out.println(" ]");
+    }
 }

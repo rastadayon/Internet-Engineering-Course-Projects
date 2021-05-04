@@ -110,6 +110,7 @@ public class BolbolestanRepository {
 
     //    Prerequisite
     public void insertPrerequisite(HashMap<String, ArrayList<String>> prerequisiteInfo) throws SQLException {
+        System.out.println("inserting prerequisites :))))))))))))))))))))");
         PrerequisiteMapper prerequisiteMapper = new PrerequisiteMapper();
         prerequisiteMapper.insert(prerequisiteInfo);
     }
