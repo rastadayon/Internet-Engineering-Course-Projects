@@ -174,7 +174,7 @@ public class BolbolestanRepository {
 
     public int getCurrentTerm(String studentId) {
         try {
-            return new GradeMapper().getCurrentTerm(studentId);
+            return new GradeMapper().getCurrentTerm(studentId) + 1;
         }
         catch (SQLException e) {
             return 1;
@@ -188,7 +188,7 @@ public class BolbolestanRepository {
             Offering offering = findOfferingById(selection.getCourseCode(), selection.getClassCode());
             offerings.add(offering);
         }
-        int term = 0;//getCurrentTerm(studentId);
+        int term = getCurrentTerm(studentId);
         return new WeeklySchedule(offerings, term);
     }
 
@@ -236,5 +236,13 @@ public class BolbolestanRepository {
             new OfferingMapper().increaseSignedUp(selection.getCourseCode(), selection.getClassCode());
         }
         new SelectionMapper().finalizeSelection(studentId);
+    }
+
+    public void checkWaitingLists() throws SQLException {
+        List<Selection> selections = new SelectionMapper().findWaitings();
+        for (Selection selection: selections) {
+            new OfferingMapper().increaseCapacity(selection.getCourseCode(), selection.getClassCode());
+        }
+        new SelectionMapper().updateWaitings();
     }
 }

@@ -1,7 +1,6 @@
 package ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Student;
 
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.Offering;
-import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.exeptions.BolbolestanCourseNotFoundError;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.exeptions.BolbolestanRulesViolationError;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.exeptions.BolbolestanStudentNotFoundError;
 import ir.ac.ut.ie.Bolbolestan06.controllers.models.Selection;
@@ -15,6 +14,7 @@ import java.util.List;
 public class StudentManager {
     private List<Student> students = new ArrayList<>();
     String loggedInStudent = null;
+    List<String> errors = null;
 
     public Student getStudentById(String studentId) throws Exception{
         if (studentId == null)
@@ -79,9 +79,13 @@ public class StudentManager {
 
     public boolean addCourseToWaitingList(String studentId, Offering offering) throws Exception {
         Student student = getStudentById(studentId);
-        student.addToWaitingOfferings(offering); //TODO: Remove
         addCourseToWaitingForStudent(studentId, offering);
+        CourseSelection courseSelection = getStudentCourseSelectionById(studentId);
+        ArrayList<Grade> grades = getStudentGrades(studentId);
+        student.setCourseSelection(courseSelection);
+        student.setReportCards(grades);
         student.setWaitingErrors(offering);
+        errors = courseSelection.getWaitingErrors();
         if (student.getSubmissionErrors().size() == 0)
             return true;
         else {
@@ -98,8 +102,11 @@ public class StudentManager {
     public boolean finalizeSchedule(String studentId) throws Exception {
         Student student = getStudentById(studentId);
         CourseSelection courseSelection = getStudentCourseSelectionById(studentId);
+        ArrayList<Grade> grades = getStudentGrades(studentId);
         student.setCourseSelection(courseSelection);
+        student.setReportCards(grades);
         student.setSubmissionErrors();
+        errors = courseSelection.getSubmissionErrors();
         if (student.getSubmissionErrors().size() == 0) {
             //student.finalizeSchedule();
             finalizeScheduleById(studentId);
@@ -107,6 +114,10 @@ public class StudentManager {
         }
         else
             return false;
+    }
+
+    private ArrayList<Grade> getStudentGrades(String studentId) throws Exception {
+        return BolbolestanRepository.getInstance().getStudentGrades(studentId);
     }
 
     private void finalizeScheduleById(String studentId) throws Exception {
@@ -185,8 +196,9 @@ public class StudentManager {
     }
 
     public void checkWaitingLists() {
-        for (Student student: students) {
-            student.checkWaitingCourses();
+        try {
+            BolbolestanRepository.getInstance().checkWaitingLists();
+        }catch (SQLException e){
         }
     }
 
@@ -232,5 +244,9 @@ public class StudentManager {
         }catch (SQLException e){
             throw new BolbolestanStudentNotFoundError();
         }
+    }
+
+    public List<String> getErrors() {
+        return errors;
     }
 }

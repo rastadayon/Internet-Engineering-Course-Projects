@@ -97,6 +97,26 @@ public class OfferingMapper extends Mapper<Offering, Pair> implements IOfferingM
         }
     }
 
+    public String getIncreaseCapacityStatement(String courseCode, String classCode) {
+        return String.format("update %s set signedUp = signedUp + 1 and capacity = capacity + 1 where %s = %s and %s = %s;",
+                TABLE_NAME, "courseCode", Utils.quoteWrapper(courseCode),
+                "classCode", Utils.quoteWrapper(classCode));
+    }
+
+    public void increaseCapacity(String courseCode, String classCode) throws SQLException {
+        String statement = getIncreaseCapacityStatement(courseCode, classCode);
+        try (Connection con = ConnectionPool.getConnection();
+             PreparedStatement st = con.prepareStatement(statement);
+        ) {
+            try {
+                st.executeUpdate();
+            } catch (SQLException ex) {
+                System.out.println("error in Mapper.increaseCapacity query.");
+                throw ex;
+            }
+        }
+    }
+
     public String getDecreaseSignedUpStatement(String courseCode, String classCode) {
         return String.format("update %s set signedUp = signedUp - 1 where %s = %s and %s = %s;",
                 TABLE_NAME, "courseCode", Utils.quoteWrapper(courseCode),

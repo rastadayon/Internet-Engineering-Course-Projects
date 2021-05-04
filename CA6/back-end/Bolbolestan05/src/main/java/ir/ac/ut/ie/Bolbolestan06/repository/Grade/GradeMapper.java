@@ -111,8 +111,9 @@ public class GradeMapper extends Mapper<Grade, Pair> implements IGradeMapper { /
             ResultSet resultSet;
             try {
                 resultSet = st.executeQuery();
-                con.close();
+                resultSet.next();
                 return resultSet.getInt("term");
+                //con.close();
             } catch (SQLException ex) {
                 System.out.println("error in Mapper.findTerm query.");
                 throw ex;

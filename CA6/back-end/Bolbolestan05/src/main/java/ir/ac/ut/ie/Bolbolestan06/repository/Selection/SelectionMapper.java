@@ -138,4 +138,49 @@ public class SelectionMapper extends Mapper<Selection, Pair> implements ISelecti
             }
         }
     }
+
+    public String getUpdateWaitings() {
+        return String.format("update %s set %s = %s where %s = %s;",
+                TABLE_NAME, "status", "submitted",
+                "status", "waiting");
+    }
+
+    public void updateWaitings() throws SQLException {
+        String statement = getUpdateWaitings();
+        try (Connection con = ConnectionPool.getConnection();
+             PreparedStatement st = con.prepareStatement(statement);
+        ) {
+            try {
+                st.executeUpdate();
+            } catch (SQLException ex) {
+                System.out.println("error in Mapper.finalizeSelection query.");
+                throw ex;
+            }
+        }
+    }
+
+    protected String getFindWaitingsStatement() {
+        return String.format("select * from %s where %s = %s;", TABLE_NAME,
+                "status", "waiting");
+    }
+
+    public List<Selection> findWaitings() throws SQLException {
+        List<Selection> result = new ArrayList<Selection>();
+        String statement = getFindWaitingsStatement();
+        try (Connection con = ConnectionPool.getConnection();
+             PreparedStatement st = con.prepareStatement(statement);
+        ) {
+            ResultSet resultSet;
+            try {
+                resultSet = st.executeQuery();
+                while (resultSet.next())
+                    result.add(convertResultSetToObject(resultSet));
+                con.close();
+                return result;
+            } catch (SQLException ex) {
+                System.out.println("error in Mapper.findWaiting query.");
+                throw ex;
+            }
+        }
+    }
 }

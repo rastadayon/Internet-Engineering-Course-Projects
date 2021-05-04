@@ -198,9 +198,8 @@ public class Bolbolestan {
     }
 
     public String getSubmissionErrors() throws Exception {
-        Student student = studentManager.getStudentById(studentManager.getLoggedInId());
         String errors = "";
-        for (String error: student.getSubmissionErrors()) {
+        for (String error: studentManager.getErrors()) {
             errors += error;
             errors += "\n";
         }
@@ -208,9 +207,8 @@ public class Bolbolestan {
     }
 
     public String getWaitingErrors() throws Exception {
-        Student student = studentManager.getStudentById(studentManager.getLoggedInId());
         String errors = "";
-        for (String error: student.getWaitingErrors()) {
+        for (String error: studentManager.getErrors()) {
             errors += error;
             errors += "\n";
         }
