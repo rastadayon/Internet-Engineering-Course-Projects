@@ -67,6 +67,34 @@ public class SelectionMapper extends Mapper<Selection, Pair> implements ISelecti
                 "courseCode", Utils.quoteWrapper(id.getArgs().get(1)));
     }
 
+    public String getDeleteSelectionsStatement(String studentId, String status) {
+        return String.format("delete from %s where %s = %s and %s = %s;",
+                TABLE_NAME, "studentId", Utils.quoteWrapper(studentId),
+                "status", Utils.quoteWrapper(status));
+    }
+
+    public String getFinalizeStatement(String studentId) {
+        return String.format("update %s set %s = %s where %s = %s and %s = %s;",
+                TABLE_NAME, "status", "submitted", "studentId", Utils.quoteWrapper(studentId),
+                "status", "selected");
+    }
+
+    public void deleteSelections(String studentId) throws SQLException {
+        String statement = getDeleteSelectionsStatement(studentId, "selected");
+        System.out.println(statement);
+        try (Connection con = ConnectionPool.getConnection();
+             PreparedStatement st = con.prepareStatement(statement);
+        ) {
+            try {
+                st.executeUpdate();
+                con.close();
+            } catch (SQLException ex) {
+                System.out.println("error in Mapper.deleteSelections query.");
+                throw ex;
+            }
+        }
+    }
+
     @Override
     protected Selection convertResultSetToObject(ResultSet rs) throws SQLException {
         return new Selection(
@@ -92,6 +120,20 @@ public class SelectionMapper extends Mapper<Selection, Pair> implements ISelecti
                 return result;
             } catch (SQLException ex) {
                 System.out.println("error in Mapper.findSchedule query.");
+                throw ex;
+            }
+        }
+    }
+
+    public void finalizeSelection(String studentId) throws SQLException {
+        String statement = getFinalizeStatement(studentId);
+        try (Connection con = ConnectionPool.getConnection();
+             PreparedStatement st = con.prepareStatement(statement);
+        ) {
+            try {
+                st.executeUpdate();
+            } catch (SQLException ex) {
+                System.out.println("error in Mapper.finalizeSelection query.");
                 throw ex;
             }
         }

@@ -118,7 +118,7 @@ public class Offering {
         return daysString;
     }
 
-    public String getPrerequisitesString() {
+    /*public String getPrerequisitesString() {
         String prerequisitesString = "";
         for (int i = 0; i < course.getPrerequisites().size(); i++) {
             if (i > 0)
@@ -126,7 +126,7 @@ public class Offering {
             prerequisitesString += course.getPrerequisites().get(i);
         }
         return prerequisitesString;
-    }
+    }*/
 
     public String getName() {return course.getName();}
 

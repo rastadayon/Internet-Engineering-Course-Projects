@@ -156,8 +156,8 @@ public class Bolbolestan {
     }
 
     public void resetSelectedOfferings(String studentId) throws Exception {
-        Student student = studentManager.getStudentById(studentId);
-        student.resetSelectedOfferings();
+        studentManager.resetSelectionsById(studentId);
+        //.resetSelectedOfferings();
     }
 
     public void checkWaitingLists() throws Exception {

@@ -97,13 +97,24 @@ public class StudentManager {
 
     public boolean finalizeSchedule(String studentId) throws Exception {
         Student student = getStudentById(studentId);
+        CourseSelection courseSelection = getStudentCourseSelectionById(studentId);
+        student.setCourseSelection(courseSelection);
         student.setSubmissionErrors();
         if (student.getSubmissionErrors().size() == 0) {
-            student.finalizeSchedule();
+            //student.finalizeSchedule();
+            finalizeScheduleById(studentId);
             return true;
         }
         else
             return false;
+    }
+
+    private void finalizeScheduleById(String studentId) throws Exception {
+        try {
+            BolbolestanRepository.getInstance().finalizeScheduleById(studentId);
+        }catch (SQLException e){
+            throw new BolbolestanStudentNotFoundError();
+        }
     }
 
     public WeeklySchedule getStudentScheduleById(String studentId) throws Exception {
@@ -133,7 +144,8 @@ public class StudentManager {
 
     public void removeFromWeeklySchedule(String studentId, Offering offering) {
         try {
-            BolbolestanRepository.getInstance().removeSelection(studentId, offering.getCourseCode());
+            BolbolestanRepository.getInstance().removeSelection(studentId, offering.getCourseCode(),
+                        offering.getClassCode());
         }
         catch (SQLException e){
             System.out.println(e.getMessage());
@@ -144,7 +156,7 @@ public class StudentManager {
         Student student = getStudentById(studentId);
         student.addToSelectedOfferings(offering); //TODO: Delete
         Selection selection = new Selection(studentId, offering.getCourseCode(),
-                offering.getClassCode(), "not-submitted");
+                offering.getClassCode(), "selected");
         BolbolestanRepository.getInstance().insertSelection(selection);
     }
 
@@ -209,6 +221,14 @@ public class StudentManager {
     public CourseSelection getStudentCourseSelectionById(String studentId) throws Exception {
         try {
             return BolbolestanRepository.getInstance().findCourseSelectionById(studentId);
+        }catch (SQLException e){
+            throw new BolbolestanStudentNotFoundError();
+        }
+    }
+
+    public void resetSelectionsById(String studentId) throws Exception {
+        try {
+            BolbolestanRepository.getInstance().deleteSelectionsById(studentId);
         }catch (SQLException e){
             throw new BolbolestanStudentNotFoundError();
         }

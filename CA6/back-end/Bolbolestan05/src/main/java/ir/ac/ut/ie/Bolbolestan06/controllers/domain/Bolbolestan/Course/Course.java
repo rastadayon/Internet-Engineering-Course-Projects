@@ -2,6 +2,7 @@ package ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Course;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Course {
     private String code;
@@ -25,6 +26,10 @@ public class Course {
     public int getUnits() { return units; }
 
     public String getType() { return type; }
+
+    public  void setPrerequisites(ArrayList<String> prerequisites) {
+        this.prerequisites = prerequisites;
+    }
 
     public ArrayList<String> getPrerequisites() { return prerequisites; }
 

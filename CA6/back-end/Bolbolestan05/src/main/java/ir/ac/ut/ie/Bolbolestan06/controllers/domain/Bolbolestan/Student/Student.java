@@ -351,4 +351,7 @@ public class Student {
         return courseSelection;
     }
 
+    public void setCourseSelection(CourseSelection courseSelection) {
+        this.courseSelection = courseSelection;
+    }
 }

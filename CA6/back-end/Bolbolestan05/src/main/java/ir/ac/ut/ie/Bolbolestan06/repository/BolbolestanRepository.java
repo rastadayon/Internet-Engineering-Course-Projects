@@ -128,10 +128,14 @@ public class BolbolestanRepository {
         selectionMapper.insert(selection);
     }
 
-    public void removeSelection(String studentId, String courseCode) throws SQLException {
+    public void removeSelection(String studentId, String courseCode,
+                                String classCode) throws SQLException {
         List<String> args = new ArrayList<>();
         args.add(studentId);
         args.add(courseCode);
+        Selection selection = new SelectionMapper().find(new Pair(args));
+        if (selection.getStatus() == "submitted")
+            new OfferingMapper().decreaseSignedUp(courseCode, classCode);
         new SelectionMapper().delete(new Pair(args));
     }
 
@@ -142,7 +146,7 @@ public class BolbolestanRepository {
 //        System.out.println("Offering we wanna get : " + courseCode + '-' + classCode);
         Offering offering = new OfferingMapper().find(new Pair(args));
 //        System.out.println("offering found");
-        Course course =  new CourseMapper().find(courseCode);
+        Course course =  findCourseByCode(courseCode);
 //        System.out.println("course found");
         ExamTime examTime = new ExamTimeMapper().find(new Pair(args));
 //        System.out.println("exam time found");
@@ -157,7 +161,11 @@ public class BolbolestanRepository {
     }
 
     public static Course findCourseByCode(String courseCode) throws SQLException {
-        return new CourseMapper().find(courseCode);
+
+        Course course = new CourseMapper().find(courseCode);
+        ArrayList<String> prerequisites = new PrerequisiteMapper().find(courseCode).get(courseCode);
+        course.setPrerequisites(prerequisites);
+        return course;
     }
 
     public static Student findStudentById(String studentId) throws SQLException {
@@ -186,7 +194,7 @@ public class BolbolestanRepository {
 
     public CourseSelection findCourseSelectionById(String studentId) throws SQLException {
         WeeklySchedule submitted = findStudentScheduleById(studentId, "submitted");
-        WeeklySchedule selected = findStudentScheduleById(studentId, "not-submitted");
+        WeeklySchedule selected = findStudentScheduleById(studentId, "selected");
         WeeklySchedule waiting = findStudentScheduleById(studentId, "waiting");
         return new CourseSelection(submitted, selected, waiting);
     }
@@ -216,5 +224,17 @@ public class BolbolestanRepository {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public void deleteSelectionsById(String studentId) throws SQLException {
+        new SelectionMapper().deleteSelections(studentId);
+    }
+
+    public void finalizeScheduleById(String studentId) throws SQLException {
+        List<Selection> selections = new SelectionMapper().findStudentSchedule(studentId, "selected");
+        for (Selection selection: selections) {
+            new OfferingMapper().increaseSignedUp(selection.getCourseCode(), selection.getClassCode());
+        }
+        new SelectionMapper().finalizeSelection(studentId);
     }
 }
