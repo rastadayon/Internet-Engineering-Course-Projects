@@ -154,6 +154,7 @@ public class OfferingController {
             }
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("student not found. invalid login");
+//        return ResponseEntity.ok("wait ok");
     }
 
     @PostMapping("/reset")
