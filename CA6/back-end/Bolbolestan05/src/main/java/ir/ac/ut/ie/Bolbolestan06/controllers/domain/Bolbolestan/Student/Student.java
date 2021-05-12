@@ -270,6 +270,7 @@ public class Student {
         List<String> errors = new ArrayList<String>();
         errors.addAll(checkHasPrerequisites());
         errors.addAll(checkNotPassedBefore());
+        System.out.println(errors.size());
         courseSelection.setSubmissionErrors(errors);
     }
 
@@ -310,9 +311,14 @@ public class Student {
         return null;
     }
 
+    public void setReportCards() {
+        reportCards = getReportCards();
+    }
+
     public void setReportCards(ArrayList<Grade> grades) {
         System.out.println("in student setting report cards");
         for (Grade grade : grades) {
+            System.out.print("ghazal");
             int semester = grade.getTerm();
             ReportCard reportCard = getSemesterReportCard(semester);
             if(reportCard == null) {

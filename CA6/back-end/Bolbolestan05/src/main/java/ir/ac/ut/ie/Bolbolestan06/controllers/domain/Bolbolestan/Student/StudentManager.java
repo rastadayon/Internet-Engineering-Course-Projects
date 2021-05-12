@@ -6,10 +6,10 @@ import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.exeptions.Bolbol
 import ir.ac.ut.ie.Bolbolestan06.controllers.models.Selection;
 import ir.ac.ut.ie.Bolbolestan06.controllers.models.StudentInfo;
 import ir.ac.ut.ie.Bolbolestan06.repository.BolbolestanRepository;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class StudentManager {
     private List<Student> students = new ArrayList<>();
@@ -81,12 +81,11 @@ public class StudentManager {
         Student student = getStudentById(studentId);
         addCourseToWaitingForStudent(studentId, offering);
         CourseSelection courseSelection = getStudentCourseSelectionById(studentId);
-        ArrayList<Grade> grades = getStudentGrades(studentId);
         student.setCourseSelection(courseSelection);
-        student.setReportCards(grades);
+        student.setReportCards();
         student.setWaitingErrors(offering);
-        errors = courseSelection.getWaitingErrors();
-        if (student.getSubmissionErrors().size() == 0)
+        errors = student.getSubmissionErrors();
+        if (errors.size() == 0)
             return true;
         else {
             if (student.getSubmissionErrors().size() == 1 && 
@@ -102,13 +101,11 @@ public class StudentManager {
     public boolean finalizeSchedule(String studentId) throws Exception {
         Student student = getStudentById(studentId);
         CourseSelection courseSelection = getStudentCourseSelectionById(studentId);
-        ArrayList<Grade> grades = getStudentGrades(studentId);
         student.setCourseSelection(courseSelection);
-        student.setReportCards(grades);
+        student.setReportCards();
         student.setSubmissionErrors();
-        errors = courseSelection.getSubmissionErrors();
-        if (student.getSubmissionErrors().size() == 0) {
-            //student.finalizeSchedule();
+        errors = student.getSubmissionErrors();
+        if (errors.size() == 0) {
             finalizeScheduleById(studentId);
             return true;
         }

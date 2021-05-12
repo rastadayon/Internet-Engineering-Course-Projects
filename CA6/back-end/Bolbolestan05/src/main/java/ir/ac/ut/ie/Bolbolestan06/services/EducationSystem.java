@@ -51,7 +51,6 @@ public class EducationSystem {
         for (Student student : students) {
             try {
 //                student.print();
-                Bolbolestan.getInstance().addStudent(student);
                 BolbolestanRepository.getInstance().insertStudent(student);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -71,7 +70,6 @@ public class EducationSystem {
                 Course course = courses.get(i);
                 Offering offering = offerings.get(i);
                 offering.setCourse(course);
-                Bolbolestan.getInstance().addOffering(offering);
                 BolbolestanRepository.getInstance().insertCourse(course);
                 BolbolestanRepository.getInstance().insertOffering(offering);
                 ClassTime classTime = offering.getClassTime();
@@ -91,7 +89,7 @@ public class EducationSystem {
     }
 
     private void importGradesFromWeb(final String gradesURL) throws Exception {
-        ArrayList<String> studentIds = Bolbolestan.getInstance().getStudentIds();
+        List<String> studentIds = BolbolestanRepository.getInstance().getStudentIds();
         for (String studentId : studentIds) {
             String gradesJsonString = HTTPRequestHandler.getRequest(
                     gradesURL + "/" + studentId);

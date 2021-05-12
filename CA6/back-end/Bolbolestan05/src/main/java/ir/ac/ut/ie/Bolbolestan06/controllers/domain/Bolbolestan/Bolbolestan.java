@@ -199,16 +199,7 @@ public class Bolbolestan {
         return student.getSearchString();
     }
 
-    public String getSubmissionErrors() throws Exception {
-        String errors = "";
-        for (String error: studentManager.getErrors()) {
-            errors += error;
-            errors += "\n";
-        }
-        return errors;
-    }
-
-    public String getWaitingErrors() throws Exception {
+    public String getErrors() throws Exception {
         String errors = "";
         for (String error: studentManager.getErrors()) {
             errors += error;

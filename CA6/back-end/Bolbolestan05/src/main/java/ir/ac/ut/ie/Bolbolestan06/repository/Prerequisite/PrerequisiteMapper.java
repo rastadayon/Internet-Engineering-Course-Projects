@@ -88,7 +88,7 @@ public class PrerequisiteMapper extends Mapper<HashMap<String, ArrayList<String>
                 con.close();
                 return result;
             } catch (SQLException ex) {
-                System.out.println("error in Mapper.getSearchedOfferings query.");
+                System.out.println("error in Mapper.getPrerequisites query.");
                 throw ex;
             }
         }

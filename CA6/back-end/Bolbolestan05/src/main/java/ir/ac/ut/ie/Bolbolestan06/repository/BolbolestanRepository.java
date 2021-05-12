@@ -19,11 +19,11 @@ import ir.ac.ut.ie.Bolbolestan06.repository.Offering.OfferingMapper;
 import ir.ac.ut.ie.Bolbolestan06.repository.Prerequisite.PrerequisiteMapper;
 import ir.ac.ut.ie.Bolbolestan06.repository.Selection.SelectionMapper;
 import ir.ac.ut.ie.Bolbolestan06.repository.Student.StudentMapper;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 
 public class BolbolestanRepository {
     private static BolbolestanRepository instance;
@@ -229,10 +229,16 @@ public class BolbolestanRepository {
         new SelectionMapper().deleteSelections(studentId);
     }
 
+    public List<String> getStudentIds() throws SQLException {
+        StudentMapper studentMapper = new StudentMapper();
+        List<String> ids = studentMapper.getIds();
+        return ids;
+    }
+
     public void finalizeScheduleById(String studentId) throws SQLException {
-        List<Selection> selections = new SelectionMapper().findStudentSchedule(studentId, "selected");
-        for (Selection selection: selections) {
-            new OfferingMapper().increaseSignedUp(selection.getCourseCode(), selection.getClassCode());
+        WeeklySchedule selected = findStudentScheduleById(studentId, "selected");
+        for (Offering offering: selected.getOfferings()) {
+            new OfferingMapper().increaseSignedUp(offering.getCourseCode(), offering.getClassCode());
         }
         new SelectionMapper().finalizeSelection(studentId);
     }
