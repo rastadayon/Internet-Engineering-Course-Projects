@@ -1,4 +1,4 @@
-package ir.ac.ut.ie.Bolbolestan06.repository;
+package ir.ac.ut.ie.Bolbolestan07.repository;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import java.sql.Connection;
@@ -12,7 +12,7 @@ public class ConnectionPool {
     static {
         ds.setDriverClassName("com.mysql.jdbc.Driver");
         // remote db
-        ds.setUrl("jdbc:mysql://localhost:3306/new_bolbol?useUnicode=true&characterEncoding=UTF-8");
+        ds.setUrl("jdbc:mysql://localhost:3306/BolbolestanDB?useUnicode=true&characterEncoding=UTF-8");
         ds.setUsername("rasta");
 //        ds.setUsername("ghazal");
         ds.setPassword("123");

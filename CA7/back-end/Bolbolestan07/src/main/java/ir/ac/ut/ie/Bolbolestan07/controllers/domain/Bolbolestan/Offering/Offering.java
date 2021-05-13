@@ -1,15 +1,15 @@
-package ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering;
+package ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Offering;
 
 
-import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Course.Course;
-import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Utilities.Utils;
+import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Course.Course;
+import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Utilities.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class Offering {
-    private String courseCode;
+    private final String courseCode;
     private final String classCode;
     private final String instructor;
     private Course course;
@@ -39,7 +39,7 @@ public class Offering {
 
     public void setCourse(Course course) {
         this.course = course;
-        this.courseCode = course.getCourseCode();}
+    }
 
     public void setClassTime(ClassTime classTime) {
         this.classTime = classTime;
@@ -59,7 +59,9 @@ public class Offering {
 
     public int getCapacity() { return capacity; }
 
-    public String getCourseCode() { return courseCode; }
+    public String getCourseCode() {
+        return courseCode;
+    }
 
     public Course getCourse() { return course; }
 
