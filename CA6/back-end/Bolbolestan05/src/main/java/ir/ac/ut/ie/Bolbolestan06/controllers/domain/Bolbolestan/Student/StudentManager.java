@@ -71,9 +71,15 @@ public class StudentManager {
 
     public boolean hasCapacityError(List<String> errors) {
         for (String error: errors) {
-            if (error.contains("ظرفیت"))
+            if (isCapacityError(error))
                 return true;
         }
+        return false;
+    }
+
+    public boolean isCapacityError(String error) {
+        if (error.contains("ظرفیت"))
+            return true;
         return false;
     }
 
@@ -105,6 +111,7 @@ public class StudentManager {
         student.setReportCards();
         student.setSubmissionErrors();
         errors = student.getSubmissionErrors();
+        System.out.println(errors.size());
         if (errors.size() == 0) {
             finalizeScheduleById(studentId);
             return true;
@@ -244,7 +251,17 @@ public class StudentManager {
         }
     }
 
-    public List<String> getErrors() {
+    public List<String> getWaitingErrors() {
+        List<String> waitingErrors = new ArrayList<String>();
+        for (String error: errors) {
+            if (isCapacityError(error))
+                continue;
+            waitingErrors.add(error);
+        }
+        return waitingErrors;
+    }
+
+    public List<String> getSubmissionErrors() {
         return errors;
     }
 }

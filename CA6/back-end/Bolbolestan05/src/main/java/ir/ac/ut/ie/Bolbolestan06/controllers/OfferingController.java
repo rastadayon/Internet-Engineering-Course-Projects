@@ -144,7 +144,7 @@ public class OfferingController {
                     return ResponseEntity.status(HttpStatus.OK).body("OK");
                 } else {
                     System.out.println("wait failed");
-                    String errors = bolbolestan.getErrors();
+                    String errors = bolbolestan.getWaitingErrors();
                     System.out.println(errors);
                     return ResponseEntity.status(HttpStatus.OK).body(errors);
                 }
@@ -187,7 +187,7 @@ public class OfferingController {
                     return ResponseEntity.status(HttpStatus.OK).body("OK");
                 } else {
                     System.out.println("finalize failed");
-                    String errors = bolbolestan.getErrors();
+                    String errors = bolbolestan.getSubmissionErrors();
                     System.out.println(errors);
                     return ResponseEntity.status(HttpStatus.OK).body(errors);
                 }

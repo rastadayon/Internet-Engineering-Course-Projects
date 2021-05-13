@@ -1,0 +1,65 @@
+Index: src/main/java/Bolbolestan/Bolbolestan.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Bolbolestan;\n\nimport Bolbolestan.Course.Course;\nimport Bolbolestan.Course.CourseManager;\nimport Bolbolestan.Offering.Offering;\nimport Bolbolestan.Offering.OfferingManager;\nimport Bolbolestan.Student.Grade;\nimport Bolbolestan.Student.Student;\nimport Bolbolestan.Student.StudentManager;\nimport Bolbolestan.Student.WeeklySchedule;\nimport Bolbolestan.exeptions.*;\nimport HTTPRequestHandler.HTTPRequestHandler;\nimport com.google.gson.Gson;\nimport com.google.gson.GsonBuilder;\nimport com.google.gson.reflect.TypeToken;\n\nimport java.util.*;\n\npublic class Bolbolestan {\n    final static String STUDENTS_URL = \"http://138.197.181.131:5000/api/students\";\n    final static String GRADES_URL = \"http://138.197.181.131:5000/api/grades\";\n    final static String COURSES_URL = \"http://138.197.181.131:5000/api/courses\";\n    private static Bolbolestan instance;\n    private String loggedInId = \"\";\n    private StudentManager studentManager = new StudentManager();\n    private OfferingManager offeringManager = new OfferingManager();\n    private CourseManager courseManager = new CourseManager();\n\n\n    public ArrayList<String> getStudentIds() {\n        return studentManager.getStudentIds();\n    }\n\n    public Student getStudentById(String studentId) throws Exception {\n        return studentManager.getStudentById(studentId);\n    }\n\n    public String getLoggedInId() {return loggedInId;}\n\n    public Boolean isAnybodyLoggedIn() {\n        if (loggedInId.equals(\"\"))\n            return false;\n        return true;\n    }\n\n    public void makeLoggedIn(String studentId) {\n        this.loggedInId = studentId;\n    }\n\n    public void makeLoggedOut() {\n        this.loggedInId = \"\";\n    }\n\n    public boolean doesStudentExist(String studentId) {\n        return studentManager.doesStudentExist(studentId);\n    }\n\n    public Offering getOffering(String courseCode, String classCode) throws Exception {\n        return offeringManager.getOfferingById(courseCode, classCode);\n    }\n\n    public List<Offering> getOfferings () {\n        return offeringManager.getOfferings();\n    }\n\n    public void addOffering(Offering offering) throws Exception {\n        offeringManager.addOffering(offering);\n        courseManager.addCourse(offering);\n    }\n\n    public void addStudent(Student student) throws Exception {\n        studentManager.addStudent(student);\n    }\n\n    public void addGradeToStudent(String studentId, Grade grade) throws Exception {\n        studentManager.addGradeToStudent(studentId, grade);\n    }\n\n    public void addToWeeklySchedule(String studentId, String courseCode, String classCode) throws Exception {\n        Offering offering = offeringManager.getOfferingById(courseCode, classCode);\n        studentManager.addToWeeklySchedule(studentId, offering);\n    }\n\n    public void removeFromWeeklySchedule(String studentId, String courseCode, String classCode) throws Exception {\n        Offering offering = offeringManager.getOfferingById(courseCode, classCode);\n        studentManager.removeFromWeeklySchedule(studentId, offering);\n    }\n\n    public WeeklySchedule handleGetWeeklySchedule(String studentId) throws Exception {\n        return studentManager.getWeeklySchedule(studentId);\n    }\n\n    public void handleFinalize(String studentId) throws Exception {\n        studentManager.finalizeSchedule(studentId);\n    }\n\n    public int getUnitsPassed(String studentId) throws Exception {\n        Student student = studentManager.getStudentById(studentId);\n        int unitsPassed = 0;\n        ArrayList<Grade> studentGrades = student.getGrades();\n        for (Grade gradeItem : studentGrades) {\n            Course course = courseManager.getCourseByCode(gradeItem.getCode());\n            if (gradeItem.getGrade() >= 10)\n                unitsPassed += course.getUnits();\n        }\n        return unitsPassed;\n    }\n\n    public int getTotalUnits(String studentId) throws Exception{\n        return studentManager.getTotalUnits(studentId);\n    }\n\n    public ArrayList<Offering> getClassTimeConflictingWithStudent(\n            String studentId, String courseCode, String classCode) throws Exception {\n        Offering offering = offeringManager.getOfferingById(courseCode, classCode);\n        return studentManager.getClassTimeConflicts(studentId, offering);\n    }\n\n    public ArrayList<Offering> getExamTimeConflictingWithStudent(\n            String studentId, String courseCode, String classCode) throws Exception {\n        Offering offering = offeringManager.getOfferingById(courseCode, classCode);\n        return studentManager.getExamTimeConflicts(studentId, offering);\n    }\n\n    public boolean offeringHasCapacity(String courseCode, String classCode) throws Exception{\n        return offeringManager.offeringHasCapacity(courseCode, classCode);\n    }\n\n    public ArrayList<String> getPrerequisitesNotPassed(\n            String studentId, String courseCode, String classCode) throws Exception {\n        Offering offering = offeringManager.getOfferingById(courseCode, classCode);\n        return studentManager.getPrerequisitesNotPassed(studentId, offering);\n    }\n\n    public void addCourseToStudent(String studentId, String courseCode, String classCode) throws Exception {\n        Offering offering = offeringManager.getOfferingById(courseCode, classCode);\n        if (offering.hasCapacity())\n            studentManager.addCourseToStudent(studentId, offering);\n    }\n\n    public void removeAllCoursesFromStudent(String studentId) throws Exception {\n        studentManager.removeAllOfferingsFromStudent(studentId);\n    }\n\n    private void importStudentsFromWeb(final String studentsURL) throws Exception {\n        String StudentsJsonString = HTTPRequestHandler.getRequest(studentsURL);\n        Gson gson = new GsonBuilder().setPrettyPrinting().create();\n        List<Student> students = gson.fromJson(StudentsJsonString, new TypeToken<List<Student>>() {\n        }.getType());\n        for (Student student : students) {\n            try {\n                addStudent(student);\n            } catch (Exception e) {\n                System.out.println(e.getMessage());\n            }\n        }\n    }\n\n    private void importCoursesFromWeb(final String coursesURL) throws Exception{\n        String coursesJsonString = HTTPRequestHandler.getRequest(coursesURL);\n        Gson gson = new GsonBuilder().setPrettyPrinting().create();\n        List<Offering> offerings = gson.fromJson(coursesJsonString, new TypeToken<List<Offering>>() {\n        }.getType());\n        List<Course> courses = gson.fromJson(coursesJsonString, new TypeToken<List<Course>>() {\n        }.getType());\n        for (int i = 0; i < offerings.size(); i++) {\n            try {\n                Offering offering = offerings.get(i);\n                offering.setCourse(courses.get(i));\n                addOffering(offering);\n            } catch (Exception e) {\n                System.out.println(e.getMessage());\n            }\n        }\n    }\n\n    private void importGradesFromWeb(final String gradesURL) throws Exception {\n        ArrayList<String> studentIds = getStudentIds();\n        for (String studentId : studentIds) {\n            String gradesJsonString = HTTPRequestHandler.getRequest(\n                    gradesURL + \"/\" + studentId);\n            Gson gson = new GsonBuilder().setPrettyPrinting().create();\n            List<Grade> grades = gson.fromJson(gradesJsonString, new TypeToken<List<Grade>>() {\n            }.getType());\n            for (Grade grade : grades) {\n                try {\n                    addGradeToStudent(studentId, grade);\n                } catch (Exception e) {\n                    System.out.println(e.getMessage());\n                }\n            }\n        }\n    }\n\n    private Bolbolestan() {}\n\n    public static Bolbolestan getInstance() {\n        if (instance == null) {\n            instance = new Bolbolestan();\n            /*try {\n                instance.importStudentsFromWeb(STUDENTS_URL);\n                instance.importGradesFromWeb(GRADES_URL);\n                instance.importCoursesFromWeb(COURSES_URL);\n            } catch (Exception e) {\n                System.out.println(e.getMessage());\n            }*/\n        }\n        return instance;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/Bolbolestan/Bolbolestan.java b/src/main/java/Bolbolestan/Bolbolestan.java
+--- a/src/main/java/Bolbolestan/Bolbolestan.java	(revision 337de365a211e6d3d4f70afda23d2cbfc987a057)
++++ b/src/main/java/Bolbolestan/Bolbolestan.java	(date 1615831977383)
+@@ -142,7 +142,7 @@
+         studentManager.removeAllOfferingsFromStudent(studentId);
+     }
+ 
+-    private void importStudentsFromWeb(final String studentsURL) throws Exception {
++    public void importStudentsFromWeb(final String studentsURL) throws Exception {
+         String StudentsJsonString = HTTPRequestHandler.getRequest(studentsURL);
+         Gson gson = new GsonBuilder().setPrettyPrinting().create();
+         List<Student> students = gson.fromJson(StudentsJsonString, new TypeToken<List<Student>>() {
+@@ -156,7 +156,7 @@
+         }
+     }
+ 
+-    private void importCoursesFromWeb(final String coursesURL) throws Exception{
++    public void importCoursesFromWeb(final String coursesURL) throws Exception{
+         String coursesJsonString = HTTPRequestHandler.getRequest(coursesURL);
+         Gson gson = new GsonBuilder().setPrettyPrinting().create();
+         List<Offering> offerings = gson.fromJson(coursesJsonString, new TypeToken<List<Offering>>() {
+@@ -174,7 +174,7 @@
+         }
+     }
+ 
+-    private void importGradesFromWeb(final String gradesURL) throws Exception {
++    public void importGradesFromWeb(final String gradesURL) throws Exception {
+         ArrayList<String> studentIds = getStudentIds();
+         for (String studentId : studentIds) {
+             String gradesJsonString = HTTPRequestHandler.getRequest(
+@@ -192,18 +192,19 @@
+         }
+     }
+ 
+-    private Bolbolestan() {}
++    private Bolbolestan() {
++        try {
++            importStudentsFromWeb(STUDENTS_URL);
++            importGradesFromWeb(GRADES_URL);
++            importCoursesFromWeb(COURSES_URL);
++        } catch (Exception e) {
++            System.out.println(e.getMessage());
++        }
++    }
+ 
+     public static Bolbolestan getInstance() {
+         if (instance == null) {
+             instance = new Bolbolestan();
+-            /*try {
+-                instance.importStudentsFromWeb(STUDENTS_URL);
+-                instance.importGradesFromWeb(GRADES_URL);
+-                instance.importCoursesFromWeb(COURSES_URL);
+-            } catch (Exception e) {
+-                System.out.println(e.getMessage());
+-            }*/
+         }
+         return instance;
+     }

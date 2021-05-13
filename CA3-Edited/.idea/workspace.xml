@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="ca3:war exploded" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="219d17d7-c0a1-48f1-8d7e-39a808c74bcb" name="Default Changelist" comment="Add logout controller" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Jsp File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="ProjectId" id="1pl6lTECgmugzuN1theDLgnR7Tu" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="true" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../CA4/back-end" />
+    <property name="project.structure.last.edited" value="Global Libraries" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.41542" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="219d17d7-c0a1-48f1-8d7e-39a808c74bcb" name="Default Changelist" comment="" />
+      <created>1615745486510</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1615745486510</updated>
+      <workItem from="1615745489720" duration="2946000" />
+      <workItem from="1615795746260" duration="72000" />
+      <workItem from="1615799214284" duration="213000" />
+      <workItem from="1615804897645" duration="1854000" />
+      <workItem from="1615814643590" duration="2348000" />
+      <workItem from="1615843250574" duration="296000" />
+      <workItem from="1615843648800" duration="6694000" />
+      <workItem from="1615935442582" duration="384000" />
+      <workItem from="1616010202120" duration="7307000" />
+      <workItem from="1616019141992" duration="9218000" />
+      <workItem from="1616028533198" duration="4813000" />
+      <workItem from="1616050930707" duration="7453000" />
+      <workItem from="1616073137360" duration="2943000" />
+      <workItem from="1616076239173" duration="297000" />
+      <workItem from="1616076709689" duration="1097000" />
+      <workItem from="1616161665536" duration="28000" />
+      <workItem from="1616254127841" duration="3665000" />
+      <workItem from="1616441736212" duration="421000" />
+      <workItem from="1616442344444" duration="779000" />
+      <workItem from="1617961101620" duration="1063000" />
+      <workItem from="1618149691850" duration="34000" />
+    </task>
+    <task id="LOCAL-00001" summary="Import courses">
+      <created>1615810400901</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1615810400902</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Add importing to model">
+      <created>1615815906909</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1615815906909</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Add logout controller">
+      <created>1615846184685</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1615846184709</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Import courses" />
+    <MESSAGE value="Add importing to model" />
+    <MESSAGE value="Add logout controller" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add logout controller" />
+  </component>
+</project>

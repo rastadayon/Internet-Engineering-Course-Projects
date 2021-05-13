@@ -136,8 +136,9 @@ public class BolbolestanRepository {
         args.add(studentId);
         args.add(courseCode);
         Selection selection = new SelectionMapper().find(new Pair(args));
-        if (selection.getStatus() == "submitted")
+        if (selection.getStatus().equals("submitted")) {
             new OfferingMapper().decreaseSignedUp(courseCode, classCode);
+        }
         new SelectionMapper().delete(new Pair(args));
     }
 
@@ -154,6 +155,8 @@ public class BolbolestanRepository {
 //        System.out.println("exam time found");
         ClassTime classTime = new ClassTimeMapper().find(new Pair(args));
 //        System.out.println("class time found");
+        ArrayList<String> prerequisites = new PrerequisiteMapper().getPrerequisites(courseCode);
+        course.setPrerequisites(prerequisites);
         offering.setCourse(course);
         offering.setClassTime(classTime);
         offering.setExamTime(examTime);
