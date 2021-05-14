@@ -192,7 +192,7 @@
 .selected:hover .first-item {
     border-right: 0.3em solid #0087e0;
     border-top: 0.14em solid #0087e0;
-    border-bottom: 0.14em solid #0087e0;
+    border-bottom: 0.25em solid #0087e0;
 }
 
 .selected:hover .last-item {

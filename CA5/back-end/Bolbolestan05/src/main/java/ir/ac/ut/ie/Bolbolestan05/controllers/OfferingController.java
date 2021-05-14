@@ -90,7 +90,7 @@ public class OfferingController {
         }
     }
 
-    @DeleteMapping("/remove")
+    @DeleteMapping("")
     public ResponseEntity removeCourse(
             @RequestParam String courseCode,
             @RequestParam String classCode) throws IOException {
@@ -216,7 +216,7 @@ public class OfferingController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("student not found. invalid login");
     }
 
-    @PutMapping("/remove")
+    @PutMapping("/edit")
     public ResponseEntity editSelection(
             @RequestParam String courseCode,
             @RequestParam String classCode) throws IOException {
