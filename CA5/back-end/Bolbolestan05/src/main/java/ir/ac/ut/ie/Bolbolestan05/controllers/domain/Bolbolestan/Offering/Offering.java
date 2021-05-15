@@ -1,8 +1,11 @@
 package ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Offering;
 
 
+import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Bolbolestan;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Course.Course;
 import ir.ac.ut.ie.Bolbolestan05.controllers.domain.Bolbolestan.Utilities.Utils;
+import ir.ac.ut.ie.Bolbolestan05.controllers.models.ClassTimeData;
+import ir.ac.ut.ie.Bolbolestan05.controllers.models.ExamTimeData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +29,19 @@ public class Offering {
         this.examTime = examTime;
         this.signedUp = 0;
     }
+
+    public Offering(Offering that) {
+        this(that.getClassCode(), that.getInstructor(), that.getCapacity(),
+                new ClassTime(that.getClassTime()), new ExamTime(that.getExamTime()));
+        this.course = new Course(that.getCourse());
+    }
+
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public void setFarsiPrerequisites(ArrayList<String> farsiPrerequisites) {
+        this.course.setFarsiPrerequisites(farsiPrerequisites);
     }
 
     public String getType() { return course.getType(); }
@@ -154,5 +168,20 @@ public class Offering {
         return true;
     }
 
+    public void setFarsiData() {
+        ClassTimeData classTimeData = new ClassTimeData(this.getClassTime().getTime(), this.getClassTime().getDays());
+        this.classTime = new ClassTime(classTimeData.getTime(), classTimeData.getFarsiDays());
 
+        ExamTimeData examTimeData = new ExamTimeData(this.examTime);
+        this.examTime = new ExamTime(examTimeData.getDate(), examTimeData.getExamDuration());
+
+        ArrayList<String> farsiPrerequisite = new ArrayList<>();
+        try {
+            for (String prerequisite : this.getPrerequisites())
+                farsiPrerequisite.add(Bolbolestan.getInstance().getCourseNameById(prerequisite));
+            this.setFarsiPrerequisites(farsiPrerequisite);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

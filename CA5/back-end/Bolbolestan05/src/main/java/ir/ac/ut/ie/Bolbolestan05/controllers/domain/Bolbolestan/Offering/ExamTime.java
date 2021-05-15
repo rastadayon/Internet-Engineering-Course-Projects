@@ -11,6 +11,10 @@ public class ExamTime {
         this.end = end;
     }
 
+    public ExamTime(ExamTime that) {
+        this(that.getStart(), that.getEnd());
+    }
+
     public String getStart() { return start; }
 
     public String getEnd() { return end; }

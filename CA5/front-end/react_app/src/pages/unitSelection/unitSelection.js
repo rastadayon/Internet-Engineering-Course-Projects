@@ -47,9 +47,9 @@ export default class UnitSelection extends React.Component {
                 toast.error('خطا در انجام عملیات')
             }}).catch(error => {
                 console.log(error)
-                if(error.response.status == 401 || error.response.status == 403) {
-                    window.location.href = "http://localhost:3000/login"
-                }
+                // if(error.response.status == 401 || error.response.status == 403) {
+                //     window.location.href = "http://localhost:3000/login"
+                // }
         })
     }
 
@@ -71,9 +71,9 @@ export default class UnitSelection extends React.Component {
                 toast.error('خطا در انجام عملیات')
             }}).catch(error => {
                 console.log(error)
-                if(error.response.status == 401 || error.response.status == 403) {
-                    window.location.href = "http://localhost:3000/login"
-                }
+                // if(error.response.status == 401 || error.response.status == 403) {
+                //     window.location.href = "http://localhost:3000/login"
+                // }
             })
     }
 
@@ -87,14 +87,15 @@ export default class UnitSelection extends React.Component {
         ).then(resp => {
             if(resp.status == 200) {
                 this.setState({courses: resp.data});
+                // console.log(resp.data)
             }
             else{
                 toast.error('خطا در انجام عملیات')
             }}).catch(error => {
                 console.log(error)
-                if(error.response.status == 401 || error.response.status == 403) {
-                    window.location.href = "http://localhost:3000/login"
-                }
+                // if(error.response.status == 401 || error.response.status == 403) {
+                //     window.location.href = "http://localhost:3000/login"
+                // }
             })
     }
 

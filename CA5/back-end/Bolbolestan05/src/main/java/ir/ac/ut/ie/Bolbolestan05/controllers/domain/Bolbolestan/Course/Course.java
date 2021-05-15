@@ -17,6 +17,11 @@ public class Course {
         this.type = type;
     }
 
+    public Course(Course that) {
+        this(that.getCourseCode(), that.getName(), that.getUnits(),
+                that.type, new ArrayList<>(that.prerequisites));
+    }
+
     public String getCourseCode() { return code; }
 
     public String getName() { return name; }
@@ -26,4 +31,6 @@ public class Course {
     public String getType() { return type; }
 
     public ArrayList<String> getPrerequisites() { return prerequisites; }
+
+    public void setFarsiPrerequisites(ArrayList<String> farsiPrerequisites) { this.prerequisites = farsiPrerequisites; }
 }

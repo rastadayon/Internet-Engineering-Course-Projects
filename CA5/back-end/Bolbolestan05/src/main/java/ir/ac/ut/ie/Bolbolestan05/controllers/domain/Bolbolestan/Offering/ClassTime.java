@@ -14,6 +14,10 @@ public class ClassTime {
         this.days = days;
     }
 
+    public ClassTime(ClassTime that) {
+        this(that.getTime(), that.getDays());
+    }
+
     public String getTime() { return time; }
 
     public List<String> getDays() { return days; }
@@ -42,5 +46,9 @@ public class ClassTime {
         jo.put("time", time);
 
         return jo;
+    }
+
+    public void setFarsiData() {
+
     }
 }

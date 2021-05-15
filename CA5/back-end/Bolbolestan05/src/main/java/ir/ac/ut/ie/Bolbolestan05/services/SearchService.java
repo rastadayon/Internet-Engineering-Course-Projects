@@ -25,9 +25,13 @@ public class SearchService {
         return sortedSearchResults;
     }
 
-    public static ArrayList<Offering> searchKeyword(SearchData searchData) throws Exception{
+    public static ArrayList<Offering> searchKeyword(SearchData searchData) throws Exception {
         Bolbolestan.getInstance().searchForCourses(searchData.getKeyword());
-        List<Offering> searchResult = Bolbolestan.getInstance().getSearchedOfferings();
+        List<Offering> searchResult = new ArrayList<>(Bolbolestan.getInstance().getSearchedOfferings());
+        for (int i = 0; i < searchResult.size(); i++) {
+            searchResult.set(i, new Offering(searchResult.get(i)));
+            searchResult.get(i).setFarsiData();
+        }
         return sortSearchedOfferings(searchResult, searchData.getType());
     }
 }
