@@ -26,7 +26,7 @@ const theme = createMuiTheme({
           width: "12em",
           whiteSpace: "pre-line !important",
           position: "absolute",
-          right: "-3.7em"
+          right: "-12em"
         },
         arrow: {
             "&::before": {
