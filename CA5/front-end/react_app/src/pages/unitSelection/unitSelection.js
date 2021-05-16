@@ -87,6 +87,7 @@ export default class UnitSelection extends React.Component {
         ).then(resp => {
             if(resp.status == 200) {
                 this.setState({courses: resp.data});
+                // console.log(resp.data)
             }
             else{
                 toast.error('خطا در انجام عملیات')

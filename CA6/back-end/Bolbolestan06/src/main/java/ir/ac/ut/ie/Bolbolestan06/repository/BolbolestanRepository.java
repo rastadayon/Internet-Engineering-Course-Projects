@@ -1,6 +1,11 @@
 package ir.ac.ut.ie.Bolbolestan06.repository;
 
+<<<<<<< HEAD:CA6/back-end/Bolbolestan05/src/main/java/ir/ac/ut/ie/Bolbolestan06/repository/BolbolestanRepository.java
 import ir.ac.ut.ie.Bolbolestan06.utils.Pair;
+=======
+import ir.ac.ut.ie.Bolbolestan06.Utils.Pair;
+import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Bolbolestan;
+>>>>>>> 4eac0de4a7bee5dcde8b73fb87f453893a554df4:CA6/back-end/Bolbolestan06/src/main/java/ir/ac/ut/ie/Bolbolestan06/repository/BolbolestanRepository.java
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Course.Course;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.ClassTime;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.ExamTime;
@@ -113,7 +118,6 @@ public class BolbolestanRepository {
 
     //    Prerequisite
     public void insertPrerequisite(HashMap<String, ArrayList<String>> prerequisiteInfo) throws SQLException {
-//        System.out.println("inserting prerequisites :))))))))))))))))))))");
         PrerequisiteMapper prerequisiteMapper = new PrerequisiteMapper();
         prerequisiteMapper.insert(prerequisiteInfo);
     }
@@ -271,6 +275,8 @@ public class BolbolestanRepository {
         offering.setClassTime(classTime);
         ExamTime examTime = new ExamTimeMapper().find(new Pair(args));
         offering.setExamTime(examTime);
+        ArrayList<String> prerequisites = Bolbolestan.getInstance().getPrerequisites(offering.getCourseCode());
+        offering.setPrerequisites(prerequisites);
     }
 
     public ArrayList<Offering> searchOfferings(SearchData searchData) {

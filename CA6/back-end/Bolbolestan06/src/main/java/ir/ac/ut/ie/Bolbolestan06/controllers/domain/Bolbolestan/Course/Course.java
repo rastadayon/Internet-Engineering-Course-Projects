@@ -9,7 +9,7 @@ public class Course {
     private String name;
     private int units;
     private String type;
-    private ArrayList<String> prerequisites = new ArrayList<>();
+    private ArrayList<String> prerequisites;
 
     public Course(String code, String name, int units, String type, ArrayList<String> prerequisites) {
         this.code = code;

@@ -199,7 +199,7 @@ public class Bolbolestan {
 
     public String getSubmissionErrors() throws Exception {
         String errors = "";
-        for (String error: studentManager.getErrors()) {
+        for (String error: studentManager.getSubmissionErrors()) {
             errors += error;
             errors += "\n";
         }
@@ -208,7 +208,7 @@ public class Bolbolestan {
 
     public String getWaitingErrors() throws Exception {
         String errors = "";
-        for (String error: studentManager.getErrors()) {
+        for (String error: studentManager.getWaitingErrors()) {
             errors += error;
             errors += "\n";
         }

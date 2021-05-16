@@ -71,8 +71,16 @@ public class OfferingController {
             ArrayList<String> farsiPrerequisites = new ArrayList<>();
             Offering offering = Bolbolestan.getInstance().getOffering(courseCode, classCode);
             ArrayList<String> prerequisites = offering.getPrerequisites();
+<<<<<<< HEAD
             for (String prerequisite: prerequisites)
                 farsiPrerequisites.add(Bolbolestan.getInstance().getCourseNameById(prerequisite));
+=======
+//            System.out.println("prerequisite for course "+ courseCode + " with course name : " + Bolbolestan.getInstance().getCourseNameById(courseCode) + " is : ");
+            for (String prerequisite: prerequisites) {
+//                System.out.println("\t - " + prerequisite + " : " + Bolbolestan.getInstance().getCourseNameById(prerequisite));
+                farsiPrerequisites.add(Bolbolestan.getInstance().getCourseNameById(prerequisite));
+            }
+>>>>>>> 4eac0de4a7bee5dcde8b73fb87f453893a554df4
             return ResponseEntity.status(HttpStatus.OK).body(farsiPrerequisites);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());

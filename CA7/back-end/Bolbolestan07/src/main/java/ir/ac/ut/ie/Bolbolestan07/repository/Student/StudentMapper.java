@@ -1,8 +1,8 @@
 package ir.ac.ut.ie.Bolbolestan07.repository.Student;
 
 import ir.ac.ut.ie.Bolbolestan07.utils.Utils;
-import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Student.Student;
 import ir.ac.ut.ie.Bolbolestan07.repository.ConnectionPool;
+import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Student.Student;
 import ir.ac.ut.ie.Bolbolestan07.repository.Mapper;
 
 import java.sql.*;
@@ -100,4 +100,24 @@ public class StudentMapper extends Mapper<Student, String> implements IStudentMa
             }
         }
     }
+
+    public List<String> getIds() throws SQLException {
+        List<String> result = new ArrayList<String>();
+        String statement = "SELECT * FROM " + TABLE_NAME;
+        try (Connection con = ConnectionPool.getConnection();
+             PreparedStatement st = con.prepareStatement(statement);
+        ) {
+            ResultSet resultSet;
+            try {
+                resultSet = st.executeQuery();
+                while (resultSet.next())
+                    result.add(convertResultSetToObject(resultSet).getId());
+                return result;
+            } catch (SQLException ex) {
+                System.out.println("error in Mapper.findAll query.");
+                throw ex;
+            }
+        }
+    }
+
 }

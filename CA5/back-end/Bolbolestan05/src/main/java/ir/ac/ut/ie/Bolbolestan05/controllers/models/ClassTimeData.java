@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ClassTimeData {
-    String farsiDays;
+    ArrayList<String> farsiDays;
     String time;
     private final HashMap<String, String> englishToFarsiDays = new HashMap<>();
 
@@ -18,12 +18,10 @@ public class ClassTimeData {
         englishToFarsiDays.put("Thursday", "پنج شنبه");
         englishToFarsiDays.put("Friday", "جمعه");
 
-        ArrayList<String> farsiDays = new ArrayList<>();
+        this.farsiDays = new ArrayList<>();
         for (String day : days) {
             farsiDays.add(englishToFarsiDays.get(day));
         }
-
-        this.farsiDays = String.join(" - ", farsiDays);
         this.time = time;
     }
 
@@ -31,7 +29,7 @@ public class ClassTimeData {
         return time;
     }
 
-    public String getFarsiDays() {
+    public ArrayList<String> getFarsiDays() {
         return farsiDays;
     }
 }

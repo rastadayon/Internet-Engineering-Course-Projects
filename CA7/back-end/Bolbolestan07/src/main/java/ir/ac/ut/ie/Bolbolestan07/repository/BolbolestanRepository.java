@@ -1,5 +1,6 @@
 package ir.ac.ut.ie.Bolbolestan07.repository;
 
+import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Bolbolestan;
 import ir.ac.ut.ie.Bolbolestan07.utils.Pair;
 import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Course.Course;
 import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Offering.ClassTime;
@@ -19,11 +20,11 @@ import ir.ac.ut.ie.Bolbolestan07.repository.Offering.OfferingMapper;
 import ir.ac.ut.ie.Bolbolestan07.repository.Prerequisite.PrerequisiteMapper;
 import ir.ac.ut.ie.Bolbolestan07.repository.Selection.SelectionMapper;
 import ir.ac.ut.ie.Bolbolestan07.repository.Student.StudentMapper;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 
 public class BolbolestanRepository {
     private static BolbolestanRepository instance;
@@ -113,7 +114,6 @@ public class BolbolestanRepository {
 
     //    Prerequisite
     public void insertPrerequisite(HashMap<String, ArrayList<String>> prerequisiteInfo) throws SQLException {
-//        System.out.println("inserting prerequisites :))))))))))))))))))))");
         PrerequisiteMapper prerequisiteMapper = new PrerequisiteMapper();
         prerequisiteMapper.insert(prerequisiteInfo);
     }
@@ -136,8 +136,9 @@ public class BolbolestanRepository {
         args.add(studentId);
         args.add(courseCode);
         Selection selection = new SelectionMapper().find(new Pair(args));
-        if (selection.getStatus() == "submitted")
+        if (selection.getStatus().equals("submitted")) {
             new OfferingMapper().decreaseSignedUp(courseCode, classCode);
+        }
         new SelectionMapper().delete(new Pair(args));
     }
 
@@ -154,6 +155,8 @@ public class BolbolestanRepository {
 //        System.out.println("exam time found");
         ClassTime classTime = new ClassTimeMapper().find(new Pair(args));
 //        System.out.println("class time found");
+        ArrayList<String> prerequisites = new PrerequisiteMapper().getPrerequisites(courseCode);
+        course.setPrerequisites(prerequisites);
         offering.setCourse(course);
         offering.setClassTime(classTime);
         offering.setExamTime(examTime);
@@ -229,10 +232,16 @@ public class BolbolestanRepository {
         new SelectionMapper().deleteSelections(studentId);
     }
 
+    public List<String> getStudentIds() throws SQLException {
+        StudentMapper studentMapper = new StudentMapper();
+        List<String> ids = studentMapper.getIds();
+        return ids;
+    }
+
     public void finalizeScheduleById(String studentId) throws SQLException {
-        List<Selection> selections = new SelectionMapper().findStudentSchedule(studentId, "selected");
-        for (Selection selection: selections) {
-            new OfferingMapper().increaseSignedUp(selection.getCourseCode(), selection.getClassCode());
+        WeeklySchedule selected = findStudentScheduleById(studentId, "selected");
+        for (Offering offering: selected.getOfferings()) {
+            new OfferingMapper().increaseSignedUp(offering.getCourseCode(), offering.getClassCode());
         }
         new SelectionMapper().finalizeSelection(studentId);
     }
@@ -262,6 +271,8 @@ public class BolbolestanRepository {
         offering.setClassTime(classTime);
         ExamTime examTime = new ExamTimeMapper().find(new Pair(args));
         offering.setExamTime(examTime);
+        ArrayList<String> prerequisites = Bolbolestan.getInstance().getPrerequisites(offering.getCourseCode());
+        offering.setPrerequisites(prerequisites);
     }
 
     public ArrayList<Offering> searchOfferings(SearchData searchData) {

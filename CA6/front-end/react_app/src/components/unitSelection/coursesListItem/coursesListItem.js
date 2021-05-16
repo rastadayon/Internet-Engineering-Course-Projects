@@ -206,21 +206,21 @@ export default class CoursesListItem extends React.Component {
     getTooltipInfo() {
         return(
             <p>
-                {this.state.classData ? enToFaNumber(this.state.classData.time) + '\n' : '-\n'}
+                {this.props.course ? enToFaNumber(this.props.course.classTime.time) + '\n' : '-\n'}
             
-                {this.state.classData ? this.state.classData.farsiDays + '\n' : '-\n'}
+                {this.props.course ? this.props.course.classTime.days + '\n' : '-\n'}
 
                 ________________
                 <br/>
                 <b>پیش نیازی‌ها</b>
                 <br/>
 
-                {this.state.prerequisites ? this.state.prerequisites + '\n' : '-\n'}
+                {this.props.course ? this.props.course.prerequisites + '\n' : '-\n'}
 
                 <b>امتحان</b>
                 {'\n'}
-                {this.state.examData ? enToFaNumber(this.state.examData.examDuration) 
-                + ' - ' + enToFaNumber(this.state.examData.date) + '\n': '-\n'}
+                {this.props.course ? enToFaNumber(this.props.course.examTime.end) 
+                + ' - ' + enToFaNumber(this.props.course.examTime.start) + '\n': '-\n'}
             </p>
             
         );
