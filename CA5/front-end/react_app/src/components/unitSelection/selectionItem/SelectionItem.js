@@ -56,7 +56,7 @@ export default class SelectionItem extends React.Component{
         requestParam.append('courseCode', this.state.course.courseCode);
         requestParam.append('classCode', this.state.course.classCode);
 
-        API.delete('offering', requestParam).then(resp => {
+        API.put('offering/edit', requestParam).then(resp => {
             if(resp.status == 200) {
                 console.log("done");
                 this.props.updateSelections();

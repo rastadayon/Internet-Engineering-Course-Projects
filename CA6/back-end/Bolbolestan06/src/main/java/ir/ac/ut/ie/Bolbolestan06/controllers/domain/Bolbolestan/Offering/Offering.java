@@ -1,8 +1,11 @@
 package ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering;
 
 
+import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Bolbolestan;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Course.Course;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Utilities.Utils;
+import ir.ac.ut.ie.Bolbolestan06.controllers.models.ClassTimeData;
+import ir.ac.ut.ie.Bolbolestan06.controllers.models.ExamTimeData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,16 +21,6 @@ public class Offering {
     private ExamTime examTime;
     private int signedUp = 0;
 
-//    public Offering(String classCode, String instructor,
-//                    int capacity, ClassTime classTime, ExamTime examTime) {
-//        this.classCode = classCode;
-//        this.instructor = instructor;
-//        this.capacity = capacity;
-//        this.classTime = classTime;
-//        this.examTime = examTime;
-//        this.signedUp = 0;
-//    }
-
     public Offering(String courseCode, String classCode,
                     String instructor, int capacity, int signedUp) {
         this.courseCode = courseCode;
@@ -39,7 +32,13 @@ public class Offering {
 
     public void setCourse(Course course) {
         this.course = course;
-        this.courseCode = course.getCourseCode();}
+        this.courseCode = course.getCourseCode();
+    }
+
+    public void setPrerequisites(ArrayList<String> prerequisites) {
+        if(course != null)
+            course.setPrerequisites(prerequisites);
+    }
 
     public void setClassTime(ClassTime classTime) {
         this.classTime = classTime;
@@ -74,13 +73,13 @@ public class Offering {
         System.out.println(String.format("type : %s", course.getType()));
         System.out.println(String.format("instructor : %s", instructor));
         System.out.println(String.format("capacity : %d", capacity));
-//        System.out.print("prerequisites : [ ");
-//        for (int i = 0; i < course.getPrerequisites().size(); i++) {
-//            if (i != 0)
-//                System.out.print(", ");
-//            System.out.print(course.getPrerequisites().get(i));
-//        }
-//        System.out.println(" ]");
+        System.out.print("prerequisites : [ ");
+        for (int i = 0; i < course.getPrerequisites().size(); i++) {
+            if (i != 0)
+                System.out.print(", ");
+            System.out.print(course.getPrerequisites().get(i));
+        }
+        System.out.println(" ]");
         classTime.print();
         examTime.print();
     }
@@ -118,16 +117,6 @@ public class Offering {
         }
         return daysString;
     }
-
-    /*public String getPrerequisitesString() {
-        String prerequisitesString = "";
-        for (int i = 0; i < course.getPrerequisites().size(); i++) {
-            if (i > 0)
-                prerequisitesString += "|";
-            prerequisitesString += course.getPrerequisites().get(i);
-        }
-        return prerequisitesString;
-    }*/
 
     public String getName() {return course.getName();}
 
@@ -171,5 +160,20 @@ public class Offering {
         return true;
     }
 
+    public void setFarsiData() {
+        ClassTimeData classTimeData = new ClassTimeData(this.getClassTime().getTime(), this.getClassTime().getDays());
+        this.classTime = new ClassTime(classTimeData.getTime(), classTimeData.getFarsiDays());
 
+        ExamTimeData examTimeData = new ExamTimeData(this.examTime);
+        this.examTime = new ExamTime(examTimeData.getDate(), examTimeData.getExamDuration());
+
+        ArrayList<String> farsiPrerequisite = new ArrayList<>();
+        try {
+            for (String prerequisite: this.getPrerequisites())
+                farsiPrerequisite.add(Bolbolestan.getInstance().getCourseNameById(prerequisite));
+            this.setPrerequisites(farsiPrerequisite);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
