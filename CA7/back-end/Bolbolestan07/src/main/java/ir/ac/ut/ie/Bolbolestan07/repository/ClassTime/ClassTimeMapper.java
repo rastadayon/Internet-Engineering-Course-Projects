@@ -1,7 +1,7 @@
 package ir.ac.ut.ie.Bolbolestan07.repository.ClassTime;
 
-import ir.ac.ut.ie.Bolbolestan07.Utils.Pair;
-import ir.ac.ut.ie.Bolbolestan07.Utils.Utils;
+import ir.ac.ut.ie.Bolbolestan07.utils.Pair;
+import ir.ac.ut.ie.Bolbolestan07.utils.Utils;
 import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Offering.ClassTime;
 import ir.ac.ut.ie.Bolbolestan07.repository.ConnectionPool;
 import ir.ac.ut.ie.Bolbolestan07.repository.Mapper;

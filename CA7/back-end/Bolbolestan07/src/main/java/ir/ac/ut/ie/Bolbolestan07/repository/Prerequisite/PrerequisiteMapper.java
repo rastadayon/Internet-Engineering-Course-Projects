@@ -1,12 +1,17 @@
 package ir.ac.ut.ie.Bolbolestan07.repository.Prerequisite;
 
-import ir.ac.ut.ie.Bolbolestan07.Utils.Utils;
+import ir.ac.ut.ie.Bolbolestan07.utils.Utils;
+import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Course.Course;
+import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Offering.Offering;
+import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Student.Student;
 import ir.ac.ut.ie.Bolbolestan07.repository.ConnectionPool;
 import ir.ac.ut.ie.Bolbolestan07.repository.Mapper;
+import ir.ac.ut.ie.Bolbolestan07.repository.Student.IStudentMapper;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class PrerequisiteMapper extends Mapper<HashMap<String, ArrayList<String>>, String> implements IPrerequisiteMapper {
     private static final String COLUMNS = " courseCode, prerequisiteCode";
@@ -83,7 +88,7 @@ public class PrerequisiteMapper extends Mapper<HashMap<String, ArrayList<String>
                 con.close();
                 return result;
             } catch (SQLException ex) {
-                System.out.println("error in Mapper.getSearchedOfferings query.");
+                System.out.println("error in Mapper.getPrerequisites query.");
                 throw ex;
             }
         }

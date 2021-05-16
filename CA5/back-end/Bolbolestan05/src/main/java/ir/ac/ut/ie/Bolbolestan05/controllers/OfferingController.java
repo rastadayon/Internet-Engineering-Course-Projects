@@ -72,7 +72,7 @@ public class OfferingController {
             Offering offering = Bolbolestan.getInstance().getOffering(courseCode, classCode);
             ArrayList<String> prerequisites = offering.getPrerequisites();
             for (String prerequisite: prerequisites)
-                farsiPrerequisites.add(Bolbolestan.getInstance().getCourseNameById(courseCode));
+                farsiPrerequisites.add(Bolbolestan.getInstance().getCourseNameById(prerequisite));
             return ResponseEntity.status(HttpStatus.OK).body(farsiPrerequisites);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());

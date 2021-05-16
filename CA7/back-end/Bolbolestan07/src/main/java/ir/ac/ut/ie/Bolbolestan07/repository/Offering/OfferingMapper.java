@@ -1,7 +1,7 @@
 package ir.ac.ut.ie.Bolbolestan07.repository.Offering;
 
-import ir.ac.ut.ie.Bolbolestan07.Utils.Pair;
-import ir.ac.ut.ie.Bolbolestan07.Utils.Utils;
+import ir.ac.ut.ie.Bolbolestan07.utils.Pair;
+import ir.ac.ut.ie.Bolbolestan07.utils.Utils;
 import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Offering.Offering;
 import ir.ac.ut.ie.Bolbolestan07.repository.ConnectionPool;
 import ir.ac.ut.ie.Bolbolestan07.repository.Mapper;
@@ -88,7 +88,9 @@ public class OfferingMapper extends Mapper<Offering, Pair> implements IOfferingM
              PreparedStatement st = con.prepareStatement(statement);
         ) {
             try {
+                con.setAutoCommit(false);
                 st.executeUpdate();
+                con.commit();
             } catch (SQLException ex) {
                 System.out.println("error in Mapper.increaseSignedUp query.");
                 throw ex;
@@ -108,7 +110,9 @@ public class OfferingMapper extends Mapper<Offering, Pair> implements IOfferingM
              PreparedStatement st = con.prepareStatement(statement);
         ) {
             try {
+                con.setAutoCommit(false);
                 st.executeUpdate();
+                con.commit();
             } catch (SQLException ex) {
                 System.out.println("error in Mapper.increaseCapacity query.");
                 throw ex;
@@ -128,7 +132,9 @@ public class OfferingMapper extends Mapper<Offering, Pair> implements IOfferingM
              PreparedStatement st = con.prepareStatement(statement);
         ) {
             try {
+                con.setAutoCommit(false);
                 st.executeUpdate();
+                con.commit();
             } catch (SQLException ex) {
                 System.out.println("error in Mapper.decreaseSignedUp query.");
                 throw ex;

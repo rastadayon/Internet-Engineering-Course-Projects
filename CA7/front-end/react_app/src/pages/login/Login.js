@@ -42,9 +42,15 @@ export default class Login extends React.Component {
             return
         }
         API.post('auth/login/', {
-            email: this.state.email
+            email: this.state.email,
+            password: this.state.password
         }).then((resp) => {
             if(resp.status === 200) {
+                console.log(resp.data);
+                let bearerToken = resp.data;
+                let token = bearerToken.slice(7, bearerToken.length);
+                console.log(token);
+                localStorage.setItem("token", token);
                 console.log('شد شد')
                 toast.success('ورود با موفقیت انجام شد.')
                 window.location.href = "http://localhost:3000/"

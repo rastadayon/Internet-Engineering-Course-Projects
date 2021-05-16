@@ -1,13 +1,17 @@
 package ir.ac.ut.ie.Bolbolestan07.repository.Grade;
 
-import ir.ac.ut.ie.Bolbolestan07.Utils.Pair;
-import ir.ac.ut.ie.Bolbolestan07.Utils.Utils;
+import ir.ac.ut.ie.Bolbolestan07.utils.Pair;
+import ir.ac.ut.ie.Bolbolestan07.utils.Utils;
+import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Offering.Offering;
 import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Student.Grade;
+import ir.ac.ut.ie.Bolbolestan07.controllers.models.Selection;
 import ir.ac.ut.ie.Bolbolestan07.repository.ConnectionPool;
 import ir.ac.ut.ie.Bolbolestan07.repository.Mapper;
-
+import ir.ac.ut.ie.Bolbolestan07.repository.Prerequisite.IPrerequisiteMapper;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class GradeMapper extends Mapper<Grade, Pair> implements IGradeMapper { // returns Grade objects which do not have the course name and
     // should be set later via the getCourseNameByCourseCode function

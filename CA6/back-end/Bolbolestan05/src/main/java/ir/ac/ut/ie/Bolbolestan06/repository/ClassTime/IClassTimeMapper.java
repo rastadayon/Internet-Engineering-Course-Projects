@@ -1,6 +1,6 @@
 package ir.ac.ut.ie.Bolbolestan06.repository.ClassTime;
 
-import ir.ac.ut.ie.Bolbolestan06.Utils.Pair;
+import ir.ac.ut.ie.Bolbolestan06.utils.Pair;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.ClassTime;
 import ir.ac.ut.ie.Bolbolestan06.repository.IMapper;
 
