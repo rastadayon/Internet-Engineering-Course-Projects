@@ -6,10 +6,10 @@ import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.exeptions.Bolbol
 import ir.ac.ut.ie.Bolbolestan07.controllers.models.Selection;
 import ir.ac.ut.ie.Bolbolestan07.controllers.models.StudentInfo;
 import ir.ac.ut.ie.Bolbolestan07.repository.BolbolestanRepository;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class StudentManager {
     private List<Student> students = new ArrayList<>();
@@ -71,9 +71,15 @@ public class StudentManager {
 
     public boolean hasCapacityError(List<String> errors) {
         for (String error: errors) {
-            if (error.contains("ظرفیت"))
+            if (isCapacityError(error))
                 return true;
         }
+        return false;
+    }
+
+    public boolean isCapacityError(String error) {
+        if (error.contains("ظرفیت"))
+            return true;
         return false;
     }
 
@@ -81,12 +87,11 @@ public class StudentManager {
         Student student = getStudentById(studentId);
         addCourseToWaitingForStudent(studentId, offering);
         CourseSelection courseSelection = getStudentCourseSelectionById(studentId);
-        ArrayList<Grade> grades = getStudentGrades(studentId);
         student.setCourseSelection(courseSelection);
-        student.setReportCards(grades);
+        student.setReportCards();
         student.setWaitingErrors(offering);
-        errors = courseSelection.getWaitingErrors();
-        if (student.getSubmissionErrors().size() == 0)
+        errors = student.getSubmissionErrors();
+        if (errors.size() == 0)
             return true;
         else {
             if (student.getSubmissionErrors().size() == 1 && 
@@ -102,13 +107,12 @@ public class StudentManager {
     public boolean finalizeSchedule(String studentId) throws Exception {
         Student student = getStudentById(studentId);
         CourseSelection courseSelection = getStudentCourseSelectionById(studentId);
-        ArrayList<Grade> grades = getStudentGrades(studentId);
         student.setCourseSelection(courseSelection);
-        student.setReportCards(grades);
+        student.setReportCards();
         student.setSubmissionErrors();
-        errors = courseSelection.getSubmissionErrors();
-        if (student.getSubmissionErrors().size() == 0) {
-            //student.finalizeSchedule();
+        errors = student.getSubmissionErrors();
+        System.out.println(errors.size());
+        if (errors.size() == 0) {
             finalizeScheduleById(studentId);
             return true;
         }
@@ -247,7 +251,17 @@ public class StudentManager {
         }
     }
 
-    public List<String> getErrors() {
+    public List<String> getWaitingErrors() {
+        List<String> waitingErrors = new ArrayList<String>();
+        for (String error: errors) {
+            if (isCapacityError(error))
+                continue;
+            waitingErrors.add(error);
+        }
+        return waitingErrors;
+    }
+
+    public List<String> getSubmissionErrors() {
         return errors;
     }
 }

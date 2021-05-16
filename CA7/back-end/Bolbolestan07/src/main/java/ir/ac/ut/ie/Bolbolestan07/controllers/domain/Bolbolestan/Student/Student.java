@@ -60,7 +60,7 @@ public class Student {
 
     public String getEmail() { return email; }
 
-    public String getPassword() { return  password;}
+    public String getPassword() { return password; }
 
     public String getName() { return name; }
 
@@ -120,8 +120,6 @@ public class Student {
 
     public void print() {
         System.out.println(String.format("student id : %s", id));
-        System.out.println(String.format("email : %s", email));
-        System.out.println(String.format("password : %s", password));
         System.out.println(String.format("student name : %s %s", name, secondName));
         System.out.println(String.format("birth date : %s", birthDate));
         System.out.println(String.format("field : %s", field));
@@ -283,6 +281,7 @@ public class Student {
         List<String> errors = new ArrayList<String>();
         errors.addAll(checkHasPrerequisites());
         errors.addAll(checkNotPassedBefore());
+        System.out.println(errors.size());
         courseSelection.setSubmissionErrors(errors);
     }
 
@@ -323,9 +322,14 @@ public class Student {
         return null;
     }
 
+    public void setReportCards() {
+        reportCards = getReportCards();
+    }
+
     public void setReportCards(ArrayList<Grade> grades) {
         System.out.println("in student setting report cards");
         for (Grade grade : grades) {
+            System.out.print("ghazal");
             int semester = grade.getTerm();
             ReportCard reportCard = getSemesterReportCard(semester);
             if(reportCard == null) {

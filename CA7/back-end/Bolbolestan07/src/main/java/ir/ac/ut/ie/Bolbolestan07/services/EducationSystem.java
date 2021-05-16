@@ -3,7 +3,6 @@ package ir.ac.ut.ie.Bolbolestan07.services;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Bolbolestan;
 import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Offering.ClassTime;
 import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Offering.ExamTime;
 import ir.ac.ut.ie.Bolbolestan07.repository.BolbolestanRepository;
@@ -18,9 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EducationSystem {
-    final static String STUDENTS_URL = "http://138.197.181.131:5200/api/students";
-    final static String GRADES_URL = "http://138.197.181.131:5200/api/grades";
-    final static String COURSES_URL = "http://138.197.181.131:5200/api/courses";
+    final static String STUDENTS_URL = "http://138.197.181.131:5100/api/students";
+    final static String GRADES_URL = "http://138.197.181.131:5100/api/grades";
+    final static String COURSES_URL = "http://138.197.181.131:5100/api/courses";
     private static EducationSystem instance;
     private EducationSystem() {}
     public static EducationSystem getInstance() {
@@ -50,8 +49,7 @@ public class EducationSystem {
         System.out.println(String.format("------------------> total number of students : %d", students.size()));
         for (Student student : students) {
             try {
-                student.print();
-                Bolbolestan.getInstance().addStudent(student);
+//                student.print();
                 BolbolestanRepository.getInstance().insertStudent(student);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -71,7 +69,6 @@ public class EducationSystem {
                 Course course = courses.get(i);
                 Offering offering = offerings.get(i);
                 offering.setCourse(course);
-                Bolbolestan.getInstance().addOffering(offering);
                 BolbolestanRepository.getInstance().insertCourse(course);
                 BolbolestanRepository.getInstance().insertOffering(offering);
                 ClassTime classTime = offering.getClassTime();
@@ -91,7 +88,7 @@ public class EducationSystem {
     }
 
     private void importGradesFromWeb(final String gradesURL) throws Exception {
-        ArrayList<String> studentIds = Bolbolestan.getInstance().getStudentIds();
+        List<String> studentIds = BolbolestanRepository.getInstance().getStudentIds();
         for (String studentId : studentIds) {
             String gradesJsonString = HTTPRequestHandler.getRequest(
                     gradesURL + "/" + studentId);

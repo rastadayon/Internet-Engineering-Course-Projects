@@ -2,13 +2,13 @@ package ir.ac.ut.ie.Bolbolestan07.repository.Selection;
 
 import ir.ac.ut.ie.Bolbolestan07.Utils.Pair;
 import ir.ac.ut.ie.Bolbolestan07.Utils.Utils;
+import ir.ac.ut.ie.Bolbolestan07.controllers.models.Selection;
 import ir.ac.ut.ie.Bolbolestan07.repository.ConnectionPool;
 import ir.ac.ut.ie.Bolbolestan07.repository.Mapper;
-import ir.ac.ut.ie.Bolbolestan07.controllers.models.Selection;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class SelectionMapper extends Mapper<Selection, Pair> implements ISelectionMapper {
     private static final String COLUMNS = " studentId, courseCode, classCode, status";
@@ -74,8 +74,8 @@ public class SelectionMapper extends Mapper<Selection, Pair> implements ISelecti
 
     public String getFinalizeStatement(String studentId) {
         return String.format("update %s set %s = %s where %s = %s and %s = %s;",
-                TABLE_NAME, "status", "submitted", "studentId", Utils.quoteWrapper(studentId),
-                "status", "selected");
+                TABLE_NAME, "status", "'submitted'", "studentId", Utils.quoteWrapper(studentId),
+                "status", "'selected'");
     }
 
     public void deleteSelections(String studentId) throws SQLException {
@@ -139,9 +139,8 @@ public class SelectionMapper extends Mapper<Selection, Pair> implements ISelecti
     }
 
     public String getUpdateWaitings() {
-        return String.format("update %s set %s = %s where %s = %s;",
-                TABLE_NAME, "status", "submitted",
-                "status", "waiting");
+        return String.format("update %s set status = 'submitted' where status = 'waiting';",
+                TABLE_NAME);
     }
 
     public void updateWaitings() throws SQLException {
@@ -152,14 +151,14 @@ public class SelectionMapper extends Mapper<Selection, Pair> implements ISelecti
             try {
                 st.executeUpdate();
             } catch (SQLException ex) {
-                System.out.println("error in Mapper.finalizeSelection query.");
+                System.out.println("error in Mapper.updateWaitings query.");
                 throw ex;
             }
         }
     }
 
     protected String getFindWaitingsStatement() {
-        return String.format("select * from %s where status= 'waiting';", TABLE_NAME);
+        return String.format("select * from %s where status = 'waiting';", TABLE_NAME);
     }
 
     public List<Selection> findWaitings() throws SQLException {
