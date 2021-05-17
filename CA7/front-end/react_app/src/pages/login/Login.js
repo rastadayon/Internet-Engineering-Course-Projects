@@ -86,10 +86,11 @@ export default class Login extends React.Component {
                         <span className="spinner-border mr-2" role="status" aria-hidden="true"/>
                         }
                         <p className="text-whitesmoke text-center"><small>هنوز اکانت ندارید؟</small></p>
-                        <a className="text-darkyblue" href="signup.html"><small>اکانت بسازید</small></a>
+                        <Link to='/signup'><small>اکانت بسازید</small></Link>
                         <p className="text-darkyblue"><Link to= "/forget" style={{color: 'inherit'}}>
                                 <small>بازیابی رمز عبور</small>
                             </Link></p>
+    
                     </form>
                 </div>
             </div>

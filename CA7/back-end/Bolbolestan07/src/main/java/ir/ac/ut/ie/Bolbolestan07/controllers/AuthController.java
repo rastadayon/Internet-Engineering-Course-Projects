@@ -1,6 +1,7 @@
 package ir.ac.ut.ie.Bolbolestan07.controllers;
 
 import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Bolbolestan;
+import ir.ac.ut.ie.Bolbolestan07.controllers.models.SignUp;
 import ir.ac.ut.ie.Bolbolestan07.exceptions.BadCharactersException;
 import ir.ac.ut.ie.Bolbolestan07.controllers.models.Login;
 import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Student.Student;
@@ -41,22 +42,22 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/forget")
-    public ResponseEntity forget(
-            @RequestBody Login loginData) throws IOException {
-        System.out.println("in login");
-        System.out.println("email is " + loginData.getEmail());
-        String email = loginData.getEmail();
+    @PostMapping("/signup")
+    public ResponseEntity signup(
+            @RequestBody SignUp signUpData) throws IOException {
+        System.out.println("in signup");
+        String email = signUpData.getEmail();
+        String password = signUpData.getPassword();
         try {
-            if(Utils.hasIllegalChars(email)){
+            if(Utils.hasIllegalChars(email) || Utils.hasIllegalChars(password)){
                 throw new BadCharactersException();
             }
-            Student student = AuthService.authUser(loginData);
-            String answer = JWTUtils.createJWT(student.getEmail());
-            return ResponseEntity.status(HttpStatus.OK).body(answer);
+            AuthService.signUpUser(signUpData);
+            System.out.println("sign up successfull");
+            return ResponseEntity.status(HttpStatus.OK).body("OK - sign up successfull");
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("student not found. invalid login");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("sign up unsuccessful");
         }
     }
 
