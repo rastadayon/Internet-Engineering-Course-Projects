@@ -10,11 +10,17 @@ public abstract class Mapper<T, I> implements IMapper<T, I> {
 
     protected Map<I, T> loadedMap = new HashMap<I, T>();
 
-    abstract protected String getFindStatement(I id);
+    abstract protected String getFindStatement();
 
-    abstract protected String getInsertStatement(T t);
+    abstract protected void fillFindStatement(PreparedStatement statement, I id) throws SQLException;
 
-    abstract protected String getDeleteStatement(I id);
+    abstract protected String getInsertStatement();
+
+    abstract protected void fillInsertStatement(PreparedStatement statement, T obj) throws SQLException;
+
+    abstract protected String getDeleteStatement();
+
+    abstract protected void fillDeleteStatement(PreparedStatement statement, I id) throws SQLException;
 
     abstract protected T convertResultSetToObject(ResultSet rs) throws SQLException;
 
@@ -24,10 +30,11 @@ public abstract class Mapper<T, I> implements IMapper<T, I> {
             return result;
 
         try (Connection con = ConnectionPool.getConnection();
-             PreparedStatement st = con.prepareStatement(getFindStatement(id))
+             PreparedStatement st = con.prepareStatement(getFindStatement())
         ) {
             ResultSet resultSet;
             try {
+                fillFindStatement(st, id);
                 resultSet = st.executeQuery();
                 resultSet.next();
                 return convertResultSetToObject(resultSet);
@@ -40,9 +47,10 @@ public abstract class Mapper<T, I> implements IMapper<T, I> {
 
     public void insert(T obj) throws SQLException {
         try (Connection con = ConnectionPool.getConnection();
-             PreparedStatement st = con.prepareStatement(getInsertStatement(obj))
+             PreparedStatement st = con.prepareStatement(getInsertStatement())
         ) {
             try {
+                fillInsertStatement(st, obj);
                 st.executeUpdate();
             } catch (SQLException ex) {
                 System.out.println("error in Mapper.insert query.");
@@ -53,9 +61,10 @@ public abstract class Mapper<T, I> implements IMapper<T, I> {
 
     public void delete(I id) throws SQLException {
         try (Connection con = ConnectionPool.getConnection();
-             PreparedStatement st = con.prepareStatement(getDeleteStatement(id))
+             PreparedStatement st = con.prepareStatement(getDeleteStatement())
         ) {
             try {
+                fillDeleteStatement(st, id);
                 st.executeUpdate();
             } catch (SQLException ex) {
                 System.out.println("error in Mapper.delete query.");

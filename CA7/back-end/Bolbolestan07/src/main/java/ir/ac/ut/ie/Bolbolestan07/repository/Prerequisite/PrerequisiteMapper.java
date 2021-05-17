@@ -41,27 +41,44 @@ public class PrerequisiteMapper extends Mapper<HashMap<String, ArrayList<String>
     }
 
     @Override
-    protected String getFindStatement(String courseCode) {
-        return String.format("select * from %s where %s.%s = %s;", TABLE_NAME, TABLE_NAME, "courseCode", Utils.quoteWrapper(courseCode));
+    protected String getFindStatement() {
+        return String.format("select * from %s where courseCode = ?;", TABLE_NAME);
     }
 
     @Override
-    protected String getInsertStatement(HashMap<String, ArrayList<String>> courses) {
+    protected void fillFindStatement(PreparedStatement statement, String courseCode) throws SQLException{
+        statement.setString(0, courseCode);
+    }
+
+    @Override
+    protected String getInsertStatement() {
+        return String.format("INSERT IGNORE INTO %s ( %s ) values (?, ?);\n", TABLE_NAME, COLUMNS);
+    }
+
+    @Override
+    protected void fillInsertStatement(PreparedStatement statement, HashMap<String, ArrayList<String>> courses) throws SQLException{
         String insertString = "";
         assert courses.size() == 1;
+
         String courseCode = courses.entrySet().stream().findFirst().get().getKey();
         ArrayList<String> prerequisites = courses.entrySet().stream().findFirst().get().getValue();
         for (String prerequisite: prerequisites) {
-            insertString += String.format("INSERT IGNORE INTO %s ( %s ) values (%s, %s);\n", TABLE_NAME, COLUMNS,
-                Utils.quoteWrapper(courseCode), Utils.quoteWrapper(prerequisite));
+            PreparedStatement st = statement;
+            st.setString(0, courseCode);
+            st.setString(1, prerequisite);
+            insertString += st;
         }
-        System.out.println(insertString);
-        return insertString;
+        //statement = prepareStatement(insertString);
     }
 
     @Override
-    protected String getDeleteStatement(String courseCode) {
-        return String.format("delete from %s where %s.%s = %s", TABLE_NAME, TABLE_NAME, "courseCode", Utils.quoteWrapper(courseCode));
+    protected String getDeleteStatement() {
+        return String.format("delete from %s where courseCode = ?", TABLE_NAME);
+    }
+
+    @Override
+    protected void fillDeleteStatement(PreparedStatement statement, String courseCode) throws SQLException{
+        statement.setString(0, courseCode);
     }
 
     @Override
@@ -74,7 +91,7 @@ public class PrerequisiteMapper extends Mapper<HashMap<String, ArrayList<String>
     }
 
     public ArrayList<String> getPrerequisites(String courseCode) throws SQLException {
-        String statement = getFindStatement(courseCode);
+        String statement = getFindStatement();
         ArrayList<String> result = new ArrayList<>();
 
         try (Connection con = ConnectionPool.getConnection();
@@ -82,6 +99,7 @@ public class PrerequisiteMapper extends Mapper<HashMap<String, ArrayList<String>
         ) {
             ResultSet resultSet;
             try {
+                fillFindStatement(st, courseCode);
                 resultSet = st.executeQuery();
                 while (resultSet.next())
                     result.add(customConvertResultSetToObject(resultSet));

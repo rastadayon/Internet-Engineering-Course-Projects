@@ -1,11 +1,7 @@
 package ir.ac.ut.ie.Bolbolestan06.repository;
 
-<<<<<<< HEAD:CA6/back-end/Bolbolestan05/src/main/java/ir/ac/ut/ie/Bolbolestan06/repository/BolbolestanRepository.java
 import ir.ac.ut.ie.Bolbolestan06.utils.Pair;
-=======
-import ir.ac.ut.ie.Bolbolestan06.Utils.Pair;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Bolbolestan;
->>>>>>> 4eac0de4a7bee5dcde8b73fb87f453893a554df4:CA6/back-end/Bolbolestan06/src/main/java/ir/ac/ut/ie/Bolbolestan06/repository/BolbolestanRepository.java
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Course.Course;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.ClassTime;
 import ir.ac.ut.ie.Bolbolestan06.controllers.domain.Bolbolestan.Offering.ExamTime;

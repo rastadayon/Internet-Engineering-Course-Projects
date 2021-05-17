@@ -39,20 +39,36 @@ public class CourseMapper extends Mapper<Course, String> implements ICourseMappe
     }
 
     @Override
-    protected String getInsertStatement(Course course) {
-        return String.format("INSERT IGNORE INTO %s ( %s ) values (%s, %s, %d, %s);", TABLE_NAME, COLUMNS,
-                Utils.quoteWrapper(course.getCourseCode()), Utils.quoteWrapper(course.getName()),
-                course.getUnits(), Utils.quoteWrapper(course.getType()));
+    protected String getInsertStatement() {
+        return String.format("INSERT IGNORE INTO %s ( %s ) values (?, ?, ?, ?);", TABLE_NAME, COLUMNS);
     }
 
     @Override
-    protected String getDeleteStatement(String code) {
-        return String.format("delete from %s where %s.%s = %s", TABLE_NAME, TABLE_NAME, "id", Utils.quoteWrapper(code));
+    protected void fillInsertStatement(PreparedStatement statement, Course course) throws SQLException{
+        statement.setString(0, course.getCourseCode());
+        statement.setString(1, course.getName());
+        statement.setInt(2, course.getUnits());
+        statement.setString(3, course.getType());
     }
 
     @Override
-    protected String getFindStatement(String code) {
-        return String.format("select * from %s where %s.%s = %s;", TABLE_NAME, TABLE_NAME, "code", Utils.quoteWrapper(code));
+    protected String getDeleteStatement() {
+        return String.format("delete from %s where code = ?", TABLE_NAME);
+    }
+
+    @Override
+    protected void fillDeleteStatement(PreparedStatement statement, String code) throws SQLException{
+        statement.setString(0, code);
+    }
+
+    @Override
+    protected String getFindStatement() {
+        return String.format("select * from %s where code = ?;", TABLE_NAME);
+    }
+
+    @Override
+    protected void fillFindStatement(PreparedStatement statement, String code) throws SQLException{
+        statement.setString(0, code);
     }
 
     @Override

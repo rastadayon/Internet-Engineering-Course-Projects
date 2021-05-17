@@ -46,24 +46,38 @@ public class SelectionMapper extends Mapper<Selection, Pair> implements ISelecti
     }
 
     @Override
-    protected String getFindStatement(Pair id) {
-        return String.format("select * from %s where %s = %s and %s = %s;", TABLE_NAME,
-                "studentId", Utils.quoteWrapper(id.getArgs().get(0)),
-                "courseCode", Utils.quoteWrapper(id.getArgs().get(1)));
+    protected String getFindStatement() {
+        return String.format("select * from %s where studentId = ? and courseCode = ?;", TABLE_NAME);
     }
 
     @Override
-    protected String getInsertStatement(Selection selection) {
-        return String.format("INSERT INTO %s ( %s ) values (%s, %s, %s, %s);", TABLE_NAME, COLUMNS,
-                Utils.quoteWrapper(selection.getStudentId()), Utils.quoteWrapper(selection.getCourseCode()),
-                Utils.quoteWrapper(selection.getClassCode()), Utils.quoteWrapper(selection.getStatus()));
+    protected void fillFindStatement(PreparedStatement statement, Pair id) throws SQLException{
+        statement.setString(0, id.getArgs().get(0));
+        statement.setString(1, id.getArgs().get(1));
     }
 
     @Override
-    protected String getDeleteStatement(Pair id) {
-        return String.format("delete from %s where %s = %s and %s = %s;", TABLE_NAME,
-                "studentId", Utils.quoteWrapper(id.getArgs().get(0)),
-                "courseCode", Utils.quoteWrapper(id.getArgs().get(1)));
+    protected String getInsertStatement() {
+        return String.format("INSERT INTO %s ( %s ) values (?, ?, ?, ?);", TABLE_NAME, COLUMNS);
+    }
+
+    @Override
+    protected void fillInsertStatement(PreparedStatement statement, Selection selection) throws SQLException{
+        statement.setString(0, selection.getStudentId());
+        statement.setString(1, selection.getCourseCode());
+        statement.setString(2, selection.getClassCode());
+        statement.setString(3, selection.getStatus());
+    }
+
+    @Override
+    protected String getDeleteStatement() {
+        return String.format("delete from %s where studentId = ? and courseCode = ?;", TABLE_NAME);
+    }
+
+    @Override
+    protected void fillDeleteStatement(PreparedStatement statement, Pair id) throws SQLException{
+        statement.setString(0, id.getArgs().get(0));
+        statement.setString(1, id.getArgs().get(1));
     }
 
     public String getDeleteSelectionsStatement(String studentId, String status) {

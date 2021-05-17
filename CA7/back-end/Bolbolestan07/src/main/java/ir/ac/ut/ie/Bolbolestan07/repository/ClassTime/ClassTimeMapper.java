@@ -40,31 +40,44 @@ public class ClassTimeMapper extends Mapper<ClassTime, Pair> implements IClassTi
     }
 
     @Override
-    protected String getFindStatement(Pair id) {
-        return String.format("select * from %s where %s = %s and %s = %s;", TABLE_NAME,
-                "courseCode", Utils.quoteWrapper(id.getArgs().get(0)),
-                "classCode", Utils.quoteWrapper(id.getArgs().get(1)));
+    protected String getFindStatement() {
+        return String.format("select * from  where courseCode = ? and classCode = ?;", 
+            TABLE_NAME);
     }
 
     @Override
-    protected String getInsertStatement(ClassTime classTime) {
+    protected void fillFindStatement(PreparedStatement statement, Pair id) throws SQLException{
+        statement.setString(0, id.getArgs().get(0));
+        statement.setString(1, id.getArgs().get(1));
+    }
+
+    @Override
+    protected String getInsertStatement() {
+        return String.format("INSERT IGNORE INTO %s ( %s ) values (?, ?, ?, ?, ?);", TABLE_NAME, COLUMNS);
+    }
+
+    @Override
+    protected void fillInsertStatement(PreparedStatement statement, ClassTime classTime) throws SQLException{
+        statement.setString(0, classTime.getCourseCode());
+        statement.setString(1, classTime.getClassCode());
+        statement.setString(2, classTime.getTime());
+        statement.setString(3, classTime.getFirstDay());
         if (classTime.hasTowDays()) {
-            return String.format("INSERT IGNORE INTO %s ( %s ) values (%s, %s, %s, %s, %s);", TABLE_NAME, COLUMNS,
-                    Utils.quoteWrapper(classTime.getCourseCode()), Utils.quoteWrapper(classTime.getClassCode()),
-                    Utils.quoteWrapper(classTime.getTime()), Utils.quoteWrapper(classTime.getFirstDay()),
-                    Utils.quoteWrapper(classTime.getSecondDay()));
+            statement.setString(4, classTime.getSecondDay());
         }
         else {
-            return String.format("INSERT IGNORE INTO %s ( %s ) values (%s, %s, %s, %s, %s);", TABLE_NAME, COLUMNS,
-                    Utils.quoteWrapper(classTime.getCourseCode()), Utils.quoteWrapper(classTime.getClassCode()),
-                    Utils.quoteWrapper(classTime.getTime()), Utils.quoteWrapper(classTime.getFirstDay()),
-                    Utils.quoteWrapper(""));
+            statement.setString(4, "");
         }
     }
 
     @Override
-    protected String getDeleteStatement(Pair id) {
+    protected String getDeleteStatement() {
         return null;
+    }
+
+    @Override
+    protected void fillDeleteStatement(PreparedStatement statement, Pair id) throws SQLException{
+        return;
     }
 
     @Override

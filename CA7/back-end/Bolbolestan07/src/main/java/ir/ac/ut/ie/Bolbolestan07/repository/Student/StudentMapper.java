@@ -1,13 +1,12 @@
 package ir.ac.ut.ie.Bolbolestan07.repository.Student;
 
-import ir.ac.ut.ie.Bolbolestan07.utils.Utils;
-import ir.ac.ut.ie.Bolbolestan07.repository.ConnectionPool;
 import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Student.Student;
+import ir.ac.ut.ie.Bolbolestan07.repository.ConnectionPool;
 import ir.ac.ut.ie.Bolbolestan07.repository.Mapper;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class StudentMapper extends Mapper<Student, String> implements IStudentMapper {
 
@@ -44,24 +43,43 @@ public class StudentMapper extends Mapper<Student, String> implements IStudentMa
     }
 
     @Override
-    protected String getFindStatement(String id) {
-        return String.format("select * from %s where %s.%s = %s;", TABLE_NAME, TABLE_NAME, "id", Utils.quoteWrapper(id));
+    protected String getFindStatement() {
+        return String.format("select * from %s where id = ?;", TABLE_NAME);
     }
 
     @Override
-    protected String getInsertStatement(Student student) {
-        return String.format("INSERT IGNORE INTO %s ( %s ) values (%s, %s, %s %s, %s, %s, %s, %s, %s, %s, %s);", TABLE_NAME, COLUMNS,
-                Utils.quoteWrapper(student.getId()), Utils.quoteWrapper(student.getEmail()),
-                Utils.quoteWrapper(student.getPassword()), Utils.quoteWrapper(student.getName()),
-                Utils.quoteWrapper(student.getSecondName()), Utils.quoteWrapper(student.getBirthDate()),
-                Utils.quoteWrapper(student.getField()), Utils.quoteWrapper(student.getFaculty()),
-                Utils.quoteWrapper(student.getLevel()), Utils.quoteWrapper(student.getStatus()),
-                Utils.quoteWrapper(student.getImg()));
+    protected void fillFindStatement(PreparedStatement statement, String id) throws SQLException{
+        statement.setString(0, id);
     }
 
     @Override
-    protected String getDeleteStatement(String id) {
-        return String.format("delete from %s where %s.%s = %s", TABLE_NAME, TABLE_NAME, "id", Utils.quoteWrapper(id));
+    protected String getInsertStatement() {
+        return String.format("INSERT IGNORE INTO %s ( %s ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", TABLE_NAME, COLUMNS);
+    }
+
+    @Override
+    protected void fillInsertStatement(PreparedStatement statement, Student student) throws SQLException{
+        statement.setString(0, student.getId());
+        statement.setString(1, student.getEmail());
+        statement.setString(2, student.getPassword());
+        statement.setString(3, student.getName());
+        statement.setString(4, student.getSecondName());
+        statement.setString(5, student.getBirthDate());
+        statement.setString(6, student.getField());
+        statement.setString(7, student.getFaculty());
+        statement.setString(8, student.getLevel());
+        statement.setString(8, student.getStatus());
+        statement.setString(8, student.getImg());
+    }
+
+    @Override
+    protected String getDeleteStatement() {
+        return String.format("delete from %s where id = ?", TABLE_NAME);
+    }
+
+    @Override
+    protected void fillDeleteStatement(PreparedStatement statement, String id) throws SQLException{
+        statement.setString(0, id);
     }
 
     @Override

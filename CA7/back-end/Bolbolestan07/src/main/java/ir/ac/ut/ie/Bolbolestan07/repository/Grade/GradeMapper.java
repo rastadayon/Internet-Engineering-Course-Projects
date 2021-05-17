@@ -46,23 +46,38 @@ public class GradeMapper extends Mapper<Grade, Pair> implements IGradeMapper { /
     }
 
     @Override
-    protected String getFindStatement(Pair pair) {
-        String studentId = pair.getArgs().get(0);
-        return String.format("select * from %s where %s.%s = %s order by term ASC;", TABLE_NAME, TABLE_NAME, "studentId", Utils.quoteWrapper(studentId));
+    protected String getFindStatement() {
+        return String.format("select * from %s where studentId = ? order by term ASC;", TABLE_NAME);
     }
-
-
+    
     @Override
-    protected String getInsertStatement(Grade grade) {
-        return String.format("INSERT IGNORE INTO %s ( %s ) values (%s, %s, %s, %d, %d, %d);", TABLE_NAME, COLUMNS,
-                Utils.quoteWrapper(grade.getStudentId()), Utils.quoteWrapper(grade.getCode()),
-                Utils.quoteWrapper(grade.getCourseName()), grade.getGrade(), grade.getUnits(), grade.getTerm());
+    protected void fillFindStatement(PreparedStatement statement, Pair id) throws SQLException{
+        statement.setString(0, id.getArgs().get(0));
     }
 
     @Override
-    protected String getDeleteStatement(Pair pair) {
-        String studentId = pair.getArgs().get(0);
-        return String.format("delete from %s where %s.%s = %s;", TABLE_NAME, TABLE_NAME, "studentId", Utils.quoteWrapper(studentId));
+    protected String getInsertStatement() {
+        return String.format("INSERT IGNORE INTO %s ( %s ) values (?, ?, ?, ?, ?, ?);", TABLE_NAME, COLUMNS);
+    }
+
+    @Override
+    protected void fillInsertStatement(PreparedStatement statement, Grade grade) throws SQLException{
+        statement.setString(0, grade.getStudentId());
+        statement.setString(1, grade.getCode());
+        statement.setString(2, grade.getCourseName());
+        statement.setDouble(3, grade.getGrade());
+        statement.setInt(4, grade.getUnits());
+        statement.setInt(5, grade.getTerm());
+    }
+
+    @Override
+    protected String getDeleteStatement() {
+        return String.format("delete from %s where studentId = ?;", TABLE_NAME);
+    }
+
+    @Override
+    protected void fillDeleteStatement(PreparedStatement statement, Pair pair) throws SQLException{
+        statement.setString(0, pair.getArgs().get(0));
     }
 
     @Override

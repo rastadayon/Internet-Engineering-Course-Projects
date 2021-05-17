@@ -38,22 +38,37 @@ public class ExamTimeMapper extends Mapper<ExamTime, Pair> implements IExamTimeM
     public ExamTimeMapper() throws SQLException {}
 
     @Override
-    protected String getFindStatement(Pair id) {
-        return String.format("select * from %s where %s = %s and %s = %s;", TABLE_NAME,
-                "courseCode", Utils.quoteWrapper(id.getArgs().get(0)),
-                "classCode", Utils.quoteWrapper(id.getArgs().get(1)));
+    protected String getFindStatement() {
+        return String.format("select * from %s where courseCode = ? and classCode = ?;", TABLE_NAME);
     }
 
     @Override
-    protected String getInsertStatement(ExamTime examTime) {
-        return String.format("INSERT IGNORE INTO %s ( %s ) values (%s, %s, %s, %s);", TABLE_NAME, COLUMNS,
-                Utils.quoteWrapper(examTime.getCourseCode()), Utils.quoteWrapper(examTime.getClassCode()),
-                Utils.quoteWrapper(examTime.getStart()), Utils.quoteWrapper(examTime.getEnd()));
+    protected void fillFindStatement(PreparedStatement statement, Pair id) throws SQLException{
+        statement.setString(0, id.getArgs().get(0));
+        statement.setString(1, id.getArgs().get(1));
     }
 
     @Override
-    protected String getDeleteStatement(Pair id) {
+    protected String getInsertStatement() {
+        return String.format("INSERT IGNORE INTO %s ( %s ) values (?, ?, ?, ?);", TABLE_NAME, COLUMNS);
+    }
+
+    @Override
+    protected void fillInsertStatement(PreparedStatement statement, ExamTime examTime) throws SQLException{
+        statement.setString(0, examTime.getCourseCode());
+        statement.setString(1, examTime.getClassCode());
+        statement.setString(2, examTime.getStart());
+        statement.setString(3, examTime.getEnd());
+    }
+
+    @Override
+    protected String getDeleteStatement() {
         return null;
+    }
+
+    @Override
+    protected void fillDeleteStatement(PreparedStatement statement, Pair id) throws SQLException{
+        return;
     }
 
     @Override
