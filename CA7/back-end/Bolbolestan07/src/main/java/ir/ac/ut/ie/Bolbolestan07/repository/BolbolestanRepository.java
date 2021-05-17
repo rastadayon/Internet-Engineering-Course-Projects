@@ -1,6 +1,7 @@
 package ir.ac.ut.ie.Bolbolestan07.repository;
 
 import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Bolbolestan;
+import ir.ac.ut.ie.Bolbolestan07.controllers.models.SignUp;
 import ir.ac.ut.ie.Bolbolestan07.utils.Pair;
 import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Course.Course;
 import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Offering.ClassTime;
@@ -20,6 +21,8 @@ import ir.ac.ut.ie.Bolbolestan07.repository.Offering.OfferingMapper;
 import ir.ac.ut.ie.Bolbolestan07.repository.Prerequisite.PrerequisiteMapper;
 import ir.ac.ut.ie.Bolbolestan07.repository.Selection.SelectionMapper;
 import ir.ac.ut.ie.Bolbolestan07.repository.Student.StudentMapper;
+import org.apache.commons.codec.digest.DigestUtils;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -297,5 +300,30 @@ public class BolbolestanRepository {
             System.out.println(e.getMessage());
             return null;
         }
+    }
+
+    public Student addNewStudent(SignUp signUpData) throws Exception {
+        String name = signUpData.getName();
+        String secondName = signUpData.getSecondName();
+        String birthDate = signUpData.getBirthDate();
+        String studentId = signUpData.getStudentId();
+        String field = signUpData.getField();
+        String faculty = signUpData.getFaculty();
+        String level = signUpData.getLevel();
+        String email = signUpData.getEmail();
+        String password = signUpData.getPassword();
+        if(name == null || name.length() == 0 || secondName == null ||
+            studentId == null || studentId.length() == 0 || field == null ||
+            field.length() == 0 || faculty == null || faculty.length() == 0 ||
+            level == null || level.length() == 0 || email == null ||
+            email.length() == 0 || password == null || password.length() ==0)
+            throw new Exception("Some fields are not full!");
+        Student newStudent = new Student(studentId, email,
+                DigestUtils.sha256Hex(password.getBytes()),
+                name, secondName, birthDate, field,
+                faculty, level, "مشغول به تحصیل",
+                "http://138.197.181.131:5200/img/art.jpg");
+        new StudentMapper().insert(newStudent);
+        return newStudent;
     }
 }

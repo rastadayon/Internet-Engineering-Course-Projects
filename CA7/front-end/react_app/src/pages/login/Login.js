@@ -2,6 +2,7 @@ import "./login-styles.css"
 import * as React from "react";
 import {toast} from "react-toastify";
 import API from '../../apis/api';
+import { Link } from "react-router-dom";
 
 
 export default class Login extends React.Component {
@@ -85,7 +86,7 @@ export default class Login extends React.Component {
                         <span className="spinner-border mr-2" role="status" aria-hidden="true"/>
                         }
                         <p className="text-whitesmoke text-center"><small>هنوز اکانت ندارید؟</small></p>
-                        <a className="text-darkyblue" href="signup.html"><small>اکانت بسازید</small></a>
+                        <Link to='/signup'><small>اکانت بسازید</small></Link>
                     </form>
                 </div>
             </div>

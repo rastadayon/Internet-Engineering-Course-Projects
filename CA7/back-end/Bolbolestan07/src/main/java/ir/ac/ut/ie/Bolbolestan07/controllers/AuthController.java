@@ -1,6 +1,7 @@
 package ir.ac.ut.ie.Bolbolestan07.controllers;
 
 import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Bolbolestan;
+import ir.ac.ut.ie.Bolbolestan07.controllers.models.SignUp;
 import ir.ac.ut.ie.Bolbolestan07.exceptions.BadCharactersException;
 import ir.ac.ut.ie.Bolbolestan07.controllers.models.Login;
 import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Student.Student;
@@ -38,6 +39,25 @@ public class AuthController {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("student not found. invalid login");
+        }
+    }
+
+    @PostMapping("/signup")
+    public ResponseEntity signup(
+            @RequestBody SignUp signUpData) throws IOException {
+        System.out.println("in signup");
+        String email = signUpData.getEmail();
+        String password = signUpData.getPassword();
+        try {
+            if(Utils.hasIllegalChars(email) || Utils.hasIllegalChars(password)){
+                throw new BadCharactersException();
+            }
+            AuthService.signUpUser(signUpData);
+            System.out.println("sign up successfull");
+            return ResponseEntity.status(HttpStatus.OK).body("OK - sign up successfull");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("sign up unsuccessful");
         }
     }
 

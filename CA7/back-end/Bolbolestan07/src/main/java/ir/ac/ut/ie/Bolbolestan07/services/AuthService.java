@@ -4,6 +4,7 @@ import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Bolbolestan;
 import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Student.Student;
 import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.exeptions.BolbolestanStudentNotFoundError;
 import ir.ac.ut.ie.Bolbolestan07.controllers.models.Login;
+import ir.ac.ut.ie.Bolbolestan07.controllers.models.SignUp;
 import ir.ac.ut.ie.Bolbolestan07.exceptions.ForbiddenException;
 import ir.ac.ut.ie.Bolbolestan07.repository.BolbolestanRepository;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -27,5 +28,18 @@ public class AuthService {
         else
             throw new BolbolestanStudentNotFoundError();
         //System.out.println("logged in std is : " +Bolbolestan.getInstance().getLoggedInId());
+    }
+
+    public static void signUpUser(SignUp signUpData) throws Exception {
+        System.out.println("in auth signup user");
+        Student student = BolbolestanRepository.getInstance().getStudentByEmail(signUpData.getEmail());
+        if (student != null)
+            throw new Exception("email already exists");
+        try {
+            BolbolestanRepository.getInstance().addNewStudent(signUpData);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw e;
+        }
     }
 }
