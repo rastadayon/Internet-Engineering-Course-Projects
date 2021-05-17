@@ -41,6 +41,25 @@ public class AuthController {
         }
     }
 
+    @PostMapping("/forget")
+    public ResponseEntity forget(
+            @RequestBody Login loginData) throws IOException {
+        System.out.println("in login");
+        System.out.println("email is " + loginData.getEmail());
+        String email = loginData.getEmail();
+        try {
+            if(Utils.hasIllegalChars(email)){
+                throw new BadCharactersException();
+            }
+            Student student = AuthService.authUser(loginData);
+            String answer = JWTUtils.createJWT(student.getEmail());
+            return ResponseEntity.status(HttpStatus.OK).body(answer);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("student not found. invalid login");
+        }
+    }
+
     @PostMapping("/logout")
     public ResponseEntity logout() {
         try {

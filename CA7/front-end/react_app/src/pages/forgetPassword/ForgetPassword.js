@@ -1,20 +1,18 @@
-import "./login-styles.css"
+import "../login/login-styles.css"
 import * as React from "react";
 import {toast} from "react-toastify";
 import API from '../../apis/api';
 import {Link} from "react-router-dom";
 
 
-export default class Login extends React.Component {
+export default class ForgetPassword extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
             email: '',
-            password: '',
         }
         this.handleEmailChange = this.handleEmailChange.bind(this)
-        this.handlePasswordChange = this.handlePasswordChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
@@ -23,14 +21,9 @@ export default class Login extends React.Component {
             email: event.target.value
         });
     }
-    handlePasswordChange(event) {
-        this.setState({
-            password: event.target.value
-        });
-    }
 
     componentDidMount() {
-        document.title = "Log in - Bolbolestan";
+        document.title = "Forget Password - Bolbolestan";
         document.body.classList.add("main-bg")
         toast.configure({rtl: true, className: "text-center", position: "top-right"});
     }
@@ -42,18 +35,15 @@ export default class Login extends React.Component {
             toast.error('فیلد ایمیل باید پر باشد')
             return
         }
-        API.post('auth/login/', {
+        API.post('auth/forget/', {
             email: this.state.email,
-            password: this.state.password
+            password: ""
         }).then((resp) => {
             if(resp.status === 200) {
                 console.log(resp.data);
-                let bearerToken = resp.data;
-                let token = bearerToken.slice(7, bearerToken.length);
-                console.log(token);
-                localStorage.setItem("token", token);
+                
                 console.log('شد شد')
-                toast.success('ورود با موفقیت انجام شد.')
+                toast.success('لینک بازیابی رمز عبور به ایمیل شما ارسال شد.')
                 window.location.href = "http://localhost:3000/"
             }
         }).catch(error => {
@@ -71,24 +61,19 @@ export default class Login extends React.Component {
     render() {
         return (
             <div className="login-container text-c animated flipInX">
-                <h3 className="text-whitesmoke">ورود به سامانه بلبلستان</h3>
+                <h3 className="text-whitesmoke">بازیابی رمز عبور</h3>
                 <div className="container-content">
                     <form className="margin-t" onSubmit={this.handleSubmit}>
                         <div className="form-group">
                             <input type="text" className="form-control" onChange={this.handleEmailChange} placeholder="email" required=""/>
                         </div>
-
-                        <div className="form-group">
-                            <input type="password" className="form-control" onChange={this.handlePasswordChange} placeholder="password" required=""/>
-                        </div>
-                        <button type="submit" className="form-button button-l margin-b">ورود</button>
+                        <button type="submit" className="form-button button-l margin-b">ارسال لینک بازیابی به ایمیل</button>
                         {this.state.isLoading &&
                         <span className="spinner-border mr-2" role="status" aria-hidden="true"/>
                         }
-                        <p className="text-whitesmoke text-center"><small>هنوز اکانت ندارید؟</small></p>
-                        <a className="text-darkyblue" href="signup.html"><small>اکانت بسازید</small></a>
-                        <p className="text-darkyblue"><Link to= "/forget" style={{color: 'inherit'}}>
-                                <small>بازیابی رمز عبور</small>
+                        <p className="text-whitesmoke text-center"><small>حساب کاربری دارید؟</small></p>
+                        <p className="text-darkyblue"><Link to= "/login" style={{color: 'inherit'}}>
+                                <small>وارد شوید</small>
                             </Link></p>
                     </form>
                 </div>

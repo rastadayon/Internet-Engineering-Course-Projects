@@ -6,6 +6,8 @@ import Home from "./pages/home/Home";
 import Schedule from "./pages/schedule/Schedule";
 import UnitSelection from "./pages/unitSelection/unitSelection";
 import Login from "./pages/login/Login";
+import ForgetPassword from "./pages/forgetPassword/ForgetPassword";
+import ChangePassword from "./pages/changePassword/ChangePassword";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
 // import 'react-notifications/lib/notifications.css';
@@ -27,6 +29,14 @@ function App() {
 
         <Route path="/schedule">
           <Schedule />
+        </Route>
+
+        <Route path="/forget">
+          <ForgetPassword />
+        </Route>
+
+        <Route path="/changePassword">
+          <ChangePassword />
         </Route>
 
       </Switch>

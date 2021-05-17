@@ -2,7 +2,6 @@ import "../login/login-styles.css"
 import * as React from "react";
 import {toast} from "react-toastify";
 import API from '../../apis/api';
-import {Link} from "react-router-dom";
 
 
 export default class ForgetPassword extends React.Component {
@@ -69,9 +68,7 @@ export default class ForgetPassword extends React.Component {
                         <span className="spinner-border mr-2" role="status" aria-hidden="true"/>
                         }
                         <p className="text-whitesmoke text-center"><small>حساب کاربری دارید؟</small></p>
-                        <a className="text-darkyblue"><Link to= "/login" style={{color: 'white'}}>
-                                <small>وارد شوید</small>
-                            </Link></a>
+                        <a className="text-darkyblue" href="signup.html"><small>وارد شوید</small></a>
                     </form>
                 </div>
             </div>
