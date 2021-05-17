@@ -39,10 +39,15 @@ public class SelectionMapper extends Mapper<Selection, Pair> implements ISelecti
     public SelectionMapper() throws SQLException {
     }
 
-    protected String getFindScheduleStatement(String studentId, String status) {
-        return String.format("select * from %s where %s = %s and %s = %s;", TABLE_NAME,
-                "studentId", Utils.quoteWrapper(studentId),
-                "status", Utils.quoteWrapper(status));
+    protected String getFindScheduleStatement() {
+        return String.format("select * from %s where studentId = %s and status = %s;", 
+            TABLE_NAME);
+    }
+
+    protected void fillFindScheduleStatement(PreparedStatement statement, 
+        String studentId, String status) throws SQLException{
+        statement.setString(1, studentId);
+        statement.setString(2, status);
     }
 
     @Override
@@ -80,25 +85,34 @@ public class SelectionMapper extends Mapper<Selection, Pair> implements ISelecti
         statement.setString(2, id.getArgs().get(1));
     }
 
-    public String getDeleteSelectionsStatement(String studentId, String status) {
-        return String.format("delete from %s where %s = %s and %s = %s;",
-                TABLE_NAME, "studentId", Utils.quoteWrapper(studentId),
-                "status", Utils.quoteWrapper(status));
+    public String getDeleteSelectionsStatement() {
+        return String.format("delete from %s where studentId = ? and status = ?;",
+                TABLE_NAME);
     }
 
-    public String getFinalizeStatement(String studentId) {
-        return String.format("update %s set %s = %s where %s = %s and %s = %s;",
-                TABLE_NAME, "status", "'submitted'", "studentId", Utils.quoteWrapper(studentId),
-                "status", "'selected'");
+    protected void fillDeleteSelectionsStatement(PreparedStatement statement, 
+        String studentId, String status) throws SQLException{
+        statement.setString(1, studentId);
+        statement.setString(2, status);
+    }
+
+    public String getFinalizeStatement() {
+        return String.format("update %s set %s = %s where %s = ? and %s = %s;",
+                TABLE_NAME, "status", "'submitted'", "studentId", "status", "'selected'");
+    }
+
+    protected void fillFinalizeStatement(PreparedStatement statement, String studentId) throws SQLException{
+        statement.setString(1, studentId);
     }
 
     public void deleteSelections(String studentId) throws SQLException {
-        String statement = getDeleteSelectionsStatement(studentId, "selected");
+        String statement = getDeleteSelectionsStatement();
         System.out.println(statement);
         try (Connection con = ConnectionPool.getConnection();
              PreparedStatement st = con.prepareStatement(statement);
         ) {
             try {
+                fillDeleteSelectionsStatement(st, studentId, "selected");
                 st.executeUpdate();
                 con.close();
             } catch (SQLException ex) {
@@ -120,12 +134,13 @@ public class SelectionMapper extends Mapper<Selection, Pair> implements ISelecti
 
     public List<Selection> findStudentSchedule(String studentId, String status) throws SQLException {
         List<Selection> result = new ArrayList<Selection>();
-        String statement = getFindScheduleStatement(studentId, status);
+        String statement = getFindScheduleStatement();
         try (Connection con = ConnectionPool.getConnection();
              PreparedStatement st = con.prepareStatement(statement);
         ) {
             ResultSet resultSet;
             try {
+                fillFindScheduleStatement(st, studentId, status);
                 resultSet = st.executeQuery();
                 while (resultSet.next())
                     result.add(convertResultSetToObject(resultSet));
@@ -139,11 +154,12 @@ public class SelectionMapper extends Mapper<Selection, Pair> implements ISelecti
     }
 
     public void finalizeSelection(String studentId) throws SQLException {
-        String statement = getFinalizeStatement(studentId);
+        String statement = getFinalizeStatement();
         try (Connection con = ConnectionPool.getConnection();
              PreparedStatement st = con.prepareStatement(statement);
         ) {
             try {
+                fillFinalizeStatement(st, studentId);
                 st.executeUpdate();
             } catch (SQLException ex) {
                 System.out.println("error in Mapper.finalizeSelection query.");
@@ -152,13 +168,13 @@ public class SelectionMapper extends Mapper<Selection, Pair> implements ISelecti
         }
     }
 
-    public String getUpdateWaitings() {
+    public String getUpdateWaitingsStatement() {
         return String.format("update %s set status = 'submitted' where status = 'waiting';",
                 TABLE_NAME);
     }
 
     public void updateWaitings() throws SQLException {
-        String statement = getUpdateWaitings();
+        String statement = getUpdateWaitingsStatement();
         try (Connection con = ConnectionPool.getConnection();
              PreparedStatement st = con.prepareStatement(statement);
         ) {

@@ -92,18 +92,25 @@ public class OfferingMapper extends Mapper<Offering, Pair> implements IOfferingM
         return null;
     }
 
-    public String getIncreaseSignedUpStatement(String courseCode, String classCode) {
-        return String.format("update %s set signedUp = signedUp + 1 where %s = %s and %s = %s;",
-                TABLE_NAME, "courseCode", Utils.quoteWrapper(courseCode),
-                "classCode", Utils.quoteWrapper(classCode));
+    public String getIncreaseSignedUpStatement() {
+        return String.format("update %s set signedUp = signedUp + 1 where courseCode = ? and classCode = ?;",
+                TABLE_NAME);
     }
 
+    protected void fillIncreaseSignedUpStatement(PreparedStatement statement, 
+        String courseCode, String classCode) throws SQLException{
+        statement.setString(1, courseCode);
+        statement.setString(2, classCode);
+    }
+
+
     public void increaseSignedUp(String courseCode, String classCode) throws SQLException {
-        String statement = getIncreaseSignedUpStatement(courseCode, classCode);
+        String statement = getIncreaseSignedUpStatement();
         try (Connection con = ConnectionPool.getConnection();
              PreparedStatement st = con.prepareStatement(statement);
         ) {
             try {
+                fillIncreaseSignedUpStatement(st, courseCode, classCode);
                 con.setAutoCommit(false);
                 st.executeUpdate();
                 con.commit();
@@ -114,18 +121,24 @@ public class OfferingMapper extends Mapper<Offering, Pair> implements IOfferingM
         }
     }
 
-    public String getIncreaseCapacityStatement(String courseCode, String classCode) {
-        return String.format("update %s set signedUp = signedUp + 1 and capacity = capacity + 1 where %s = %s and %s = %s;",
-                TABLE_NAME, "courseCode", Utils.quoteWrapper(courseCode),
-                "classCode", Utils.quoteWrapper(classCode));
+    public String getIncreaseCapacityStatement() {
+        return String.format("update %s set signedUp = signedUp + 1 and capacity = capacity + 1 where courseCode = ? and classCode = ?;",
+                TABLE_NAME);
+    }
+
+    protected void fillIncreaseCapacityStatement(PreparedStatement statement, 
+        String courseCode, String classCode) throws SQLException{
+        statement.setString(1, courseCode);
+        statement.setString(2, classCode);
     }
 
     public void increaseCapacity(String courseCode, String classCode) throws SQLException {
-        String statement = getIncreaseCapacityStatement(courseCode, classCode);
+        String statement = getIncreaseCapacityStatement();
         try (Connection con = ConnectionPool.getConnection();
              PreparedStatement st = con.prepareStatement(statement);
         ) {
             try {
+                fillIncreaseCapacityStatement(st, courseCode, classCode);
                 con.setAutoCommit(false);
                 st.executeUpdate();
                 con.commit();
@@ -136,18 +149,24 @@ public class OfferingMapper extends Mapper<Offering, Pair> implements IOfferingM
         }
     }
 
-    public String getDecreaseSignedUpStatement(String courseCode, String classCode) {
-        return String.format("update %s set signedUp = signedUp - 1 where %s = %s and %s = %s;",
-                TABLE_NAME, "courseCode", Utils.quoteWrapper(courseCode),
-                "classCode", Utils.quoteWrapper(classCode));
+    public String getDecreaseSignedUpStatement() {
+        return String.format("update %s set signedUp = signedUp - 1 where courseCode = %s and classCode = %s;",
+                TABLE_NAME);
+    }
+
+    protected void fillDecreaseSignedUpStatement(PreparedStatement statement, 
+        String courseCode, String classCode) throws SQLException{
+        statement.setString(1, courseCode);
+        statement.setString(2, classCode);
     }
 
     public void decreaseSignedUp(String courseCode, String classCode) throws SQLException {
-        String statement = getDecreaseSignedUpStatement(courseCode, classCode);
+        String statement = getDecreaseSignedUpStatement();
         try (Connection con = ConnectionPool.getConnection();
              PreparedStatement st = con.prepareStatement(statement);
         ) {
             try {
+                fillDecreaseSignedUpStatement(st, courseCode, classCode);
                 con.setAutoCommit(false);
                 st.executeUpdate();
                 con.commit();
@@ -158,23 +177,29 @@ public class OfferingMapper extends Mapper<Offering, Pair> implements IOfferingM
         }
     }
 
-    private String makeSearchString(String keyword, String filter) {
+    private String getSearchStatement(String filter) {
         String statement;
         if (filter.equals("All"))
             statement = String .format("select * from OFFERINGS inner join COURSES" +
                     " on COURSES.code=OFFERINGS.courseCode" +
-                    " where name like %s;", Utils.searchKeywordWrapper(keyword));
+                    " where name like ?;");
         else
             statement = String .format("select * from OFFERINGS inner join COURSES" +
                             " on COURSES.code=OFFERINGS.courseCode" +
-                            " where name like %s" +
-                            " and type=%s;", Utils.searchKeywordWrapper(keyword),
-                    Utils.quoteWrapper(filter));
+                            " where name like ?" +
+                            " and type=?;");
         return statement;
     }
 
+    protected void fillSearchStatement(PreparedStatement statement, 
+        String keyword, String filter) throws SQLException{
+        statement.setString(1, keyword);
+        if (!filter.equals("All"))
+            statement.setString(2, filter);
+    }
+
     public ArrayList<Offering> getSearchedOfferings(String keyword, String filter) throws SQLException{
-        String statement = makeSearchString(keyword, filter);
+        String statement = getSearchStatement(filter);
         ArrayList<Offering> result = new ArrayList<>();
 
         try (Connection con = ConnectionPool.getConnection();
@@ -182,6 +207,7 @@ public class OfferingMapper extends Mapper<Offering, Pair> implements IOfferingM
         ) {
             ResultSet resultSet;
             try {
+                fillSearchStatement(st, keyword, filter);
                 resultSet = st.executeQuery();
                 while (resultSet.next())
                     result.add(convertResultSetToObject(resultSet));

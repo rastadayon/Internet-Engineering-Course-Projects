@@ -92,9 +92,21 @@ public class GradeMapper extends Mapper<Grade, Pair> implements IGradeMapper { /
         );
     }
 
-    protected String getFindTermStatement(String studentId) {
-        return String.format("select * from %s where %s = %s order by term desc limit 1;",
-                TABLE_NAME, "studentId", Utils.quoteWrapper(studentId));
+    protected String getFindTermStatement() {
+        return String.format("select * from %s where studentId = ? order by term desc limit 1;",
+                TABLE_NAME);
+    }
+
+    protected void fillFindTermStatement(PreparedStatement statement, String studentId) throws SQLException{
+        statement.setString(1, studentId);
+    }
+
+    protected String getFindStudentGradesStatement() {
+        return String.format("select * from %s where studentId = ?;", TABLE_NAME);
+    }
+
+    protected void fillFindStudentGradesStatement(PreparedStatement statement, String studentId) throws SQLException{
+        statement.setString(1, studentId);
     }
 
     public ArrayList<Grade> getStudentGrades(String studentId) throws SQLException {
@@ -105,6 +117,7 @@ public class GradeMapper extends Mapper<Grade, Pair> implements IGradeMapper { /
         ) {
             ResultSet resultSet;
             try {
+                fillFindStudentGradesStatement(st, studentId);
                 resultSet = st.executeQuery();
                 while (resultSet.next())
                     result.add(convertResultSetToObject(resultSet));
@@ -118,12 +131,13 @@ public class GradeMapper extends Mapper<Grade, Pair> implements IGradeMapper { /
     }
 
     public int getCurrentTerm(String studentId) throws SQLException {
-        String statement = getFindTermStatement(studentId);
+        String statement = getFindTermStatement();
         try (Connection con = ConnectionPool.getConnection();
              PreparedStatement st = con.prepareStatement(statement);
         ) {
             ResultSet resultSet;
             try {
+                fillFindTermStatement(st, studentId);
                 resultSet = st.executeQuery();
                 resultSet.next();
                 return resultSet.getInt("term");
