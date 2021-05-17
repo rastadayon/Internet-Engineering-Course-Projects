@@ -59,6 +59,7 @@ public class StudentMapper extends Mapper<Student, String> implements IStudentMa
 
     @Override
     protected void fillInsertStatement(PreparedStatement statement, Student student) throws SQLException{
+        System.out.println(student.getEmail());
         statement.setString(1, student.getId());
         statement.setString(2, student.getEmail());
         statement.setString(3, student.getPassword());
