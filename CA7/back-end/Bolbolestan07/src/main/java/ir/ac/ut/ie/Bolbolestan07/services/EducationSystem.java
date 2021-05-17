@@ -20,6 +20,7 @@ public class EducationSystem {
     final static String STUDENTS_URL = "http://138.197.181.131:5200/api/students";
     final static String GRADES_URL = "http://138.197.181.131:5200/api/grades";
     final static String COURSES_URL = "http://138.197.181.131:5200/api/courses";
+
     private static EducationSystem instance;
     private EducationSystem() {}
     public static EducationSystem getInstance() {
@@ -50,6 +51,7 @@ public class EducationSystem {
         for (Student student : students) {
             try {
 //                student.print();
+                student.setPasswordHash();
                 BolbolestanRepository.getInstance().insertStudent(student);
             } catch (Exception e) {
                 System.out.println(e.getMessage());

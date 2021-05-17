@@ -5,8 +5,8 @@ import "./reportCards-styles.css"
 import ReportCard from '../reportCard/ReportCard'
 
 function ReportCards(props) {
-    // if(props.reportCards)
-    //     console.log(Object.entries(props.reportCards))
+    if(props.reportCards)
+        console.log(props.reportCards)
     return (
     <div className="section col-sm-9">
         <div className="report-cards-wrapper">

@@ -85,6 +85,7 @@ public class StudentMapper extends Mapper<Student, String> implements IStudentMa
 
     @Override
     protected Student convertResultSetToObject(ResultSet rs) throws SQLException {
+        System.out.println("here in conversion");
         return new Student(
                 rs.getString("id"),
                 rs.getString("email"),
@@ -134,6 +135,28 @@ public class StudentMapper extends Mapper<Student, String> implements IStudentMa
                 return result;
             } catch (SQLException ex) {
                 System.out.println("error in Mapper.findAll query.");
+                throw ex;
+            }
+        }
+    }
+
+    protected void fillGetStudentByEmail(PreparedStatement statement, String email) throws SQLException{
+        statement.setString(1, email);
+    }
+
+    public Student getStudentByEmail(String email) throws SQLException {
+        String statement = String.format("select * from %s where email = ?;", TABLE_NAME);
+        try (Connection con = ConnectionPool.getConnection();
+             PreparedStatement st = con.prepareStatement(statement);
+        ) {
+            ResultSet resultSet;
+            try {
+                fillGetStudentByEmail(st, email);
+                resultSet = st.executeQuery();
+                resultSet.next();
+                return convertResultSetToObject(resultSet);
+            } catch (SQLException ex) {
+                System.out.println("error in Mapper.getStudentByEmail query.");
                 throw ex;
             }
         }

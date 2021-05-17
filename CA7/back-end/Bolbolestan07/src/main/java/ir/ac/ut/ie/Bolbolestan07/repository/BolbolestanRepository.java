@@ -288,4 +288,14 @@ public class BolbolestanRepository {
             return null;
         }
     }
+
+    public Student getStudentByEmail(String email) {
+        try {
+            Student student = new StudentMapper().getStudentByEmail(email);
+            return student;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 }
