@@ -4,6 +4,7 @@ import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Offering.Offerin
 import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Utilities.Utils;
 import ir.ac.ut.ie.Bolbolestan07.controllers.models.StudentInfo;
 import ir.ac.ut.ie.Bolbolestan07.repository.BolbolestanRepository;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,7 +13,7 @@ import java.util.List;
 public class Student {
     private final String id;
     private final String email;
-    private final String password;
+    private String password;
     private final String name;
     private final String secondName;
     private final String birthDate;
@@ -357,5 +358,9 @@ public class Student {
 
     public void setCourseSelection(CourseSelection courseSelection) {
         this.courseSelection = courseSelection;
+    }
+
+    public void setPasswordHash() {
+        this.password = DigestUtils.sha256Hex(this.password.getBytes());
     }
 }

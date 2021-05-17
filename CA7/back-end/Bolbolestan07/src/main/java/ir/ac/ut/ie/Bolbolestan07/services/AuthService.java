@@ -11,16 +11,18 @@ import org.apache.commons.codec.digest.DigestUtils;
 public class AuthService {
     public static Student authUser(Login login) throws Exception{
         System.out.println("in auth user");
-        if(login.getEmail() == null)
+        if(login.getEmail() == null || login.getEmail().length() == 0 ||
+            login.getPassword() == null || login.getPassword().length() == 0)
             throw new ForbiddenException("Fields most have values");
-        Student student = BolbolestanRepository.getInstance().getStudent(login.getEmail());
+        Student student = BolbolestanRepository.getInstance().getStudentByEmail(login.getEmail());
         if (student != null) {
-//            DigestUtils.sha256Hex(login.getPassword().getBytes()))
-            if (!student.getPassword().equals(login.getPassword()))
+            System.out.println(String.format("login password = %s, student password = %s", login.getPassword(), student.getPassword()));
+            if (!student.getPassword().equals(DigestUtils.sha256Hex(login.getPassword().getBytes()))){
                 throw new Exception("passwords does not match");
-            else 
+            }
+            else
                 Bolbolestan.getInstance().makeLoggedIn(student.getId());
-                return student;
+            return student;
         }
         else
             throw new BolbolestanStudentNotFoundError();

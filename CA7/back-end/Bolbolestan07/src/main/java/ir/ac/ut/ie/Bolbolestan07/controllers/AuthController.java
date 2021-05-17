@@ -32,16 +32,11 @@ public class AuthController {
             if(Utils.hasIllegalChars(email) || Utils.hasIllegalChars(password)){
                 throw new BadCharactersException();
             }
-            loginData.setPassword(Utils.hashString(password));
-            Student student = new Student();
-            try {
-                student = AuthService.authUser(loginData);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
+            Student student = AuthService.authUser(loginData);
             String answer = JWTUtils.createJWT(student.getEmail());
             return ResponseEntity.status(HttpStatus.OK).body(answer);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("student not found. invalid login");
         }
     }

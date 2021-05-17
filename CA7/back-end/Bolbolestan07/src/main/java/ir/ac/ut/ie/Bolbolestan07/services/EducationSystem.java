@@ -50,6 +50,7 @@ public class EducationSystem {
         for (Student student : students) {
             try {
 //                student.print();
+                student.setPasswordHash();
                 BolbolestanRepository.getInstance().insertStudent(student);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
