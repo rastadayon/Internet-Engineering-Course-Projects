@@ -52,7 +52,7 @@ public class GradeMapper extends Mapper<Grade, Pair> implements IGradeMapper { /
     
     @Override
     protected void fillFindStatement(PreparedStatement statement, Pair id) throws SQLException{
-        statement.setString(0, id.getArgs().get(0));
+        statement.setString(1, id.getArgs().get(0));
     }
 
     @Override
@@ -62,12 +62,12 @@ public class GradeMapper extends Mapper<Grade, Pair> implements IGradeMapper { /
 
     @Override
     protected void fillInsertStatement(PreparedStatement statement, Grade grade) throws SQLException{
-        statement.setString(0, grade.getStudentId());
-        statement.setString(1, grade.getCode());
-        statement.setString(2, grade.getCourseName());
-        statement.setDouble(3, grade.getGrade());
-        statement.setInt(4, grade.getUnits());
-        statement.setInt(5, grade.getTerm());
+        statement.setString(1, grade.getStudentId());
+        statement.setString(2, grade.getCode());
+        statement.setString(3, grade.getCourseName());
+        statement.setDouble(4, grade.getGrade());
+        statement.setInt(5, grade.getUnits());
+        statement.setInt(6, grade.getTerm());
     }
 
     @Override
@@ -77,7 +77,7 @@ public class GradeMapper extends Mapper<Grade, Pair> implements IGradeMapper { /
 
     @Override
     protected void fillDeleteStatement(PreparedStatement statement, Pair pair) throws SQLException{
-        statement.setString(0, pair.getArgs().get(0));
+        statement.setString(1, pair.getArgs().get(0));
     }
 
     @Override

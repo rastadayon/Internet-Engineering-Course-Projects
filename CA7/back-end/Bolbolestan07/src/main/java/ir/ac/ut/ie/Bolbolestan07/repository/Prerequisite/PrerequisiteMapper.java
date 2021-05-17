@@ -47,7 +47,7 @@ public class PrerequisiteMapper extends Mapper<HashMap<String, ArrayList<String>
 
     @Override
     protected void fillFindStatement(PreparedStatement statement, String courseCode) throws SQLException{
-        statement.setString(0, courseCode);
+        statement.setString(1, courseCode);
     }
 
     @Override
@@ -64,8 +64,8 @@ public class PrerequisiteMapper extends Mapper<HashMap<String, ArrayList<String>
         ArrayList<String> prerequisites = courses.entrySet().stream().findFirst().get().getValue();
         for (String prerequisite: prerequisites) {
             PreparedStatement st = statement;
-            st.setString(0, courseCode);
-            st.setString(1, prerequisite);
+            st.setString(1, courseCode);
+            st.setString(2, prerequisite);
             insertString += st;
         }
         //statement = prepareStatement(insertString);
@@ -78,7 +78,7 @@ public class PrerequisiteMapper extends Mapper<HashMap<String, ArrayList<String>
 
     @Override
     protected void fillDeleteStatement(PreparedStatement statement, String courseCode) throws SQLException{
-        statement.setString(0, courseCode);
+        statement.setString(1, courseCode);
     }
 
     @Override

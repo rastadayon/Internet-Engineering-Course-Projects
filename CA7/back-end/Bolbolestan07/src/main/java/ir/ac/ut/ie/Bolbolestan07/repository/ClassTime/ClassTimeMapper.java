@@ -47,8 +47,8 @@ public class ClassTimeMapper extends Mapper<ClassTime, Pair> implements IClassTi
 
     @Override
     protected void fillFindStatement(PreparedStatement statement, Pair id) throws SQLException{
-        statement.setString(0, id.getArgs().get(0));
-        statement.setString(1, id.getArgs().get(1));
+        statement.setString(1, id.getArgs().get(0));
+        statement.setString(2, id.getArgs().get(1));
     }
 
     @Override
@@ -58,15 +58,15 @@ public class ClassTimeMapper extends Mapper<ClassTime, Pair> implements IClassTi
 
     @Override
     protected void fillInsertStatement(PreparedStatement statement, ClassTime classTime) throws SQLException{
-        statement.setString(0, classTime.getCourseCode());
-        statement.setString(1, classTime.getClassCode());
-        statement.setString(2, classTime.getTime());
-        statement.setString(3, classTime.getFirstDay());
+        statement.setString(1, classTime.getCourseCode());
+        statement.setString(2, classTime.getClassCode());
+        statement.setString(3, classTime.getTime());
+        statement.setString(4, classTime.getFirstDay());
         if (classTime.hasTowDays()) {
-            statement.setString(4, classTime.getSecondDay());
+            statement.setString(5, classTime.getSecondDay());
         }
         else {
-            statement.setString(4, "");
+            statement.setString(5, "");
         }
     }
 

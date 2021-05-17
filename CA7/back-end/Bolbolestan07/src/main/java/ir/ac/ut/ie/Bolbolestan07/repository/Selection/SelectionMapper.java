@@ -52,8 +52,8 @@ public class SelectionMapper extends Mapper<Selection, Pair> implements ISelecti
 
     @Override
     protected void fillFindStatement(PreparedStatement statement, Pair id) throws SQLException{
-        statement.setString(0, id.getArgs().get(0));
-        statement.setString(1, id.getArgs().get(1));
+        statement.setString(1, id.getArgs().get(0));
+        statement.setString(2, id.getArgs().get(1));
     }
 
     @Override
@@ -63,10 +63,10 @@ public class SelectionMapper extends Mapper<Selection, Pair> implements ISelecti
 
     @Override
     protected void fillInsertStatement(PreparedStatement statement, Selection selection) throws SQLException{
-        statement.setString(0, selection.getStudentId());
-        statement.setString(1, selection.getCourseCode());
-        statement.setString(2, selection.getClassCode());
-        statement.setString(3, selection.getStatus());
+        statement.setString(1, selection.getStudentId());
+        statement.setString(2, selection.getCourseCode());
+        statement.setString(3, selection.getClassCode());
+        statement.setString(4, selection.getStatus());
     }
 
     @Override
@@ -76,8 +76,8 @@ public class SelectionMapper extends Mapper<Selection, Pair> implements ISelecti
 
     @Override
     protected void fillDeleteStatement(PreparedStatement statement, Pair id) throws SQLException{
-        statement.setString(0, id.getArgs().get(0));
-        statement.setString(1, id.getArgs().get(1));
+        statement.setString(1, id.getArgs().get(0));
+        statement.setString(2, id.getArgs().get(1));
     }
 
     public String getDeleteSelectionsStatement(String studentId, String status) {

@@ -49,7 +49,7 @@ public class StudentMapper extends Mapper<Student, String> implements IStudentMa
 
     @Override
     protected void fillFindStatement(PreparedStatement statement, String id) throws SQLException{
-        statement.setString(0, id);
+        statement.setString(1, id);
     }
 
     @Override
@@ -59,17 +59,17 @@ public class StudentMapper extends Mapper<Student, String> implements IStudentMa
 
     @Override
     protected void fillInsertStatement(PreparedStatement statement, Student student) throws SQLException{
-        statement.setString(0, student.getId());
-        statement.setString(1, student.getEmail());
-        statement.setString(2, student.getPassword());
-        statement.setString(3, student.getName());
-        statement.setString(4, student.getSecondName());
-        statement.setString(5, student.getBirthDate());
-        statement.setString(6, student.getField());
-        statement.setString(7, student.getFaculty());
-        statement.setString(8, student.getLevel());
-        statement.setString(8, student.getStatus());
-        statement.setString(8, student.getImg());
+        statement.setString(1, student.getId());
+        statement.setString(2, student.getEmail());
+        statement.setString(3, student.getPassword());
+        statement.setString(4, student.getName());
+        statement.setString(5, student.getSecondName());
+        statement.setString(6, student.getBirthDate());
+        statement.setString(7, student.getField());
+        statement.setString(8, student.getFaculty());
+        statement.setString(9, student.getLevel());
+        statement.setString(10, student.getStatus());
+        statement.setString(11, student.getImg());
     }
 
     @Override
@@ -79,7 +79,7 @@ public class StudentMapper extends Mapper<Student, String> implements IStudentMa
 
     @Override
     protected void fillDeleteStatement(PreparedStatement statement, String id) throws SQLException{
-        statement.setString(0, id);
+        statement.setString(1, id);
     }
 
     @Override

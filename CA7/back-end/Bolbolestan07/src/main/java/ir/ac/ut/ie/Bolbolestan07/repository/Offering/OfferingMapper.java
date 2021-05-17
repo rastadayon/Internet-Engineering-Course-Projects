@@ -47,8 +47,8 @@ public class OfferingMapper extends Mapper<Offering, Pair> implements IOfferingM
 
     @Override
     protected void fillFindStatement(PreparedStatement statement, Pair id) throws SQLException{
-        statement.setString(0, id.getArgs().get(0));
-        statement.setString(1, id.getArgs().get(1));
+        statement.setString(1, id.getArgs().get(0));
+        statement.setString(2, id.getArgs().get(1));
     }
 
     @Override
@@ -58,11 +58,11 @@ public class OfferingMapper extends Mapper<Offering, Pair> implements IOfferingM
 
     @Override
     protected void fillInsertStatement(PreparedStatement statement, Offering offering) throws SQLException{
-        statement.setString(0, offering.getCourseCode());
-        statement.setString(1, offering.getClassCode());
-        statement.setString(2, offering.getInstructor());
-        statement.setInt(3, offering.getCapacity());
-        statement.setInt(4, offering.getSignedUp());
+        statement.setString(1, offering.getCourseCode());
+        statement.setString(2, offering.getClassCode());
+        statement.setString(3, offering.getInstructor());
+        statement.setInt(4, offering.getCapacity());
+        statement.setInt(5, offering.getSignedUp());
     }
 
     @Override

@@ -44,8 +44,8 @@ public class ExamTimeMapper extends Mapper<ExamTime, Pair> implements IExamTimeM
 
     @Override
     protected void fillFindStatement(PreparedStatement statement, Pair id) throws SQLException{
-        statement.setString(0, id.getArgs().get(0));
-        statement.setString(1, id.getArgs().get(1));
+        statement.setString(1, id.getArgs().get(0));
+        statement.setString(2, id.getArgs().get(1));
     }
 
     @Override
@@ -55,10 +55,10 @@ public class ExamTimeMapper extends Mapper<ExamTime, Pair> implements IExamTimeM
 
     @Override
     protected void fillInsertStatement(PreparedStatement statement, ExamTime examTime) throws SQLException{
-        statement.setString(0, examTime.getCourseCode());
-        statement.setString(1, examTime.getClassCode());
-        statement.setString(2, examTime.getStart());
-        statement.setString(3, examTime.getEnd());
+        statement.setString(1, examTime.getCourseCode());
+        statement.setString(2, examTime.getClassCode());
+        statement.setString(3, examTime.getStart());
+        statement.setString(4, examTime.getEnd());
     }
 
     @Override

@@ -45,10 +45,10 @@ public class CourseMapper extends Mapper<Course, String> implements ICourseMappe
 
     @Override
     protected void fillInsertStatement(PreparedStatement statement, Course course) throws SQLException{
-        statement.setString(0, course.getCourseCode());
-        statement.setString(1, course.getName());
-        statement.setInt(2, course.getUnits());
-        statement.setString(3, course.getType());
+        statement.setString(1, course.getCourseCode());
+        statement.setString(2, course.getName());
+        statement.setInt(3, course.getUnits());
+        statement.setString(4, course.getType());
     }
 
     @Override
@@ -58,7 +58,7 @@ public class CourseMapper extends Mapper<Course, String> implements ICourseMappe
 
     @Override
     protected void fillDeleteStatement(PreparedStatement statement, String code) throws SQLException{
-        statement.setString(0, code);
+        statement.setString(1, code);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class CourseMapper extends Mapper<Course, String> implements ICourseMappe
 
     @Override
     protected void fillFindStatement(PreparedStatement statement, String code) throws SQLException{
-        statement.setString(0, code);
+        statement.setString(1, code);
     }
 
     @Override
