@@ -6,6 +6,7 @@ import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.exeptions.Bolbol
 import ir.ac.ut.ie.Bolbolestan07.controllers.models.Login;
 import ir.ac.ut.ie.Bolbolestan07.exceptions.ForbiddenException;
 import ir.ac.ut.ie.Bolbolestan07.repository.BolbolestanRepository;
+import org.apache.commons.codec.digest.DigestUtils;
 
 public class AuthService {
     public static Student authUser(Login login) throws Exception{
@@ -14,6 +15,7 @@ public class AuthService {
             throw new ForbiddenException("Fields most have values");
         Student student = BolbolestanRepository.getInstance().getStudent(login.getEmail());
         if (student != null) {
+//            DigestUtils.sha256Hex(login.getPassword().getBytes()))
             if (!student.getPassword().equals(login.getPassword()))
                 throw new Exception("passwords does not match");
             else 

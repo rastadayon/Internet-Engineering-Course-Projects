@@ -5,6 +5,7 @@ import ir.ac.ut.ie.Bolbolestan07.exceptions.BadCharactersException;
 import ir.ac.ut.ie.Bolbolestan07.controllers.models.Login;
 import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Student.Student;
 import ir.ac.ut.ie.Bolbolestan07.services.AuthService;
+import ir.ac.ut.ie.Bolbolestan07.utils.JWTUtils;
 import ir.ac.ut.ie.Bolbolestan07.utils.Utils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,8 +33,13 @@ public class AuthController {
                 throw new BadCharactersException();
             }
             loginData.setPassword(Utils.hashString(password));
-            Student student = AuthService.authUser(loginData);
-            String answer = JWTAuthFilter.getJWTToken(student.getEmail());
+            Student student = new Student();
+            try {
+                student = AuthService.authUser(loginData);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            String answer = JWTUtils.createJWT(student.getEmail());
             return ResponseEntity.status(HttpStatus.OK).body(answer);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("student not found. invalid login");

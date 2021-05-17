@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EducationSystem {
-    final static String STUDENTS_URL = "http://138.197.181.131:5100/api/students";
+    final static String STUDENTS_URL = "http://138.197.181.131:5200/api/students";
     final static String GRADES_URL = "http://138.197.181.131:5100/api/grades";
     final static String COURSES_URL = "http://138.197.181.131:5100/api/courses";
     private static EducationSystem instance;

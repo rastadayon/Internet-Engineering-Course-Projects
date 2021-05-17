@@ -44,7 +44,7 @@ public class StudentMapper extends Mapper<Student, String> implements IStudentMa
 
     @Override
     protected String getFindStatement() {
-        return String.format("select * from %s where id = ?;", TABLE_NAME);
+        return String.format("select * from %s where email = ?;", TABLE_NAME);
     }
 
     @Override
