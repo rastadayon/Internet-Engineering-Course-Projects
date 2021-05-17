@@ -15,12 +15,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ir.ac.ut.ie.Bolbolestan07.security.JWTAuthFilter;
+import ir.ac.ut.ie.Bolbolestan07.utils.HTTPRequestHandler.HTTPRequestHandler;
 
 import java.io.IOException;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+    final static String SEND_MAIL_URL = "http://138.197.181.131:5200/api/send_mail";
+    final static String CHANGE_PASS_URL = "http://localhost:8080/changePassword/";
 
     @PostMapping("/login")
     public ResponseEntity login(
@@ -36,6 +39,29 @@ public class AuthController {
             Student student = AuthService.authUser(loginData);
             String answer = JWTUtils.createJWT(student.getEmail());
             return ResponseEntity.status(HttpStatus.OK).body(answer);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("student not found. invalid login");
+        }
+    }
+
+    @PostMapping("/forget")
+    public ResponseEntity forget(
+            @RequestBody Login loginData) throws IOException {
+        System.out.println("in forget");
+        System.out.println("email is " + loginData.getEmail());
+        String email = loginData.getEmail();
+        try {
+            if(Utils.hasIllegalChars(email)){
+                throw new BadCharactersException();
+            }
+            if (AuthService.isStudentInDB(loginData)) {
+                String url = CHANGE_PASS_URL + JWTUtils.createJWT(email);
+                email = "kalhorghazal1378@gmail.com";
+                String request = SEND_MAIL_URL + "?" + "url=" + url + "&" + "email=" + email;
+                //HTTPRequestHandler.postRequest(request);
+                return ResponseEntity.status(HttpStatus.OK).body();
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("student not found. invalid login");
