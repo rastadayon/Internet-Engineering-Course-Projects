@@ -1,6 +1,7 @@
 package ir.ac.ut.ie.Bolbolestan07.utils.HTTPRequestHandler;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -26,18 +27,27 @@ public class HTTPRequestHandler {
     }
 
     public static void postRequest(String url) throws Exception{
-        //HttpClient httpClient = HttpClientBuilder.create().bulid();
-        final CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpPost request = new HttpPost(url);
-        //httpClient.execute(request);
+//        //HttpClient httpClient = HttpClientBuilder.create().bulid();
+//        final CloseableHttpClient httpClient = HttpClients.createDefault();
+//        HttpPost request = new HttpPost(url);
+//        //httpClient.execute(request);
+//
+//        try (CloseableHttpResponse response = httpClient.execute(request)) {
+//            HttpEntity entity = response.getEntity();
+//
+//            String result = "";
+//            if (entity != null)
+//                result = EntityUtils.toString(entity);
+//            return result;
+//        }
 
-        try (CloseableHttpResponse response = httpClient.execute(request)) {
-            HttpEntity entity = response.getEntity();
-
-            String result = "";
-            if (entity != null)
-                result = EntityUtils.toString(entity);
-            return result;
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        try {
+            HttpPost request = new HttpPost(url);
+            request.addHeader("content-type", "application/x-www-form-urlencoded");
+            HttpResponse response = httpClient.execute(request);
+            System.out.println("tanest befreste");
+        } catch (Exception ex) {
         }
     }
 

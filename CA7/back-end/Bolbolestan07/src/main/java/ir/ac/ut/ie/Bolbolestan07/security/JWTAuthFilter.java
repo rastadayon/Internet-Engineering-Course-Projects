@@ -122,6 +122,7 @@ import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Student.Student;
 import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Student.StudentManager;
 import ir.ac.ut.ie.Bolbolestan07.repository.Student.StudentMapper;
 import ir.ac.ut.ie.Bolbolestan07.utils.JWTUtils;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -129,20 +130,22 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+@Component
 public class JWTAuthFilter implements Filter {
 
+    @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
             throws IOException, ServletException {
-
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         String url = request.getRequestURI();
         String method = request.getMethod();
 
-        if((url.equals("/user") && method.equals("POST")) || url.equals("/auth/login") || url.equals("auth/signup")) //????
+        if(url.equals("/auth/login") || url.equals("auth/signup"))
             chain.doFilter(request, response);
         else {
+            System.out.println("tu filter e jwt");
             String token = request.getHeader("Authorization");
             if(token == null) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

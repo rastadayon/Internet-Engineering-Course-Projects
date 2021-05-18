@@ -6,6 +6,7 @@ import HomeTopSection from "../../components/home/homeTopSection/HomeTopSection"
 import ProfileInfo from '../../components/home/profileInfo/ProfileInfo';
 import ReportCards from '../../components/home/reportCards/ReportCards'
 import API from '../../apis/api';
+import authHeader from '../../services/auth-header.js'
 
 
 export default class Home extends React.Component {
@@ -21,7 +22,7 @@ export default class Home extends React.Component {
     }
 
     updateStudentInfo() {
-        API.get("student/").then(
+        API.get("student/", { headers: authHeader() }).then(
             jsonData => {
                 this.setState({studentInfo: jsonData.data});
                 // console.log('in updateStudent info')

@@ -85,7 +85,6 @@ public class StudentMapper extends Mapper<Student, String> implements IStudentMa
 
     @Override
     protected Student convertResultSetToObject(ResultSet rs) throws SQLException {
-        System.out.println("here in conversion");
         return new Student(
                 rs.getString("id"),
                 rs.getString("email"),

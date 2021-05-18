@@ -10,10 +10,7 @@ import ir.ac.ut.ie.Bolbolestan07.utils.JWTUtils;
 import ir.ac.ut.ie.Bolbolestan07.utils.Utils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ir.ac.ut.ie.Bolbolestan07.security.JWTAuthFilter;
 import ir.ac.ut.ie.Bolbolestan07.utils.HTTPRequestHandler.HTTPRequestHandler;
 
@@ -47,21 +44,20 @@ public class AuthController {
 
     @PostMapping("/forget")
     public ResponseEntity forget(
-            @RequestBody Login loginData) throws IOException {
+            @RequestParam String email) throws IOException {
         System.out.println("in forget");
-        System.out.println("email is " + loginData.getEmail());
-        String email = loginData.getEmail();
+        System.out.println("email is " + email);
         try {
             if(Utils.hasIllegalChars(email)){
                 throw new BadCharactersException();
             }
-            if (AuthService.isStudentInDB(loginData)) {
+            if (AuthService.isStudentInDB(email)) {
                 String url = CHANGE_PASS_URL + JWTUtils.createJWT(email);
-                email = "kalhorghazal1378@gmail.com";
                 String request = SEND_MAIL_URL + "?" + "url=" + url + "&" + "email=" + email;
-                //HTTPRequestHandler.postRequest(request);
-                return ResponseEntity.status(HttpStatus.OK).body();
+                HTTPRequestHandler.postRequest(request);
+                return ResponseEntity.status(HttpStatus.OK).body("OK");
             }
+            else return ResponseEntity.status(HttpStatus.FORBIDDEN).body("student not found. invalid login");
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("student not found. invalid login");

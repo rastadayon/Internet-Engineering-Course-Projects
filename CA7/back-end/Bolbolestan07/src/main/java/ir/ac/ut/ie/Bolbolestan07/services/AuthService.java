@@ -27,20 +27,17 @@ public class AuthService {
         }
         else
             throw new BolbolestanStudentNotFoundError();
-        //System.out.println("logged in std is : " +Bolbolestan.getInstance().getLoggedInId());
     }
 
-    public static boolean isStudentInDB(Login login) throws Exception{
+    public static boolean isStudentInDB(String email) throws Exception {
         System.out.println("in validate student");
-        if(login.getEmail() == null || login.getEmail().length() == 0)
+        if(email == null || email.length() == 0)
             throw new ForbiddenException("Field must have values");
-        Student student = BolbolestanRepository.getInstance().getStudentByEmail(login.getEmail());
+        Student student = BolbolestanRepository.getInstance().getStudentByEmail(email);
         if (student != null) 
             return true;
-        
         else
             throw new BolbolestanStudentNotFoundError();
-        //System.out.println("logged in std is : " +Bolbolestan.getInstance().getLoggedInId());
     }
 
     public static void signUpUser(SignUp signUpData) throws Exception {

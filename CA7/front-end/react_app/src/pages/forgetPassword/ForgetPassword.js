@@ -29,22 +29,19 @@ export default class ForgetPassword extends React.Component {
     }
 
     handleSubmit(e) {
+        var requestParam = new FormData();
+        requestParam.append('email', this.state.email);
         e.preventDefault();
         if(!this.state.email){
             console.log('email empty -_-')
-            toast.error('فیلد ایمیل باید پر باشد')
+            toast.warning('فیلد ایمیل باید پر باشد')
             return
         }
-        API.post('auth/forget/', {
-            email: this.state.email,
-            password: ""
-        }).then((resp) => {
+        API.post('auth/forget/', requestParam).then((resp) => {
             if(resp.status === 200) {
                 console.log(resp.data);
                 
-                console.log('شد شد')
                 toast.success('لینک بازیابی رمز عبور به ایمیل شما ارسال شد.')
-                window.location.href = "http://localhost:3000/"
             }
         }).catch(error => {
             console.log('نشد')
