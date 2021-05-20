@@ -5,10 +5,11 @@ import Footer from "../general/Footer";
 import SearchBar from "../../components/unitSelection/searchBar/searchBar"
 import CoursesList from "../../components/unitSelection/coursesList/coursesList"
 import Selection from "../../components/unitSelection/selection/Selection"
-//import Selection from "./Selection"
 import { toast } from 'react-toastify';
 import API from '../../apis/api';
 import './unitSelection-styles.css'
+import authHeader from '../../services/auth-header.js'
+
 
 export default class UnitSelection extends React.Component {
 
@@ -32,12 +33,12 @@ export default class UnitSelection extends React.Component {
         document.title = "Courses"
         toast.configure({rtl: true, className: "text-center", position: "top-right"})
         this.updateSelections()
-        this.updateCourses('')
-        this.initSearchKeyword()
+        // this.updateCourses('')
+        // this.initSearchKeyword()
     }
 
     initSearchKeyword() {
-        API.get('student/searchKeyword'
+        API.get('student/searchKeyword', {headers: authHeader()}
         ).then(resp => {
             if(resp.status == 200) {
                 this.setState({searchKeyword: resp.data});
@@ -63,7 +64,8 @@ export default class UnitSelection extends React.Component {
     }
 
     updateSelections() {
-        API.get("offering/selections").then(resp => {
+        API.get("offering/selections", {headers: authHeader()}
+        ).then(resp => {
             if(resp.status == 200) {
                 this.setState({selections: resp.data});
             }
@@ -78,7 +80,6 @@ export default class UnitSelection extends React.Component {
     }
 
     updateCourses() {
-
         API.post('offering/search',
             {
                 keyword: this.state.searchKeyword,
@@ -107,9 +108,9 @@ export default class UnitSelection extends React.Component {
                         secondRoute={"/schedule"}/>
                 <main>
                 <Selection updateSelections={this.updateSelections} selections = {this.state.selections} />
-                <SearchBar updateCourses={this.updateCourses} searchKeyword={this.state.searchKeyword} updateSearchKeyword={this.updateSearchKeyword}/>
-                <CoursesList courses={this.state.courses} searchFilter={this.state.searchFilter} updateSearchFilter={this.updateSearchFilter} 
-                            updateSelections={this.updateSelections}/>
+                {/* <SearchBar updateCourses={this.updateCourses} searchKeyword={this.state.searchKeyword} updateSearchKeyword={this.updateSearchKeyword}/> */}
+                {/* <CoursesList courses={this.state.courses} searchFilter={this.state.searchFilter} updateSearchFilter={this.updateSearchFilter} 
+                            updateSelections={this.updateSelections}/> */}
                 </main>
 
                 <Footer/>

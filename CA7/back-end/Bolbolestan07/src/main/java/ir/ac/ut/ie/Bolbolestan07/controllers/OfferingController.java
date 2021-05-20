@@ -129,33 +129,33 @@ public class OfferingController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("student not found. invalid login");
     }
 
-    @PutMapping("/wait")
-    public ResponseEntity waitForCourse(
-            @RequestParam String courseCode,
-            @RequestParam String classCode) throws IOException {
-        System.out.println("in wait for course");
-        Bolbolestan bolbolestan = Bolbolestan.getInstance();
-        if (bolbolestan.isAnybodyLoggedIn()) {
-            try {
-                String loggedInStudentId = bolbolestan.getLoggedInId();
-                if (bolbolestan.addCourseToWaitingList(loggedInStudentId, courseCode,
-                            classCode)) {
-                    System.out.println("wait successful");
-                    return ResponseEntity.status(HttpStatus.OK).body("OK");
-                } else {
-                    System.out.println("wait failed");
-                    String errors = bolbolestan.getWaitingErrors();
-                    System.out.println(errors);
-                    return ResponseEntity.status(HttpStatus.OK).body(errors);
-                }
-            } catch (Exception e) {
-                System.out.println("wait failed");
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
-            }
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("student not found. invalid login");
-//        return ResponseEntity.ok("wait ok");
-    }
+//    @PutMapping("/wait")
+//    public ResponseEntity waitForCourse(
+//            @RequestParam String courseCode,
+//            @RequestParam String classCode) throws IOException {
+//        System.out.println("in wait for course");
+//        Bolbolestan bolbolestan = Bolbolestan.getInstance();
+//        if (bolbolestan.isAnybodyLoggedIn()) {
+//            try {
+//                String loggedInStudentId = bolbolestan.getLoggedInId();
+//                if (bolbolestan.addCourseToWaitingList(loggedInStudentId, courseCode,
+//                            classCode)) {
+//                    System.out.println("wait successful");
+//                    return ResponseEntity.status(HttpStatus.OK).body("OK");
+//                } else {
+//                    System.out.println("wait failed");
+//                    String errors = bolbolestan.getWaitingErrors();
+//                    System.out.println(errors);
+//                    return ResponseEntity.status(HttpStatus.OK).body(errors);
+//                }
+//            } catch (Exception e) {
+//                System.out.println("wait failed");
+//                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+//            }
+//        }
+//        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("student not found. invalid login");
+////        return ResponseEntity.ok("wait ok");
+//    }
 
     @PostMapping("/reset")
     public ResponseEntity resetSelections() throws IOException {
@@ -175,46 +175,43 @@ public class OfferingController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("student not found. invalid login");
     }
 
-    @PostMapping("/finalize")
-    public ResponseEntity finalizeSelections() throws IOException {
-        System.out.println("in finalize selections");
-        Bolbolestan bolbolestan = Bolbolestan.getInstance();
-        if (bolbolestan.isAnybodyLoggedIn()) {
-            try {
-                String loggedInStudentId = bolbolestan.getLoggedInId();
-                if (bolbolestan.finalizeSchedule(loggedInStudentId)) {
-                    System.out.println("finalize successful");
-                    return ResponseEntity.status(HttpStatus.OK).body("OK");
-                } else {
-                    System.out.println("finalize failed");
-                    String errors = bolbolestan.getSubmissionErrors();
-                    System.out.println(errors);
-                    return ResponseEntity.status(HttpStatus.OK).body(errors);
-                }
-            } catch (Exception e) {
-                System.out.println("finalize failed");
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
-            }
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("student not found. invalid login");
-    }
+//    @PostMapping("/finalize")
+//    public ResponseEntity finalizeSelections() throws IOException {
+//        System.out.println("in finalize selections");
+//        Bolbolestan bolbolestan = Bolbolestan.getInstance();
+//        if (bolbolestan.isAnybodyLoggedIn()) {
+//            try {
+//                String loggedInStudentId = bolbolestan.getLoggedInId();
+//                if (bolbolestan.finalizeSchedule(loggedInStudentId)) {
+//                    System.out.println("finalize successful");
+//                    return ResponseEntity.status(HttpStatus.OK).body("OK");
+//                } else {
+//                    System.out.println("finalize failed");
+//                    String errors = bolbolestan.getSubmissionErrors();
+//                    System.out.println(errors);
+//                    return ResponseEntity.status(HttpStatus.OK).body(errors);
+//                }
+//            } catch (Exception e) {
+//                System.out.println("finalize failed");
+//                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+//            }
+//        }
+//        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("student not found. invalid login");
+//    }
 
     @GetMapping("/selections")
-    public ResponseEntity getSelections() throws IOException {
+    public ResponseEntity getSelections(@RequestAttribute("student") String email) throws IOException {
         System.out.println("in get selections");
         Bolbolestan bolbolestan = Bolbolestan.getInstance();
-        if (bolbolestan.isAnybodyLoggedIn()) {
-            try {
-                //CourseSelection courseSelection =  bolbolestan.getLoggedInStudent().getCourseSelection();
-                CourseSelection courseSelection =  bolbolestan.getLoggedInStudentCourseSelection();
-                System.out.println("selections successful");
-                return ResponseEntity.status(HttpStatus.OK).body(courseSelection);
-            } catch (Exception e) {
-                System.out.println("selection failed");
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
-            }
+        try {
+            CourseSelection courseSelection =  bolbolestan.getStudentCourseSelection(email);
+            System.out.println("selections successful");
+            return ResponseEntity.status(HttpStatus.OK).body(courseSelection);
+        } catch (Exception e) {
+            System.out.println("selection failed");
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("student not found. invalid login");
     }
 
     @PutMapping("/remove")

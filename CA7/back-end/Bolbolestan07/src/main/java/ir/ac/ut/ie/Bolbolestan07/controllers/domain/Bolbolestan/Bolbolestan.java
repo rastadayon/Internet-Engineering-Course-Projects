@@ -83,9 +83,9 @@ public class Bolbolestan {
         studentManager.removeFromWeeklySchedule(studentId, offering);
     }
 
-    public boolean finalizeSchedule(String studentId) throws Exception {
-        return studentManager.finalizeSchedule(studentId);
-    }
+//    public boolean finalizeSchedule(String studentId) throws Exception {
+//        return studentManager.finalizeSchedule(studentId);
+//    }
 
 //    public int getUnitsPassed(String studentId) throws Exception {
 //        Student student = studentManager.getStudentById(studentId);
@@ -116,12 +116,12 @@ public class Bolbolestan {
         studentManager.addCourseToStudent(studentId, offering);
     }
 
-    public boolean addCourseToWaitingList(String studentId, String courseCode, String classCode) throws Exception {
-        if (offeringManager.offeringHasCapacity(courseCode, classCode))
-            return false;
-        Offering offering = offeringManager.getOfferingById(courseCode, classCode);
-        return studentManager.addCourseToWaitingList(studentId, offering);
-    }
+//    public boolean addCourseToWaitingList(String studentId, String courseCode, String classCode) throws Exception {
+//        if (offeringManager.offeringHasCapacity(courseCode, classCode))
+//            return false;
+//        Offering offering = offeringManager.getOfferingById(courseCode, classCode);
+//        return studentManager.addCourseToWaitingList(studentId, offering);
+//    }
 
     private Bolbolestan() {}
 
@@ -191,8 +191,10 @@ public class Bolbolestan {
         studentManager.setReportCards(studentId, grades);
     }
 
-    public String getLoggedInStudentSearchedKeyword() throws Exception {
-        Student student = studentManager.getStudentById(studentManager.getLoggedInId());
+    public String getStudentSearchedKeyword(String email) throws Exception {
+        Student student = new StudentMapper().getStudentByEmail(email);
+        if(student == null)
+            throw new BolbolestanStudentNotFoundError();
         return student.getSearchString();
     }
 
@@ -228,8 +230,14 @@ public class Bolbolestan {
         return course.getName();
     }
 
-    public CourseSelection getLoggedInStudentCourseSelection() throws Exception {
-        return studentManager.getStudentCourseSelectionById(getLoggedInId());
+    public CourseSelection getStudentCourseSelection(String email) throws Exception {
+        Student student = new StudentMapper().getStudentByEmail(email);
+        if (student == null) {
+            System.out.println("inja?");
+            throw new BolbolestanStudentNotFoundError();
+        }
+        System.out.println("getStudentCourseSelection works");
+        return studentManager.getStudentCourseSelection(student);
     }
 
     public ArrayList<String> getPrerequisites(String courseCode) {

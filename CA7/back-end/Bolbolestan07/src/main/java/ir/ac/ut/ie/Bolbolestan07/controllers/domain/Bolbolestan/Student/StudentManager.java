@@ -83,42 +83,42 @@ public class StudentManager {
         return false;
     }
 
-    public boolean addCourseToWaitingList(String studentId, Offering offering) throws Exception {
-        Student student = getStudentById(studentId);
-        addCourseToWaitingForStudent(studentId, offering);
-        CourseSelection courseSelection = getStudentCourseSelectionById(studentId);
-        student.setCourseSelection(courseSelection);
-        student.setReportCards();
-        student.setWaitingErrors(offering);
-        errors = student.getSubmissionErrors();
-        if (errors.size() == 0)
-            return true;
-        else {
-            if (student.getSubmissionErrors().size() == 1 && 
-                hasCapacityError(student.getSubmissionErrors()))
-                return true;
-            student.removeFromWeeklySchedule(offering); //TODO: Remove
-            removeFromWeeklySchedule(studentId, offering);
-            //student.addToSelectedOfferings(offering);
-            return false;
-        }
-    }
+//    public boolean addCourseToWaitingList(String studentId, Offering offering) throws Exception {
+//        Student student = getStudentById(studentId);
+//        addCourseToWaitingForStudent(studentId, offering);
+//        CourseSelection courseSelection = getStudentCourseSelection(studentId);
+//        student.setCourseSelection(courseSelection);
+//        student.setReportCards();
+//        student.setWaitingErrors(offering);
+//        errors = student.getSubmissionErrors();
+//        if (errors.size() == 0)
+//            return true;
+//        else {
+//            if (student.getSubmissionErrors().size() == 1 &&
+//                hasCapacityError(student.getSubmissionErrors()))
+//                return true;
+//            student.removeFromWeeklySchedule(offering); //TODO: Remove
+//            removeFromWeeklySchedule(studentId, offering);
+//            //student.addToSelectedOfferings(offering);
+//            return false;
+//        }
+//    }
 
-    public boolean finalizeSchedule(String studentId) throws Exception {
-        Student student = getStudentById(studentId);
-        CourseSelection courseSelection = getStudentCourseSelectionById(studentId);
-        student.setCourseSelection(courseSelection);
-        student.setReportCards();
-        student.setSubmissionErrors();
-        errors = student.getSubmissionErrors();
-        System.out.println(errors.size());
-        if (errors.size() == 0) {
-            finalizeScheduleById(studentId);
-            return true;
-        }
-        else
-            return false;
-    }
+//    public boolean finalizeSchedule(String studentId) throws Exception {
+//        Student student = getStudentById(studentId);
+//        CourseSelection courseSelection = getStudentCourseSelectionById(studentId);
+//        student.setCourseSelection(courseSelection);
+//        student.setReportCards();
+//        student.setSubmissionErrors();
+//        errors = student.getSubmissionErrors();
+//        System.out.println(errors.size());
+//        if (errors.size() == 0) {
+//            finalizeScheduleById(studentId);
+//            return true;
+//        }
+//        else
+//            return false;
+//    }
 
     private ArrayList<Grade> getStudentGrades(String studentId) throws Exception {
         return BolbolestanRepository.getInstance().getStudentGrades(studentId);
@@ -233,11 +233,12 @@ public class StudentManager {
         loggedIn.searchFor(searchCourse);
     }
 
-    public CourseSelection getStudentCourseSelectionById(String studentId) throws Exception {
+    public CourseSelection getStudentCourseSelection(Student student) throws Exception {
         try {
-            return BolbolestanRepository.getInstance().findCourseSelectionById(studentId);
-        }catch (SQLException e){
-            throw new BolbolestanStudentNotFoundError();
+            return BolbolestanRepository.getInstance().findCourseSelectionById(student.getId());
+        } catch (Exception e){
+            System.out.println(String.format("error in here : %s", e.getMessage()));
+            return null;
         }
     }
 

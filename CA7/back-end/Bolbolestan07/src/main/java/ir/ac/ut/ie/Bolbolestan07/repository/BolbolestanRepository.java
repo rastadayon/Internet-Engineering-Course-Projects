@@ -198,9 +198,13 @@ public class BolbolestanRepository {
     }
 
     public CourseSelection findCourseSelectionById(String studentId) throws SQLException {
+        System.out.println("0000000000000000000000000");
         WeeklySchedule submitted = findStudentScheduleById(studentId, "submitted");
+        System.out.println("11111111111111111111111");
         WeeklySchedule selected = findStudentScheduleById(studentId, "selected");
+        System.out.println("22222222222222222222222222");
         WeeklySchedule waiting = findStudentScheduleById(studentId, "waiting");
+        System.out.println("this went fine");
         return new CourseSelection(submitted, selected, waiting);
     }
 

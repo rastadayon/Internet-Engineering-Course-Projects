@@ -26,8 +26,6 @@ public class StudentController {
         }
     }
 
-
-
     @GetMapping("/reportCards")
     public ResponseEntity getReportCards(@RequestAttribute("student") String email) throws IOException {
         System.out.println("getting report cards");
@@ -42,9 +40,9 @@ public class StudentController {
     }
 
     @GetMapping("/searchKeyword")
-    public ResponseEntity getSearchKeyword() {
+    public ResponseEntity getSearchKeyword(@RequestAttribute("student") String email) {
         try {
-            String searchKeyword = Bolbolestan.getInstance().getLoggedInStudentSearchedKeyword();
+            String searchKeyword = Bolbolestan.getInstance().getStudentSearchedKeyword(email);
             return ResponseEntity.status(HttpStatus.OK).body(searchKeyword);
         } catch (Exception e) {
             System.out.println(e.getMessage());
