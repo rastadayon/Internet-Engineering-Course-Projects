@@ -148,7 +148,7 @@ export default class SignUp extends React.Component {
         }
         if(shouldReturn)
             return;
-        API.post('auth/signup', {
+        API.post('auth/signup/', {
             name: this.state.name,
             secondName: this.state.secondName,
             studentId: this.state.studentId,

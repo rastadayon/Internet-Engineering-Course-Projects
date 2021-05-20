@@ -22,10 +22,7 @@ function getStatusClass(grade, defaultClass) {
 }
 
 function ReportCardItem(props) {
-    console.log(props)
-    if(props.reportDataItem)
-        console.log(props.reportDataItem)
-    // console.log(props)
+
     return(
         <div className="report-card-item row">
             <div className="report-index col-sm-1">

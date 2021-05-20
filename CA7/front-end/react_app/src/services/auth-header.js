@@ -8,8 +8,6 @@ function authHeader() {
     const token = localStorage.getItem("token")
     if(token) {
       const decode = jwt.decode(token)
-      console.log("---------------")
-      console.log(token)
       const now = Math.floor(Date.now() / 1000)
       if(decode.exp < now) {
         toast.error('ورود شما منقضی شده است و باید  مجددا وارد شوید.')

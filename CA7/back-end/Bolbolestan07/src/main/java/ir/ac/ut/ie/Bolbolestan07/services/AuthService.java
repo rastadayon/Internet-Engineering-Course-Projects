@@ -21,8 +21,6 @@ public class AuthService {
             if (!student.getPassword().equals(DigestUtils.sha256Hex(login.getPassword().getBytes()))){
                 throw new Exception("passwords does not match");
             }
-            else
-                Bolbolestan.getInstance().makeLoggedIn(student.getId());
             return student;
         }
         else

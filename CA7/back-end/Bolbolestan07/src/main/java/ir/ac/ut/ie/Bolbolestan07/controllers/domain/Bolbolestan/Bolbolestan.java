@@ -9,6 +9,7 @@ import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.exeptions.Bolbol
 import ir.ac.ut.ie.Bolbolestan07.controllers.models.ClassTimeData;
 import ir.ac.ut.ie.Bolbolestan07.controllers.models.StudentInfo;
 import ir.ac.ut.ie.Bolbolestan07.repository.Prerequisite.PrerequisiteMapper;
+import ir.ac.ut.ie.Bolbolestan07.repository.Student.StudentMapper;
 
 
 import java.util.*;
@@ -172,16 +173,14 @@ public class Bolbolestan {
         return offeringManager.getCourseName(courseCode);
     }
 
-    public StudentInfo getStudentInfo() throws Exception {
-        if (!isAnybodyLoggedIn())
-            throw new BolbolestanStudentNotFoundError();
-        return studentManager.getStudentInfo();
+    public StudentInfo getStudentInfo(String email) throws Exception {
+        Student student = new StudentMapper().getStudentByEmail(email);
+        return studentManager.getStudentInfo(student);
     }
 
-    public ArrayList<ReportCard> getStudentReports() throws Exception {
-        if (!isAnybodyLoggedIn())
-            throw new BolbolestanStudentNotFoundError();
-        return studentManager.getStudentReports();
+    public ArrayList<ReportCard> getStudentReports(String email) throws Exception {
+        Student student = new StudentMapper().getStudentByEmail(email);
+        return studentManager.getStudentReports(student);
     }
 
     public void setReportCards(String studentId, ArrayList<Grade> grades) throws Exception {

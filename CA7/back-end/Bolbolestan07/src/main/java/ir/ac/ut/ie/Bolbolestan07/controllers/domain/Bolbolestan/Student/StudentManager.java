@@ -207,19 +207,17 @@ public class StudentManager {
         }
     }
 
-    public StudentInfo getStudentInfo() throws Exception {
-        Student loggedInStudent = BolbolestanRepository.getInstance().getStudent(getLoggedInId());
-        if (loggedInStudent == null) {
+    public StudentInfo getStudentInfo(Student student) throws Exception {
+        if (student == null) {
             throw new BolbolestanStudentNotFoundError();
         }
-        return loggedInStudent.getInfo();
+        return student.getInfo();
     }
 
-    public ArrayList<ReportCard> getStudentReports() throws Exception {
-        Student loggedInStudent = getStudentById(getLoggedInId());
-        if (loggedInStudent == null)
+    public ArrayList<ReportCard> getStudentReports(Student student) throws Exception {
+        if (student == null)
             throw new BolbolestanStudentNotFoundError();
-        return loggedInStudent.getReportCards();
+        return student.getReportCards();
     }
 
     public void setReportCards(String studentId, ArrayList<Grade> grades) throws Exception {

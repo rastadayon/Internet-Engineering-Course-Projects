@@ -48,17 +48,14 @@ export default class Login extends React.Component {
         }).then((resp) => {
             if(resp.status === 200) {
                 console.log(resp.data);
-                let bearerToken = resp.data;
-                let token = bearerToken.slice(7, bearerToken.length);
-                console.log(token);
-                localStorage.setItem("token", token);
+                localStorage.setItem("token", resp.data)
                 console.log('شد شد')
                 toast.success('ورود با موفقیت انجام شد.')
                 window.location.href = "http://localhost:3000/"
             }
         }).catch(error => {
             console.log('نشد')
-            toast.error('ایمیل نادرست است')
+            toast.error('ایمیل یا گذرواژه نادرست است')
         })
     }
 

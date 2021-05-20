@@ -14,10 +14,10 @@ import java.util.ArrayList;
 public class StudentController {
 
     @GetMapping("/")
-    public ResponseEntity<Object> getStudentInfo() throws IOException {
+    public ResponseEntity getStudentInfo(@RequestAttribute("student") String email) throws IOException {
         System.out.println("in get student info");
         try{
-            StudentInfo stdInfo = Bolbolestan.getInstance().getStudentInfo();
+            StudentInfo stdInfo = Bolbolestan.getInstance().getStudentInfo(email);
             System.out.println("all went fine in student info");
             return ResponseEntity.status(HttpStatus.OK).body(stdInfo);
         } catch (Exception e) {
@@ -29,10 +29,10 @@ public class StudentController {
 
 
     @GetMapping("/reportCards")
-    public ResponseEntity getReportCards() throws IOException {
+    public ResponseEntity getReportCards(@RequestAttribute("student") String email) throws IOException {
         System.out.println("getting report cards");
         try{
-            ArrayList<ReportCard> reportCards = Bolbolestan.getInstance().getStudentReports();
+            ArrayList<ReportCard> reportCards = Bolbolestan.getInstance().getStudentReports(email);
             System.out.println("all went fine when retrieving report card");
             return ResponseEntity.status(HttpStatus.OK).body(reportCards);
         } catch (Exception e) {

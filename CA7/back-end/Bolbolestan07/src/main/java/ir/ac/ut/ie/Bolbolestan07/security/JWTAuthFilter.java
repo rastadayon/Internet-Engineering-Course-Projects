@@ -140,26 +140,26 @@ public class JWTAuthFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         String url = request.getRequestURI();
+        System.out.println("jwt filter url " + url);
         String method = request.getMethod();
 
-        if(url.equals("/auth/login") || url.equals("auth/signup"))
+        if(url.equals("/auth/login/") || url.equals("auth/signup/   "))
             chain.doFilter(request, response);
         else {
-            System.out.println("tu filter e jwt");
             String token = request.getHeader("Authorization");
             if(token == null) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 response.getWriter().println("You have not authorized yet!");
             }
             else {
-                String username = JWTUtils.verifyJWT(token);
-                if(username == null) {
+                String email = JWTUtils.verifyJWT(token);
+                if(email == null) {
                     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                     response.getWriter().println("The JWT token is invalidated!");
                 }
                 else {
                     try {
-                        Student student = new StudentMapper().find(username);
+                        Student student = new StudentMapper().getStudentByEmail(email);
                         request.setAttribute("student", student.getEmail());
                     } catch (SQLException e) {
                         e.printStackTrace();

@@ -22,25 +22,22 @@ export default class Home extends React.Component {
     }
 
     updateStudentInfo() {
-        API.get("student/", { headers: authHeader() }).then(
+        API.get("student/", {headers: authHeader()}).then(
             jsonData => {
                 this.setState({studentInfo: jsonData.data});
-                // console.log('in updateStudent info')
-                // console.log(this.state.studentInfo.id)
         }).catch(error => {
-            if(error.response.status != 200)
+            if(error.response.status == 401 || error.response.status == 403)
                 window.location.href = "http://localhost:3000/login"
             console.log('rid')
         })
     }
 
     updateReportCards() {
-        API.get("student/reportCards").then(
+        API.get("student/reportCards", {headers: authHeader()}).then(
             jsonData => {
                 this.setState({reportCards: jsonData.data});
-                // console.log(this.state.reportCards)
         }).catch(error => {
-            if(error.response.status != 200)
+            if(error.response.status == 401 || error.response.status == 403)
                 window.location.href = "http://localhost:3000/login"
         })
     }
