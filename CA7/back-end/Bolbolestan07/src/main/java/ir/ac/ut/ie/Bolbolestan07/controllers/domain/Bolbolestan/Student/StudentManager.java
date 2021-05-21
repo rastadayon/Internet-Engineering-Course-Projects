@@ -6,6 +6,7 @@ import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.exeptions.Bolbol
 import ir.ac.ut.ie.Bolbolestan07.controllers.models.Selection;
 import ir.ac.ut.ie.Bolbolestan07.controllers.models.StudentInfo;
 import ir.ac.ut.ie.Bolbolestan07.repository.BolbolestanRepository;
+import ir.ac.ut.ie.Bolbolestan07.repository.Student.StudentMapper;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,18 @@ public class StudentManager {
         }catch (SQLException e){
             throw new BolbolestanStudentNotFoundError();
         }
+    }
+
+    public Student getStudentByEmail(String email) throws Exception{
+        if (email == null)
+            throw new BolbolestanStudentNotFoundError();
+
+            Student student =  BolbolestanRepository.getInstance().getStudentByEmail(email);
+
+            if (student == null)
+                throw new BolbolestanStudentNotFoundError();
+            else
+                return student;
     }
 
     public ArrayList<String> getStudentIds() {
@@ -83,42 +96,42 @@ public class StudentManager {
         return false;
     }
 
-//    public boolean addCourseToWaitingList(String studentId, Offering offering) throws Exception {
-//        Student student = getStudentById(studentId);
-//        addCourseToWaitingForStudent(studentId, offering);
-//        CourseSelection courseSelection = getStudentCourseSelection(studentId);
-//        student.setCourseSelection(courseSelection);
-//        student.setReportCards();
-//        student.setWaitingErrors(offering);
-//        errors = student.getSubmissionErrors();
-//        if (errors.size() == 0)
-//            return true;
-//        else {
-//            if (student.getSubmissionErrors().size() == 1 &&
-//                hasCapacityError(student.getSubmissionErrors()))
-//                return true;
-//            student.removeFromWeeklySchedule(offering); //TODO: Remove
-//            removeFromWeeklySchedule(studentId, offering);
-//            //student.addToSelectedOfferings(offering);
-//            return false;
-//        }
-//    }
+    public boolean addCourseToWaitingList(String studentId, Offering offering) throws Exception {
+        Student student = getStudentById(studentId);
+        addCourseToWaitingForStudent(studentId, offering);
+        CourseSelection courseSelection = getStudentCourseSelection(student);
+        student.setCourseSelection(courseSelection);
+        student.setReportCards();
+        student.setWaitingErrors(offering);
+        errors = student.getSubmissionErrors();
+        if (errors.size() == 0)
+            return true;
+        else {
+            if (student.getSubmissionErrors().size() == 1 &&
+                hasCapacityError(student.getSubmissionErrors()))
+                return true;
+            student.removeFromWeeklySchedule(offering); //TODO: Remove
+            removeFromWeeklySchedule(studentId, offering);
+            //student.addToSelectedOfferings(offering);
+            return false;
+        }
+    }
 
-//    public boolean finalizeSchedule(String studentId) throws Exception {
-//        Student student = getStudentById(studentId);
-//        CourseSelection courseSelection = getStudentCourseSelectionById(studentId);
-//        student.setCourseSelection(courseSelection);
-//        student.setReportCards();
-//        student.setSubmissionErrors();
-//        errors = student.getSubmissionErrors();
-//        System.out.println(errors.size());
-//        if (errors.size() == 0) {
-//            finalizeScheduleById(studentId);
-//            return true;
-//        }
-//        else
-//            return false;
-//    }
+    public boolean finalizeSchedule(String studentId) throws Exception {
+        Student student = getStudentById(studentId);
+        CourseSelection courseSelection = getStudentCourseSelection(student);
+        student.setCourseSelection(courseSelection);
+        student.setReportCards();
+        student.setSubmissionErrors();
+        errors = student.getSubmissionErrors();
+        System.out.println(errors.size());
+        if (errors.size() == 0) {
+            finalizeScheduleById(studentId);
+            return true;
+        }
+        else
+            return false;
+    }
 
     private ArrayList<Grade> getStudentGrades(String studentId) throws Exception {
         return BolbolestanRepository.getInstance().getStudentGrades(studentId);
@@ -236,15 +249,17 @@ public class StudentManager {
     public CourseSelection getStudentCourseSelection(Student student) throws Exception {
         try {
             return BolbolestanRepository.getInstance().findCourseSelectionById(student.getId());
-        } catch (Exception e){
-            System.out.println(String.format("error in here : %s", e.getMessage()));
-            return null;
+        } catch (SQLException e){
+            System.out.println("hi");
+            System.out.println(e.getMessage());
+            throw new BolbolestanStudentNotFoundError();
         }
     }
 
-    public void resetSelectionsById(String studentId) throws Exception {
+    public void resetSelectionsByEmail(String email) throws Exception {
         try {
-            BolbolestanRepository.getInstance().deleteSelectionsById(studentId);
+            Student student = new StudentMapper().getStudentByEmail(email);
+            BolbolestanRepository.getInstance().deleteSelectionsById(student.getId());
         }catch (SQLException e){
             throw new BolbolestanStudentNotFoundError();
         }

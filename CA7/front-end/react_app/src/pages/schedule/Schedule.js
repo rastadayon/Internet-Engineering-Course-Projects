@@ -4,6 +4,7 @@ import Footer from "../general/Footer";
 import API from '../../apis/api';
 import ScheduleTable from "../../components/schedule/scheduleTable/ScheduleTable"
 import './schedule-styles.css'
+import authHeader from '../../services/auth-header.js'
 
 
 export default class Home extends React.Component {
@@ -18,7 +19,7 @@ export default class Home extends React.Component {
     }
 
     updateScheduleInfo() {
-        API.get("/schedule/").then(
+        API.get("/schedule/", {headers: authHeader()}).then(
             jsonData => {
                 this.setState({scheduleInfo: jsonData.data});
         }).catch(error => {

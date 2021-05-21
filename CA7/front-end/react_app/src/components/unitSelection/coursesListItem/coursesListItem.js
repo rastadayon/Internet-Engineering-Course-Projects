@@ -3,6 +3,8 @@ import './coursesListItem-styles.css'
 import {enToFaNumber} from "../../../utils/utils"
 import { toast } from 'react-toastify';
 import API from '../../../apis/api';
+import authHeader from '../../../services/auth-header.js'
+
 import {
     createMuiTheme,
     MuiThemeProvider,
@@ -133,7 +135,7 @@ export default class CoursesListItem extends React.Component {
     
         var action = this.getAction(props.course.capacity, props.course.signedUp)
     
-        API.put('offering/' + action, requestParam).then(resp => {
+        API.put('offering/' + action, requestParam, {headers: authHeader()}).then(resp => {
             if(resp.status == 200) {
                 if (resp.data === "OK") {
                     props.updateSelections();

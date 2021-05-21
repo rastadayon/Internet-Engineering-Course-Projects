@@ -40,7 +40,7 @@ public class SelectionMapper extends Mapper<Selection, Pair> implements ISelecti
     }
 
     protected String getFindScheduleStatement() {
-        return String.format("select * from %s where studentId = %s and status = %s;", 
+        return String.format("select * from %s where studentId = ? and status = ?;", 
             TABLE_NAME);
     }
 

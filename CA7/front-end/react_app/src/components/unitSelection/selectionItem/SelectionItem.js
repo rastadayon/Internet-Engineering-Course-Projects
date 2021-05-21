@@ -2,6 +2,7 @@ import * as React from "react";
 import "./selectionItem-styles.css";
 import { toast } from 'react-toastify';
 import API from '../../../apis/api';
+import authHeader from '../../../services/auth-header.js'
 
 export default class SelectionItem extends React.Component{
 
@@ -56,7 +57,7 @@ export default class SelectionItem extends React.Component{
         requestParam.append('courseCode', this.state.course.courseCode);
         requestParam.append('classCode', this.state.course.classCode);
 
-        API.put('offering/remove', requestParam).then(resp => {
+        API.put('offering/remove', requestParam, {headers: authHeader()}).then(resp => {
             if(resp.status == 200) {
                 console.log("done");
                 this.props.updateSelections();

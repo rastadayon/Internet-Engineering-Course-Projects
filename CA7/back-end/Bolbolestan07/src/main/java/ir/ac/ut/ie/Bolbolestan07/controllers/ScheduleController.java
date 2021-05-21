@@ -13,18 +13,17 @@ import java.io.IOException;
 public class ScheduleController {
 
     @GetMapping("/")
-    public ResponseEntity<Object> getSchedule(final HttpServletResponse response) throws IOException {
+    public ResponseEntity<Object> getSchedule(final HttpServletResponse response,
+        @RequestAttribute("student") String email) throws IOException {
         Bolbolestan bolbolestan = Bolbolestan.getInstance();
-        if (bolbolestan.isAnybodyLoggedIn()) {
             try {
                 //WeeklySchedule schedule =  bolbolestan.getLoggedInStudent().getSubmittedOfferings();
-                WeeklySchedule schedule =  bolbolestan.getLoggedInStudentSchedule();
+                WeeklySchedule schedule =  bolbolestan.getLoggedInStudentSchedule(email);
                 return ResponseEntity.status(HttpStatus.OK).body(schedule);
             } catch (Exception e) {
                 response.sendError(HttpStatus.BAD_REQUEST.value(), e.getMessage());
             }
-        }
-        response.sendError(HttpStatus.BAD_REQUEST.value(), "No user logged in");
+        //response.sendError(HttpStatus.BAD_REQUEST.value(), "No user logged in");
         return null;
     }
 }

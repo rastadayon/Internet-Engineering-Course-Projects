@@ -3,6 +3,7 @@ import "./submitBar-styles.css";
 import { ToastContainer, toast } from 'react-toastify';
 import API from '../../../apis/api';
 import {enToFaNumber} from "../../../utils/utils" 
+import authHeader from '../../../services/auth-header.js'
 
 export default class SubmitBar extends React.Component{
 
@@ -14,8 +15,8 @@ export default class SubmitBar extends React.Component{
 
     resetSelections(props) {
 
-        var requestParam = new FormData();
-        API.post('offering/reset', requestParam).then(resp => {
+        //var requestParam = new FormData();
+        API.post('offering/reset', {headers: authHeader()}).then(resp => {
             if(resp.status == 200) {
                 console.log("done");
                 props.updateSelections();
@@ -31,8 +32,8 @@ export default class SubmitBar extends React.Component{
     }
 
     finalizeSelections(props) {
-        var requestParam = new FormData();
-        API.post('offering/finalize', requestParam).then(resp => {
+        //var requestParam = new FormData();
+        API.post('offering/finalize', {headers: authHeader()}).then(resp => {
             if(resp.status == 200) {
                 if (resp.data === "OK") {
                     props.updateSelections();

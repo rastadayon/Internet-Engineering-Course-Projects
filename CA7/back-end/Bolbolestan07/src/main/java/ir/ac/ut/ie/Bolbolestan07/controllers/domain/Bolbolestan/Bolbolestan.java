@@ -83,9 +83,9 @@ public class Bolbolestan {
         studentManager.removeFromWeeklySchedule(studentId, offering);
     }
 
-//    public boolean finalizeSchedule(String studentId) throws Exception {
-//        return studentManager.finalizeSchedule(studentId);
-//    }
+    public boolean finalizeSchedule(String studentId) throws Exception {
+        return studentManager.finalizeSchedule(studentId);
+    }
 
 //    public int getUnitsPassed(String studentId) throws Exception {
 //        Student student = studentManager.getStudentById(studentId);
@@ -116,12 +116,12 @@ public class Bolbolestan {
         studentManager.addCourseToStudent(studentId, offering);
     }
 
-//    public boolean addCourseToWaitingList(String studentId, String courseCode, String classCode) throws Exception {
-//        if (offeringManager.offeringHasCapacity(courseCode, classCode))
-//            return false;
-//        Offering offering = offeringManager.getOfferingById(courseCode, classCode);
-//        return studentManager.addCourseToWaitingList(studentId, offering);
-//    }
+    public boolean addCourseToWaitingList(String studentId, String courseCode, String classCode) throws Exception {
+        if (offeringManager.offeringHasCapacity(courseCode, classCode))
+            return false;
+        Offering offering = offeringManager.getOfferingById(courseCode, classCode);
+        return studentManager.addCourseToWaitingList(studentId, offering);
+    }
 
     private Bolbolestan() {}
 
@@ -136,12 +136,17 @@ public class Bolbolestan {
         studentManager.searchForCourses(searchCourse);
     }
 
-    public WeeklySchedule getLoggedInStudentSchedule() throws Exception {
+    public WeeklySchedule getLoggedInStudentSchedule(String email) throws Exception {
+        String studentId = getStudentByEmail(email).getId();
         return studentManager.getStudentScheduleById(getLoggedInId());
     }
 
-    public Student getLoggedInStudent() throws Exception {
+    public Student getLoggedInStudent(String email) throws Exception {
         return studentManager.getStudentById(getLoggedInId());
+    }
+
+    public Student getStudentByEmail(String email) throws Exception {
+        return studentManager.getStudentByEmail(email);
     }
 
     public List<Offering> getSearchedOfferings() throws Exception {
@@ -156,8 +161,8 @@ public class Bolbolestan {
         student.clearSearch();
     }
 
-    public void resetSelectedOfferings(String studentId) throws Exception {
-        studentManager.resetSelectionsById(studentId);
+    public void resetSelectedOfferings(String email) throws Exception {
+        studentManager.resetSelectionsByEmail(email);
         //.resetSelectedOfferings();
     }
 
