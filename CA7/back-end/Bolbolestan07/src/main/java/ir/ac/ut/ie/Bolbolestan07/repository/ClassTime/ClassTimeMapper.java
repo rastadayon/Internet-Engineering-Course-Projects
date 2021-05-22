@@ -41,7 +41,7 @@ public class ClassTimeMapper extends Mapper<ClassTime, Pair> implements IClassTi
 
     @Override
     protected String getFindStatement() {
-        return String.format("select * from  where courseCode = ? and classCode = ?;", 
+        return String.format("select * from %s where courseCode = ? and classCode = ?;",
             TABLE_NAME);
     }
 

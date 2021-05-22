@@ -67,21 +67,21 @@ public class Offering {
     public String getInstructor() { return instructor; }
 
     public void print() {
-        System.out.println(String.format("course code : %s-%s", course.getCourseCode(), classCode));
-        System.out.println(String.format("course name : %s", course.getName()));
-        System.out.println(String.format("units : %d", course.getUnits()));
-        System.out.println(String.format("type : %s", course.getType()));
+        System.out.println(String.format("course code : %s-%s", courseCode, classCode));
+//        System.out.println(String.format("course name : %s", course.getName()));
+//        System.out.println(String.format("units : %d", course.getUnits()));
+//        System.out.println(String.format("type : %s", course.getType()));
         System.out.println(String.format("instructor : %s", instructor));
         System.out.println(String.format("capacity : %d", capacity));
-        System.out.print("prerequisites : [ ");
-        for (int i = 0; i < course.getPrerequisites().size(); i++) {
-            if (i != 0)
-                System.out.print(", ");
-            System.out.print(course.getPrerequisites().get(i));
-        }
-        System.out.println(" ]");
-        classTime.print();
-        examTime.print();
+//        System.out.print("prerequisites : [ ");
+//        for (int i = 0; i < course.getPrerequisites().size(); i++) {
+//            if (i != 0)
+//                System.out.print(", ");
+//            System.out.print(course.getPrerequisites().get(i));
+//        }
+//        System.out.println(" ]");
+    //        classTime.print();
+    //        examTime.print();
     }
 
     public boolean isEqual(Offering offering) {
@@ -167,10 +167,13 @@ public class Offering {
         ExamTimeData examTimeData = new ExamTimeData(this.examTime);
         this.examTime = new ExamTime(examTimeData.getDate(), examTimeData.getExamDuration());
 
+        System.out.println("ta inja okaye");
         ArrayList<String> farsiPrerequisite = new ArrayList<>();
         try {
-            for (String prerequisite: this.getPrerequisites())
+            for (String prerequisite: this.getPrerequisites()) {
                 farsiPrerequisite.add(Bolbolestan.getInstance().getCourseNameById(prerequisite));
+                System.out.println(Bolbolestan.getInstance().getCourseNameById(prerequisite));
+            }
             this.setPrerequisites(farsiPrerequisite);
         } catch (Exception e) {
             System.out.println(e.getMessage());

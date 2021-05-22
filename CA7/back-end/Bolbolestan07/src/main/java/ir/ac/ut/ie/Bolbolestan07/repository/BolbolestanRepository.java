@@ -151,20 +151,14 @@ public class BolbolestanRepository {
         args.add(classCode);
 //        System.out.println("Offering we wanna get : " + courseCode + '-' + classCode);
         Offering offering = new OfferingMapper().find(new Pair(args));
-//        System.out.println("offering found");
         Course course =  findCourseByCode(courseCode);
-//        System.out.println("course found");
         ExamTime examTime = new ExamTimeMapper().find(new Pair(args));
-//        System.out.println("exam time found");
         ClassTime classTime = new ClassTimeMapper().find(new Pair(args));
-//        System.out.println("class time found");
         ArrayList<String> prerequisites = new PrerequisiteMapper().getPrerequisites(courseCode);
         course.setPrerequisites(prerequisites);
         offering.setCourse(course);
         offering.setClassTime(classTime);
         offering.setExamTime(examTime);
-//        System.out.println("IN THE DAMN DATABASE");
-//        offering.print();
         return offering;
     }
 
@@ -198,13 +192,9 @@ public class BolbolestanRepository {
     }
 
     public CourseSelection findCourseSelectionById(String studentId) throws SQLException {
-        System.out.println("0000000000000000000000000");
         WeeklySchedule submitted = findStudentScheduleById(studentId, "submitted");
-        System.out.println("11111111111111111111111");
         WeeklySchedule selected = findStudentScheduleById(studentId, "selected");
-        System.out.println("22222222222222222222222222");
         WeeklySchedule waiting = findStudentScheduleById(studentId, "waiting");
-        System.out.println("this went fine");
         return new CourseSelection(submitted, selected, waiting);
     }
 

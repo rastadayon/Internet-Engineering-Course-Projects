@@ -80,16 +80,17 @@ public class OfferingController {
 
     @PostMapping("/search")
     public ResponseEntity searchForCourses(
+            @RequestAttribute("student") String email,
             @RequestBody SearchData searchData) throws IOException {
         try {
-            List<Offering> searchResult = SearchService.searchKeyword(searchData);
+            List<Offering> searchResult = SearchService.searchKeyword(email, searchData);
             return ResponseEntity.status(HttpStatus.OK).body(searchResult);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("student not found. invalid login");
         }
     }
 
-    @DeleteMapping("/remove") //TODO: DONE
+    @DeleteMapping("/remove")
     public ResponseEntity removeCourse(
             @RequestParam String courseCode,
             @RequestParam String classCode,
@@ -105,10 +106,9 @@ public class OfferingController {
             System.out.println("remove failed");
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
         }
-        //return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("student not found. invalid login");
     }
 
-    @PutMapping("/add") //TODO: DONE
+    @PutMapping("/add")
     public ResponseEntity addCourse(
             @RequestParam String courseCode,
             @RequestParam String classCode,
@@ -127,7 +127,7 @@ public class OfferingController {
         //return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("student not found. invalid login");
     }
 
-    @PutMapping("/wait") //TODO: DONE
+    @PutMapping("/wait")
     public ResponseEntity waitForCourse(
             @RequestParam String courseCode,
             @RequestParam String classCode,
@@ -155,7 +155,7 @@ public class OfferingController {
 //        return ResponseEntity.ok("wait ok");
     }
 
-    @PostMapping("/reset") //TODO: Done
+    @PostMapping("/reset")
     public ResponseEntity resetSelections(@RequestAttribute("student") String email) throws IOException {
         System.out.println("in reset selections");
         Bolbolestan bolbolestan = Bolbolestan.getInstance();
@@ -170,7 +170,7 @@ public class OfferingController {
         //return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("student not found. invalid login");
     }
 
-    @PostMapping("/finalize") //TODO: DONE
+    @PostMapping("/finalize")
     public ResponseEntity finalizeSelections(@RequestAttribute("student") String email) throws IOException {
         System.out.println("in finalize selections");
         Bolbolestan bolbolestan = Bolbolestan.getInstance();
@@ -207,7 +207,7 @@ public class OfferingController {
         }
     }
 
-    @PutMapping("/remove") //TODO: DONE
+    @PutMapping("/remove")
     public ResponseEntity editSelection(
             @RequestParam String courseCode,
             @RequestParam String classCode, 

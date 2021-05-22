@@ -132,8 +132,11 @@ public class Bolbolestan {
         return instance;
     }
 
-    public void searchForCourses(String searchCourse) throws Exception {
-        studentManager.searchForCourses(searchCourse);
+    public void searchForCourses(String email, String searchCourse) throws Exception {
+        Student student = new StudentMapper().getStudentByEmail(email);
+        if (student == null)
+            throw new BolbolestanStudentNotFoundError();
+        studentManager.searchForCourses(student, searchCourse);
     }
 
     public WeeklySchedule getLoggedInStudentSchedule(String email) throws Exception {
@@ -229,19 +232,15 @@ public class Bolbolestan {
     }
 
     public String getCourseNameById (String courseCode) throws Exception {
-        if (!isAnybodyLoggedIn())
-            throw new BolbolestanStudentNotFoundError();
         Course course = courseManager.getCourseByCode(courseCode);
         return course.getName();
     }
 
     public CourseSelection getStudentCourseSelection(String email) throws Exception {
         Student student = new StudentMapper().getStudentByEmail(email);
-        if (student == null) {
-            System.out.println("inja?");
+        if (student == null)
             throw new BolbolestanStudentNotFoundError();
-        }
-        System.out.println("getStudentCourseSelection works");
+
         return studentManager.getStudentCourseSelection(student);
     }
 

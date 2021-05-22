@@ -21,22 +21,14 @@ public class SearchService {
                     sortedSearchResults.add(offering);
             }
         }
-//        System.out.println("sorted results:");
-//        for (Offering offering: sortedSearchResults) {
-//            offering.print();
-//            System.out.println("*****");
-//        }
         return sortedSearchResults;
     }
 
-    public static ArrayList<Offering> searchKeyword(SearchData searchData) throws Exception{
+    public static ArrayList<Offering> searchKeyword(
+            String email, SearchData searchData) throws Exception{
         System.out.println("in searchKeyword");
-        Bolbolestan.getInstance().searchForCourses(searchData.getKeyword());
+        Bolbolestan.getInstance().searchForCourses(email, searchData.getKeyword());
         List<Offering> searchResult = new ArrayList<>(BolbolestanRepository.getInstance().searchOfferings(searchData));
-//        for (Offering offering : searchResult) {
-//            offering.print();
-//            System.out.println("----------------");
-//        }
         for (int i = 0; i < searchResult.size(); i++) {
             searchResult.get(i).setFarsiData();
         }

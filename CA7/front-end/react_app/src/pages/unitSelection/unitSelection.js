@@ -33,8 +33,8 @@ export default class UnitSelection extends React.Component {
         document.title = "Courses"
         toast.configure({rtl: true, className: "text-center", position: "top-right"})
         this.updateSelections()
-        // this.updateCourses('')
-        // this.initSearchKeyword()
+        this.updateCourses('')
+        this.initSearchKeyword()
     }
 
     initSearchKeyword() {
@@ -48,9 +48,9 @@ export default class UnitSelection extends React.Component {
                 toast.error('خطا در انجام عملیات')
             }}).catch(error => {
                 console.log(error)
-                // if(error.response.status == 401 || error.response.status == 403) {
-                //     window.location.href = "http://localhost:3000/login"
-                // }
+                if(error.response.status == 401 || error.response.status == 403) {
+                    window.location.href = "http://localhost:3000/login"
+                }
         })
     }
 
@@ -73,9 +73,9 @@ export default class UnitSelection extends React.Component {
                 toast.error('خطا در انجام عملیات')
             }}).catch(error => {
                 console.log(error)
-                // if(error.response.status == 401 || error.response.status == 403) {
-                //     window.location.href = "http://localhost:3000/login"
-                // }
+                if(error.response.status == 401 || error.response.status == 403) {
+                    window.location.href = "http://localhost:3000/login"
+                }
             })
     }
 
@@ -84,18 +84,19 @@ export default class UnitSelection extends React.Component {
             {
                 keyword: this.state.searchKeyword,
                 type: this.state.searchFilter
-            }
+            }, {headers: authHeader()}
         ).then(resp => {
             if(resp.status == 200) {
                 this.setState({courses: resp.data});
+                console.log(resp.data)
             }
             else{
                 toast.error('خطا در انجام عملیات')
             }}).catch(error => {
                 console.log(error)
-                // if(error.response.status == 401 || error.response.status == 403) {
-                //     window.location.href = "http://localhost:3000/login"
-                // }
+                if(error.response.status == 401 || error.response.status == 403) {
+                    window.location.href = "http://localhost:3000/login"
+                }
             })
     }
 
@@ -108,9 +109,9 @@ export default class UnitSelection extends React.Component {
                         secondRoute={"/schedule"}/>
                 <main>
                 <Selection updateSelections={this.updateSelections} selections = {this.state.selections} />
-                {/* <SearchBar updateCourses={this.updateCourses} searchKeyword={this.state.searchKeyword} updateSearchKeyword={this.updateSearchKeyword}/> */}
-                {/* <CoursesList courses={this.state.courses} searchFilter={this.state.searchFilter} updateSearchFilter={this.updateSearchFilter} 
-                            updateSelections={this.updateSelections}/> */}
+                <SearchBar updateCourses={this.updateCourses} searchKeyword={this.state.searchKeyword} updateSearchKeyword={this.updateSearchKeyword}/>
+                <CoursesList courses={this.state.courses} searchFilter={this.state.searchFilter} updateSearchFilter={this.updateSearchFilter} 
+                            updateSelections={this.updateSelections}/>
                 </main>
 
                 <Footer/>

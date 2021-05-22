@@ -193,15 +193,15 @@ public class OfferingMapper extends Mapper<Offering, Pair> implements IOfferingM
 
     protected void fillSearchStatement(PreparedStatement statement, 
         String keyword, String filter) throws SQLException{
-        statement.setString(1, keyword);
+        statement.setString(1, Utils.searchKeywordWrapper(keyword));
         if (!filter.equals("All"))
             statement.setString(2, filter);
     }
 
-    public ArrayList<Offering> getSearchedOfferings(String keyword, String filter) throws SQLException{
+    public ArrayList<Offering> getSearchedOfferings(
+            String keyword, String filter) throws SQLException{
         String statement = getSearchStatement(filter);
         ArrayList<Offering> result = new ArrayList<>();
-
         try (Connection con = ConnectionPool.getConnection();
              PreparedStatement st = con.prepareStatement(statement);
         ) {
@@ -209,9 +209,11 @@ public class OfferingMapper extends Mapper<Offering, Pair> implements IOfferingM
             try {
                 fillSearchStatement(st, keyword, filter);
                 resultSet = st.executeQuery();
-                while (resultSet.next())
+                while (resultSet.next()) {
                     result.add(convertResultSetToObject(resultSet));
+                }
                 con.close();
+
                 return result;
             } catch (SQLException ex) {
                 System.out.println("error in Mapper.getSearchedOfferings query.");

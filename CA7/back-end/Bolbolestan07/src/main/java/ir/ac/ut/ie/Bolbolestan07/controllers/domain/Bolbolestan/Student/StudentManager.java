@@ -239,11 +239,8 @@ public class StudentManager {
         student.setReportCards(grades);
     }
 
-    public void searchForCourses(String searchCourse) throws Exception {
-        if(!isAnybodyLoggedIn())
-            throw new BolbolestanStudentNotFoundError();
-        Student loggedIn = getStudentById(loggedInStudent);
-        loggedIn.searchFor(searchCourse);
+    public void searchForCourses(Student student, String searchCourse) throws Exception {
+        student.searchFor(searchCourse);
     }
 
     public CourseSelection getStudentCourseSelection(Student student) throws Exception {

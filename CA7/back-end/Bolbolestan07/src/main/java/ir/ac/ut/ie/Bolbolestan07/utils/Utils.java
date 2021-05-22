@@ -26,7 +26,7 @@ public class Utils {
         return dateTime;
     }
 
-    public static String searchKeywordWrapper(String str) { return "'%" + str + "%'"; }
+    public static String searchKeywordWrapper(String str) { return "%" + str + "%"; }
 
     public static boolean hasIllegalChars(String str) {
         return !stripTags(str).equals(str);
