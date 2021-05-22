@@ -15,12 +15,12 @@ public class JWTUtils {
     private static String SECRET_KEY = "bolbolestan";
     private static long EXPIRE_PERIOD = 24*60*60*1000;
 
-    private static Date expirationDate() {
+    private static Date expirationDate(int hours) {
         long curTime = System.currentTimeMillis();
-        return new Date(curTime + EXPIRE_PERIOD);
+        return new Date(curTime + (hours*60*60*1000));
     }
 
-    public static String createJWT(String userMail) {
+    public static String createJWT(String userMail, int hours) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
         byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(SECRET_KEY);
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
@@ -28,7 +28,7 @@ public class JWTUtils {
         JwtBuilder builder = Jwts.builder();
         builder.setIssuer(userMail);
         builder.setIssuedAt(new Date(System.currentTimeMillis()));
-        builder.setExpiration(expirationDate());
+        builder.setExpiration(expirationDate(hours));
         builder.signWith(signatureAlgorithm, signingKey);
 
         return builder.compact();

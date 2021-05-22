@@ -59,16 +59,6 @@ export default class CoursesListItem extends React.Component {
         this.getCourseTypeClass = this.getCourseTypeClass.bind(this);
         this.selectCourse = this.selectCourse.bind(this);
         this.getTooltipInfo = this.getTooltipInfo.bind(this);
-        // this.getClassTimeFromAPI = this.getClassTimeFromAPI.bind(this);
-        // this.getPrerequisitesFromAPI = this.getPrerequisitesFromAPI.bind(this);
-    }
-
-    componentDidMount() {
-        // if(this.props.course) {
-        //     this.getClassTimeFromAPI(this.props.course.courseCode, this.props.course.classCode)
-        //     this.getExamTimeFromAPI(this.props.course.courseCode, this.props.course.classCode)
-        //     this.getPrerequisitesFromAPI(this.props.course.courseCode, this.props.course.classCode)
-        // }
     }
 
     getIcon(capacity, signedup) {
@@ -156,54 +146,6 @@ export default class CoursesListItem extends React.Component {
                 }
             })
     }
-
-    // getClassTimeFromAPI(courseCode, classCode) {
-    //     API.get('offering/classTime/' + courseCode+ '/' + classCode).then(resp => {
-    //         if(resp.status == 200) {
-    //             this.setState({classData: resp.data})
-    //         }
-    //         else{
-    //             toast.error('خطا در انجام عملیات')
-    //         }}).catch(error => {
-    //             console.log(error)
-    //             if(error.response.status == 401 || error.response.status == 403) {
-    //                 window.location.href = "http://localhost:3000/login"
-    //             }
-    //         })
-    // }
-
-    // getExamTimeFromAPI(courseCode, classCode) {
-    //     API.get('offering/examTime/' + courseCode+ '/' + classCode).then(resp => {
-    //         if(resp.status == 200) {
-    //             this.setState({examData: resp.data})
-    //         }
-    //         else{
-    //             toast.error('خطا در انجام عملیات')
-    //         }}).catch(error => {
-    //             console.log(error)
-    //             if(error.response.status == 401 || error.response.status == 403) {
-    //                 window.location.href = "http://localhost:3000/login"
-    //             }
-    //         })
-    // }
-
-    // getPrerequisitesFromAPI(courseCode, classCode) {
-    //     API.get('offering/prerequisites/' + courseCode+ '/' + classCode).then(resp => {
-    //         if(resp.status == 200) {
-    //             if(resp.data.length == 0)
-    //                 this.setState({prerequisites: '-'})
-    //             else
-    //                 this.setState({prerequisites: resp.data})
-    //         }
-    //         else{
-    //             toast.error('خطا در انجام عملیات')
-    //         }}).catch(error => {
-    //             console.log(error)
-    //             if(error.response.status == 401 || error.response.status == 403) {
-    //                 window.location.href = "http://localhost:3000/login"
-    //             }
-    //         })
-    // }
 
     getTooltipInfo() {
         return(

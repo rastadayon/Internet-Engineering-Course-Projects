@@ -3,6 +3,8 @@ import * as React from "react";
 import {toast} from "react-toastify";
 import API from '../../apis/api';
 import {Link} from "react-router-dom";
+import validateToken from '../../services/validate-tokens'
+import authToken from '../../services/auth-token'
 
 
 export default class ChangePassword extends React.Component {
@@ -12,10 +14,14 @@ export default class ChangePassword extends React.Component {
         this.state = {
             password: '',
             confirmPassword: '',
+            token: undefined
         }
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
         this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        if(validateToken()) {
+            window.location.href = "http://localhost:3000/"
+        }
     }
 
     handleConfirmPasswordChange(event) {
@@ -33,6 +39,10 @@ export default class ChangePassword extends React.Component {
         document.title = "Change Password - Bolbolestan";
         document.body.classList.add("main-bg")
         toast.configure({rtl: true, className: "text-center", position: "top-right"});
+        let search = window.location.search;
+        let params = new URLSearchParams(search);
+        let requestToken = params.get('token');
+        this.setState({token : requestToken})
     }
 
     handleSubmit(e) {
@@ -44,7 +54,7 @@ export default class ChangePassword extends React.Component {
         }
         if(!this.state.confirmPassword){
             console.log('confirm empty -_-')
-            toast.error('رمز عبور جدید را باید تایید کنید')
+            toast.error('رمز عبور جدید را باید وارد کنید')
             return
         }
         if(this.state.confirmPassword !== this.state.password){
@@ -52,18 +62,15 @@ export default class ChangePassword extends React.Component {
             toast.error('اطلاعات وارد شده با هم تطابق ندارند')
             return
         }
-        API.post('auth/changePassword/', {
-            email: "",
-            password: this.state.password
-        }).then((resp) => {
+        var requestParam = new FormData();
+        requestParam.append('newPassword', this.state.password);
+        requestParam.append('token', authToken(this.state.token));
+        API.post('auth/changePassword/', requestParam).then((resp) => {
             if(resp.status === 200) {
                 console.log(resp.data);
-                console.log('شد شد')
-                toast.success('رمز عبور با موفقیت تغییر ')
-                window.location.href = "http://localhost:3000/login"
+                toast.success('رمز عبور با موفقیت تغییر یافت')
             }
         }).catch(error => {
-            console.log('نشد')
             toast.error('تغییر رمز عبور با شکست روبرو شد')
         })
     }
@@ -75,11 +82,11 @@ export default class ChangePassword extends React.Component {
                 <div className="container-content">
                     <form className="margin-t" onSubmit={this.handleSubmit}>
                         <div className="form-group">
-                            <input type="password" className="form-control" onChange={this.handlePasswordChange} placeholder="new password" required=""/>
+                            <input type="password" className="form-control" onChange={this.handlePasswordChange} placeholder="گذرواژه جدید" required=""/>
                         </div>
 
                         <div className="form-group">
-                            <input type="password" className="form-control" onChange={this.handleConfirmPasswordChange} placeholder="confirm new password" required=""/>
+                            <input type="password" className="form-control" onChange={this.handleConfirmPasswordChange} placeholder="تایید گذرواژه جدید" required=""/>
                         </div>
                         <button type="submit" className="form-button button-l margin-b">تغییر رمز عبور</button>
                         {this.state.isLoading &&

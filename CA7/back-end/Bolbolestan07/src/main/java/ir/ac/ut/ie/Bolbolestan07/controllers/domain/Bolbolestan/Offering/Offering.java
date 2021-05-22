@@ -167,13 +167,10 @@ public class Offering {
         ExamTimeData examTimeData = new ExamTimeData(this.examTime);
         this.examTime = new ExamTime(examTimeData.getDate(), examTimeData.getExamDuration());
 
-        System.out.println("ta inja okaye");
         ArrayList<String> farsiPrerequisite = new ArrayList<>();
         try {
-            for (String prerequisite: this.getPrerequisites()) {
+            for (String prerequisite: this.getPrerequisites())
                 farsiPrerequisite.add(Bolbolestan.getInstance().getCourseNameById(prerequisite));
-                System.out.println(Bolbolestan.getInstance().getCourseNameById(prerequisite));
-            }
             this.setPrerequisites(farsiPrerequisite);
         } catch (Exception e) {
             System.out.println(e.getMessage());

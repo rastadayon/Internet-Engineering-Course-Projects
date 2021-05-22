@@ -4,8 +4,10 @@ import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Offering.Offerin
 import ir.ac.ut.ie.Bolbolestan07.controllers.domain.Bolbolestan.Utilities.Utils;
 import ir.ac.ut.ie.Bolbolestan07.controllers.models.StudentInfo;
 import ir.ac.ut.ie.Bolbolestan07.repository.BolbolestanRepository;
+import ir.ac.ut.ie.Bolbolestan07.repository.Student.StudentMapper;
 import org.apache.commons.codec.digest.DigestUtils;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -220,10 +222,6 @@ public class Student {
         searchString = courseName;
     }
 
-    public void clearSearch() {
-        searchString = null;
-    }
-
     public void resetSelectedOfferings() {
         courseSelection.resetSelectedOfferings();
     }
@@ -362,5 +360,10 @@ public class Student {
 
     public void setPasswordHash() {
         this.password = DigestUtils.sha256Hex(this.password.getBytes());
+    }
+
+    public void setNewPassword(String password) throws SQLException {
+        String hashedPassword = DigestUtils.sha256Hex(password.getBytes());
+        new StudentMapper().changePassword(this.email, hashedPassword);
     }
 }

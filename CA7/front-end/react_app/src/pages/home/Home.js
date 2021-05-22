@@ -19,6 +19,7 @@ export default class Home extends React.Component {
         }
         this.updateStudentInfo = this.updateStudentInfo.bind(this);
         this.reportCards = this.updateReportCards.bind(this);
+
     }
 
     updateStudentInfo() {

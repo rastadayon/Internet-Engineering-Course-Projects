@@ -161,4 +161,34 @@ public class StudentMapper extends Mapper<Student, String> implements IStudentMa
         }
     }
 
+    private String getChangePasswordStatement() {
+        return String.format("UPDATE %s \n" +
+                "SET password = ?\n" +
+                "WHERE email = ?;", TABLE_NAME);
+    }
+
+    private void fillChangePasswordStatement(
+            PreparedStatement statement, String email,
+            String password) throws SQLException {
+        statement.setString(1, password);
+        statement.setString(2, email);
+    }
+
+    public void changePassword(String email, String newPassword) throws SQLException {
+        String statement = getChangePasswordStatement();
+        System.out.println(String.format("email : %s, password: %s", email, newPassword));
+        try (Connection con = ConnectionPool.getConnection();
+             PreparedStatement st = con.prepareStatement(statement)
+        ) {
+            try {
+                fillChangePasswordStatement(st, email, newPassword);
+                System.out.println("prepared statement for change password :\n" +st);
+                st.executeUpdate();
+            } catch (SQLException ex) {
+                System.out.println("error in StudentMapper. changePassword query.");
+                throw ex;
+            }
+        }
+    }
+
 }

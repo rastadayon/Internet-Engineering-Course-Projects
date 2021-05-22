@@ -26,19 +26,8 @@ export default class Exit extends React.Component {
     }
 
     logout() {
-        API.post('auth/logout').then(resp => {
-            if(resp.status == 200) {
-                console.log("logout successful")
-                window.location.href = "http://localhost:3000/login"
-            }
-            else{
-                toast.error('خطا در انجام عملیات')
-            }}).catch(error => {
-                console.log(error)
-                if(error.response.status == 401 || error.response.status == 403) {
-                    window.location.href = "http://localhost:3000/login"
-                }
-            })
+        localStorage.removeItem("token")
+        window.location.href = "http://localhost:3000/login"
     }
 
     render() {

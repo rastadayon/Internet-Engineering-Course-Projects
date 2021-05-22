@@ -23,31 +23,10 @@ public class Bolbolestan {
     private OfferingManager offeringManager = new OfferingManager();
     private CourseManager courseManager = new CourseManager();
 
-
-    public ArrayList<String> getStudentIds() {
-        return studentManager.getStudentIds();
-    }
-
-    public Student getStudentById(String studentId) throws Exception {
-        return studentManager.getStudentById(studentId);
-    }
-
     public String getLoggedInId() { return studentManager.getLoggedInId(); }
 
     public Boolean isAnybodyLoggedIn() {
         return studentManager.isAnybodyLoggedIn();
-    }
-
-    public void makeLoggedIn(String studentId) {
-        studentManager.makeLoggedIn(studentId);
-    }
-
-    public void makeLoggedOut() {
-        studentManager.makeLoggedOut();
-    }
-
-    public boolean doesStudentExist(String studentId) {
-        return studentManager.doesStudentExist(studentId);
     }
 
     public Offering getOffering(String courseCode, String classCode) throws Exception {
@@ -58,15 +37,6 @@ public class Bolbolestan {
 
     public List<Offering> getOfferings () {
         return offeringManager.getOfferings();
-    }
-
-    public void addOffering(Offering offering) throws Exception {
-        offeringManager.addOffering(offering);
-        courseManager.addCourse(offering);
-    }
-
-    public void addStudent(Student student) throws Exception {
-        studentManager.addStudent(student);
     }
 
 //    public void addGradeToStudent(String studentId, Grade grade) throws Exception {
@@ -152,18 +122,6 @@ public class Bolbolestan {
         return studentManager.getStudentByEmail(email);
     }
 
-    public List<Offering> getSearchedOfferings() throws Exception {
-        List<Offering> offerings;
-        String searchString = studentManager.getStudentById(getLoggedInId()).getSearchString();
-        offerings = offeringManager.getSimilarOfferings(searchString);
-        return offerings;
-    }
-
-    public void clearSearch(String studentId) throws Exception {
-        Student student = studentManager.getStudentById(studentId);
-        student.clearSearch();
-    }
-
     public void resetSelectedOfferings(String email) throws Exception {
         studentManager.resetSelectionsByEmail(email);
         //.resetSelectedOfferings();
@@ -191,14 +149,6 @@ public class Bolbolestan {
         return studentManager.getStudentReports(student);
     }
 
-    public void setReportCards(String studentId, ArrayList<Grade> grades) throws Exception {
-        for (Grade grade : grades) {
-            grade.setUnits(getUnitsById(grade.getCode()));
-            grade.setCourseName(getCourseNameByCourseCode(grade.getCode()));
-        }
-        studentManager.setReportCards(studentId, grades);
-    }
-
     public String getStudentSearchedKeyword(String email) throws Exception {
         Student student = new StudentMapper().getStudentByEmail(email);
         if(student == null)
@@ -215,7 +165,7 @@ public class Bolbolestan {
         return errors;
     }
 
-    public String getWaitingErrors() throws Exception {
+    public String getWaitingErrors() {
         String errors = "";
         for (String error: studentManager.getWaitingErrors()) {
             errors += error;
@@ -256,5 +206,12 @@ public class Bolbolestan {
             System.out.println("get prerequisite error : " + e.getMessage());
             return result;
         }
+    }
+
+    public void changePassword(String email, String newPassword) throws Exception {
+        Student student = new StudentMapper().getStudentByEmail(email);
+        if (student == null)
+            throw new BolbolestanStudentNotFoundError();
+        studentManager.changePassword(student, newPassword);
     }
 }

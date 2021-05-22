@@ -77,11 +77,6 @@ public class StudentManager {
         addCourseToStudent(studentId, offering);
     }
 
-    //public void removeFromWeeklySchedule(String studentId, Offering offering) throws Exception {
-        //Student student = getStudentById(studentId);
-        //student.removeFromWeeklySchedule(offering);
-    //}
-
     public boolean hasCapacityError(List<String> errors) {
         for (String error: errors) {
             if (isCapacityError(error))
@@ -131,10 +126,6 @@ public class StudentManager {
         }
         else
             return false;
-    }
-
-    private ArrayList<Grade> getStudentGrades(String studentId) throws Exception {
-        return BolbolestanRepository.getInstance().getStudentGrades(studentId);
     }
 
     private void finalizeScheduleById(String studentId) throws Exception {
@@ -204,14 +195,6 @@ public class StudentManager {
         return true;
     }
 
-    public void makeLoggedIn(String studentId) {
-        this.loggedInStudent = studentId;
-    }
-
-    public void makeLoggedOut() {
-        this.loggedInStudent = null;
-    }
-
     public void checkWaitingLists() {
         try {
             BolbolestanRepository.getInstance().checkWaitingLists();
@@ -231,12 +214,6 @@ public class StudentManager {
         if (student == null)
             throw new BolbolestanStudentNotFoundError();
         return student.getReportCards();
-    }
-
-    public void setReportCards(String studentId, ArrayList<Grade> grades) throws Exception {
-        System.out.println("setting report cards for: " + studentId);
-        Student student = getStudentById(studentId);
-        student.setReportCards(grades);
     }
 
     public void searchForCourses(Student student, String searchCourse) throws Exception {
@@ -274,5 +251,9 @@ public class StudentManager {
 
     public List<String> getSubmissionErrors() {
         return errors;
+    }
+
+    public void changePassword(Student student, String newPassword) throws SQLException {
+        student.setNewPassword(newPassword);
     }
 }

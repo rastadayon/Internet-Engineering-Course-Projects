@@ -3,6 +3,7 @@ import * as React from "react";
 import {toast} from "react-toastify";
 import API from '../../apis/api';
 import {Link} from "react-router-dom";
+import validateToken from '../../services/validate-tokens'
 
 
 export default class ForgetPassword extends React.Component {
@@ -14,6 +15,9 @@ export default class ForgetPassword extends React.Component {
         }
         this.handleEmailChange = this.handleEmailChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        if(validateToken()) {
+            window.location.href = "http://localhost:3000/"
+        }
     }
 
     handleEmailChange(event) {

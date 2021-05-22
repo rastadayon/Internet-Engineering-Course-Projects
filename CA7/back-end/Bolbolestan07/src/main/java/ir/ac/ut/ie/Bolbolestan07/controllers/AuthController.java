@@ -20,7 +20,7 @@ import java.io.IOException;
 @RequestMapping("/auth")
 public class AuthController {
     final static String SEND_MAIL_URL = "http://138.197.181.131:5200/api/send_mail";
-    final static String CHANGE_PASS_URL = "http://localhost:8080/changePassword/";
+    final static String CHANGE_PASS_URL = "http://localhost:3000/changePassword";
 
     @PostMapping("/login")
     public ResponseEntity login(
@@ -34,7 +34,7 @@ public class AuthController {
                 throw new BadCharactersException();
             }
             Student student = AuthService.authUser(loginData);
-            String answer = JWTUtils.createJWT(student.getEmail());
+            String answer = JWTUtils.createJWT(student.getEmail(), 24);
             return ResponseEntity.status(HttpStatus.OK).body(answer);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -51,8 +51,9 @@ public class AuthController {
             if(Utils.hasIllegalChars(email)){
                 throw new BadCharactersException();
             }
+            System.out.println("student is in DB? : "+ AuthService.isStudentInDB(email));
             if (AuthService.isStudentInDB(email)) {
-                String url = CHANGE_PASS_URL + JWTUtils.createJWT(email);
+                String url = CHANGE_PASS_URL + "?token=" + JWTUtils.createJWT(email, 1);
                 String request = SEND_MAIL_URL + "?" + "url=" + url + "&" + "email=" + email;
                 HTTPRequestHandler.postRequest(request);
                 return ResponseEntity.status(HttpStatus.OK).body("OK");
@@ -83,13 +84,15 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/logout")
-    public ResponseEntity logout() {
+    @PostMapping("/changePassword")
+    public ResponseEntity changePassword(@RequestParam String newPassword,
+                                         @RequestParam String token) {
         try {
-            Bolbolestan.getInstance().makeLoggedOut();
-            return ResponseEntity.ok("ok");
+            String email = JWTUtils.verifyJWT(token);
+            Bolbolestan.getInstance().changePassword(email, newPassword);
+            return ResponseEntity.ok("Password successfully changes.");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("student not found. invalid login");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
         }
     }
 }
