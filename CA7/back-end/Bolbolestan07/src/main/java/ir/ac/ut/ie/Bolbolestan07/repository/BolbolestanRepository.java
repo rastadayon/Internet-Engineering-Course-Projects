@@ -149,7 +149,6 @@ public class BolbolestanRepository {
         List<String> args = new ArrayList<>();
         args.add(courseCode);
         args.add(classCode);
-//        System.out.println("Offering we wanna get : " + courseCode + '-' + classCode);
         Offering offering = new OfferingMapper().find(new Pair(args));
         Course course =  findCourseByCode(courseCode);
         ExamTime examTime = new ExamTimeMapper().find(new Pair(args));
@@ -273,7 +272,6 @@ public class BolbolestanRepository {
     }
 
     public ArrayList<Offering> searchOfferings(SearchData searchData) {
-        System.out.println("in searchOfferings");
         ArrayList<Offering> result;
         try {
             result = new OfferingMapper().getSearchedOfferings(searchData.getKeyword(), searchData.getType());

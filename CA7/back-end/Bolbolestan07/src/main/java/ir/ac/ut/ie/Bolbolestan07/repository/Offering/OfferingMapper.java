@@ -77,7 +77,6 @@ public class OfferingMapper extends Mapper<Offering, Pair> implements IOfferingM
 
     @Override
     protected Offering convertResultSetToObject(ResultSet rs) throws SQLException {
-        System.out.println(rs);
         return new Offering(
                 rs.getString("courseCode"),
                 rs.getString("classCode"),

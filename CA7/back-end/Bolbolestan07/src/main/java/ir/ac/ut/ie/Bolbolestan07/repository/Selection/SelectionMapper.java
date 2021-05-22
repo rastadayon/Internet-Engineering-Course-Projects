@@ -107,7 +107,6 @@ public class SelectionMapper extends Mapper<Selection, Pair> implements ISelecti
 
     public void deleteSelections(String studentId) throws SQLException {
         String statement = getDeleteSelectionsStatement();
-        System.out.println(statement);
         try (Connection con = ConnectionPool.getConnection();
              PreparedStatement st = con.prepareStatement(statement);
         ) {

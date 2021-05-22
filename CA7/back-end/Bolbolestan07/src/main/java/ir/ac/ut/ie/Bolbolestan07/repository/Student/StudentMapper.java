@@ -59,7 +59,6 @@ public class StudentMapper extends Mapper<Student, String> implements IStudentMa
 
     @Override
     protected void fillInsertStatement(PreparedStatement statement, Student student) throws SQLException{
-        System.out.println(student.getEmail());
         statement.setString(1, student.getId());
         statement.setString(2, student.getEmail());
         statement.setString(3, student.getPassword());
@@ -176,13 +175,11 @@ public class StudentMapper extends Mapper<Student, String> implements IStudentMa
 
     public void changePassword(String email, String newPassword) throws SQLException {
         String statement = getChangePasswordStatement();
-        System.out.println(String.format("email : %s, password: %s", email, newPassword));
         try (Connection con = ConnectionPool.getConnection();
              PreparedStatement st = con.prepareStatement(statement)
         ) {
             try {
                 fillChangePasswordStatement(st, email, newPassword);
-                System.out.println("prepared statement for change password :\n" +st);
                 st.executeUpdate();
             } catch (SQLException ex) {
                 System.out.println("error in StudentMapper. changePassword query.");
