@@ -11,6 +11,7 @@
 	<groupId>ir.ac.ut.ie</groupId>
 	<artifactId>Bolbolestan05</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>Bolbolestan05</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
