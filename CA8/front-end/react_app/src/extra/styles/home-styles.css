@@ -1,0 +1,20 @@
+@import "../fonts/vazir-fonts/fonts.css";
+
+html {
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  direction: rtl;
+  font-family: "Vazir" !important;
+  height: 100%;
+  /*overflow: auto !important;*/
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block; /* remove extra space below image */
+}
+
