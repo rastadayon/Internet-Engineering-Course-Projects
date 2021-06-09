@@ -1,0 +1,262 @@
+@import "header.css";
+@import "footer.css";
+@import "../fonts/vazir-fonts/fonts.css";
+@import "../mycollection/font/flaticon.css";
+@import "app-background.css";
+@import "search-bar.css";
+
+* {
+    box-sizing: border-box !important;
+}
+  
+html {
+    height: 100%;
+}
+  
+body {
+    width: 100%;
+    direction: rtl;
+    font-family: "Vazir" !important;
+    background-color: white;
+    height: 100%;
+}
+
+.main-container {
+    min-height: 100vh; 
+    overflow: hidden;
+    display: block;
+    position: relative;
+    padding-bottom: 100px;
+}
+
+.background-img img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
+
+.std-info {
+    padding-top: 5%;
+    padding-left: 2%;
+    text-align: center;
+    justify-content: center;
+}
+
+.std-info ul {
+    padding-top: 10%;
+    list-style-type:none;
+    color: #1FA5FF;
+    padding-inline-start: 0%;
+}
+
+.std-info li {
+    margin: 0 0 15px 0;
+}
+
+.std-info span{
+    color: grey;
+}
+
+.std-info .avatar {
+    width: 7rem;
+    border: 0.15em solid #0087e0;
+    border-radius: 100%;
+}
+
+.std-info .std-status {
+    color: #1FA5FF;
+    border: 2px solid #1FA5FF;
+    border-radius: 4px;
+    display:inline-block;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+    padding: 2%;
+}
+
+.section {
+    border-right: 0.2em solid #1FA5FF;
+}
+
+.report-cards-wrapper {
+    width: 100%;
+    /* display: flex; */
+    justify-content: center;
+    position: relative;
+    align-items: center;
+    padding: 2%;
+    padding-left: 0%;
+}
+
+.report-cards-wrapper .report-card {
+    margin-top: 10%;
+    font-size: medium;
+    height: auto !important;
+    width: 100%;
+    padding: 5%;
+    justify-content: center;
+    align-items: center;
+    border: 0.2em solid #0087e0;
+    border-radius: 0.6em;
+    padding-bottom: 6em;
+    padding-top: 7em;
+}
+
+.report-cards-wrapper .report-card .report-card-item{
+    border: 0.1em solid #0087e0;
+    border-radius: 0.6em;
+    margin: 2%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+    justify-content: center;
+}
+
+.report-cards-wrapper
+ .report-card
+ .report-card-item
+ .report-index {
+    font-weight: bold;
+    border-left: 0.1em solid #0087e0;
+    color: #1FA5FF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.report-cards-wrapper
+ .report-card
+ .report-card-item
+ .course-name, .course-id, .course-unit, .status-box {
+    border-left: 0.1em solid #0087e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.report-cards-wrapper
+ .report-card
+ .report-card-item
+ .course-name 
+ span {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+ }
+
+.report-cards-wrapper
+ .report-card
+ .report-card-item
+ .status {
+    padding: 2%;
+    padding-bottom: 2%;
+    width: 100%;
+    border-radius: 0.8em;
+}
+
+.report-cards-wrapper
+ .report-card
+ .report-card-item
+ .status.pass {
+    background-color: #aeebbe;
+    color: #169437;
+    border: 0.15em solid #169437;
+    line-height: 2em;
+}
+
+.report-cards-wrapper
+ .report-card
+ .report-card-item
+ .status.unknown {
+    background-color: #a3a3a3;
+    color: #474747;
+    border: 0.15em solid #474747;
+    line-height: 2em;
+}
+
+.report-cards-wrapper
+ .report-card
+ .report-card-item
+ .status.fail {
+    background-color: #ff9c9c;
+    color: #f52020;
+    border: 0.15em solid #f52020;
+    line-height: 2em;
+}
+
+.report-cards-wrapper
+ .report-card
+ .report-card-item
+ .status-box {
+    text-align: center;
+    display: flex;
+    justify-self: center;
+    margin: 0 auto;
+    padding: 2%;
+}
+
+.report-cards-wrapper
+ .report-card
+ .report-card-item
+ .grade {
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.report-cards-wrapper
+ .report-card
+ .report-card-item
+ .grade.pass {
+    color: #169437;
+}
+
+.report-cards-wrapper
+ .report-card
+ .report-card-item
+ .grade.fail {
+    color: #f52020;
+}
+
+.report-cards-wrapper
+ .report-card
+ .report-card-item
+ .grade.unknown {
+    color: #474747;
+}
+
+.report-cards-wrapper
+ .report-card
+ .GPA {
+    width: 20%;
+    float: left;
+    color: #1FA5FF;
+    border: 0.15em solid #1FA5FF;
+    border-radius: 0.8em;
+    margin: 2%;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    padding: 2%;
+}
+
+.label {
+    border: 0.2em solid; 
+    background: #1fa5ff;
+    color: white; 
+    border-color: #1fa5ff; 
+    font-weight: bold; 
+    border-radius: 0.4em; 
+    margin-top: -8em; 
+    text-align: center;          
+    font-size: 1em;
+}
+
+.col-label {
+    width: calc(100% / 4);
+    height: 2rem;
+}

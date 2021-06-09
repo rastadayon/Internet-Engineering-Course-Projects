@@ -1,0 +1,55 @@
+@import "../../assets/mycollection/font/flaticon.css";
+@import "../../assets/fonts/vazir-fonts/fonts.css";
+
+html {
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  direction: rtl;
+  font-family: "Vazir" !important;
+  background-color: #f7fff7 !important;
+  height: 100%;
+  /*overflow: auto !important;*/
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block; /* remove extra space below image */
+}
+
+.main-container {
+  min-height: 100vh; 
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 100px;
+}
+
+main {
+  background-color: rgb(251,251,251);
+  font-size: 1em;
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 480px) {
+  main {
+    font-size: 0.4em;
+  }
+}
+          
+/* Media Query for low resolution  Tablets, Ipads */
+@media (min-width: 481px) and (max-width: 767px) {
+  main {
+    font-size: 0.6em;
+  }
+}
+          
+/* Media Query for Tablets Ipads portrait mode */
+@media (min-width: 768px) and (max-width: 1024px) {
+  main {
+    font-size: 0.8em;
+  }
+}

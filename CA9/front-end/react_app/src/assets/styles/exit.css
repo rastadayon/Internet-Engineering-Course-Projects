@@ -1,0 +1,69 @@
+.exit-wrapper {
+    top: 10em;
+    background: rgb(230, 230, 230);
+    border: 0.8em solid rgb(230, 230, 230);
+    border-radius: 0.5em;
+    box-shadow: 0em 0em 1em -0.7em black;
+    height: fit-content;
+    padding-right: -1em;
+    padding-left: 1.5em;
+    padding-bottom: 0.5em;
+    width: 100%;
+    font-weight: bold;
+    position: absolute;
+    vertical-align: middle;
+}
+
+.exit-question {
+    direction: rtl;
+    text-align: right;
+    padding-bottom: 2em;
+    color: gray;
+    font-weight: bolder;
+}
+
+.option-box {
+    line-height: 1.5em;
+    display: flex;
+    justify-self: center;
+    border-radius: 0.3em;
+    border: 0.08em solid;
+    height: 2em;
+    width: 7em;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .reject {
+    color: rgb(175, 175, 175);
+    border-color: rgb(175, 175, 175);
+  }
+
+  .leave {
+    background: #06d6a0;
+    color: rgb(230, 230, 230);
+    border-color: #06d6a0;
+    
+  }
+
+.col-empty {
+    width: 50%;
+}
+
+.col-choice {
+    width: 25%;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+  .col-blank {
+    width: 30%;
+  }
+
+  .col-empty {
+    width: 35%;
+  }
+}
