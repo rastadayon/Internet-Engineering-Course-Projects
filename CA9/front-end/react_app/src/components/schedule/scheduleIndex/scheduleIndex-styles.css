@@ -1,0 +1,73 @@
+@import "../../../assets/mycollection/font/flaticon.css";
+@import "../../../assets/fonts/vazir-fonts/fonts.css";
+
+.schedule-index {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-left: 0.1em solid gray;
+  font-size: 1em;
+  height: 4em;
+}
+
+.sched-item {
+  border: 0.5em;
+  border-right-style: ridge;
+  border-radius: 0.5em;
+  width: 96%; 
+  line-height: 1.5em;
+  text-align: center;
+  vertical-align: middle;
+  display: flex;  
+  flex-direction: column;
+  align-items: center;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.two-hours {
+  margin-top: -4em;
+  height: calc(100% * 2 - 4%);
+}
+
+.three-hours {
+  margin-top: -4em;
+  margin-bottom: -4em;
+  height: calc(100% * 3 - 4%);
+}
+
+.one-half-top {
+  margin-top: -2em;
+  height: calc(100% * 1.5 - 4%);
+}
+
+.one-half-bottom {
+  margin-bottom: -2em;
+  height: calc(100% * 1.5 - 4%);
+}
+
+.col-day{
+  width: calc(100% / 7);
+}
+
+.general-sched {
+  background: rgb(237,187,65, 0.5);
+  border-color: rgb(237,187,65, 0.5);
+}
+  
+.specialized-sched {
+  background: rgb(31,165,255, 0.5);
+  border-color: rgb(31,165,255, 0.5);
+}
+  
+.required-sched {
+  background: rgb(255,89,94, 0.5);
+  border-color: rgb(255,89,94, 0.5);
+}
+  
+.basic-sched {
+  background: rgb(6,214,160, 0.5);
+  border-color: rgb(6,214,160, 0.5);
+}
