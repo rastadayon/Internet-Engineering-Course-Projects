@@ -33,4 +33,4 @@ ENTRYPOINT ["nginx", "-g", "daemon off;"]
 
 # Commands
 # docker build -f DockerFile -t front .
-# docker run -d --name front -p 3000:8080 front
+# docker run -d --name front -p 3000:80 front
