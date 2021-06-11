@@ -12,7 +12,7 @@ public class ConnectionPool {
     static {
         ds.setDriverClassName("com.mysql.jdbc.Driver");
         // remote db
-        ds.setUrl("jdbc:mysql://localhost:3306/BolbolestanDB?useUnicode=true&characterEncoding=UTF-8");
+        ds.setUrl("jdbc:mysql://db-svc.kalhor-tadayon-ns:3306/BolbolestanDB?useUnicode=true&characterEncoding=UTF-8");
         ds.setUsername("rasta");
 //        ds.setUsername("ghazal");
         ds.setPassword("123");
