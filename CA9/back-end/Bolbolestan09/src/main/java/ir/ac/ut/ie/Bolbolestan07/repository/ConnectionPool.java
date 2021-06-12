@@ -12,9 +12,9 @@ public class ConnectionPool {
     static {
         ds.setDriverClassName("com.mysql.jdbc.Driver");
         // remote db
-        ds.setUrl("jdbc:mysql://db-svc.kalhor-tadayon-ns:3306/BolbolestanDB?useUnicode=true&characterEncoding=UTF-8");
-        ds.setUsername("ie");
-        ds.setPassword("ghazal1234rasta1234");
+        ds.setUrl("jdbc:mysql://db-svc.kalhor-tadayon-ns:3306/Bolbolestan?useUnicode=true&characterEncoding=UTF-8");
+        ds.setUsername(System.getenv("DB_USERNAME"));
+        ds.setPassword(System.getenv("DB_PASSWORD"));
         ds.setMinIdle(1);
         ds.setMaxIdle(2000);
         ds.setMaxOpenPreparedStatements(2000);

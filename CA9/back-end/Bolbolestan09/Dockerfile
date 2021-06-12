@@ -16,7 +16,7 @@ WORKDIR /app
 
 COPY --from=MAVEN_BUILD /build/target/*.war /app/app.war
 
-ENTRYPOINT ["java", "-jar", "app.war"]
+ENTRYPOINT ["java", "-jar", "app.war", "sh"]
 
 # Commands
 # docker build -f DockerFile -t back .

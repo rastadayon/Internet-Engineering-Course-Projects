@@ -3,14 +3,10 @@ kind: Deployment              # Type of kubernetes resource
 metadata:
   name: backend-deployment    # Name of the kubernetes resource
   namespace: kalhor-tadayon-ns
-  labels:                     # Labels that will be applied to this resource
-    app: backend
 spec:
   replicas: 2                 # No. of replicas/pods to run in this deployment
   strategy:
-    type: RollingUpdate
     rollingUpdate:
-      maxSurge: 0
       maxUnavailable: 1
   selector:
     matchLabels:              # The deployment applies to any pods mayching the specified labels
@@ -21,13 +17,20 @@ spec:
         app: backend
     spec:                     # Spec for the containers that will be run in the Pods
       containers:
-      - name: backend
-        image: quay.io/rasta/ie_backend:first
+      - image: quay.io/kalhorghazal/backend:new
         imagePullPolicy: Always
+        name: backend
+        env:
+        - name: "DB_USERNAME"
+          value: "root"
+        - name: "DB_PASSWORD"
+          value: "ghazal1234rasta1234"
         ports:
-          - name: http
-            containerPort: 8080 # The port that the container exposes
+          - containerPort: 8080 # The port that the container exposes
         resources:
           limits:
-            cpu: 0.2
-            memory: "200Mi"
+            memory: "333Mi"
+            cpu: "300m"
+          requests:
+            memory: "333Mi"
+            cpu: "300m"

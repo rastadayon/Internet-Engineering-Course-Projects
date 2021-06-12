@@ -18,18 +18,10 @@ spec:
       - image: quay.io/aminrf/mysql:5.7.16
         name: db
         env:
-          - name: "MYSQL_ROOT_PASSWORD"
-            value: "ghazal1234rasta1234"
-            # valueFrom: #"ghazal1234rasta1234"
-            #   secretKeyRef:
-            #     name: mysql-root-pass
-            #     key: password
-          - name: "MYSQL_DATABASE"
-            value: "BolbolestanDB"
-            # valueFrom: #"BolbolestanDB"
-            #   secretKeyRef:
-            #     name: mysql-database
-            #     key: database
+        - name: "MYSQL_ROOT_PASSWORD"
+          value: "ghazal1234rasta1234"
+        - name: "MYSQL_DATABASE"
+          value: "Bolbolestan"
         ports:
         - containerPort: 3306
           name: db

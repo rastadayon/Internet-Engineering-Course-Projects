@@ -1,0 +1,31 @@
+apiVersion: apps/v1           # API version
+kind: Deployment              # Type of kubernetes resource
+metadata:
+  name: frontend-deployment    # Name of the kubernetes resource
+  namespace: kalhor-tadayon-ns
+spec:
+  replicas: 1                 # No. of replicas/pods to run in this deployment
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 1
+  selector:
+    matchLabels:              # The deployment applies to any pods mayching the specified labels
+      app: frontend
+  template:                   # Template for creating the pods in this deployment
+    metadata:
+      labels:                 # Labels that will be applied to each Pod in this deployment
+        app: frontend
+    spec:                     # Spec for the containers that will be run in the Pods
+      containers:
+      - image: quay.io/kalhorghazal/frontend:new
+        imagePullPolicy: Always
+        name: frontend
+        ports:
+          - containerPort: 3000 # The port that the container exposes
+        resources:
+          limits:
+            memory: "333Mi"
+            cpu: "333m"
+          requests:
+            memory: "333Mi"
+            cpu: "333m"
