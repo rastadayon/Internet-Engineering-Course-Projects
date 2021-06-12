@@ -1,0 +1,33 @@
+apiVersion: apps/v1           # API version
+kind: Deployment              # Type of kubernetes resource
+metadata:
+  name: backend-deployment    # Name of the kubernetes resource
+  namespace: kalhor-tadayon-ns
+  labels:                     # Labels that will be applied to this resource
+    app: backend
+spec:
+  replicas: 2                 # No. of replicas/pods to run in this deployment
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+  selector:
+    matchLabels:              # The deployment applies to any pods mayching the specified labels
+      app: backend
+  template:                   # Template for creating the pods in this deployment
+    metadata:
+      labels:                 # Labels that will be applied to each Pod in this deployment
+        app: backend
+    spec:                     # Spec for the containers that will be run in the Pods
+      containers:
+      - name: backend
+        image: quay.io/rasta/ie_backend:first
+        imagePullPolicy: Always
+        ports:
+          - name: http
+            containerPort: 8080 # The port that the container exposes
+        resources:
+          limits:
+            cpu: 0.2
+            memory: "200Mi"

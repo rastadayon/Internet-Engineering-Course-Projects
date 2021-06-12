@@ -143,8 +143,8 @@ public class JWTAuthFilter implements Filter {
         System.out.println("jwt filter url " + url);
         String method = request.getMethod();
 
-        if(url.equals("/auth/login/") || url.equals("/auth/signup/") ||
-                url.equals("/auth/forget/") || url.equals("/auth/changePassword/"))
+        if(url.equals("/auth/login") || url.equals("/auth/signup") ||
+                url.equals("/auth/forget") || url.equals("/auth/changePassword"))
             chain.doFilter(request, response);
         else {
             String token = request.getHeader("Authorization");

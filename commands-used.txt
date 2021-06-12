@@ -1,0 +1,2 @@
+kubectl create secret generic mysql-root-pass --from-literal=password=ghazal1234rasta1234
+kubectl create secret generic mysql-database --from-literal=database=BolbolestanDB

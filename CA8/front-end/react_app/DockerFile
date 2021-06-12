@@ -30,3 +30,7 @@ COPY --from=builder /react-ui/build /usr/share/nginx/html
 EXPOSE 3000 80
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
+
+# Commands
+# docker build -f DockerFile -t front .
+# docker run -d --name front -p 3000:80 front
