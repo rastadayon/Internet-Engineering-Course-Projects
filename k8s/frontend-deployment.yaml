@@ -17,7 +17,7 @@ spec:
         app: frontend
     spec:                     # Spec for the containers that will be run in the Pods
       containers:
-      - image: quay.io/kalhorghazal/frontend:v1.1.2
+      - image: quay.io/kalhorghazal/frontend:v1.1.4
         imagePullPolicy: Always
         name: frontend
         ports:
