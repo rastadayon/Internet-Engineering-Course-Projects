@@ -28,7 +28,7 @@ export default class Home extends React.Component {
                 this.setState({studentInfo: jsonData.data});
         }).catch(error => {
             if(error.response.status == 401 || error.response.status == 403)
-                window.location.href = "http://localhost:3000/login"
+                window.location.href = "http://87.247.185.122:31823/login"
             console.log('failed')
         })
     }
@@ -39,7 +39,7 @@ export default class Home extends React.Component {
                 this.setState({reportCards: jsonData.data});
         }).catch(error => {
             if(error.response.status == 401 || error.response.status == 403)
-                window.location.href = "http://localhost:3000/login"
+                window.location.href = "http://87.247.185.122:31823/login"
         })
     }
 

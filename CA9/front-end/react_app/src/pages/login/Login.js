@@ -17,7 +17,7 @@ export default class Login extends React.Component {
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         if(validateToken()) {
-            window.location.href = "http://localhost:3000/"
+            window.location.href = "http://87.247.185.122:31823/"
         }
     }
 
@@ -54,7 +54,7 @@ export default class Login extends React.Component {
                 localStorage.setItem("token", resp.data)
                 console.log('شد شد')
                 toast.success('ورود با موفقیت انجام شد.')
-                window.location.href = "http://localhost:80/"
+                window.location.href = "http://87.247.185.122:31823/"
             }
         }).catch(error => {
             console.log('نشد')

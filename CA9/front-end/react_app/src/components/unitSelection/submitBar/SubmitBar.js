@@ -26,7 +26,7 @@ export default class SubmitBar extends React.Component{
             }}).catch(error => {
                 console.log(error)
                 if(error.response.status == 401 || error.response.status == 403) {
-                    window.location.href = "http://localhost:3000/login"
+                    window.location.href = "http://87.247.185.122:31823/login"
                 }
             })
     }
@@ -39,7 +39,7 @@ export default class SubmitBar extends React.Component{
                     props.updateSelections();
                     console.log("done");
                     toast.success('تغییرات با موفقیت اعمال شد.')
-                    window.location.href = "http://localhost:3000/schedule"
+                    window.location.href = "http://87.247.185.122:31823/schedule"
                 }
                 else {
                     toast.error(enToFaNumber(resp.data))
@@ -50,7 +50,7 @@ export default class SubmitBar extends React.Component{
             }}).catch(error => {
                 console.log(error)
                 if(error.response.status == 401 || error.response.status == 403) {
-                    window.location.href = "http://localhost:3000/login"
+                    window.location.href = "http://87.247.185.122:31823/login"
                 }
             })
     }

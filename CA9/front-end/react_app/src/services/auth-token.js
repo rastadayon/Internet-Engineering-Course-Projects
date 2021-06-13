@@ -15,7 +15,7 @@ function authToken(token) {
     }
     else {
         toast.error('این لینک مشکلی دارد. دوباره درخواست دهید')
-        window.location.href = "http://localhost:3000/login"
+        window.location.href = "http://87.247.185.122:31823/login"
     }
 }
 

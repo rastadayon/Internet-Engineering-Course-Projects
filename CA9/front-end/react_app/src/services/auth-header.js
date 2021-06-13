@@ -12,7 +12,7 @@ function authHeader() {
 		if(decode.exp < now) {
 			toast.error('ورود شما منقضی شده است و باید  مجددا وارد شوید.')
 			localStorage.removeItem("token")
-			window.location.href = "http://localhost:3000/login"
+			window.location.href = "http://87.247.185.122:31823/login"
 		}
 		else {
 			return {Authorization: token}
@@ -20,7 +20,7 @@ function authHeader() {
 	}
 	else {
 		toast.error('شما وارد سیستم نشده‌اید باید لاگین کنید.')
-		window.location.href = "http://localhost:3000/login"
+		window.location.href = "http://87.247.185.122:31823/login"
 	}
 }
 

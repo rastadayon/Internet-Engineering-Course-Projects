@@ -33,7 +33,7 @@ export default class SignUp extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this)
 
         if(validateToken()) {
-            window.location.href = "http://localhost:3000/"
+            window.location.href = "http://87.247.185.122:31823/"
         }
     }
 

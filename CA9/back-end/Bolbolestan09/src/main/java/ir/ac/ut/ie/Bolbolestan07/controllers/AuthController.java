@@ -20,7 +20,7 @@ import java.io.IOException;
 @RequestMapping("/auth")
 public class AuthController {
     final static String SEND_MAIL_URL = "http://138.197.181.131:5200/api/send_mail";
-    final static String CHANGE_PASS_URL = "http://localhost:3000/changePassword";
+    final static String CHANGE_PASS_URL = "http://87.247.185.122:31823/changePassword";
 
     @PostMapping("/login")
     public ResponseEntity login(

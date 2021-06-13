@@ -27,7 +27,7 @@ export default class Exit extends React.Component {
 
     logout() {
         localStorage.removeItem("token")
-        window.location.href = "http://localhost:3000/login"
+        window.location.href = "http://87.247.185.122:31823/login"
     }
 
     render() {

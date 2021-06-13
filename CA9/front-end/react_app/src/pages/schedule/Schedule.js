@@ -24,7 +24,7 @@ export default class Home extends React.Component {
                 this.setState({scheduleInfo: jsonData.data});
         }).catch(error => {
             if(error.response.status != 200)
-                window.location.href = "http://localhost:3000/login"
+                window.location.href = "http://87.247.185.122:31823/login"
             console.log('failed')
         })
     }

@@ -17,11 +17,11 @@ spec:
         app: frontend
     spec:                     # Spec for the containers that will be run in the Pods
       containers:
-      - image: quay.io/kalhorghazal/frontend:new
+      - image: quay.io/kalhorghazal/frontend:v1.1.2
         imagePullPolicy: Always
         name: frontend
         ports:
-          - containerPort: 3000 # The port that the container exposes
+          - containerPort: 80 # The port that the container exposes
         resources:
           limits:
             memory: "333Mi"

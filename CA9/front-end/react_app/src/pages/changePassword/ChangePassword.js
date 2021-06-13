@@ -20,7 +20,7 @@ export default class ChangePassword extends React.Component {
         this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         if(validateToken()) {
-            window.location.href = "http://localhost:3000/"
+            window.location.href = "http://87.247.185.122:31823/"
         }
     }
 
