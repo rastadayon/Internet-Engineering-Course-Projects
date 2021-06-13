@@ -17,7 +17,7 @@ spec:
         app: backend
     spec:                     # Spec for the containers that will be run in the Pods
       containers:
-      - image: quay.io/kalhorghazal/backend:new
+      - image: quay.io/kalhorghazal/backend:latest
         imagePullPolicy: Always
         name: backend
         env:

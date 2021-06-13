@@ -34,7 +34,7 @@ public class ConnectionPool {
         try {
             Connection connection = getConnection();
             Statement statement = connection.createStatement();
-            statement.execute("ALTER DATABASE BolbolestanDB CHARACTER SET utf8 COLLATE utf8_general_ci;");
+            statement.execute("ALTER DATABASE Bolbolestan CHARACTER SET utf8 COLLATE utf8_general_ci;");
             connection.close();
             statement.close();
         }
