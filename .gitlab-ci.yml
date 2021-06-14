@@ -1,0 +1,41 @@
+image: quay.io/aminrf/docker-kubectl:latest
+
+services:
+  - docker:dind
+
+stages:
+- bulid
+- deploy
+
+
+build-back:
+  image: docker
+  stage: bulid
+  before_script:
+  - docker login -u $REGISTERY_USERNAME -p $REGISTERY_PASSWORD  quay.io
+  script:
+  - docker build ./CA9/back-end/Bolbolestan09/ -t quay.io/kalhorghazal/backend:$CI_BUILD_REF
+  - docker push quay.io/kalhorghazal/backend:$CI_BUILD_REF
+  - docker rmi quay.io/kalhorghazal/backend:$CI_BUILD_REF || true
+  after_script:
+  - docker logout quay.io
+
+build-front:
+  image: docker
+  stage: bulid
+  before_script:
+  - docker login -u $REGISTERY_USERNAME -p $REGISTERY_PASSWORD  quay.io
+  script:
+  - docker build ./CA9/front-end/react_app/ -t quay.io/kalhorghazal/frontend:$CI_BUILD_REF
+  - docker push quay.io/kalhorghazal/frontend:$CI_BUILD_REF
+  - docker rmi quay.io/kalhorghazal/frontend:$CI_BUILD_REF || true
+  after_script:
+  - docker logout quay.io
+
+deploy:
+  stage: deploy
+  when: manual
+  script:
+  - echo $KUBE_CONFIG | base64 -d > kube.config
+  - http_proxy=$PROXY_SERVER kubectl --kubeconfig set image deployment/backend-deployment backend=quay.io/kalhorghazal/backend:$CI_BUILD_REF
+  - rm kube.config
