@@ -12,7 +12,12 @@
 
 ## Screenshots
 
-
+<img src="Screenshots/login.PNG" alt="Login" width="400"/>
+<img src="Screenshots/reports.PNG" alt="Reports" width="400"/>
+<img src="Screenshots/prerequisite.png" alt="Course List" width="400"/>
+<img src="Screenshots/courses.png" alt="Selections" width="400"/>
+<img src="Screenshots/schedule.png" alt="Schedule" width="400"/>
+<img src="Screenshots/exit.PNG" alt="Exit" width="400"/>
 
 ## Developers
 
